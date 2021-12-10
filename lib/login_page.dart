@@ -1,6 +1,4 @@
-import 'package:essbio_apk/api/api.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'screens/ot_pendientes_screen.dart';
 
 class Home extends StatefulWidget {
@@ -11,16 +9,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    @override
-    void initState() {
-      super.initState();
-    }
-
-    final essbioP = Provider.of<EssbioProvider>(context);
-
-    TextEditingController usernameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         title: Text("ESSBIO APK"),
@@ -43,7 +31,6 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
-                    controller: usernameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Usuario',
@@ -56,7 +43,6 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
-                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -67,17 +53,12 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 40),
                 ElevatedButton(
                     onPressed: () {
-                      if (essbioP.validateLogin(
-                          usernameController.text, passwordController.text)) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OtPendientesScreen(),
-                          ),
-                        );
-                      } else {
-                        print("No existe el usuario");
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OtPendientesScreen(),
+                        ),
+                      );
                     },
                     child: Text("Entrar"))
               ],
