@@ -14,9 +14,13 @@ class _HomeState extends State<Home> {
     @override
     void initState() {
       super.initState();
+      final essbioP = Provider.of<EssbioProvider>(context);
+      essbioP.fetchUsuarios();
+      print(essbioP.usuarios);
     }
 
     final essbioP = Provider.of<EssbioProvider>(context);
+    print(essbioP.usuarios);
 
     TextEditingController usernameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
