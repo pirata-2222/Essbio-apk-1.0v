@@ -62,7 +62,6 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 40),
                 ElevatedButton(
                     onPressed: () async {
-                      essbioP.fetchUsuarios();
                       await essbioP.validateLogin(usernameController.text, passwordController.text);
                       print(usernameController.text + passwordController.text);
                       if (await essbioP.validateLogin(

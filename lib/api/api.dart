@@ -184,11 +184,9 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
-  Future<bool> validateLogin(String username, String password) async {
+  bool validateLogin(String username, String password) {
     bool loginState = false;
-    await fetchUsuarios();
     for (var usuario in usuarios) {
-      print(usuario.nomusuario);
       if (usuario.nomusuario == username && usuario.clave == password) {
         loginState = true;
       } else {

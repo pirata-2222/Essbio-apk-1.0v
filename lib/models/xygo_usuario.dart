@@ -13,11 +13,11 @@ class Usuario {
   final String fechaultimoingreso;
   final String fechaexpira;
   final int perfil_idperfil;
-  final String eliminado;
+  final int eliminado;
   final String mobile;
   final String comuna;
-  final int region;
-  final String tipo_mod_xygo;
+  final String region;
+  final int tipo_mod_xygo;
   final String fecha_mod_xygo;
 
   Usuario({
