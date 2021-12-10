@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'timer_widget.dart';
 import '../widgets/widgets_essbio.dart';
+import 'package:essbio_apk/widgets/ot_pendientes_widget.dart';
 
 class Workflow extends StatefulWidget {
   final String tituloWorkflow;
