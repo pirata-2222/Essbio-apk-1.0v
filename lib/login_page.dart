@@ -11,16 +11,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    @override
-    void initState() {
-      super.initState();
-      final essbioP = Provider.of<EssbioProvider>(context);
-      essbioP.fetchUsuarios();
-      print(essbioP.usuarios);
-    }
-
     final essbioP = Provider.of<EssbioProvider>(context);
-    print(essbioP.usuarios);
 
     TextEditingController usernameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
@@ -70,10 +61,11 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height: 40),
                 ElevatedButton(
-                    onPressed: () {
-                      print(
-                            usernameController.text + passwordController.text);
-                      if (essbioP.validateLogin(
+                    onPressed: () async {
+                      essbioP.fetchUsuarios();
+                      await essbioP.validateLogin(usernameController.text, passwordController.text);
+                      print(usernameController.text + passwordController.text);
+                      if (await essbioP.validateLogin(
                           usernameController.text, passwordController.text)) {
                         Navigator.push(
                           context,

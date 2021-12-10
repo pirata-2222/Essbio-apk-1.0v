@@ -176,7 +176,7 @@ class EssbioProvider with ChangeNotifier {
   }
 
   fetchUsuarios() async {
-    final url = '${server}/xygo_usuario/?format=json';
+    final url = '${server}/xygo_usuarios/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
@@ -184,9 +184,11 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
-  bool validateLogin(String username, String password) {
+  Future<bool> validateLogin(String username, String password) async {
     bool loginState = false;
+    await fetchUsuarios();
     for (var usuario in usuarios) {
+      print(usuario.nomusuario);
       if (usuario.nomusuario == username && usuario.clave == password) {
         loginState = true;
       } else {

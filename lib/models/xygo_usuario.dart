@@ -11,7 +11,7 @@ class Usuario {
   final String activo;
   final String fechacreacion;
   final String fechaultimoingreso;
-  final int fechaexpira;
+  final String fechaexpira;
   final int perfil_idperfil;
   final String eliminado;
   final String mobile;
