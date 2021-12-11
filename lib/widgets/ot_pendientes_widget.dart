@@ -3,6 +3,8 @@ import 'package:essbio_apk/screens/ot_instalacion_screen.dart';
 import 'package:essbio_apk/screens/ot_abast_screen.dart';
 import 'package:essbio_apk/screens/ot_medicion_screen.dart';
 import 'package:essbio_apk/screens/ot_retiro_screen.dart';
+import 'package:essbio_apk/api/api.dart';
+import 'package:provider/provider.dart';
 
 // *******OT PENDIENTES*********
 
@@ -24,6 +26,8 @@ class OtPendienteInstalacion extends StatefulWidget {
 class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
+    var tituloOTInstalacion = essbioP.ordenesTrabajo[1].nombre_ot;
     return InkWell(
       onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (context) => OtInstalacionScreen())),

@@ -1,7 +1,9 @@
-import 'package:essbio_apk/screens/ot_pendientes_screen.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
+import 'package:essbio_apk/widgets/workflow_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:essbio_apk/api/api.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -20,6 +22,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
+    var tituloOTInstalacion = essbioP.ordenesTrabajo[1].nombre_ot;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -51,7 +55,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => OtPendientesScreen()))),
+                                  builder: (context) => WorkflowDesplegado()))),
                     ),
                     Expanded(
                       child: Container(
@@ -75,7 +79,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                     children: [
                       SizedBox(height: 5),
                       Text(
-                        "Isidoro Rocha",
+                        tituloOTInstalacion,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,

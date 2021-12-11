@@ -1,7 +1,7 @@
+import 'package:essbio_apk/widgets/workflow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'api/api.dart';
-import 'screens/ot_pendientes_screen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -62,14 +62,15 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 40),
                 ElevatedButton(
                     onPressed: () async {
-                      await essbioP.validateLogin(usernameController.text, passwordController.text);
+                      await essbioP.validateLogin(
+                          usernameController.text, passwordController.text);
                       print(usernameController.text + passwordController.text);
                       if (await essbioP.validateLogin(
                           usernameController.text, passwordController.text)) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OtPendientesScreen(),
+                            builder: (context) => WorkflowDesplegado(),
                           ),
                         );
                       }

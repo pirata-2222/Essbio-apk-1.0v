@@ -3,62 +3,79 @@ import 'package:essbio_apk/theme_library.dart';
 import 'timer_widget.dart';
 import '../widgets/widgets_essbio.dart';
 import 'package:essbio_apk/widgets/ot_pendientes_widget.dart';
+import 'ot_pendientes_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:essbio_apk/api/api.dart';
 
-class Workflow extends StatefulWidget {
-  final String tituloWorkflow;
-  const Workflow({Key? key, required this.tituloWorkflow}) : super(key: key);
+// class Workflow extends StatefulWidget {
+//   @override
+//   _WorkflowState createState() => _WorkflowState();
+// }
 
-  @override
-  _WorkflowState createState() => _WorkflowState();
-}
+// class _WorkflowState extends State<Workflow> {
+//   bool isVisible = true;
+//   bool instalacionIsVisible = true;
+//   bool abastIsVisible = true;
+//   bool medicionIsVisible = true;
+//   bool retiroIsVisible = true;
 
-class _WorkflowState extends State<Workflow> {
-  bool isVisible = true;
-  bool instalacionIsVisible = true;
-  bool abastIsVisible = true;
-  bool medicionIsVisible = true;
-  bool retiroIsVisible = true;
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(
+//         scaffoldBackgroundColor: Color(0xFFE5E5E5),
+//         appBarTheme: AppBarTheme(
+//           color: Color(0xFF3C3C3C),
+//         ),
+//       ),
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text("ESSBIO APP"),
+//         ),
+//         drawer: EssbioDrawer(),
+//         body: SingleChildScrollView(
+//           child: Column(
+//             children: [
+//               //TITULO PRINCIPAL Y BACK BUTTON
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        //TITULO PRINCIPAL Y BACK BUTTON
-
-        SizedBox(height: 20),
-        //DATOS BÁSICOS OT
-        Container(
-          color: Color(0xFF0513AA),
-          width: double.infinity,
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              Text(widget.tituloWorkflow,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 17.5,
-                      fontWeight: FontWeight.w600)),
-              SizedBox(height: 10),
-              TimerEssbio(),
-              SizedBox(height: 5),
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => WorkflowDesplegado()));
-                    });
-                  },
-                  child: Text("Ver OT Pendientes")),
-              SizedBox(height: 10),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
+//               SizedBox(height: 20),
+//               //DATOS BÁSICOS OT
+//               Container(
+//                 color: Color(0xFF0513AA),
+//                 width: double.infinity,
+//                 child: Column(
+//                   children: [
+//                     SizedBox(height: 10),
+//                     Text("WORKFLOW OT PENDIENTES",
+//                         style: TextStyle(
+//                             color: Colors.white,
+//                             fontSize: 17.5,
+//                             fontWeight: FontWeight.w600)),
+//                     SizedBox(height: 10),
+//                     TimerEssbio(),
+//                     SizedBox(height: 5),
+//                     ElevatedButton(
+//                         onPressed: () {
+//                           setState(() {
+//                             Navigator.push(
+//                                 context,
+//                                 MaterialPageRoute(
+//                                     builder: (context) =>
+//                                         WorkflowDesplegado()));
+//                           });
+//                         },
+//                         child: Text("Ver OT Pendientes")),
+//                     SizedBox(height: 10),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class WorkflowDesplegado extends StatefulWidget {
   const WorkflowDesplegado({Key? key}) : super(key: key);
@@ -76,6 +93,8 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
+    var tituloOTInstalacion = essbioP.ordenesTrabajo[1].nombre_ot;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -167,7 +186,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                         children: [
                           OtPendienteInstalacion(
                             colour: rojoTiempoCritico,
-                            tituloOT: "Isidoro Rocha",
+                            tituloOT: tituloOTInstalacion,
                             estadoOT: "En Curso",
                           ),
                           // OtPendienteInstalacion(

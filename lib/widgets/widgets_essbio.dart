@@ -1,5 +1,5 @@
 import 'package:essbio_apk/login_page.dart';
-import 'package:essbio_apk/screens/ot_pendientes_screen.dart';
+import 'workflow_widget.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/screens/ot_retiro_screen.dart';
@@ -40,7 +40,7 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                       fontWeight: FontWeight.bold)),
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => OtPendientesScreen()),
+                MaterialPageRoute(builder: (context) => WorkflowDesplegado()),
               ),
             ),
           ),
@@ -372,7 +372,7 @@ class BotonGuardar extends StatelessWidget {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => OtPendientesScreen()),
+                              builder: (context) => WorkflowDesplegado()),
                         ),
                         child: const Text('Volver al Workflow'),
                       ),
