@@ -15,28 +15,27 @@ class _HomeState extends State<Home> {
 
     TextEditingController usernameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    final screenSize = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("ESSBIO APK"),
-      ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Container(
-            height: 500,
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            height: screenSize*2/3,
             color: Colors.white,
-            margin: EdgeInsets.only(top: 30, left: 35, right: 35, bottom: 80),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 15),
-                Image.asset('images/logo-essbio.jpg'),
-                SizedBox(height: 40),
-                Text(
-                  "Nombre de Usuario",
-                  textAlign: TextAlign.left,
+                Container(child: Image.asset('images/logo-essbio.jpg')),
+                Container(
+                  margin: EdgeInsets.only(top: 20, bottom: 10),
+                  child: Text(
+                    "Nombre de Usuario",
+                    textAlign: TextAlign.left,
+                  ),
                 ),
-                SizedBox(height: 7.5),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
                     controller: usernameController,
                     decoration: InputDecoration(
@@ -45,10 +44,9 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
-                Text("Contraseña"),
-                SizedBox(height: 7.5),
-                Padding(
+                Container(
+                    margin: EdgeInsets.only(top: 20, bottom:10), child: Text("Contraseña")),
+                Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
                     controller: passwordController,
@@ -59,6 +57,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
+<<<<<<< HEAD
                 SizedBox(height: 40),
                 ElevatedButton(
                     onPressed: () async {
@@ -76,6 +75,24 @@ class _HomeState extends State<Home> {
                       }
                     },
                     child: Text("Entrar"))
+=======
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if (essbioP.validateLogin(
+                            usernameController.text, passwordController.text)) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OtPendientesScreen(),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text("Entrar")),
+                )
+>>>>>>> 7b2166e936574b06449a278f30a9bfdb1544bbb1
               ],
             )),
       ),
