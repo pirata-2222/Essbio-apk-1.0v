@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
       body: Center(
         child: Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
-            height: screenSize*2/3,
+            height: screenSize * 2 / 3,
             color: Colors.white,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +45,8 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 20, bottom:10), child: Text("Contraseña")),
+                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    child: Text("Contraseña")),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
@@ -57,25 +58,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-<<<<<<< HEAD
                 SizedBox(height: 40),
-                ElevatedButton(
-                    onPressed: () async {
-                      await essbioP.validateLogin(
-                          usernameController.text, passwordController.text);
-                      print(usernameController.text + passwordController.text);
-                      if (await essbioP.validateLogin(
-                          usernameController.text, passwordController.text)) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => WorkflowDesplegado(),
-                          ),
-                        );
-                      }
-                    },
-                    child: Text("Entrar"))
-=======
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   child: ElevatedButton(
@@ -85,14 +68,13 @@ class _HomeState extends State<Home> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => OtPendientesScreen(),
+                              builder: (context) => WorkflowDesplegado(),
                             ),
                           );
                         }
                       },
                       child: Text("Entrar")),
                 )
->>>>>>> 7b2166e936574b06449a278f30a9bfdb1544bbb1
               ],
             )),
       ),

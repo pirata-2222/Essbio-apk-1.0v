@@ -48,9 +48,9 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     width: 70,
                     color: Color(0xFF248BCB),
                     child: InkWell(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {},
                         child: Icon(
-                          Icons.chevron_left_outlined,
+                          Icons.home,
                           size: 40,
                           color: Colors.white,
                         )),
