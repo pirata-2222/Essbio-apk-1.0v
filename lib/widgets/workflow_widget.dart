@@ -113,8 +113,6 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
               Container(
                 child: Column(
                   children: [
-                    SizedBox(height: 5),
-                    TimerEssbio(),
                     //ROWS OT PENDIENTES INSTALACION
                     Column(
                       children: [
@@ -155,28 +153,9 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.instalacionUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteInstalacion(
-                                  colour: amarilloTiempoCritico,
-                                  tituloOT: widget
-                                      .instalacionUsuario[index].nombre_ot,
-                                  estadoOT: widget.instalacionUsuario[index]
-                                      .id_tipo_status.toString());
+                              return OtPendienteInstalacion(faseInstalacion: widget.instalacionUsuario[index]);
                             }),
-                      ) /*Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: 
-                        [
-                          OtPendienteInstalacion(
-                            colour: rojoTiempoCritico,
-                            tituloOT: essbioP.ordenesTrabajo[1].nombre_ot,
-                            estadoOT: "En Curso",
-                          ),
-                          OtPendienteInstalacion(
-                              colour: verdeTiempoCritico,
-                              tituloOT: essbioP.ordenesTrabajo[2].nombre_ot,
-                              estadoOT: "Finalizado")
-                        ],
-                      )*/
+                      ) 
                       ,
                     ),
                     SizedBox(height: 10),
@@ -213,7 +192,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.abastecimientoUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteInstalacion(
+                              return OtPendienteAbast(
                                   colour: naranjaTiempoCritico,
                                   tituloOT: widget
                                       .abastecimientoUsuario[index].nombre_ot,
@@ -263,7 +242,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.medicionUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteInstalacion(
+                              return OtPendienteMedicion(
                                   colour: rojoTiempoCritico,
                                   tituloOT:
                                       widget.medicionUsuario[index].nombre_ot,
@@ -313,7 +292,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.retiroUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteInstalacion(
+                              return OtPendienteRetiro(
                                   colour: verdeTiempoCritico,
                                   tituloOT:
                                       widget.retiroUsuario[index].nombre_ot,

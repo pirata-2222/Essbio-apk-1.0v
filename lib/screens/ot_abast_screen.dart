@@ -159,7 +159,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(),
+                TimerEssbio(widget.),
 
                 //ESTADOS DE LA OT
                 Column(

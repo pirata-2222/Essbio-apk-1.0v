@@ -1,3 +1,5 @@
+import 'package:essbio_apk/models/fase_instalacion.dart';
+import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +12,8 @@ const Color estadoPasivo = Color(0xFF99CBCD);
 enum Estado { EnCurso, NoDisponible, Instalado, Pendiente, Empty }
 
 class OtPendienteInstalacion extends StatefulWidget {
-  final Color colour;
-  final String tituloOT;
-  final String estadoOT;
-  OtPendienteInstalacion(
-      {Key? key,
-      required this.colour,
-      required this.tituloOT,
-      required this.estadoOT})
+  FaseInstalacion faseInstalacion;
+  OtPendienteInstalacion({Key? key, required this.faseInstalacion})
       : super(key: key);
 
   @override
@@ -38,12 +34,12 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
 
     return InkWell(
       onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => OtInstalacionScreen())),
+          MaterialPageRoute(builder: (context) => OtInstalacionScreen(faseInstalacion: widget.faseInstalacion))),
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: widget.colour,
+            color: amarilloTiempoCritico,
           ),
           width: 100,
           height: 170,
@@ -54,7 +50,7 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
               SizedBox(height: 5),
               Center(
                 child: Text(
-                  widget.tituloOT,
+                  widget.faseInstalacion.nombre_ot,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white),
                 ),
@@ -70,7 +66,7 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.estadoOT,
+                      widget.faseInstalacion.id_tipo_status.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -84,7 +80,11 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
 }
 
 class OtInstalacionScreen extends StatefulWidget {
-  const OtInstalacionScreen({Key? key}) : super(key: key);
+  FaseInstalacion faseInstalacion;
+  OtInstalacionScreen({
+    Key? key,
+    required this.faseInstalacion
+  }) : super(key: key);
 
   @override
   _OtInstalacionScreenState createState() => _OtInstalacionScreenState();
@@ -96,7 +96,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    var tituloOTInstalacion = essbioP.ordenesTrabajo[2].nombre_ot;
+    var tituloOTInstalacion = widget.faseInstalacion.nombre_ot;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -161,7 +161,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                       Text("Fase 1 -Instalación",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text("Estado: Pendiente",
+                      Text("Estado: " + widget.faseInstalacion.id_tipo_status.toString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],
@@ -169,7 +169,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(),
+                TimerEssbio(fecha: widget.faseInstalacion.fecha_termino.toString()),
 
                 //ESTADOS DE LA OT
                 Column(

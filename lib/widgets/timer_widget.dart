@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TimerEssbio extends StatefulWidget {
+  String fecha;
+  TimerEssbio({Key? key, required this.fecha}) : super(key: key);
   @override
   _TimerEssbioState createState() => _TimerEssbioState();
 }
@@ -24,7 +26,7 @@ class _TimerEssbioState extends State<TimerEssbio> {
                 Icon(Icons.calendar_today_rounded, color: Colors.white),
                 SizedBox(height: 10),
                 Text("Fecha de Término", style: TextStyle(color: Colors.white)),
-                Text("XX-XX-20XX", style: TextStyle(color: Colors.white)),
+                Text(widget.fecha, style: TextStyle(color: Colors.white)),
               ],
             )),
         Container(
