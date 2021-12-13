@@ -160,7 +160,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                   tituloOT: widget
                                       .instalacionUsuario[index].nombre_ot,
                                   estadoOT: widget.instalacionUsuario[index]
-                                      .id_tipo_status);
+                                      .id_tipo_status.toString());
                             }),
                       ) /*Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -218,7 +218,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                   tituloOT: widget
                                       .abastecimientoUsuario[index].nombre_ot,
                                   estadoOT: widget.abastecimientoUsuario[index]
-                                      .id_tipo_status);
+                                      .id_tipo_status.toString());
                             }),
                       ),
                     ),
@@ -318,7 +318,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                   tituloOT:
                                       widget.retiroUsuario[index].nombre_ot,
                                   estadoOT: widget
-                                      .retiroUsuario[index].id_tipo_status);
+                                      .retiroUsuario[index].id_tipo_status.toString());
                             }),
                       ),
                     ),

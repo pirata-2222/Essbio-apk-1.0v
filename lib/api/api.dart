@@ -296,16 +296,9 @@ class EssbioProvider with ChangeNotifier {
         }
       }
     }
-    
-    print("length: " + statuses.length.toString());
-    print("id 1: " + statuses[0].id_ot.toString());
-    print("statusesUsuario: " + statusesUsuario.length.toString());
-    print(
-        "ordenesDeTrabajoUsuario: " + ordenesTrabajoUsuario.length.toString());
 
-/*
     //Asignar status
-    for (var status in statuses) {
+    for (var status in statusesUsuario) {
       for (var orden in ordenesTrabajoUsuario) {
         if (orden.id_status == status.id_status) {
           for (var instalacion in instalacionUsuario) {
@@ -316,7 +309,7 @@ class EssbioProvider with ChangeNotifier {
         }
       }
     }
-    for (var status in statuses) {
+    for (var status in statusesUsuario) {
       for (var orden in ordenesTrabajoUsuario) {
         if (orden.id_status == status.id_status) {
           for (var medicion in medicionUsuario) {
@@ -327,7 +320,7 @@ class EssbioProvider with ChangeNotifier {
         }
       }
     }
-    for (var status in statuses) {
+    for (var status in statusesUsuario) {
       for (var orden in ordenesTrabajoUsuario) {
         if (orden.id_status == status.id_status) {
           for (var abastecimiento in abastecimientoUsuario) {
@@ -338,14 +331,12 @@ class EssbioProvider with ChangeNotifier {
         }
       }
     }
-    for (var status in statuses) {
+    for (var status in statusesUsuario) {
       for (var orden in ordenesTrabajoUsuario) {
-        print(orden.id_ot);
         if (orden.id_status == status.id_status) {
           for (var retiro in retiroUsuario) {
             if (retiro.id_ot == orden.id_ot) {
               retiro.id_tipo_status = status.id_tipo_status;
-              print(orden.id_ot);
             }
           }
         }
@@ -358,9 +349,6 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
-              print(instalacion.nombre_ot);
-              print(orden.nombre_ot);
-              instalacion.nombre_ot = orden.nombre_ot;
               instalacion.fecha_inicio = fase.fecha_ini;
               instalacion.fecha_termino = fase.fecha_fin;
             }
@@ -373,7 +361,6 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var medicion in medicionUsuario) {
             if (medicion.id_ot == orden.id_ot) {
-              medicion.nombre_ot = orden.nombre_ot;
               medicion.fecha_inicio = fase.fecha_ini;
               medicion.fecha_termino = fase.fecha_fin;
             }
@@ -386,7 +373,6 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var abastecimiento in abastecimientoUsuario) {
             if (abastecimiento.id_ot == orden.id_ot) {
-              abastecimiento.nombre_ot = orden.nombre_ot;
               abastecimiento.fecha_inicio = fase.fecha_ini;
               abastecimiento.fecha_termino = fase.fecha_fin;
             }
@@ -399,14 +385,14 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var retiro in retiroUsuario) {
             if (retiro.id_ot == orden.id_ot) {
-              retiro.nombre_ot = orden.nombre_ot;
               retiro.fecha_inicio = fase.fecha_ini;
               retiro.fecha_termino = fase.fecha_fin;
             }
           }
         }
       }
-    }*/
+    }
+    print("Terminé");
     return fasesUsuario;
   }
 
