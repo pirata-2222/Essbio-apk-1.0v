@@ -1,6 +1,10 @@
+import 'package:essbio_apk/models/fase_abastecimiento.dart';
+import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:essbio_apk/api/api.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -15,15 +19,8 @@ enum EstadoAbast {
 }
 
 class OtPendienteAbast extends StatefulWidget {
-  final Color colour;
-  final String tituloOT;
-  final String estadoOT;
-
-  OtPendienteAbast(
-      {Key? key,
-      required this.colour,
-      required this.tituloOT,
-      required this.estadoOT})
+  FaseAbastecimiento faseAbastecimiento;
+  OtPendienteAbast({Key? key, required this.faseAbastecimiento})
       : super(key: key);
   @override
   _OtPendienteAbastState createState() => _OtPendienteAbastState();
@@ -34,11 +31,14 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OtAbastScreen())),
+          context,
+          MaterialPageRoute(
+              builder: (context) => OtAbastScreen(
+                  faseAbastecimiento: widget.faseAbastecimiento))),
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: widget.colour,
+            color: naranjaTiempoCritico,
           ),
           width: 100,
           height: 150,
@@ -49,7 +49,7 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
               SizedBox(height: 5),
               Center(
                 child: Text(
-                  widget.tituloOT,
+                  widget.faseAbastecimiento.nombre_ot,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white),
                 ),
@@ -67,7 +67,7 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
                       ),
                     ),
                     Text(
-                      widget.estadoOT,
+                      widget.faseAbastecimiento.id_tipo_status.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -81,7 +81,8 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
 }
 
 class OtAbastScreen extends StatefulWidget {
-  OtAbastScreen({Key? key}) : super(key: key);
+  FaseAbastecimiento faseAbastecimiento;
+  OtAbastScreen({Key? key, required this.faseAbastecimiento}) : super(key: key);
 
   @override
   _OtAbastScreenState createState() => _OtAbastScreenState();
@@ -159,7 +160,8 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(widget.),
+                TimerEssbio(
+                    fecha: widget.faseAbastecimiento.fecha_termino.toString()),
 
                 //ESTADOS DE LA OT
                 Column(

@@ -1,3 +1,5 @@
+import 'package:essbio_apk/models/fase_retiro.dart';
+import 'package:essbio_apk/theme_library.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widgets_essbio.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
@@ -8,15 +10,8 @@ const Color estadoPasivo = Color(0xFF99CBCD);
 enum EstadoRetiro { EnCurso, NoDisponible, Retirado, Pendiente, Empty }
 
 class OtPendienteRetiro extends StatefulWidget {
-  final Color colour;
-  final String tituloOT;
-  final String estadoOT;
-  OtPendienteRetiro(
-      {Key? key,
-      required this.colour,
-      required this.tituloOT,
-      required this.estadoOT})
-      : super(key: key);
+  FaseRetiro faseRetiro;
+  OtPendienteRetiro({Key? key, required this.faseRetiro}) : super(key: key);
   @override
   _OtPendienteRetiroState createState() => _OtPendienteRetiroState();
 }
@@ -26,11 +21,14 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OtRetiroScreen())),
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  OtRetiroScreen(faseRetiro: widget.faseRetiro))),
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: widget.colour,
+            color: verdeTiempoCritico,
           ),
           width: 100,
           height: 150,
@@ -41,7 +39,7 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
               SizedBox(height: 5),
               Center(
                 child: Text(
-                  widget.tituloOT,
+                  widget.faseRetiro.nombre_ot,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white),
                 ),
@@ -57,7 +55,7 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.estadoOT,
+                      widget.faseRetiro.id_tipo_status.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -71,7 +69,8 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
 }
 
 class OtRetiroScreen extends StatefulWidget {
-  const OtRetiroScreen({Key? key}) : super(key: key);
+  FaseRetiro faseRetiro;
+  OtRetiroScreen({Key? key, required this.faseRetiro}) : super(key: key);
 
   @override
   _OtRetiroScreenState createState() => _OtRetiroScreenState();
@@ -149,7 +148,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(),
+                TimerEssbio(fecha: widget.faseRetiro.fecha_termino.toString()),
 
                 //ESTADOS DE LA OT
                 Column(

@@ -1,3 +1,5 @@
+import 'package:essbio_apk/models/fase_abast_medicion.dart';
+import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
@@ -8,14 +10,8 @@ const Color estadoPasivo = Color(0xFF99CBCD);
 enum EstadoMedicion { EnCurso, NoDisponible, Medido, Pendiente, Empty }
 
 class OtPendienteMedicion extends StatefulWidget {
-  final Color colour;
-  final String tituloOT;
-  final String estadoOT;
-  OtPendienteMedicion(
-      {Key? key,
-      required this.colour,
-      required this.tituloOT,
-      required this.estadoOT})
+  FaseAbastMedicion faseAbastMedicion;
+  OtPendienteMedicion({Key? key, required this.faseAbastMedicion})
       : super(key: key);
 
   @override
@@ -27,11 +23,14 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OtMedicionScreen())),
+          context,
+          MaterialPageRoute(
+              builder: (context) => OtMedicionScreen(
+                  faseAbastMedicion: widget.faseAbastMedicion))),
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: widget.colour,
+            color: rojoTiempoCritico,
           ),
           width: 100,
           height: 150,
@@ -42,7 +41,7 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
               SizedBox(height: 5),
               Center(
                 child: Text(
-                  widget.tituloOT,
+                  widget.faseAbastMedicion.nombre_ot,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white),
                 ),
@@ -58,7 +57,7 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.estadoOT,
+                      widget.faseAbastMedicion.id_tipo_status.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -72,7 +71,9 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
 }
 
 class OtMedicionScreen extends StatefulWidget {
-  const OtMedicionScreen({Key? key}) : super(key: key);
+  FaseAbastMedicion faseAbastMedicion;
+  OtMedicionScreen({Key? key, required this.faseAbastMedicion})
+      : super(key: key);
 
   @override
   _OtMedicionScreenState createState() => _OtMedicionScreenState();
@@ -150,7 +151,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(),
+                TimerEssbio(
+                    fecha: widget.faseAbastMedicion.fecha_termino.toString()),
 
                 //ESTADOS DE LA OT
                 Column(
