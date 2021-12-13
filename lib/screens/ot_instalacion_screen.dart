@@ -1,6 +1,5 @@
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
-import 'package:essbio_apk/widgets/workflow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:essbio_apk/api/api.dart';
@@ -127,26 +126,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                             color: Colors.white,
                           ),
                           onTap: () {
-                            List fasesUsuario =essbioP.getFasesUsuario(
-                                essbioP.ordenesTrabajo,
-                                essbioP.fasesInstalacion,
-                                essbioP.fasesAbastMedicion,
-                                essbioP.fasesAbastecimiento,
-                                essbioP.fasesRetiro,
-                                essbioP.fases,
-                                essbioP.status,
-                                essbioP.usuario!.idusuario 
-                                );
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => WorkflowDesplegado(
-                                          instalacionUsuario: fasesUsuario[0],
-                                          medicionUsuario: fasesUsuario[1],
-                                          abastecimientoUsuario:
-                                              fasesUsuario[2],
-                                          retiroUsuario: fasesUsuario[3],
-                                        )));
+                            Navigator.pop(context);
                           }),
                     ),
                     Expanded(

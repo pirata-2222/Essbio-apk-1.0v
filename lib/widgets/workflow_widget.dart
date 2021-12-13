@@ -6,12 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'timer_widget.dart';
 import '../widgets/widgets_essbio.dart';
-import 'package:provider/provider.dart';
-import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/screens/ot_instalacion_screen.dart';
-import 'package:essbio_apk/screens/ot_abast_screen.dart';
-import 'package:essbio_apk/screens/ot_medicion_screen.dart';
-import 'package:essbio_apk/screens/ot_retiro_screen.dart';
 
 class WorkflowDesplegado extends StatefulWidget {
   List<FaseInstalacion> instalacionUsuario;
@@ -40,8 +35,6 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
   @override
   Widget build(BuildContext context) {
-    final essbioP = Provider.of<EssbioProvider>(context);
-
     // for (var i = 0; i < cantidadTituloOT; i++) {
     //   var tituloOTInstalacion = essbioP.ordenesTrabajo[i].nombre_ot;
     // }
@@ -137,15 +130,15 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                         height: 160,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
+                            scrollDirection: Axis.horizontal,
                             itemCount: widget.instalacionUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
                               return OtPendienteInstalacion(
                                   colour: amarilloTiempoCritico,
-                                  tituloOT:
-                                      widget.instalacionUsuario[index].nombre_ot,
-                                  estadoOT: widget
-                                      .instalacionUsuario[index].id_tipo_status);
+                                  tituloOT: widget
+                                      .instalacionUsuario[index].nombre_ot,
+                                  estadoOT: widget.instalacionUsuario[index]
+                                      .id_tipo_status);
                             }),
                       ) /*Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -191,15 +184,20 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     SizedBox(height: 10),
                     Visibility(
                       visible: abastIsVisible,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          OtPendienteAbast(
-                            colour: amarilloTiempoCritico,
-                            tituloOT: "Rocha esq Tocornal",
-                            estadoOT: "Cierre Abast",
-                          ),
-                        ],
+                      child: Container(
+                        height: 160,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.abastecimientoUsuario.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return OtPendienteInstalacion(
+                                  colour: naranjaTiempoCritico,
+                                  tituloOT: widget
+                                      .abastecimientoUsuario[index].nombre_ot,
+                                  estadoOT: widget.abastecimientoUsuario[index]
+                                      .id_tipo_status);
+                            }),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -236,24 +234,20 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     SizedBox(height: 10),
                     Visibility(
                       visible: medicionIsVisible,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          OtPendienteMedicion(
-                              colour: naranjaTiempoCritico,
-                              tituloOT: "Amunategui JJVV",
-                              estadoOT: "Pendiente"),
-                          // OtPendienteMedicion(
-                          //   colour: naranjaTiempoCritico,
-                          //   tituloOT: "Las Higueras",
-                          //   estadoOT: "No Disponible",
-                          // ),
-                          // OtPendienteMedicion(
-                          //   colour: verdeTiempoCritico,
-                          //   tituloOT: "Alfozívar esq Tocornal",
-                          //   estadoOT: "Medido",
-                          // )
-                        ],
+                      child: Container(
+                        height: 160,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.medicionUsuario.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return OtPendienteInstalacion(
+                                  colour: rojoTiempoCritico,
+                                  tituloOT:
+                                      widget.medicionUsuario[index].nombre_ot,
+                                  estadoOT: widget
+                                      .medicionUsuario[index].id_tipo_status);
+                            }),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -290,14 +284,20 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     SizedBox(height: 10),
                     Visibility(
                       visible: retiroIsVisible,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          OtPendienteRetiro(
-                              colour: rojoTiempoCritico,
-                              tituloOT: "Salas/Zamorano",
-                              estadoOT: "Pendiente")
-                        ],
+                      child: Container(
+                        height: 160,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: widget.retiroUsuario.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return OtPendienteInstalacion(
+                                  colour: verdeTiempoCritico,
+                                  tituloOT:
+                                      widget.retiroUsuario[index].nombre_ot,
+                                  estadoOT: widget
+                                      .retiroUsuario[index].id_tipo_status);
+                            }),
                       ),
                     ),
                     SizedBox(height: 20),
