@@ -1,9 +1,8 @@
-import 'package:essbio_apk/login_page.dart';
-import 'package:flutter/services.dart';
-import 'workflow_widget.dart';
-import 'package:essbio_apk/theme_library.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:essbio_apk/login_page.dart';
+import 'workflow_widget.dart';
+import 'package:essbio_apk/theme_library.dart';
 import 'package:image_picker/image_picker.dart';
 
 //************** DRAWER *****************
@@ -400,17 +399,27 @@ class TomarFotografia extends StatefulWidget {
 }
 
 class _TomarFotografiaState extends State<TomarFotografia> {
-  File? image;
-  Future pickImage() async {
-    try {
-      await ImagePicker().pickImage(source: ImageSource.camera);
-      if (image == null) return;
-
-      final imageTemporary = File(image!.path);
-      setState(() => this.image = imageTemporary);
-    } on PlatformException catch (e) {
-      print("No se pudo cargar la imagen: $e");
+  File? _pickedFile;
+  final _picker = ImagePicker();
+  Future<void> _takePicture() async {
+    final _pickedImage = await _picker.pickImage(source: ImageSource.camera);
+    if (_pickedImage != null) {
+      setState(() {
+        _pickedFile == _pickedImage;
+      });
+    } else {
+      print("No se ha seleccionado ninguna imagen");
     }
+
+    // try {
+    //   await ImagePicker().pickImage(source: ImageSource.camera);
+    //   if (image == null) return;
+
+    //   final imageTemporary = File(image!.path);
+    //   setState(() => this.image = imageTemporary);
+    // } on PlatformException catch (e) {
+    //   print("No se pudo cargar la imagen: $e");
+    // }
   }
 
   @override
@@ -423,13 +432,8 @@ class _TomarFotografiaState extends State<TomarFotografia> {
         Container(
             height: 160,
             width: 160,
-            child: image != null
-                ? Image.file(
-                    image!,
-                    width: 160,
-                    height: 160,
-                    fit: BoxFit.cover,
-                  )
+            child: _pickedFile != null
+                ? Image.file(_pickedFile!, fit: BoxFit.cover)
                 : Icon(
                     Icons.photo_camera,
                     size: 50,
@@ -445,9 +449,7 @@ class _TomarFotografiaState extends State<TomarFotografia> {
         TextButton(
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Color(0xFFDD0009))),
-            onPressed: () {
-              pickImage();
-            },
+            onPressed: () => _takePicture(),
             child: Text(
               "Tomar Fotografía",
               style: TextStyle(color: Colors.white),

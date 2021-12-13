@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class TimerEssbio extends StatefulWidget {
@@ -22,6 +24,7 @@ class _TimerEssbioState extends State<TimerEssbio> {
               children: [
                 SizedBox(height: 10),
                 Icon(Icons.calendar_today_rounded, color: Colors.white),
+                SizedBox(height: 10),
                 Text("Fecha de Término", style: TextStyle(color: Colors.white)),
                 Text("XX-XX-20XX", style: TextStyle(color: Colors.white)),
               ],
@@ -39,9 +42,9 @@ class _TimerEssbioState extends State<TimerEssbio> {
               children: [
                 SizedBox(height: 10),
                 Icon(Icons.timer, color: Colors.white),
+                SizedBox(height: 10),
                 Text("Tiempo Restante:", style: TextStyle(color: Colors.white)),
                 Text("XXXX D", style: TextStyle(color: Colors.white)),
-                Text("HH:MM:SS", style: TextStyle(color: Colors.white))
               ],
             )),
       ],
