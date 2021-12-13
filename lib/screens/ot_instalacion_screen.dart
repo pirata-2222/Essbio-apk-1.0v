@@ -151,7 +151,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                     children: [
                       SizedBox(height: 5),
                       Text(
-                        tituloOTInstalacion,
+                        essbioP.ordenesTrabajo[2].nombre_ot,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
