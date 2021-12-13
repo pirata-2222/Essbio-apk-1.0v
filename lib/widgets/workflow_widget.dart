@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'timer_widget.dart';
 import '../widgets/widgets_essbio.dart';
-import 'package:essbio_apk/widgets/ot_pendientes_widget.dart';
-import 'ot_pendientes_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:essbio_apk/api/api.dart';
+import 'package:essbio_apk/screens/ot_instalacion_screen.dart';
+import 'package:essbio_apk/screens/ot_abast_screen.dart';
+import 'package:essbio_apk/screens/ot_medicion_screen.dart';
+import 'package:essbio_apk/screens/ot_retiro_screen.dart';
 
 class WorkflowDesplegado extends StatefulWidget {
   const WorkflowDesplegado({Key? key}) : super(key: key);
@@ -24,7 +26,12 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    var tituloOTInstalacion = essbioP.ordenesTrabajo[1].nombre_ot;
+
+    // for (var i = 0; i < cantidadTituloOT; i++) {
+    //   var tituloOTInstalacion = essbioP.ordenesTrabajo[i].nombre_ot;
+    // }
+    // ;
+
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -60,7 +67,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                       height: 60,
                       color: Color(0xFF248BCB),
                       child: Center(
-                          child: Text("CORTE PROGRAMADO VICUÑA MACKENNA",
+                          child: Text("WORFLOWS/OT PENDIENTES",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.white,
@@ -116,17 +123,13 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                         children: [
                           OtPendienteInstalacion(
                             colour: rojoTiempoCritico,
-                            tituloOT: tituloOTInstalacion,
+                            tituloOT: essbioP.ordenesTrabajo[1].nombre_ot,
                             estadoOT: "En Curso",
                           ),
-                          // OtPendienteInstalacion(
-                          //     colour: amarilloTiempoCritico,
-                          //     tituloOT: "Vicuña esq. Marcel",
-                          //     estadoOT: "Pendiente"),
-                          // OtPendienteInstalacion(
-                          //     colour: verdeTiempoCritico,
-                          //     tituloOT: "Palomar Norte",
-                          //     estadoOT: "Instalado"),
+                          OtPendienteInstalacion(
+                              colour: verdeTiempoCritico,
+                              tituloOT: essbioP.ordenesTrabajo[2].nombre_ot,
+                              estadoOT: "Finalizado")
                         ],
                       ),
                     ),

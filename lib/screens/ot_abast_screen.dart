@@ -14,6 +14,72 @@ enum EstadoAbast {
   Empty
 }
 
+class OtPendienteAbast extends StatefulWidget {
+  final Color colour;
+  final String tituloOT;
+  final String estadoOT;
+
+  OtPendienteAbast(
+      {Key? key,
+      required this.colour,
+      required this.tituloOT,
+      required this.estadoOT})
+      : super(key: key);
+  @override
+  _OtPendienteAbastState createState() => _OtPendienteAbastState();
+}
+
+class _OtPendienteAbastState extends State<OtPendienteAbast> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OtAbastScreen())),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: widget.colour,
+          ),
+          width: 100,
+          height: 150,
+          child: Column(
+            children: [
+              SizedBox(height: 5),
+              Icon(Icons.file_copy, color: Colors.white, size: 50),
+              SizedBox(height: 5),
+              Center(
+                child: Text(
+                  widget.tituloOT,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 5),
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Estado: ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      widget.estadoOT,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}
+
 class OtAbastScreen extends StatefulWidget {
   OtAbastScreen({Key? key}) : super(key: key);
 

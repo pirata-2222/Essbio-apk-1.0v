@@ -10,6 +10,79 @@ const Color estadoPasivo = Color(0xFF99CBCD);
 
 enum Estado { EnCurso, NoDisponible, Instalado, Pendiente, Empty }
 
+class OtPendienteInstalacion extends StatefulWidget {
+  final Color colour;
+  final String tituloOT;
+  final String estadoOT;
+  OtPendienteInstalacion(
+      {Key? key,
+      required this.colour,
+      required this.tituloOT,
+      required this.estadoOT})
+      : super(key: key);
+
+  @override
+  _OtPendienteInstalacionState createState() => _OtPendienteInstalacionState();
+}
+
+class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
+  @override
+  Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
+    final cantidadTituloOT = (essbioP.ordenesTrabajo).length - 1;
+
+//  *****************ACA SE EXPERIMENTA CON RECORRIDO DEL ARRAY***********************
+
+    for (int i = 0; i < cantidadTituloOT; i++);
+
+    //  ******************************************
+
+    return InkWell(
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => OtInstalacionScreen())),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: widget.colour,
+          ),
+          width: 100,
+          height: 170,
+          child: Column(
+            children: [
+              SizedBox(height: 5),
+              Icon(Icons.file_copy, color: Colors.white, size: 50),
+              SizedBox(height: 5),
+              Center(
+                child: Text(
+                  widget.tituloOT,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 5),
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Estado: ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      widget.estadoOT,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}
+
 class OtInstalacionScreen extends StatefulWidget {
   const OtInstalacionScreen({Key? key}) : super(key: key);
 
@@ -23,7 +96,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    var tituloOTInstalacion = essbioP.ordenesTrabajo[1].nombre_ot;
+    var tituloOTInstalacion = essbioP.ordenesTrabajo[2].nombre_ot;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -239,24 +312,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
 
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Archivo Adjunto",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w800)),
-                    Icon(Icons.photo_camera),
-                    TextButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Color(0xFFDD0009))),
-                        onPressed: () {},
-                        child: Text(
-                          "Tomar Fotografía",
-                          style: TextStyle(color: Colors.white),
-                        ))
-                  ],
-                ),
+                TomarFotografia(),
                 SizedBox(height: 20),
                 //RÓTULO TK
                 RotuloTKField(),

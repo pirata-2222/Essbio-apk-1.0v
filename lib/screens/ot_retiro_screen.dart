@@ -7,6 +7,69 @@ const Color estadoPasivo = Color(0xFF99CBCD);
 
 enum EstadoRetiro { EnCurso, NoDisponible, Retirado, Pendiente, Empty }
 
+class OtPendienteRetiro extends StatefulWidget {
+  final Color colour;
+  final String tituloOT;
+  final String estadoOT;
+  OtPendienteRetiro(
+      {Key? key,
+      required this.colour,
+      required this.tituloOT,
+      required this.estadoOT})
+      : super(key: key);
+  @override
+  _OtPendienteRetiroState createState() => _OtPendienteRetiroState();
+}
+
+class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OtRetiroScreen())),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: widget.colour,
+          ),
+          width: 100,
+          height: 150,
+          child: Column(
+            children: [
+              SizedBox(height: 5),
+              Icon(Icons.file_copy, color: Colors.white, size: 50),
+              SizedBox(height: 5),
+              Center(
+                child: Text(
+                  widget.tituloOT,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 5),
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Estado: ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      widget.estadoOT,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}
+
 class OtRetiroScreen extends StatefulWidget {
   const OtRetiroScreen({Key? key}) : super(key: key);
 

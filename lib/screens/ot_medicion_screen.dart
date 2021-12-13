@@ -7,6 +7,70 @@ const Color estadoPasivo = Color(0xFF99CBCD);
 
 enum EstadoMedicion { EnCurso, NoDisponible, Medido, Pendiente, Empty }
 
+class OtPendienteMedicion extends StatefulWidget {
+  final Color colour;
+  final String tituloOT;
+  final String estadoOT;
+  OtPendienteMedicion(
+      {Key? key,
+      required this.colour,
+      required this.tituloOT,
+      required this.estadoOT})
+      : super(key: key);
+
+  @override
+  _OtPendienteMedicionState createState() => _OtPendienteMedicionState();
+}
+
+class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OtMedicionScreen())),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: widget.colour,
+          ),
+          width: 100,
+          height: 150,
+          child: Column(
+            children: [
+              SizedBox(height: 5),
+              Icon(Icons.file_copy, color: Colors.white, size: 50),
+              SizedBox(height: 5),
+              Center(
+                child: Text(
+                  widget.tituloOT,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 5),
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Estado: ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      widget.estadoOT,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
+}
+
 class OtMedicionScreen extends StatefulWidget {
   const OtMedicionScreen({Key? key}) : super(key: key);
 

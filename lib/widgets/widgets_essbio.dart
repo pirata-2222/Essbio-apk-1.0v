@@ -1,11 +1,10 @@
 import 'package:essbio_apk/login_page.dart';
+import 'package:flutter/services.dart';
 import 'workflow_widget.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:flutter/material.dart';
-import 'package:essbio_apk/screens/ot_retiro_screen.dart';
-import 'package:essbio_apk/screens/ot_medicion_screen.dart';
-import 'package:essbio_apk/screens/ot_abast_screen.dart';
-import 'package:essbio_apk/screens/ot_instalacion_screen.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 //************** DRAWER *****************
 
@@ -32,7 +31,7 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: ListTile(
               tileColor: Color(0xFF10988F),
-              title: Text('Ir a Workflows/Eventos Actuales',
+              title: Text('Ir a Workflows/OT Pendientes',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
@@ -387,6 +386,73 @@ class BotonGuardar extends StatelessWidget {
         child: const Text('Guardar cambios',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
+    );
+  }
+}
+
+// ********TOMAR FOTOGRAFIA*********
+
+class TomarFotografia extends StatefulWidget {
+  const TomarFotografia({Key? key}) : super(key: key);
+
+  @override
+  _TomarFotografiaState createState() => _TomarFotografiaState();
+}
+
+class _TomarFotografiaState extends State<TomarFotografia> {
+  File? image;
+  Future pickImage() async {
+    try {
+      await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+
+      final imageTemporary = File(image!.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print("No se pudo cargar la imagen: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Archivo Adjunto",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+        Container(
+            height: 160,
+            width: 160,
+            child: image != null
+                ? Image.file(
+                    image!,
+                    width: 160,
+                    height: 160,
+                    fit: BoxFit.cover,
+                  )
+                : Icon(
+                    Icons.photo_camera,
+                    size: 50,
+                  )
+
+            // height: 100,
+            // width: 140,
+            // child: Icon(
+            //   Icons.photo_camera,
+            //   size: 40,
+            // ),
+            ),
+        TextButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Color(0xFFDD0009))),
+            onPressed: () {
+              pickImage();
+            },
+            child: Text(
+              "Tomar Fotografía",
+              style: TextStyle(color: Colors.white),
+            ))
+      ],
     );
   }
 }
