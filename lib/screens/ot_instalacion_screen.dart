@@ -96,7 +96,6 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    var tituloOTInstalacion = essbioP.ordenesTrabajo[2].nombre_ot;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -151,7 +150,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                     children: [
                       SizedBox(height: 5),
                       Text(
-                        tituloOTInstalacion,
+                        essbioP.ordenesTrabajo[2].nombre_ot,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -161,7 +160,9 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                       Text("Fase 1 -Instalación",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text("Estado: Pendiente",
+                      Text(
+                          "Estado : " +
+                              essbioP.fasesInstalacion[2].id_tipo_status,
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],
