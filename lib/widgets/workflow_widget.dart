@@ -133,9 +133,24 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
                     Visibility(
                       visible: instalacionIsVisible,
-                      child: Row(
+                      child: Container(
+                        height: 160,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                            itemCount: widget.instalacionUsuario.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return OtPendienteInstalacion(
+                                  colour: amarilloTiempoCritico,
+                                  tituloOT:
+                                      widget.instalacionUsuario[index].nombre_ot,
+                                  estadoOT: widget
+                                      .instalacionUsuario[index].id_tipo_status);
+                            }),
+                      ) /*Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                        children: 
+                        [
                           OtPendienteInstalacion(
                             colour: rojoTiempoCritico,
                             tituloOT: essbioP.ordenesTrabajo[1].nombre_ot,
@@ -146,7 +161,8 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                               tituloOT: essbioP.ordenesTrabajo[2].nombre_ot,
                               estadoOT: "Finalizado")
                         ],
-                      ),
+                      )*/
+                      ,
                     ),
                     SizedBox(height: 10),
                     //ROWS OT PENDIENTES ABASTECIMIENTO

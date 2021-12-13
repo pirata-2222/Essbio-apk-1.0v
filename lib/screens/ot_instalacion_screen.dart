@@ -41,6 +41,7 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
       onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (context) => OtInstalacionScreen())),
       child: Container(
+          margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: widget.colour,

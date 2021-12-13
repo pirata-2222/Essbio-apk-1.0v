@@ -13,6 +13,7 @@ class FaseInstalacion {
   var fecha_inicio;
   var fecha_termino;
   var id_tipo_status;
+  var nombre_ot;
 
   FaseInstalacion(
       {required this.id,
@@ -28,7 +29,8 @@ class FaseInstalacion {
       required this.ir_mapa,
       required this.fecha_inicio,
       required this.fecha_termino,
-      required this.id_tipo_status});
+      required this.id_tipo_status,
+      required this.nombre_ot});
 
   factory FaseInstalacion.fromJson(Map<String, dynamic> json) {
     return FaseInstalacion(
@@ -51,9 +53,16 @@ class FaseInstalacion {
             ? 'Sin datos'
             : json['ARCHIVO_ADJUNTO'],
         ir_mapa: json['IR_MAPA'] == null ? 'Sin datos' : json['IR_MAPA'],
-        fecha_inicio: json['FECHA_INI'] == null ? 'Sin datos' : json['FECHA_INI'],
-        fecha_termino: json['FECHA_FIN'] == null? 'sin datos':json['FECHA_FIN'],
-        id_tipo_status: json['ID_TIPO_STATUS'] == null? 'Sin datos':json['ID_TIPO_STATUS']);
+        fecha_inicio:
+            json['FECHA_INI'] == null ? 'Sin datos' : json['FECHA_INI'],
+        fecha_termino:
+            json['FECHA_FIN'] == null ? 'sin datos' : json['FECHA_FIN'],
+        id_tipo_status: json['ID_TIPO_STATUS'] == null
+            ? 'Sin datos'
+            : json['ID_TIPO_STATUS'],
+        nombre_ot: json["NOMBRE_OT"] == null
+            ? 'Sin datos'
+            : json["NOMBRE_OT"]);
   }
   dynamic toJson() => {
         'ID': id,
@@ -69,6 +78,7 @@ class FaseInstalacion {
         'IR_MAPA': ir_mapa,
         'FECHA_INI': fecha_inicio,
         'FECHA_FIN': fecha_termino,
-        'ID_TIPO_STATUS': id_tipo_status
+        'ID_TIPO_STATUS': id_tipo_status,
+        "NOMBRE_OT": nombre_ot,
       };
 }

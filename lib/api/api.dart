@@ -273,6 +273,7 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
+              instalacion.nombre_ot = orden.nombre_ot;
               instalacion.fecha_inicio = fase.fecha_ini;
               instalacion.fecha_termino = fase.fecha_fin;
             }
@@ -285,6 +286,7 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var medicion in medicionUsuario) {
             if (medicion.id_ot == orden.id_ot) {
+              medicion.nombre_ot = orden.nombre_ot;
               medicion.fecha_inicio = fase.fecha_ini;
               medicion.fecha_termino = fase.fecha_fin;
             }
@@ -297,6 +299,7 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var abastecimiento in abastecimientoUsuario) {
             if (abastecimiento.id_ot == orden.id_ot) {
+              abastecimiento.nombre_ot = orden.nombre_ot;
               abastecimiento.fecha_inicio = fase.fecha_ini;
               abastecimiento.fecha_termino = fase.fecha_fin;
             }
@@ -309,6 +312,7 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var retiro in retiroUsuario) {
             if (retiro.id_ot == orden.id_ot) {
+              retiro.nombre_ot = orden.nombre_ot;
               retiro.fecha_inicio = fase.fecha_ini;
               retiro.fecha_termino = fase.fecha_fin;
             }

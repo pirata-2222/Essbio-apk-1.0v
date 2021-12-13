@@ -73,8 +73,9 @@ class _HomeState extends State<Home> {
                                 essbioP.fasesRetiro,
                                 essbioP.fases,
                                 essbioP.status, 
-                                essbioP.validateLogin(
-                            usernameController.text, passwordController.text)[1]);
+                                4
+                                /*essbioP.validateLogin(
+                            usernameController.text, passwordController.text)[1].idusuario*/);
                           
                           Navigator.push(
                             context,
