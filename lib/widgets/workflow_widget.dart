@@ -6,7 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'timer_widget.dart';
 import '../widgets/widgets_essbio.dart';
+import 'package:provider/provider.dart';
+import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/screens/ot_instalacion_screen.dart';
+import 'package:essbio_apk/screens/ot_abast_screen.dart';
+import 'package:essbio_apk/screens/ot_medicion_screen.dart';
+import 'package:essbio_apk/screens/ot_retiro_screen.dart';
 
 class WorkflowDesplegado extends StatefulWidget {
   List<FaseInstalacion> instalacionUsuario;
@@ -35,6 +40,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
     // for (var i = 0; i < cantidadTituloOT; i++) {
     //   var tituloOTInstalacion = essbioP.ordenesTrabajo[i].nombre_ot;
     // }
@@ -48,19 +54,22 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
         ),
       ),
       home: Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: (){
-          essbioP.getFasesUsuario(
-                                essbioP.ordenesTrabajo,
-                                essbioP.fasesInstalacion,
-                                essbioP.fasesAbastMedicion,
-                                essbioP.fasesAbastecimiento,
-                                essbioP.fasesRetiro,
-                                essbioP.fases,
-                                essbioP.status, 
-                                1
-                                /*essbioP.validateLogin(
-                            usernameController.text, passwordController.text)[1].idusuario*/);
-        },),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            essbioP.getFasesUsuario(
+                essbioP.ordenesTrabajo,
+                essbioP.fasesInstalacion,
+                essbioP.fasesAbastMedicion,
+                essbioP.fasesAbastecimiento,
+                essbioP.fasesRetiro,
+                essbioP.fases,
+                essbioP.status,
+                1
+                /*essbioP.validateLogin(
+                            usernameController.text, passwordController.text)[1].idusuario*/
+                );
+          },
+        ),
         appBar: AppBar(
           title: Text("ESSBIO APP"),
         ),
