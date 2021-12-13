@@ -48,6 +48,19 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
         ),
       ),
       home: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: (){
+          essbioP.getFasesUsuario(
+                                essbioP.ordenesTrabajo,
+                                essbioP.fasesInstalacion,
+                                essbioP.fasesAbastMedicion,
+                                essbioP.fasesAbastecimiento,
+                                essbioP.fasesRetiro,
+                                essbioP.fases,
+                                essbioP.status, 
+                                1
+                                /*essbioP.validateLogin(
+                            usernameController.text, passwordController.text)[1].idusuario*/);
+        },),
         appBar: AppBar(
           title: Text("ESSBIO APP"),
         ),
