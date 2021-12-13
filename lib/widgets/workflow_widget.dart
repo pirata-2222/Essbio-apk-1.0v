@@ -192,12 +192,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.abastecimientoUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteAbast(
-                                  colour: naranjaTiempoCritico,
-                                  tituloOT: widget
-                                      .abastecimientoUsuario[index].nombre_ot,
-                                  estadoOT: widget.abastecimientoUsuario[index]
-                                      .id_tipo_status.toString());
+                              return OtPendienteAbast(faseAbastecimiento: widget.abastecimientoUsuario[index],);
                             }),
                       ),
                     ),
@@ -242,12 +237,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.medicionUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteMedicion(
-                                  colour: rojoTiempoCritico,
-                                  tituloOT:
-                                      widget.medicionUsuario[index].nombre_ot,
-                                  estadoOT: widget
-                                      .medicionUsuario[index].id_tipo_status);
+                              return OtPendienteMedicion(faseAbastMedicion: widget.medicionUsuario[index]);
                             }),
                       ),
                     ),
@@ -292,12 +282,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.retiroUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteRetiro(
-                                  colour: verdeTiempoCritico,
-                                  tituloOT:
-                                      widget.retiroUsuario[index].nombre_ot,
-                                  estadoOT: widget
-                                      .retiroUsuario[index].id_tipo_status.toString());
+                              return OtPendienteRetiro(faseRetiro: widget.retiroUsuario[index]);
                             }),
                       ),
                     ),

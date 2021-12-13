@@ -26,6 +26,7 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
               builder: (context) =>
                   OtRetiroScreen(faseRetiro: widget.faseRetiro))),
       child: Container(
+        margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: verdeTiempoCritico,
@@ -148,7 +149,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(fecha: widget.faseRetiro.fecha_termino.toString()),
+                TimerEssbio(fecha: widget.faseRetiro.fecha_termino.toString().substring(0,10)),
 
                 //ESTADOS DE LA OT
                 Column(

@@ -28,6 +28,7 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
               builder: (context) => OtMedicionScreen(
                   faseAbastMedicion: widget.faseAbastMedicion))),
       child: Container(
+        margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: rojoTiempoCritico,
@@ -152,7 +153,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
                 TimerEssbio(
-                    fecha: widget.faseAbastMedicion.fecha_termino.toString()),
+                    fecha: widget.faseAbastMedicion.fecha_termino.toString().substring(0,10)),
 
                 //ESTADOS DE LA OT
                 Column(

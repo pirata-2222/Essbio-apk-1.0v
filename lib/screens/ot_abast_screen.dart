@@ -36,6 +36,7 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
               builder: (context) => OtAbastScreen(
                   faseAbastecimiento: widget.faseAbastecimiento))),
       child: Container(
+        margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: naranjaTiempoCritico,
@@ -161,7 +162,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
                 TimerEssbio(
-                    fecha: widget.faseAbastecimiento.fecha_termino.toString()),
+                    fecha: widget.faseAbastecimiento.fecha_termino.toString().substring(0,10)),
 
                 //ESTADOS DE LA OT
                 Column(

@@ -169,7 +169,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(fecha: widget.faseInstalacion.fecha_termino.toString()),
+                TimerEssbio(fecha: widget.faseInstalacion.fecha_termino.toString().substring(0,10)),
 
                 //ESTADOS DE LA OT
                 Column(
