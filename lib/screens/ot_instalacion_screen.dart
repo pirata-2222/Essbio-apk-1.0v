@@ -125,10 +125,28 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                             size: 40,
                             color: Colors.white,
                           ),
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WorkflowDesplegado()))),
+                          onTap: () {
+                            List fasesUsuario =essbioP.getFasesUsuario(
+                                essbioP.ordenesTrabajo,
+                                essbioP.fasesInstalacion,
+                                essbioP.fasesAbastMedicion,
+                                essbioP.fasesAbastecimiento,
+                                essbioP.fasesRetiro,
+                                essbioP.fases,
+                                essbioP.status,
+                                essbioP.usuario!.idusuario 
+                                );
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WorkflowDesplegado(
+                                          instalacionUsuario: fasesUsuario[0],
+                                          medicionUsuario: fasesUsuario[1],
+                                          abastecimientoUsuario:
+                                              fasesUsuario[2],
+                                          retiroUsuario: fasesUsuario[3],
+                                        )));
+                          }),
                     ),
                     Expanded(
                       child: Container(

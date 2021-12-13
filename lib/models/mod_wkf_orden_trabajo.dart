@@ -5,6 +5,7 @@ class OrdenTrabajo {
   final int id_fase;
   final int id_responsable;
   final int id_icono;
+  final int id_status;
   final int orden;
   final String fecha_mod_xygo;
   final int tipo_mod_xygo;
@@ -19,6 +20,7 @@ class OrdenTrabajo {
     required this.id_fase,
     required this.id_responsable,
     required this.id_icono,
+    required this.id_status,
     required this.orden,
     required this.fecha_mod_xygo,
     required this.tipo_mod_xygo,
@@ -38,6 +40,7 @@ class OrdenTrabajo {
         id_responsable:
             json["ID_RESPONSABLE"] == null ? 0 : json["ID_RESPONSABLE"],
         id_icono: json["ID_ICONO"] == null ? 0 : json["ID_ICONO"],
+        id_status: json["ID_STATUS"] == null ? 0 : json["ID_STATUS"],
         orden: json["ORDEN"] == null ? 0 : json["ORDEN"],
         fecha_mod_xygo:
             json["FECHA_MOD_XYGO"] == null ? "" : json["FECHA_MOD_XYGO"],
@@ -55,14 +58,15 @@ class OrdenTrabajo {
         "ID_OT": id_ot,
         "NOMBRE_OT": nombre_ot,
         "NOMBRE_RESUMEN": nombre_resumen,
-        "ID_FASE":id_fase,
-        "ID_RESPONSABLE":id_responsable,
-        "ID_ICONO":id_icono,
-        "ORDEN":orden,
-        "FECHA_MOD_XYGO":fecha_mod_xygo,
-        "TIPO_MOD_XYGO":tipo_mod_xygo,
-        "ID_RESPORTE_HISTORICO":id_reporte_historico,
-        "HABILITA_VER_ORDEN":habilita_ver_orden,
-        "ES_OT_INICIAL":es_ot_inicial
+        "ID_FASE": id_fase,
+        "ID_RESPONSABLE": id_responsable,
+        "ID_ICONO": id_icono,
+        "ID_STATUS": id_status,
+        "ORDEN": orden,
+        "FECHA_MOD_XYGO": fecha_mod_xygo,
+        "TIPO_MOD_XYGO": tipo_mod_xygo,
+        "ID_RESPORTE_HISTORICO": id_reporte_historico,
+        "HABILITA_VER_ORDEN": habilita_ver_orden,
+        "ES_OT_INICIAL": es_ot_inicial
       };
 }

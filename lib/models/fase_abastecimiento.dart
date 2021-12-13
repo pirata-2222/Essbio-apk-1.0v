@@ -1,46 +1,64 @@
 class FaseAbastecimiento {
-  final int id;
-  final int ubicacion;
-  final int contratista;
-  final int estado_ot;
-  final String patente_camion_ot;
-  final String capacidad_litros;
-  final int cantidad_cargas_efect;
-  final String comentario;
-  final int id_ot;
-  final int tipo_mod_xygo;
-  final String fecha_mod_xygo;
-  final String ir_mapa;
+  var id;
+  var ubicacion;
+  var contratista;
+  var estado_ot;
+  var patente_camion_ot;
+  var capacidad_litros;
+  var cantidad_cargas_efect;
+  var comentario;
+  var id_ot;
+  var tipo_mod_xygo;
+  var fecha_mod_xygo;
+  var ir_mapa;
+  var fecha_inicio;
+  var fecha_termino;
+  var id_tipo_status;
 
-  FaseAbastecimiento({
-    required this.id,
-    required this.ubicacion,
-    required this.contratista,
-    required this.estado_ot,
-    required this.patente_camion_ot,
-    required this.capacidad_litros,
-    required this.cantidad_cargas_efect,
-    required this.comentario,
-    required this.id_ot,
-    required this.tipo_mod_xygo,
-    required this.fecha_mod_xygo,
-    required this.ir_mapa
-  });
+  FaseAbastecimiento(
+      {required this.id,
+      required this.ubicacion,
+      required this.contratista,
+      required this.estado_ot,
+      required this.patente_camion_ot,
+      required this.capacidad_litros,
+      required this.cantidad_cargas_efect,
+      required this.comentario,
+      required this.id_ot,
+      required this.tipo_mod_xygo,
+      required this.fecha_mod_xygo,
+      required this.ir_mapa,
+      required this.fecha_inicio,
+      required this.fecha_termino,
+      required this.id_tipo_status});
 
   factory FaseAbastecimiento.fromJson(Map<String, dynamic> json) {
     return FaseAbastecimiento(
-        id: json['ID']== null ? 0 : json['ID'],
-        ubicacion: json['UBICACION']== null ? 0 : json['UBICACION'],
-        contratista: json['CONTRATISTA']== null ? 0 : json['CONTRATISTA'],
-        estado_ot: json['ESTADO_OT']== null ? 0 : json['ESTADO_OT'],
-        patente_camion_ot: json['PATENTE_CAMION_OT']== null ? 'Sin datos' : json['PATENTE_CAMION_OT'],
-        capacidad_litros: json['CAPACIDAD_LITROS']== null ? 'Sin datos' : json['CAPACIDAD_LITROS'],
-        cantidad_cargas_efect: json['CANTIDAD_CARGAS_EFECT']== null ? 0 : json['CANTIDAD_CARGAS_EFECT'],
-        comentario: json['COMENTARIO']== null ? 'Sin datos' : json['COMENTARIO'],
-        id_ot: json['ID_OT']== null ? 0 : json['ID_OT'],
-        tipo_mod_xygo: json['TIPO_MOD_XYGO']== null ? 0 : json['TIPO_MOD_XYGO'],
-        fecha_mod_xygo: json['FECHA_MOD_XYGO']== null ? 'Sin datos' : json['FECHA_MOD_XYGO'],
-        ir_mapa: json['IR_MAPA']== null ? 'Sin datos' : json['IR_MAPA']);
+        id: json['ID'] == null ? 0 : json['ID'],
+        ubicacion: json['UBICACION'] == null ? 0 : json['UBICACION'],
+        contratista: json['CONTRATISTA'] == null ? 0 : json['CONTRATISTA'],
+        estado_ot: json['ESTADO_OT'] == null ? 0 : json['ESTADO_OT'],
+        patente_camion_ot: json['PATENTE_CAMION_OT'] == null
+            ? 'Sin datos'
+            : json['PATENTE_CAMION_OT'],
+        capacidad_litros: json['CAPACIDAD_LITROS'] == null
+            ? 'Sin datos'
+            : json['CAPACIDAD_LITROS'],
+        cantidad_cargas_efect: json['CANTIDAD_CARGAS_EFECT'] == null
+            ? 0
+            : json['CANTIDAD_CARGAS_EFECT'],
+        comentario:
+            json['COMENTARIO'] == null ? 'Sin datos' : json['COMENTARIO'],
+        id_ot: json['ID_OT'] == null ? 0 : json['ID_OT'],
+        tipo_mod_xygo:
+            json['TIPO_MOD_XYGO'] == null ? 0 : json['TIPO_MOD_XYGO'],
+        fecha_mod_xygo: json['FECHA_MOD_XYGO'] == null
+            ? 'Sin datos'
+            : json['FECHA_MOD_XYGO'],
+        ir_mapa: json['IR_MAPA'] == null ? 'Sin datos' : json['IR_MAPA'],
+        fecha_inicio: json['FECHA_INI'] == null ? 'Sin datos' : json['FECHA_INI'],
+        fecha_termino: json['FECHA_FIN'] == null? 'sin datos':json['FECHA_FIN'],
+        id_tipo_status: json['ID_TIPO_STATUS'] == null? 'Sin datos':json['ID_TIPO_STATUS']);
   }
   dynamic toJson() => {
         'ID': id,
@@ -54,6 +72,9 @@ class FaseAbastecimiento {
         'ID_OT': id_ot,
         'TIPO_MOD_XYGO': tipo_mod_xygo,
         'FECHA_MOD_XYGO': fecha_mod_xygo,
-        'IR_MAPA': ir_mapa
+        'IR_MAPA': ir_mapa,
+        'FECHA_INI': fecha_inicio,
+        'FECHA_FIN': fecha_termino,
+        'ID_TIPO_STATUS': id_tipo_status
       };
 }

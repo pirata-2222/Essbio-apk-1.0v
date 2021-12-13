@@ -1,3 +1,7 @@
+import 'package:essbio_apk/models/fase_abast_medicion.dart';
+import 'package:essbio_apk/models/fase_abastecimiento.dart';
+import 'package:essbio_apk/models/fase_instalacion.dart';
+import 'package:essbio_apk/models/fase_retiro.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'timer_widget.dart';
@@ -10,7 +14,18 @@ import 'package:essbio_apk/screens/ot_medicion_screen.dart';
 import 'package:essbio_apk/screens/ot_retiro_screen.dart';
 
 class WorkflowDesplegado extends StatefulWidget {
-  const WorkflowDesplegado({Key? key}) : super(key: key);
+  List<FaseInstalacion> instalacionUsuario;
+  List<FaseAbastMedicion> medicionUsuario;
+  List<FaseAbastecimiento> abastecimientoUsuario;
+  List<FaseRetiro> retiroUsuario;
+
+  WorkflowDesplegado(
+      {Key? key,
+      required this.instalacionUsuario,
+      required this.abastecimientoUsuario,
+      required this.medicionUsuario,
+      required this.retiroUsuario})
+      : super(key: key);
 
   @override
   _WorkflowDesplegadoState createState() => _WorkflowDesplegadoState();

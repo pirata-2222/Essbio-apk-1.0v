@@ -6,6 +6,8 @@ import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/models/fase_retiro.dart';
+import 'package:essbio_apk/models/mod_wkf_fase.dart';
+import 'package:essbio_apk/models/mod_wkf_status.dart';
 import 'package:essbio_apk/models/mod_wkf_tipo_modulo.dart';
 import 'package:essbio_apk/models/xygo_usuario.dart';
 import "package:http/http.dart" as http;
@@ -14,16 +16,18 @@ import '../models/mod_wkf_orden_trabajo.dart';
 
 class EssbioProvider with ChangeNotifier {
   EssbioProvider() {
+    this.fetchUsuarios();
     this.fetchOrdenesTrabajo();
-    this.fetchFasesInstalacion();
+    this.fetchStatus();
+    this.fetchFases();
     this.fetchCamiones();
     this.fetchContratistas();
     this.fetchDataTKSectores();
+    this.fetchTiposModulo();
+    this.fetchFasesInstalacion();
     this.fetchFasesAbastMedicion();
     this.fetchFasesAbastecimiento();
     this.fetchFasesRetiro();
-    this.fetchTiposModulo();
-    this.fetchUsuarios();
   }
 
   final server = "http://10.0.2.2:8000";
@@ -37,6 +41,16 @@ class EssbioProvider with ChangeNotifier {
   List<TipoModulo> _tiposModulo = [];
   List<TipoModulo> get tipoModulo {
     return [..._tiposModulo];
+  }
+
+  List<Status> _status = [];
+  List<Status> get status {
+    return [..._status];
+  }
+
+  List<Fase> _fases = [];
+  List<Fase> get fases {
+    return [..._fases];
   }
 
   //Eventos
@@ -76,9 +90,15 @@ class EssbioProvider with ChangeNotifier {
     return [..._fasesRetiro];
   }
 
+  //Usuarios
   List<Usuario> _usuarios = [];
   List<Usuario> get usuarios {
     return [..._usuarios];
+  }
+
+  Usuario? _usuario;
+  Usuario? get usuario {
+    return _usuario;
   }
 
   fetchOrdenesTrabajo() async {
@@ -143,6 +163,162 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
+  updateInstalacion(List<OrdenTrabajo> ordenesTrabajo,
+      List<FaseInstalacion> fasesInstalacion, List<Status> statuses) {
+    for (var status in status) {
+      for (var faseInstalacion in fasesInstalacion) {
+        if (status.id_ot == faseInstalacion.id_ot) {
+          print(faseInstalacion.id_ot);
+        }
+      }
+    }
+  }
+
+  List getFasesUsuario(
+      List<OrdenTrabajo> ordenesTrabajo,
+      List<FaseInstalacion> fasesInstalacion,
+      List<FaseAbastMedicion> fasesMedicion,
+      List<FaseAbastecimiento> fasesAbastecimiento,
+      List<FaseRetiro> fasesRetiro,
+      List<Fase> fases,
+      List<Status> statuses,
+      int id_usuario) {
+    List<FaseInstalacion> instalacionUsuario = [];
+    List<FaseAbastMedicion> medicionUsuario = [];
+    List<FaseAbastecimiento> abastecimientoUsuario = [];
+    List<FaseRetiro> retiroUsuario = [];
+    List<OrdenTrabajo> ordenesTrabajoUsuario = [];
+    var fasesUsuario = [
+      instalacionUsuario,
+      medicionUsuario,
+      abastecimientoUsuario,
+      retiroUsuario
+    ];
+
+    for (var instalacion in fasesInstalacion) {
+      if (instalacion.contratista == id_usuario) {
+        instalacionUsuario.add(instalacion);
+      }
+    }
+    for (var medicion in fasesMedicion) {
+      if (medicion.personal == id_usuario) {
+        medicionUsuario.add(medicion);
+      }
+    }
+    for (var abastecimiento in fasesAbastecimiento) {
+      if (abastecimiento.contratista == id_usuario) {
+        abastecimientoUsuario.add(abastecimiento);
+      }
+    }
+    for (var retiro in fasesRetiro) {
+      if (retiro.contratista == id_usuario) {
+        retiroUsuario.add(retiro);
+      }
+    }
+    for (var orden in ordenesTrabajo) {
+      if (orden.id_responsable == id_usuario) {
+        ordenesTrabajoUsuario.add(orden);
+      }
+    }
+
+    //Asignar status
+    for (var status in statuses) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_status == status.id_status) {
+          for (var instalacion in instalacionUsuario) {
+            if (instalacion.id_ot == orden.id_ot) {
+              instalacion.id_tipo_status = status.id_tipo_status;
+            }
+          }
+        }
+      }
+    }
+    for (var status in statuses) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_status == status.id_status) {
+          for (var medicion in medicionUsuario) {
+            if (medicion.id_ot == orden.id_ot) {
+              medicion.id_tipo_status = status.id_tipo_status;
+            }
+          }
+        }
+      }
+    }
+    for (var status in statuses) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_status == status.id_status) {
+          for (var abastecimiento in abastecimientoUsuario) {
+            if (abastecimiento.id_ot == orden.id_ot) {
+              abastecimiento.id_tipo_status = status.id_tipo_status;
+            }
+          }
+        }
+      }
+    }
+    for (var status in statuses) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_status == status.id_status) {
+          for (var retiro in retiroUsuario) {
+            if (retiro.id_ot == orden.id_ot) {
+              retiro.id_tipo_status = status.id_tipo_status;
+            }
+          }
+        }
+      }
+    }
+
+    //Asignar Fechas
+    for (var fase in fases) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_fase == fase.id_fase) {
+          for (var instalacion in instalacionUsuario) {
+            if (instalacion.id_ot == orden.id_ot) {
+              instalacion.fecha_inicio = fase.fecha_ini;
+              instalacion.fecha_termino = fase.fecha_fin;
+            }
+          }
+        }
+      }
+    }
+    for (var fase in fases) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_fase == fase.id_fase) {
+          for (var medicion in medicionUsuario) {
+            if (medicion.id_ot == orden.id_ot) {
+              medicion.fecha_inicio = fase.fecha_ini;
+              medicion.fecha_termino = fase.fecha_fin;
+            }
+          }
+        }
+      }
+    }
+    for (var fase in fases) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_fase == fase.id_fase) {
+          for (var abastecimiento in abastecimientoUsuario) {
+            if (abastecimiento.id_ot == orden.id_ot) {
+              abastecimiento.fecha_inicio = fase.fecha_ini;
+              abastecimiento.fecha_termino = fase.fecha_fin;
+            }
+          }
+        }
+      }
+    }
+    for (var fase in fases) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_fase == fase.id_fase) {
+          for (var retiro in retiroUsuario) {
+            if (retiro.id_ot == orden.id_ot) {
+              retiro.fecha_inicio = fase.fecha_ini;
+              retiro.fecha_termino = fase.fecha_fin;
+            }
+          }
+        }
+      }
+    }
+    return fasesUsuario;
+  }
+
   fetchFasesAbastMedicion() async {
     final url = '${server}/ot_fase_abast_medicion/?format=json';
     final response = await http.get(Uri.parse(url));
@@ -184,15 +360,37 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
-  bool validateLogin(String username, String password) {
+  fetchStatus() async {
+    final url = '${server}/mod_wkf_status/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _status = data.map<Status>((json) => Status.fromJson(json)).toList();
+    }
+  }
+
+  fetchFases() async {
+    final url = '${server}/mod_wkf_fase/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
+    }
+  }
+
+  List validateLogin(String username, String password) {
     bool loginState = false;
+    Usuario? loggedUser;
     for (var usuario in usuarios) {
       if (usuario.nomusuario == username && usuario.clave == password) {
         loginState = true;
+        loggedUser = usuario;
+        _usuario = loggedUser;
       } else {
         loginState = false;
+        loggedUser = usuario;
       }
     }
-    return loginState;
+    return [loginState, loggedUser];
   }
 }

@@ -1,6 +1,8 @@
+import 'package:essbio_apk/api/api.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:essbio_apk/login_page.dart';
+import 'package:provider/provider.dart';
 import 'workflow_widget.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +17,7 @@ class EssbioDrawer extends StatefulWidget {
 class _EssbioDrawerState extends State<EssbioDrawer> {
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -36,10 +39,27 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                       color: Colors.white,
                       fontSize: 15,
                       fontWeight: FontWeight.bold)),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => WorkflowDesplegado()),
-              ),
+              onTap: () {
+                List fasesUsuario = essbioP.getFasesUsuario(
+                    essbioP.ordenesTrabajo,
+                    essbioP.fasesInstalacion,
+                    essbioP.fasesAbastMedicion,
+                    essbioP.fasesAbastecimiento,
+                    essbioP.fasesRetiro,
+                    essbioP.fases,
+                    essbioP.status,
+                    essbioP.usuario!.idusuario);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => WorkflowDesplegado(
+                            instalacionUsuario: fasesUsuario[0],
+                            medicionUsuario: fasesUsuario[1],
+                            abastecimientoUsuario: fasesUsuario[2],
+                            retiroUsuario: fasesUsuario[3],
+                          )),
+                );
+              },
             ),
           ),
           SizedBox(height: 100),
@@ -342,6 +362,7 @@ class BotonGuardar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
     return Container(
       height: 50,
       width: 150,
@@ -367,11 +388,28 @@ class BotonGuardar extends StatelessWidget {
                         'Los campos han sido actualizados satisfactoriamente'),
                     actions: <Widget>[
                       TextButton(
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => WorkflowDesplegado()),
-                        ),
+                        onPressed: () {
+                          List fasesUsuario = essbioP.getFasesUsuario(
+                              essbioP.ordenesTrabajo,
+                              essbioP.fasesInstalacion,
+                              essbioP.fasesAbastMedicion,
+                              essbioP.fasesAbastecimiento,
+                              essbioP.fasesRetiro,
+                              essbioP.fases,
+                              essbioP.status,
+                              essbioP.usuario!.idusuario);
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WorkflowDesplegado(
+                                      instalacionUsuario: fasesUsuario[0],
+                                      medicionUsuario: fasesUsuario[1],
+                                      abastecimientoUsuario: fasesUsuario[2],
+                                      retiroUsuario: fasesUsuario[3],
+                                    )),
+                          );
+                        },
                         child: const Text('Volver al Workflow'),
                       ),
                     ],

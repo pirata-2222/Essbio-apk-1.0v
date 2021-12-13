@@ -1,43 +1,59 @@
 class FaseInstalacion {
-  final int id;
-  final int ubicacion;
-  final int estado_terreno;
-  final int contratista;
-  final String comentario_instalacion;
-  final String rotulo_tk;
-  final int id_ot;
-  final int tipo_mod_xygo;
-  final String fecha_mod_xygo;
-  final String archivo_adjunto;
-  final String ir_mapa;
+  var id;
+  var ubicacion;
+  var estado_terreno;
+  var contratista;
+  var comentario_instalacion;
+  var rotulo_tk;
+  var id_ot;
+  var tipo_mod_xygo;
+  var fecha_mod_xygo;
+  var archivo_adjunto;
+  var ir_mapa;
+  var fecha_inicio;
+  var fecha_termino;
+  var id_tipo_status;
 
-  FaseInstalacion({
-    required this.id,
-    required this.ubicacion,
-    required this.estado_terreno,
-    required this.contratista,
-    required this.comentario_instalacion,
-    required this.rotulo_tk,
-    required this.id_ot,
-    required this.tipo_mod_xygo,
-    required this.fecha_mod_xygo,
-    required this.archivo_adjunto,
-    required this.ir_mapa
-  });
+  FaseInstalacion(
+      {required this.id,
+      required this.ubicacion,
+      required this.estado_terreno,
+      required this.contratista,
+      required this.comentario_instalacion,
+      required this.rotulo_tk,
+      required this.id_ot,
+      required this.tipo_mod_xygo,
+      required this.fecha_mod_xygo,
+      required this.archivo_adjunto,
+      required this.ir_mapa,
+      required this.fecha_inicio,
+      required this.fecha_termino,
+      required this.id_tipo_status});
 
   factory FaseInstalacion.fromJson(Map<String, dynamic> json) {
     return FaseInstalacion(
-        id: json['ID']== null ? 0 : json['ID'],
-        ubicacion: json['UBICACION']== null ? 0 : json['UBICACION'],
-        estado_terreno: json['ESTADO_TERRENO']== null ? 0 : json['ESTADO_TERRENO'],
-        contratista: json['CONTRATISTA']== null ? 0 : json['CONTRATISTA'],
-        comentario_instalacion: json['COMENTARIO_INSTALACION']== null ? 'Sin datos' : json['COMENTARIO_INSTALACION'],
-        rotulo_tk: json['ROTULO_TK']== null ? 'Sin datos' : json['ROTULO_TK'],
-        id_ot: json['ID_OT']== null ? 0 : json['ID_OT'],
-        tipo_mod_xygo: json['TIPO_MOD_XYGO']== null ? 0 : json['TIPO_MOD_XYGO'],
-        fecha_mod_xygo: json['FECHA_MOD_XYGO']== null ? 'Sin datos' : json['FECHA_MOD_XYGO'],
-        archivo_adjunto: json['ARCHIVO_ADJUNTO']== null ? 'Sin datos' : json['ARCHIVO_ADJUNTO'],
-        ir_mapa: json['IR_MAPA']== null ? 'Sin datos' : json['IR_MAPA']);
+        id: json['ID'] == null ? 0 : json['ID'],
+        ubicacion: json['UBICACION'] == null ? 0 : json['UBICACION'],
+        estado_terreno:
+            json['ESTADO_TERRENO'] == null ? 0 : json['ESTADO_TERRENO'],
+        contratista: json['CONTRATISTA'] == null ? 0 : json['CONTRATISTA'],
+        comentario_instalacion: json['COMENTARIO_INSTALACION'] == null
+            ? 'Sin datos'
+            : json['COMENTARIO_INSTALACION'],
+        rotulo_tk: json['ROTULO_TK'] == null ? 'Sin datos' : json['ROTULO_TK'],
+        id_ot: json['ID_OT'] == null ? 0 : json['ID_OT'],
+        tipo_mod_xygo:
+            json['TIPO_MOD_XYGO'] == null ? 0 : json['TIPO_MOD_XYGO'],
+        fecha_mod_xygo: json['FECHA_MOD_XYGO'] == null
+            ? 'Sin datos'
+            : json['FECHA_MOD_XYGO'],
+        archivo_adjunto: json['ARCHIVO_ADJUNTO'] == null
+            ? 'Sin datos'
+            : json['ARCHIVO_ADJUNTO'],
+        ir_mapa: json['IR_MAPA'] == null ? 'Sin datos' : json['IR_MAPA'],
+        fecha_inicio: json['FECHA_INI'] == null ? 'Sin datos' : json['FECHA_INI'],
+        fecha_termino: json['FECHA_FIN'] == null? 'sin datos':json['FECHA_FIN'],
+        id_tipo_status: json['ID_TIPO_STATUS'] == null? 'Sin datos':json['ID_TIPO_STATUS']);
   }
   dynamic toJson() => {
         'ID': id,
@@ -50,6 +66,9 @@ class FaseInstalacion {
         'TIPO_MOD_XYGO': tipo_mod_xygo,
         'FECHA_MOD_XYGO': fecha_mod_xygo,
         'ARCHIVO_ADJUNTO': archivo_adjunto,
-        'IR_MAPA': ir_mapa
+        'IR_MAPA': ir_mapa,
+        'FECHA_INI': fecha_inicio,
+        'FECHA_FIN': fecha_termino,
+        'ID_TIPO_STATUS': id_tipo_status
       };
 }
