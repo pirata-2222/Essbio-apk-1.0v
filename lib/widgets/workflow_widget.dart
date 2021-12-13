@@ -55,6 +55,19 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
         ),
       ),
       home: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: (){
+          essbioP.getFasesUsuario(
+                                essbioP.ordenesTrabajo,
+                                essbioP.fasesInstalacion,
+                                essbioP.fasesAbastMedicion,
+                                essbioP.fasesAbastecimiento,
+                                essbioP.fasesRetiro,
+                                essbioP.fases,
+                                essbioP.status, 
+                                1
+                                /*essbioP.validateLogin(
+                            usernameController.text, passwordController.text)[1].idusuario*/);
+        },),
         appBar: AppBar(
           title: Text("ESSBIO APP"),
         ),
@@ -137,15 +150,15 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                         height: 160,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
+                            scrollDirection: Axis.horizontal,
                             itemCount: widget.instalacionUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
                               return OtPendienteInstalacion(
                                   colour: amarilloTiempoCritico,
-                                  tituloOT:
-                                      widget.instalacionUsuario[index].nombre_ot,
-                                  estadoOT: widget
-                                      .instalacionUsuario[index].id_tipo_status);
+                                  tituloOT: widget
+                                      .instalacionUsuario[index].nombre_ot,
+                                  estadoOT: widget.instalacionUsuario[index]
+                                      .id_tipo_status);
                             }),
                       ) /*Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

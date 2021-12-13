@@ -163,17 +163,6 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
-  updateInstalacion(List<OrdenTrabajo> ordenesTrabajo,
-      List<FaseInstalacion> fasesInstalacion, List<Status> statuses) {
-    for (var status in status) {
-      for (var faseInstalacion in fasesInstalacion) {
-        if (status.id_ot == faseInstalacion.id_ot) {
-          print(faseInstalacion.id_ot);
-        }
-      }
-    }
-  }
-
   List getFasesUsuario(
       List<OrdenTrabajo> ordenesTrabajo,
       List<FaseInstalacion> fasesInstalacion,
@@ -273,6 +262,8 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_fase == fase.id_fase) {
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
+              print(instalacion.nombre_ot);
+              print(orden.nombre_ot);
               instalacion.nombre_ot = orden.nombre_ot;
               instalacion.fecha_inicio = fase.fecha_ini;
               instalacion.fecha_termino = fase.fecha_fin;
