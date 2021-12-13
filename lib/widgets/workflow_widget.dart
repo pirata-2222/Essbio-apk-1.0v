@@ -64,7 +64,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                 essbioP.fasesRetiro,
                 essbioP.fases,
                 essbioP.status,
-                1
+                4
                 /*essbioP.validateLogin(
                             usernameController.text, passwordController.text)[1].idusuario*/
                 );
@@ -149,7 +149,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     Visibility(
                       visible: instalacionIsVisible,
                       child: Container(
-                        height: 160,
+                        height: 200,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -207,7 +207,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     Visibility(
                       visible: abastIsVisible,
                       child: Container(
-                        height: 160,
+                        height: 200,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -257,7 +257,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     Visibility(
                       visible: medicionIsVisible,
                       child: Container(
-                        height: 160,
+                        height: 200,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -307,7 +307,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     Visibility(
                       visible: retiroIsVisible,
                       child: Container(
-                        height: 160,
+                        height: 200,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,

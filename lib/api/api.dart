@@ -163,6 +163,65 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
+  fetchFasesAbastMedicion() async {
+    final url = '${server}/ot_fase_abast_medicion/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _fasesAbastMedicion = data
+          .map<FaseAbastMedicion>((json) => FaseAbastMedicion.fromJson(json))
+          .toList();
+    }
+  }
+
+  fetchFasesAbastecimiento() async {
+    final url = '${server}/ot_fase_abastecimiento/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _fasesAbastecimiento = data
+          .map<FaseAbastecimiento>((json) => FaseAbastecimiento.fromJson(json))
+          .toList();
+    }
+  }
+
+  fetchFasesRetiro() async {
+    final url = '${server}/ot_fase_retiro/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _fasesRetiro =
+          data.map<FaseRetiro>((json) => FaseRetiro.fromJson(json)).toList();
+    }
+  }
+
+  fetchUsuarios() async {
+    final url = '${server}/xygo_usuarios/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _usuarios = data.map<Usuario>((json) => Usuario.fromJson(json)).toList();
+    }
+  }
+
+  fetchStatus() async {
+    final url = '${server}/mod_wkf_status/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _status = data.map<Status>((json) => Status.fromJson(json)).toList();
+    }
+  }
+
+  fetchFases() async {
+    final url = '${server}/mod_wkf_fase/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
+    }
+  }
+
   List getFasesUsuario(
       List<OrdenTrabajo> ordenesTrabajo,
       List<FaseInstalacion> fasesInstalacion,
@@ -177,6 +236,7 @@ class EssbioProvider with ChangeNotifier {
     List<FaseAbastecimiento> abastecimientoUsuario = [];
     List<FaseRetiro> retiroUsuario = [];
     List<OrdenTrabajo> ordenesTrabajoUsuario = [];
+    List<Status> statusesUsuario = [];
     var fasesUsuario = [
       instalacionUsuario,
       medicionUsuario,
@@ -187,29 +247,63 @@ class EssbioProvider with ChangeNotifier {
     for (var instalacion in fasesInstalacion) {
       if (instalacion.contratista == id_usuario) {
         instalacionUsuario.add(instalacion);
+        for (var orden in ordenesTrabajo) {
+          if (orden.id_ot == instalacion.id_ot) {
+            ordenesTrabajoUsuario.add(orden);
+            instalacion.nombre_ot = orden.nombre_ot;
+          }
+        }
       }
     }
     for (var medicion in fasesMedicion) {
       if (medicion.personal == id_usuario) {
         medicionUsuario.add(medicion);
+        for (var orden in ordenesTrabajo) {
+          if (orden.id_ot == medicion.id_ot) {
+            ordenesTrabajoUsuario.add(orden);
+            medicion.nombre_ot = orden.nombre_ot;
+          }
+        }
       }
     }
     for (var abastecimiento in fasesAbastecimiento) {
       if (abastecimiento.contratista == id_usuario) {
         abastecimientoUsuario.add(abastecimiento);
+        for (var orden in ordenesTrabajo) {
+          if (orden.id_ot == abastecimiento.id_ot) {
+            ordenesTrabajoUsuario.add(orden);
+            abastecimiento.nombre_ot = orden.nombre_ot;
+          }
+        }
       }
     }
     for (var retiro in fasesRetiro) {
       if (retiro.contratista == id_usuario) {
         retiroUsuario.add(retiro);
-      }
-    }
-    for (var orden in ordenesTrabajo) {
-      if (orden.id_responsable == id_usuario) {
-        ordenesTrabajoUsuario.add(orden);
+        for (var orden in ordenesTrabajo) {
+          if (orden.id_ot == retiro.id_ot) {
+            ordenesTrabajoUsuario.add(orden);
+            retiro.nombre_ot = orden.nombre_ot;
+          }
+        }
       }
     }
 
+    for (var status in statuses) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (status.id_ot == orden.id_ot) {
+          statusesUsuario.add(status);
+        }
+      }
+    }
+    
+    print("length: " + statuses.length.toString());
+    print("id 1: " + statuses[0].id_ot.toString());
+    print("statusesUsuario: " + statusesUsuario.length.toString());
+    print(
+        "ordenesDeTrabajoUsuario: " + ordenesTrabajoUsuario.length.toString());
+
+/*
     //Asignar status
     for (var status in statuses) {
       for (var orden in ordenesTrabajoUsuario) {
@@ -246,10 +340,12 @@ class EssbioProvider with ChangeNotifier {
     }
     for (var status in statuses) {
       for (var orden in ordenesTrabajoUsuario) {
+        print(orden.id_ot);
         if (orden.id_status == status.id_status) {
           for (var retiro in retiroUsuario) {
             if (retiro.id_ot == orden.id_ot) {
               retiro.id_tipo_status = status.id_tipo_status;
+              print(orden.id_ot);
             }
           }
         }
@@ -310,67 +406,8 @@ class EssbioProvider with ChangeNotifier {
           }
         }
       }
-    }
+    }*/
     return fasesUsuario;
-  }
-
-  fetchFasesAbastMedicion() async {
-    final url = '${server}/ot_fase_abast_medicion/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _fasesAbastMedicion = data
-          .map<FaseAbastMedicion>((json) => FaseAbastMedicion.fromJson(json))
-          .toList();
-    }
-  }
-
-  fetchFasesAbastecimiento() async {
-    final url = '${server}/ot_fase_abastecimiento/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _fasesAbastecimiento = data
-          .map<FaseAbastecimiento>((json) => FaseAbastecimiento.fromJson(json))
-          .toList();
-    }
-  }
-
-  fetchFasesRetiro() async {
-    final url = '${server}/ot_fase_retiro/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _fasesRetiro =
-          data.map<FaseRetiro>((json) => FaseRetiro.fromJson(json)).toList();
-    }
-  }
-
-  fetchUsuarios() async {
-    final url = '${server}/xygo_usuarios/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _usuarios = data.map<Usuario>((json) => Usuario.fromJson(json)).toList();
-    }
-  }
-
-  fetchStatus() async {
-    final url = '${server}/mod_wkf_status/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _status = data.map<Status>((json) => Status.fromJson(json)).toList();
-    }
-  }
-
-  fetchFases() async {
-    final url = '${server}/mod_wkf_fase/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
-    }
   }
 
   List validateLogin(String username, String password) {
