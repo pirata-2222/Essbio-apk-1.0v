@@ -7,8 +7,6 @@ import 'package:essbio_apk/widgets/timer_widget.dart';
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
 
-enum EstadoRetiro { EnCurso, NoDisponible, Retirado, Pendiente, Empty }
-
 class OtPendienteRetiro extends StatefulWidget {
   FaseRetiro faseRetiro;
   OtPendienteRetiro({Key? key, required this.faseRetiro}) : super(key: key);
@@ -26,7 +24,7 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
               builder: (context) =>
                   OtRetiroScreen(faseRetiro: widget.faseRetiro))),
       child: Container(
-        margin: EdgeInsets.only(right: 10.0),
+          margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: verdeTiempoCritico,
@@ -78,9 +76,18 @@ class OtRetiroScreen extends StatefulWidget {
 }
 
 class _OtRetiroScreenState extends State<OtRetiroScreen> {
-  EstadoRetiro estadoSeleccionado = EstadoRetiro.Empty;
+  Map<int, String> estadoRetiro = {
+    143: "No disponible",
+    142: "Retirado",
+    141: "En Curso",
+    140: "Finalizado",
+  };
+  String estadoSeleccionado = "";
   @override
   Widget build(BuildContext context) {
+    String placeholder = estadoRetiro[widget.faseRetiro.id_tipo_status]!;
+    estadoSeleccionado == "" ? estadoSeleccionado:placeholder;
+
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -141,7 +148,9 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                       Text("Fase 4 - Retiro",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text("Estado: Pendiente",
+                      Text(
+                          "Estado: " +
+                              estadoRetiro[widget.faseRetiro.id_tipo_status]!,
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],
@@ -149,7 +158,10 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(fecha: widget.faseRetiro.fecha_termino.toString().substring(0,10)),
+                TimerEssbio(
+                    fecha: widget.faseRetiro.fecha_termino
+                        .toString()
+                        .substring(0, 10)),
 
                 //ESTADOS DE LA OT
                 Column(
@@ -166,13 +178,13 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoRetiro.EnCurso;
+                              estadoSeleccionado = estadoRetiro[141]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == EstadoRetiro.EnCurso
+                              color: estadoSeleccionado == estadoRetiro[141]
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -191,14 +203,13 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoRetiro.NoDisponible;
+                              estadoSeleccionado = estadoRetiro[143]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado ==
-                                      EstadoRetiro.NoDisponible
+                              color: estadoSeleccionado == estadoRetiro[143]
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -223,13 +234,13 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoRetiro.Retirado;
+                              estadoSeleccionado = estadoRetiro[142]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == EstadoRetiro.Retirado
+                              color: estadoSeleccionado == estadoRetiro[142]!
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -248,16 +259,15 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoRetiro.Pendiente;
+                              estadoSeleccionado = estadoRetiro[140]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoSeleccionado == EstadoRetiro.Pendiente
-                                      ? estadoActivo
-                                      : estadoPasivo,
+                              color: estadoSeleccionado == estadoRetiro[140]!
+                                  ? estadoActivo
+                                  : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
