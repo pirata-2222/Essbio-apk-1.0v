@@ -45,4 +45,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-Python_API/
+/Python_API/apiessbio
+/Python_API/mod_wkf/.vscode

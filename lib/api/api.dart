@@ -1,6 +1,7 @@
 import "dart:convert";
 import 'package:essbio_apk/models/evento_camion.dart';
 import 'package:essbio_apk/models/evento_contratista.dart';
+import 'package:essbio_apk/models/evento_data_eventos.dart';
 import 'package:essbio_apk/models/evento_data_tk_sector.dart';
 import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/models/fase_abastecimiento.dart';
@@ -67,6 +68,10 @@ class EssbioProvider with ChangeNotifier {
   List<DataTKSector> _dataTKSectores = [];
   List<DataTKSector> get dataTKSectores {
     return [..._dataTKSectores];
+  }
+  List<DataEventos> _dataEventos = [];
+  List<DataEventos> get dataEventos {
+    return [..._dataEventos];
   }
 
   //Fases
@@ -219,6 +224,15 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
+    }
+  }
+
+  fetchEventos() async {
+    final url = '${server}/evento_data_eventos/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _dataEventos = data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
     }
   }
 
