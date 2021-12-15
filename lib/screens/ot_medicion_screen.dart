@@ -7,8 +7,6 @@ import 'package:essbio_apk/widgets/timer_widget.dart';
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
 
-enum EstadoMedicion { EnCurso, NoDisponible, Medido, Pendiente, Empty }
-
 class OtPendienteMedicion extends StatefulWidget {
   FaseAbastMedicion faseAbastMedicion;
   OtPendienteMedicion({Key? key, required this.faseAbastMedicion})
@@ -28,7 +26,7 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
               builder: (context) => OtMedicionScreen(
                   faseAbastMedicion: widget.faseAbastMedicion))),
       child: Container(
-        margin: EdgeInsets.only(right: 10.0),
+          margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: rojoTiempoCritico,
@@ -81,7 +79,14 @@ class OtMedicionScreen extends StatefulWidget {
 }
 
 class _OtMedicionScreenState extends State<OtMedicionScreen> {
-  EstadoMedicion estadoSeleccionado = EstadoMedicion.Empty;
+  Map<int, String> estadoMedicion = {
+    130: "Finalizado",
+    131: "En Curso",
+    132: "No Disponible",
+    133: "Medido",
+  };
+  String estadoSeleccionado = "";
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -153,7 +158,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
                 TimerEssbio(
-                    fecha: widget.faseAbastMedicion.fecha_termino.toString().substring(0,10)),
+                    fecha: widget.faseAbastMedicion.fecha_termino
+                        .toString()
+                        .substring(0, 10)),
 
                 //ESTADOS DE LA OT
                 Column(
@@ -170,16 +177,15 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoMedicion.EnCurso;
+                              estadoSeleccionado = estadoMedicion[131]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoSeleccionado == EstadoMedicion.EnCurso
-                                      ? estadoActivo
-                                      : estadoPasivo,
+                              color: estadoSeleccionado == estadoMedicion[131]
+                                  ? estadoActivo
+                                  : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
@@ -196,14 +202,13 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoMedicion.NoDisponible;
+                              estadoSeleccionado = estadoMedicion[132]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado ==
-                                      EstadoMedicion.NoDisponible
+                              color: estadoSeleccionado == estadoMedicion[132]
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -228,13 +233,13 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoMedicion.Medido;
+                              estadoSeleccionado = estadoMedicion[133]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == EstadoMedicion.Medido
+                              color: estadoSeleccionado == estadoMedicion[133]
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -253,23 +258,22 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoMedicion.Pendiente;
+                              estadoSeleccionado = estadoMedicion[130]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoSeleccionado == EstadoMedicion.Pendiente
-                                      ? estadoActivo
-                                      : estadoPasivo,
+                              color: estadoSeleccionado == estadoMedicion[130]
+                                  ? estadoActivo
+                                  : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
                             width: 180,
                             child: Center(
                               child: Text(
-                                "Pendiente",
+                                "Finalizado",
                                 style: TextStyle(color: Colors.black),
                                 textAlign: TextAlign.center,
                               ),

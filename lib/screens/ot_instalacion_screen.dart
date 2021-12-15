@@ -33,8 +33,11 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
     //  ******************************************
 
     return InkWell(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => OtInstalacionScreen(faseInstalacion: widget.faseInstalacion))),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OtInstalacionScreen(
+                  faseInstalacion: widget.faseInstalacion))),
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
@@ -81,18 +84,22 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
 
 class OtInstalacionScreen extends StatefulWidget {
   FaseInstalacion faseInstalacion;
-  OtInstalacionScreen({
-    Key? key,
-    required this.faseInstalacion
-  }) : super(key: key);
+  OtInstalacionScreen({Key? key, required this.faseInstalacion})
+      : super(key: key);
 
   @override
   _OtInstalacionScreenState createState() => _OtInstalacionScreenState();
 }
 
 class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
-  Estado estadoSeleccionado = Estado.Empty;
-
+  Map<int, String> estadoInstalacion = {
+    111: "En Curso",
+    112: "Instalado",
+    113: "No disponible",
+    114: "Pendiente",
+  };
+  String estadoSeleccionado = "";
+// EnCurso, NoDisponible, Instalado, Pendiente,
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -161,7 +168,9 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                       Text("Fase 1 -Instalación",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text("Estado: " + widget.faseInstalacion.id_tipo_status.toString(),
+                      Text(
+                          "Estado: " +
+                              widget.faseInstalacion.id_tipo_status.toString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],
@@ -169,7 +178,10 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 ),
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
-                TimerEssbio(fecha: widget.faseInstalacion.fecha_termino.toString().substring(0,10)),
+                TimerEssbio(
+                    fecha: widget.faseInstalacion.fecha_termino
+                        .toString()
+                        .substring(0, 10)),
 
                 //ESTADOS DE LA OT
                 Column(
@@ -186,15 +198,16 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = Estado.EnCurso;
+                              estadoSeleccionado = estadoInstalacion[111]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == Estado.EnCurso
-                                  ? estadoActivo
-                                  : estadoPasivo,
+                              color:
+                                  estadoSeleccionado == estadoInstalacion[111]
+                                      ? estadoActivo
+                                      : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
@@ -211,15 +224,16 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = Estado.NoDisponible;
+                              estadoSeleccionado = estadoInstalacion[113]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == Estado.NoDisponible
-                                  ? estadoActivo
-                                  : estadoPasivo,
+                              color:
+                                  estadoSeleccionado == estadoInstalacion[113]
+                                      ? estadoActivo
+                                      : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
@@ -242,15 +256,16 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = Estado.Instalado;
+                              estadoSeleccionado = estadoInstalacion[112]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == Estado.Instalado
-                                  ? estadoActivo
-                                  : estadoPasivo,
+                              color:
+                                  estadoSeleccionado == estadoInstalacion[112]
+                                      ? estadoActivo
+                                      : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
@@ -267,15 +282,16 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = Estado.Pendiente;
+                              estadoSeleccionado = estadoInstalacion[114]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == Estado.Pendiente
-                                  ? estadoActivo
-                                  : estadoPasivo,
+                              color:
+                                  estadoSeleccionado == estadoInstalacion[114]
+                                      ? estadoActivo
+                                      : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,

@@ -36,7 +36,7 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
               builder: (context) => OtAbastScreen(
                   faseAbastecimiento: widget.faseAbastecimiento))),
       child: Container(
-        margin: EdgeInsets.only(right: 10.0),
+          margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: naranjaTiempoCritico,
@@ -90,7 +90,16 @@ class OtAbastScreen extends StatefulWidget {
 }
 
 class _OtAbastScreenState extends State<OtAbastScreen> {
-  EstadoAbast estadoSeleccionado = EstadoAbast.Empty;
+  Map<int, String> estadoAbastecimiento = {
+    125: "En Curso",
+    127: "Cierre Abastecimiento",
+    122: "No Disponible",
+    126: "Estanque Llenado",
+  };
+  String estadoSeleccionado = "";
+
+  // FALTAN 123='INICIO CARGA CAMIÓN', 124='TÉRMINO CARGA CAMIÓN', 125='INICIO ABASTECIMIENTO',
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -162,7 +171,9 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                 SizedBox(height: 20),
                 //TIEMPO RESTANTE SEGÚN ASIGNADO
                 TimerEssbio(
-                    fecha: widget.faseAbastecimiento.fecha_termino.toString().substring(0,10)),
+                    fecha: widget.faseAbastecimiento.fecha_termino
+                        .toString()
+                        .substring(0, 10)),
 
                 //ESTADOS DE LA OT
                 Column(
@@ -179,13 +190,14 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoAbast.EnCurso;
+                              estadoSeleccionado = estadoAbastecimiento[125]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == EstadoAbast.EnCurso
+                              color: estadoSeleccionado ==
+                                      estadoAbastecimiento[125]
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -204,16 +216,16 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoAbast.NoDisponible;
+                              estadoSeleccionado = estadoAbastecimiento[122]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoSeleccionado == EstadoAbast.NoDisponible
-                                      ? estadoActivo
-                                      : estadoPasivo,
+                              color: estadoSeleccionado ==
+                                      estadoAbastecimiento[122]
+                                  ? estadoActivo
+                                  : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
@@ -236,14 +248,14 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = EstadoAbast.EstanqueLlenado;
+                              estadoSeleccionado = estadoAbastecimiento[126]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: estadoSeleccionado ==
-                                      EstadoAbast.EstanqueLlenado
+                                      estadoAbastecimiento[126]
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -262,15 +274,14 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado =
-                                  EstadoAbast.CierreAbastecimiento;
+                              estadoSeleccionado = estadoAbastecimiento[127]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: estadoSeleccionado ==
-                                      EstadoAbast.CierreAbastecimiento
+                                      estadoAbastecimiento[127]
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -289,31 +300,6 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          estadoSeleccionado = EstadoAbast.Pendiente;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: estadoSeleccionado == EstadoAbast.Pendiente
-                              ? estadoActivo
-                              : estadoPasivo,
-                        ),
-                        margin: EdgeInsets.only(left: 5, right: 10),
-                        height: 35,
-                        width: 180,
-                        child: Center(
-                          child: Text(
-                            "Pendiente",
-                            style: TextStyle(color: Colors.black),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
 
