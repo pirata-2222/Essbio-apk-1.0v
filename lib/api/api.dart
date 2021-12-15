@@ -29,6 +29,7 @@ class EssbioProvider with ChangeNotifier {
     this.fetchFasesAbastMedicion();
     this.fetchFasesAbastecimiento();
     this.fetchFasesRetiro();
+    this.fetchDataEventos();
   }
 
   final server = "http://10.0.2.2:8000";
@@ -69,6 +70,7 @@ class EssbioProvider with ChangeNotifier {
   List<DataTKSector> get dataTKSectores {
     return [..._dataTKSectores];
   }
+
   List<DataEventos> _dataEventos = [];
   List<DataEventos> get dataEventos {
     return [..._dataEventos];
@@ -227,12 +229,13 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
-  fetchEventos() async {
+  fetchDataEventos() async {
     final url = '${server}/evento_data_eventos/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
-      _dataEventos = data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
+      _dataEventos =
+          data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
     }
   }
 
@@ -414,11 +417,14 @@ class EssbioProvider with ChangeNotifier {
     bool loginState = false;
     Usuario? loggedUser;
     for (var usuario in usuarios) {
+      print(usuario.nomusuario);
       if (usuario.nomusuario == username && usuario.clave == password) {
         loginState = true;
         loggedUser = usuario;
         _usuario = loggedUser;
+        break;
       } else {
+        print("No se encontró usuario");
         loginState = false;
         loggedUser = usuario;
       }
