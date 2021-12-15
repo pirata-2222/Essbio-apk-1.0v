@@ -270,9 +270,9 @@ class EssbioProvider with ChangeNotifier {
         final response_status = await http.put(Uri.parse(url_status),
         headers: {"Content-Type": "application/json"},
         body: json.encode({
-          "ID_TIPO_STATUS": modificacion["COMENTARIO_INSTALACION"] == ""
-              ? faseInstalacion.comentario_instalacion
-              : modificacion["COMENTARIO_INSTALACION"],
+          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
+              ? faseInstalacion.id_tipo_status
+              : modificacion["ID_TIPO_STATUS"],
           "FECHA_MOD_XYGO":
               DateTime.now().toIso8601String().substring(0, 19) + "Z",
         }));
