@@ -470,12 +470,12 @@ class _TomarFotografiaState extends State<TomarFotografia> {
         Container(
             height: 160,
             width: 160,
-            child: _pickedFile != null
-                ? Image.file(_pickedFile!, fit: BoxFit.cover)
-                : Icon(
+            child: _pickedFile == null
+                ? Icon(
                     Icons.photo_camera,
                     size: 50,
                   )
+                : Image.file(_pickedFile!, fit: BoxFit.cover)
 
             // height: 100,
             // width: 140,
