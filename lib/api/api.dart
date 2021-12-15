@@ -108,6 +108,7 @@ class EssbioProvider with ChangeNotifier {
     return _usuario;
   }
 
+  //Funciones para solicitud GET
   fetchOrdenesTrabajo() async {
     final url = '${server}/mod_wkf_orden_trabajo/?format=json';
     final response = await http.get(Uri.parse(url));
@@ -236,6 +237,55 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _dataEventos =
           data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
+    }
+  }
+
+  updateFasesInstalacion(FaseInstalacion faseInstalacion, Map<String, dynamic> modificacion) async {
+    final id = faseInstalacion.id;
+    final url = '$server/ot_fase_instalacion/$id/?format=json';
+    final response = await http.put(Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(
+            {"COMENTARIO_INSTALACION": modificacion["COMENTARIO_INSTALACION"]==""?faseInstalacion.comentario_instalacion:modificacion["COMENTARIO_INSTALACION"], 
+            "FECHA_MOD_XYGO": DateTime.now().toIso8601String().substring(0,19)+"Z",
+            "ROTULO_TK": modificacion["ROTULO_TK"]==""?faseInstalacion.rotulo_tk:modificacion["ROTULO_TK"],
+            "ARCHIVO_ADJUNTO": modificacion["ARCHIVO_ADJUNTO"]==""?faseInstalacion.archivo_adjunto:modificacion["ARCHIVO_ADJUNTO"]}));
+    if (response.statusCode == 200) {
+      print("Actualizado correctamente");
+    } else {
+      print("Hubo un problema al actualizar");
+    }
+  }
+
+  updateFasesAbastMedicion() async {
+    final url = '${server}/ot_fase_abast_medicion/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _fasesAbastMedicion = data
+          .map<FaseAbastMedicion>((json) => FaseAbastMedicion.fromJson(json))
+          .toList();
+    }
+  }
+
+  updateFasesAbastecimiento() async {
+    final url = '${server}/ot_fase_abastecimiento/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _fasesAbastecimiento = data
+          .map<FaseAbastecimiento>((json) => FaseAbastecimiento.fromJson(json))
+          .toList();
+    }
+  }
+
+  updateFasesRetiro() async {
+    final url = '${server}/ot_fase_retiro/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _fasesRetiro =
+          data.map<FaseRetiro>((json) => FaseRetiro.fromJson(json)).toList();
     }
   }
 

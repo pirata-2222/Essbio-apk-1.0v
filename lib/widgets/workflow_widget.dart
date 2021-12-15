@@ -56,18 +56,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            essbioP.getFasesUsuario(
-                essbioP.ordenesTrabajo,
-                essbioP.fasesInstalacion,
-                essbioP.fasesAbastMedicion,
-                essbioP.fasesAbastecimiento,
-                essbioP.fasesRetiro,
-                essbioP.fases,
-                essbioP.status,
-                4
-                /*essbioP.validateLogin(
-                            usernameController.text, passwordController.text)[1].idusuario*/
-                );
+            print(DateTime.now().toIso8601String().substring(0,19)+"Z");
           },
         ),
         appBar: AppBar(
@@ -153,10 +142,11 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.instalacionUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteInstalacion(faseInstalacion: widget.instalacionUsuario[index]);
+                              return OtPendienteInstalacion(
+                                  faseInstalacion:
+                                      widget.instalacionUsuario[index]);
                             }),
-                      ) 
-                      ,
+                      ),
                     ),
                     SizedBox(height: 10),
                     //ROWS OT PENDIENTES ABASTECIMIENTO
@@ -192,7 +182,10 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.abastecimientoUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteAbast(faseAbastecimiento: widget.abastecimientoUsuario[index],);
+                              return OtPendienteAbast(
+                                faseAbastecimiento:
+                                    widget.abastecimientoUsuario[index],
+                              );
                             }),
                       ),
                     ),
@@ -237,7 +230,9 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.medicionUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteMedicion(faseAbastMedicion: widget.medicionUsuario[index]);
+                              return OtPendienteMedicion(
+                                  faseAbastMedicion:
+                                      widget.medicionUsuario[index]);
                             }),
                       ),
                     ),
@@ -282,7 +277,8 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.retiroUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteRetiro(faseRetiro: widget.retiroUsuario[index]);
+                              return OtPendienteRetiro(
+                                  faseRetiro: widget.retiroUsuario[index]);
                             }),
                       ),
                     ),
