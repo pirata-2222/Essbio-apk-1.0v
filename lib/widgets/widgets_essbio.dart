@@ -1,11 +1,13 @@
 import 'package:essbio_apk/api/api.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 import 'package:essbio_apk/login_page.dart';
 import 'package:provider/provider.dart';
 import 'workflow_widget.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:async';
 
 //************** DRAWER *****************
 
@@ -437,62 +439,129 @@ class TomarFotografia extends StatefulWidget {
 }
 
 class _TomarFotografiaState extends State<TomarFotografia> {
-  File? _pickedFile;
-  final _picker = ImagePicker();
-  Future<void> _takePicture() async {
-    final _pickedImage = await _picker.pickImage(source: ImageSource.camera);
-    if (_pickedImage != null) {
-      setState(() {
-        _pickedFile == _pickedImage;
-      });
+  File? _imagen;
+  final picker = ImagePicker();
+
+  Future selImagen(op) async {
+    var pickedFile;
+    if (op == 1) {
+      pickedFile = await picker.pickImage(source: ImageSource.camera);
     } else {
-      print("No se ha seleccionado ninguna imagen");
+      pickedFile = await picker.pickImage(source: ImageSource.gallery);
     }
 
-    // try {
-    //   await ImagePicker().pickImage(source: ImageSource.camera);
-    //   if (image == null) return;
+    setState(() {
+      if (pickedFile != null) {
+        _imagen = File(pickedFile.path);
+      } else {
+        print("No se ha seleccionado ninguna foto");
+      }
+    });
+    Navigator.of(context).pop();
+  }
 
-    //   final imageTemporary = File(image!.path);
-    //   setState(() => this.image = imageTemporary);
-    // } on PlatformException catch (e) {
-    //   print("No se pudo cargar la imagen: $e");
-    // }
+  opciones(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              contentPadding: EdgeInsets.all(0),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          selImagen(1);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(width: 1, color: Colors.grey),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Tomar una fotografía",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              Icon(
+                                Icons.camera_alt,
+                                color: Colors.blue,
+                              )
+                            ],
+                          ),
+                        )),
+                    InkWell(
+                        onTap: () {
+                          selImagen(2);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Seleccionar de Galería",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              Icon(
+                                Icons.image,
+                                color: Colors.blue,
+                              )
+                            ],
+                          ),
+                        )),
+                    InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(color: Colors.red),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Cancelar",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ))
+                  ],
+                ),
+              ));
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Archivo Adjunto",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-        Container(
-            height: 160,
-            width: 160,
-            child: _pickedFile == null
-                ? Icon(
-                    Icons.photo_camera,
-                    size: 50,
-                  )
-                : Image.file(_pickedFile!, fit: BoxFit.cover)
-
-            // height: 100,
-            // width: 140,
-            // child: Icon(
-            //   Icons.photo_camera,
-            //   size: 40,
-            // ),
-            ),
-        TextButton(
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ElevatedButton(
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Color(0xFFDD0009))),
-            onPressed: () => _takePicture(),
+            onPressed: () => opciones(context),
             child: Text(
-              "Tomar Fotografía",
+              "Tomar/Adjuntar Fotografía",
               style: TextStyle(color: Colors.white),
-            ))
-      ],
+            )),
+        _imagen == null
+            ? Icon(
+                Icons.image_outlined,
+                color: Colors.grey,
+              )
+            : Image.file(_imagen!)
+      ]),
     );
   }
 }
