@@ -289,37 +289,7 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
-  updateFasesAbastMedicion() async {
-    final url = '${server}/ot_fase_abast_medicion/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _fasesAbastMedicion = data
-          .map<FaseAbastMedicion>((json) => FaseAbastMedicion.fromJson(json))
-          .toList();
-    }
-  }
-
-  updateFasesAbastecimiento() async {
-    final url = '${server}/ot_fase_abastecimiento/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _fasesAbastecimiento = data
-          .map<FaseAbastecimiento>((json) => FaseAbastecimiento.fromJson(json))
-          .toList();
-    }
-  }
-
-  updateFasesRetiro() async {
-    final url = '${server}/ot_fase_retiro/?format=json';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      _fasesRetiro =
-          data.map<FaseRetiro>((json) => FaseRetiro.fromJson(json)).toList();
-    }
-  }
+  
 
   List getFasesUsuario(
       List<OrdenTrabajo> ordenesTrabajo,
