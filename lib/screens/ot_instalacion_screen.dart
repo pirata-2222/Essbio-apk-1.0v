@@ -96,6 +96,13 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   };
   String estadoSeleccionado = "";
 
+  Map<String, dynamic> datosActualizarInstalacion = {
+    "ID_TIPO_STATUS": "",
+    "COMENTARIO_INSTALACION": "",
+    "ARCHIVO_ADJUNTO": "",
+    "ROTULO_TK": "",
+  };
+
 // *****CONFIGURACION PARA IMAGE PICKER*****
   File? _imagen;
   final picker = ImagePicker();
@@ -206,8 +213,6 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    var estado = widget.faseInstalacion.id_tipo_status;
-    var fecha_termino = widget.faseInstalacion.fecha_termino;
 
     return MaterialApp(
       theme: ThemeData(
@@ -273,7 +278,9 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                       Text("Fase 1 -Instalación",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text("Estado: " + estado.toString(),
+                      Text(
+                          "Estado: " +
+                              widget.faseInstalacion.id_tipo_status.toString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],
