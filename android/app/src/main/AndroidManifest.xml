@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.essbio_apk">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="essbio_apk"
         android:icon="@mipmap/ic_launcher">
         <activity

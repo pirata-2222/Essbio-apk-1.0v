@@ -32,7 +32,8 @@ class EssbioProvider with ChangeNotifier {
     this.fetchDataEventos();
   }
 
-  final server = "http://10.0.2.2:8000";
+  // final server = "http://10.0.2.2:8000";
+  final server = "https://djangorestessbio.herokuapp.com";
 
   //Mod_WKF
   List<OrdenTrabajo> _ordenesTrabajo = [];
@@ -117,6 +118,7 @@ class EssbioProvider with ChangeNotifier {
       _ordenesTrabajo = data
           .map<OrdenTrabajo>((json) => OrdenTrabajo.fromJson(json))
           .toList();
+      print("Ordenes de trabajo obtenidas");
     }
   }
 
@@ -127,6 +129,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _tiposModulo =
           data.map<TipoModulo>((json) => TipoModulo.fromJson(json)).toList();
+      print("Tipos modulo obtenidos");
     }
   }
 
@@ -136,6 +139,7 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       _camiones = data.map<Camion>((json) => Camion.fromJson(json)).toList();
+      print("Camiones obtenidos");
     }
   }
 
@@ -146,6 +150,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _contratistas =
           data.map<Contratista>((json) => Contratista.fromJson(json)).toList();
+      print("Contratistas obtenidos");
     }
   }
 
@@ -157,6 +162,7 @@ class EssbioProvider with ChangeNotifier {
       _dataTKSectores = data
           .map<DataTKSector>((json) => DataTKSector.fromJson(json))
           .toList();
+      print("Data TK Sectores obtenidos");
     }
   }
 
@@ -168,6 +174,7 @@ class EssbioProvider with ChangeNotifier {
       _fasesInstalacion = data
           .map<FaseInstalacion>((json) => FaseInstalacion.fromJson(json))
           .toList();
+      print("Fases de instalación obtenidas");
     }
   }
 
@@ -179,6 +186,7 @@ class EssbioProvider with ChangeNotifier {
       _fasesAbastMedicion = data
           .map<FaseAbastMedicion>((json) => FaseAbastMedicion.fromJson(json))
           .toList();
+      print("Fases de medición obtenidas");
     }
   }
 
@@ -190,6 +198,7 @@ class EssbioProvider with ChangeNotifier {
       _fasesAbastecimiento = data
           .map<FaseAbastecimiento>((json) => FaseAbastecimiento.fromJson(json))
           .toList();
+      print("Fases de abastecimiento obtenidas");
     }
   }
 
@@ -200,6 +209,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _fasesRetiro =
           data.map<FaseRetiro>((json) => FaseRetiro.fromJson(json)).toList();
+      print("Fases de retiro obtenidas");
     }
   }
 
@@ -209,6 +219,7 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       _usuarios = data.map<Usuario>((json) => Usuario.fromJson(json)).toList();
+    print("Usuarios obtenidos");
     }
   }
 
@@ -218,6 +229,7 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       _status = data.map<Status>((json) => Status.fromJson(json)).toList();
+    print("Status obtenidos");
     }
   }
 
@@ -227,6 +239,7 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
+    print("Fases obtenidas");
     }
   }
 
@@ -237,6 +250,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _dataEventos =
           data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
+      print("Data eventos obtenidas");
     }
   }
 
@@ -260,14 +274,14 @@ class EssbioProvider with ChangeNotifier {
               : modificacion["ARCHIVO_ADJUNTO"]
         }));
 
-        final url_ots =
+    final url_ots =
         '$server/ot_fase_instalacion/${faseInstalacion.id_ot}/?format=json';
-        final response_ots = await http.get(Uri.parse(url_ots));
-        var data_ots = json.decode(response_ots.body);
-        var id_status = data_ots["ID_STATUS"];
-        final url_status = '$server/mod_wkf_status/$id_status/?format=json';
+    final response_ots = await http.get(Uri.parse(url_ots));
+    var data_ots = json.decode(response_ots.body);
+    var id_status = data_ots["ID_STATUS"];
+    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
 
-        final response_status = await http.put(Uri.parse(url_status),
+    final response_status = await http.put(Uri.parse(url_status),
         headers: {"Content-Type": "application/json"},
         body: json.encode({
           "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
@@ -288,8 +302,6 @@ class EssbioProvider with ChangeNotifier {
       print("Hubo un problema al actualizar");
     }
   }
-
-  
 
   List getFasesUsuario(
       List<OrdenTrabajo> ordenesTrabajo,
