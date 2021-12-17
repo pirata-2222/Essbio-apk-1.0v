@@ -2,6 +2,7 @@ import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/models/fase_retiro.dart';
+import 'package:essbio_apk/models/xygo_usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/theme_library.dart';
 import '../widgets/widgets_essbio.dart';
@@ -17,13 +18,15 @@ class WorkflowDesplegado extends StatefulWidget {
   final List<FaseAbastMedicion> medicionUsuario;
   final List<FaseAbastecimiento> abastecimientoUsuario;
   final List<FaseRetiro> retiroUsuario;
+  final Usuario usuario;
 
   WorkflowDesplegado(
       {Key? key,
       required this.instalacionUsuario,
       required this.abastecimientoUsuario,
       required this.medicionUsuario,
-      required this.retiroUsuario})
+      required this.retiroUsuario,
+      required this.usuario})
       : super(key: key);
 
   @override
