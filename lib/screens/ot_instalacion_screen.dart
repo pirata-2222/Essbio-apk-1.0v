@@ -3,8 +3,10 @@ import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:essbio_apk/api/api.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -431,6 +433,34 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                     Text("Ver Mapa",
                         style: TextStyle(color: Color(0xFFDD0009))),
                   ],
+                ),
+                SizedBox(height: 25),
+                Container(
+                  height: 200.0,
+                  width: 200.0,
+                  child: Stack(
+                    children: [
+                      FlutterMap(
+                          options: MapOptions(
+                              center: LatLng(49.5, 0.09), zoom: 10.0),
+                          layers: [
+                            TileLayerOptions(
+                                urlTemplate:
+                                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                                subdomains: ['a', 'b', 'c']),
+                            MarkerLayerOptions(markers: [
+                              Marker(
+                                width: 80.0,
+                                height: 80.0,
+                                point: LatLng(49.5, 0.09),
+                                builder: (ctx) => Container(
+                                  child: Icon(Icons.location_on),
+                                ),
+                              ),
+                            ])
+                          ])
+                    ],
+                  ),
                 ),
                 SizedBox(height: 25),
                 ComentarioGeneral(),
