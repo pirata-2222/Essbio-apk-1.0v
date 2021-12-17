@@ -31,10 +31,9 @@ class EssbioProvider with ChangeNotifier {
     this.fetchFasesRetiro();
     this.fetchDataEventos();
   }
-
   // final server = "http://10.0.2.2:8000";
   final server = "https://djangorestessbio.herokuapp.com";
-
+  int counter = 0;
   //Mod_WKF
   List<OrdenTrabajo> _ordenesTrabajo = [];
   List<OrdenTrabajo> get ordenesTrabajo {
@@ -119,6 +118,7 @@ class EssbioProvider with ChangeNotifier {
           .map<OrdenTrabajo>((json) => OrdenTrabajo.fromJson(json))
           .toList();
       print("Ordenes de trabajo obtenidas");
+      counter = counter + 1;
     }
   }
 
@@ -130,6 +130,7 @@ class EssbioProvider with ChangeNotifier {
       _tiposModulo =
           data.map<TipoModulo>((json) => TipoModulo.fromJson(json)).toList();
       print("Tipos modulo obtenidos");
+      counter = counter + 1;
     }
   }
 
@@ -140,6 +141,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _camiones = data.map<Camion>((json) => Camion.fromJson(json)).toList();
       print("Camiones obtenidos");
+      counter = counter + 1;
     }
   }
 
@@ -151,6 +153,7 @@ class EssbioProvider with ChangeNotifier {
       _contratistas =
           data.map<Contratista>((json) => Contratista.fromJson(json)).toList();
       print("Contratistas obtenidos");
+      counter = counter + 1;
     }
   }
 
@@ -163,6 +166,7 @@ class EssbioProvider with ChangeNotifier {
           .map<DataTKSector>((json) => DataTKSector.fromJson(json))
           .toList();
       print("Data TK Sectores obtenidos");
+      counter = counter + 1;
     }
   }
 
@@ -219,7 +223,7 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       _usuarios = data.map<Usuario>((json) => Usuario.fromJson(json)).toList();
-    print("Usuarios obtenidos");
+      print("Usuarios obtenidos");
     }
   }
 
@@ -229,7 +233,7 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       _status = data.map<Status>((json) => Status.fromJson(json)).toList();
-    print("Status obtenidos");
+      print("Status obtenidos");
     }
   }
 
@@ -239,7 +243,7 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
-    print("Fases obtenidas");
+      print("Fases obtenidas");
     }
   }
 
