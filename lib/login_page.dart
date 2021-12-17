@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:essbio_apk/widgets/workflow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -86,7 +88,7 @@ class _HomeState extends State<Home> {
                                       essbioP.status,
                                       4
                                       /*essbioP.validateLogin(
-                            usernameController.text, passwordController.text)[1].idusuario*/
+                            usernameController.text, generateMd5(passwordController.text))[1].idusuario*/
                                       );
 
                                   Navigator.push(
@@ -117,5 +119,8 @@ class _HomeState extends State<Home> {
             )),
       ),
     );
+  }
+  String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
   }
 }
