@@ -1,3 +1,4 @@
+import 'dart:async';
 import "dart:convert";
 import 'package:essbio_apk/models/evento_camion.dart';
 import 'package:essbio_apk/models/evento_contratista.dart';
@@ -33,7 +34,10 @@ class EssbioProvider with ChangeNotifier {
   }
   // final server = "http://10.0.2.2:8000";
   final server = "https://djangorestessbio.herokuapp.com";
-  int counter = 0;
+
+  int loginCounter = 0;
+  StreamController<int> loginCounterController = StreamController();
+
   //Mod_WKF
   List<OrdenTrabajo> _ordenesTrabajo = [];
   List<OrdenTrabajo> get ordenesTrabajo {
@@ -118,7 +122,8 @@ class EssbioProvider with ChangeNotifier {
           .map<OrdenTrabajo>((json) => OrdenTrabajo.fromJson(json))
           .toList();
       print("Ordenes de trabajo obtenidas");
-      counter = counter + 1;
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -130,7 +135,8 @@ class EssbioProvider with ChangeNotifier {
       _tiposModulo =
           data.map<TipoModulo>((json) => TipoModulo.fromJson(json)).toList();
       print("Tipos modulo obtenidos");
-      counter = counter + 1;
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -141,7 +147,8 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _camiones = data.map<Camion>((json) => Camion.fromJson(json)).toList();
       print("Camiones obtenidos");
-      counter = counter + 1;
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -153,7 +160,8 @@ class EssbioProvider with ChangeNotifier {
       _contratistas =
           data.map<Contratista>((json) => Contratista.fromJson(json)).toList();
       print("Contratistas obtenidos");
-      counter = counter + 1;
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -166,7 +174,8 @@ class EssbioProvider with ChangeNotifier {
           .map<DataTKSector>((json) => DataTKSector.fromJson(json))
           .toList();
       print("Data TK Sectores obtenidos");
-      counter = counter + 1;
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -179,6 +188,8 @@ class EssbioProvider with ChangeNotifier {
           .map<FaseInstalacion>((json) => FaseInstalacion.fromJson(json))
           .toList();
       print("Fases de instalación obtenidas");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -191,6 +202,8 @@ class EssbioProvider with ChangeNotifier {
           .map<FaseAbastMedicion>((json) => FaseAbastMedicion.fromJson(json))
           .toList();
       print("Fases de medición obtenidas");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -203,6 +216,8 @@ class EssbioProvider with ChangeNotifier {
           .map<FaseAbastecimiento>((json) => FaseAbastecimiento.fromJson(json))
           .toList();
       print("Fases de abastecimiento obtenidas");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -214,6 +229,8 @@ class EssbioProvider with ChangeNotifier {
       _fasesRetiro =
           data.map<FaseRetiro>((json) => FaseRetiro.fromJson(json)).toList();
       print("Fases de retiro obtenidas");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -224,6 +241,8 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _usuarios = data.map<Usuario>((json) => Usuario.fromJson(json)).toList();
       print("Usuarios obtenidos");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -234,6 +253,8 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _status = data.map<Status>((json) => Status.fromJson(json)).toList();
       print("Status obtenidos");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -244,6 +265,8 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
       print("Fases obtenidas");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 
@@ -255,6 +278,8 @@ class EssbioProvider with ChangeNotifier {
       _dataEventos =
           data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
       print("Data eventos obtenidas");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
     }
   }
 

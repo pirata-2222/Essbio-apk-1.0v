@@ -59,42 +59,59 @@ class _HomeState extends State<Home> {
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 20),
-                  child: essbioP.counter<5? CircularProgressIndicator(
-                    semanticsLabel: "Cargando información desde Base de datos",
-                    semanticsValue: "Cargando información desde Base de datos",
-                  ):ElevatedButton(
-                      onPressed: () {
-                        if (essbioP.validateLogin(usernameController.text,
-                            passwordController.text)[0]) {
-                          List fasesUsuario = essbioP.getFasesUsuario(
-                              essbioP.ordenesTrabajo,
-                              essbioP.fasesInstalacion,
-                              essbioP.fasesAbastMedicion,
-                              essbioP.fasesAbastecimiento,
-                              essbioP.fasesRetiro,
-                              essbioP.fases,
-                              essbioP.status,
-                              4
-                              /*essbioP.validateLogin(
-                            usernameController.text, passwordController.text)[1].idusuario*/
-                              );
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WorkflowDesplegado(
-                                instalacionUsuario: fasesUsuario[0],
-                                medicionUsuario: fasesUsuario[1],
-                                abastecimientoUsuario: fasesUsuario[2],
-                                retiroUsuario: fasesUsuario[3],
-                                usuario: essbioP.validateLogin(
-                            usernameController.text, passwordController.text)[1]
-                              ),
-                            ),
+                  child: StreamBuilder(
+                    stream: essbioP.loginCounterController.stream,
+                    builder: (context, AsyncSnapshot<int> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data! < 13) {
+                          return Column(
+                            children: [
+                              Text("Cargando desde base de datos"),
+                              CircularProgressIndicator(),
+                            ],
                           );
+                        } else {
+                          return ElevatedButton(
+                              onPressed: () {
+                                if (essbioP.validateLogin(
+                                    usernameController.text,
+                                    passwordController.text)[0]) {
+                                  List fasesUsuario = essbioP.getFasesUsuario(
+                                      essbioP.ordenesTrabajo,
+                                      essbioP.fasesInstalacion,
+                                      essbioP.fasesAbastMedicion,
+                                      essbioP.fasesAbastecimiento,
+                                      essbioP.fasesRetiro,
+                                      essbioP.fases,
+                                      essbioP.status,
+                                      4
+                                      /*essbioP.validateLogin(
+                            usernameController.text, passwordController.text)[1].idusuario*/
+                                      );
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => WorkflowDesplegado(
+                                          instalacionUsuario: fasesUsuario[0],
+                                          medicionUsuario: fasesUsuario[1],
+                                          abastecimientoUsuario:
+                                              fasesUsuario[2],
+                                          retiroUsuario: fasesUsuario[3],
+                                          usuario: essbioP.validateLogin(
+                                              usernameController.text,
+                                              passwordController.text)[1]),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: Text("Entrar"));
                         }
-                      },
-                      child: Text("Entrar")),
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    },
+                  ),
                 ),
               ],
             )),
