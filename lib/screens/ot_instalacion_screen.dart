@@ -1,5 +1,6 @@
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/theme_library.dart';
+import 'package:essbio_apk/widgets/guardar_datos.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
@@ -442,7 +443,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                     children: [
                       FlutterMap(
                           options: MapOptions(
-                              center: LatLng(49.5, 0.09), zoom: 10.0),
+                              center: LatLng(49.5, 0.09), zoom: 17.0),
                           layers: [
                             TileLayerOptions(
                                 urlTemplate:
