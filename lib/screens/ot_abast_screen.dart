@@ -3,8 +3,6 @@ import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:essbio_apk/api/api.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -19,7 +17,7 @@ enum EstadoAbast {
 }
 
 class OtPendienteAbast extends StatefulWidget {
-  FaseAbastecimiento faseAbastecimiento;
+  final FaseAbastecimiento faseAbastecimiento;
   OtPendienteAbast({Key? key, required this.faseAbastecimiento})
       : super(key: key);
   @override
@@ -82,7 +80,7 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
 }
 
 class OtAbastScreen extends StatefulWidget {
-  FaseAbastecimiento faseAbastecimiento;
+  final FaseAbastecimiento faseAbastecimiento;
   OtAbastScreen({Key? key, required this.faseAbastecimiento}) : super(key: key);
 
   @override

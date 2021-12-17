@@ -8,7 +8,7 @@ const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
 
 class OtPendienteRetiro extends StatefulWidget {
-  FaseRetiro faseRetiro;
+  final FaseRetiro faseRetiro;
   OtPendienteRetiro({Key? key, required this.faseRetiro}) : super(key: key);
   @override
   _OtPendienteRetiroState createState() => _OtPendienteRetiroState();
@@ -68,7 +68,7 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
 }
 
 class OtRetiroScreen extends StatefulWidget {
-  FaseRetiro faseRetiro;
+  final FaseRetiro faseRetiro;
   OtRetiroScreen({Key? key, required this.faseRetiro}) : super(key: key);
 
   @override
@@ -86,7 +86,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
   @override
   Widget build(BuildContext context) {
     String placeholder = estadoRetiro[widget.faseRetiro.id_tipo_status]!;
-    estadoSeleccionado == "" ? estadoSeleccionado:placeholder;
+    estadoSeleccionado == "" ? estadoSeleccionado : placeholder;
 
     return MaterialApp(
       theme: ThemeData(

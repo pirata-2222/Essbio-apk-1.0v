@@ -12,7 +12,7 @@ const Color estadoPasivo = Color(0xFF99CBCD);
 enum Estado { EnCurso, NoDisponible, Instalado, Pendiente, Empty }
 
 class OtPendienteInstalacion extends StatefulWidget {
-  FaseInstalacion faseInstalacion;
+  final FaseInstalacion faseInstalacion;
   OtPendienteInstalacion({Key? key, required this.faseInstalacion})
       : super(key: key);
 
@@ -83,7 +83,7 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
 }
 
 class OtInstalacionScreen extends StatefulWidget {
-  FaseInstalacion faseInstalacion;
+  final FaseInstalacion faseInstalacion;
   OtInstalacionScreen({Key? key, required this.faseInstalacion})
       : super(key: key);
 
@@ -103,7 +103,6 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    var tituloOTInstalacion = widget.faseInstalacion.nombre_ot;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),

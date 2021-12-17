@@ -8,7 +8,7 @@ const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
 
 class OtPendienteMedicion extends StatefulWidget {
-  FaseAbastMedicion faseAbastMedicion;
+  final FaseAbastMedicion faseAbastMedicion;
   OtPendienteMedicion({Key? key, required this.faseAbastMedicion})
       : super(key: key);
 
@@ -70,7 +70,7 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
 }
 
 class OtMedicionScreen extends StatefulWidget {
-  FaseAbastMedicion faseAbastMedicion;
+  final FaseAbastMedicion faseAbastMedicion;
   OtMedicionScreen({Key? key, required this.faseAbastMedicion})
       : super(key: key);
 

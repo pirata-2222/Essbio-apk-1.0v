@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TimerEssbio extends StatefulWidget {
-  String fecha;
+  final String fecha;
   TimerEssbio({Key? key, required this.fecha}) : super(key: key);
   @override
   _TimerEssbioState createState() => _TimerEssbioState();
