@@ -5,6 +5,8 @@ import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:essbio_apk/api/api.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -23,14 +25,8 @@ class OtPendienteInstalacion extends StatefulWidget {
 class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
   @override
   Widget build(BuildContext context) {
-    final essbioP = Provider.of<EssbioProvider>(context);
-    final cantidadTituloOT = (essbioP.ordenesTrabajo).length - 1;
-
-//  *****************ACA SE EXPERIMENTA CON RECORRIDO DEL ARRAY***********************
-
-    for (int i = 0; i < cantidadTituloOT; i++);
-
-    //  ******************************************
+    // final essbioP = Provider.of<EssbioProvider>(context);
+    // var fecha = widget.faseInstalacion.fecha_termino;
 
     return InkWell(
       onTap: () => Navigator.push(
@@ -99,7 +95,114 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
     114: "Pendiente",
   };
   String estadoSeleccionado = "";
-// EnCurso, NoDisponible, Instalado, Pendiente,
+
+// *****CONFIGURACION PARA IMAGE PICKER*****
+  File? _imagen;
+  final picker = ImagePicker();
+
+  Future selImagen(op) async {
+    var pickedFile;
+    if (op == 1) {
+      pickedFile = await picker.pickImage(source: ImageSource.camera);
+    } else {
+      pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    }
+
+    setState(() {
+      if (pickedFile != null) {
+        _imagen = File(pickedFile.path);
+      } else {
+        print("No se ha seleccionado ninguna foto");
+      }
+    });
+    Navigator.of(context).pop();
+  }
+
+  opciones(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              contentPadding: EdgeInsets.all(0),
+              content: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          selImagen(1);
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(width: 1, color: Colors.grey),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Tomar una fotografía",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              Icon(
+                                Icons.camera_alt,
+                                color: Colors.blue,
+                              )
+                            ],
+                          ),
+                        )),
+                    InkWell(
+                        onTap: () {
+                          selImagen(2);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Seleccionar de Galería",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                              Icon(
+                                Icons.image,
+                                color: Colors.blue,
+                              )
+                            ],
+                          ),
+                        )),
+                    InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(color: Colors.red),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Cancelar",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ))
+                  ],
+                ),
+              ));
+        });
+  }
+
+  // *******************************************************************
+
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -326,7 +429,29 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
 
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
-                TomarFotografia(),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    Color(0xFFDD0009))),
+                            onPressed: () => opciones(context),
+                            child: Text(
+                              "Tomar/Adjuntar Fotografía",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                        _imagen == null
+                            ? Icon(
+                                Icons.image_outlined,
+                                color: Colors.grey,
+                                size: 40,
+                              )
+                            : Image.file(_imagen!)
+                      ]),
+                ),
                 SizedBox(height: 20),
                 //RÓTULO TK
                 RotuloTKField(),

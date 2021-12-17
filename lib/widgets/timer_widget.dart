@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TimerEssbio extends StatefulWidget {
   final String fecha;
@@ -10,6 +11,20 @@ class TimerEssbio extends StatefulWidget {
 class _TimerEssbioState extends State<TimerEssbio> {
   @override
   Widget build(BuildContext context) {
+    int daysBetween(DateTime from, DateTime to) {
+      from = DateTime(from.year, from.month, from.day);
+      to = DateTime(to.year, to.month, to.day);
+      return (to.difference(from).inHours / 24).round();
+    }
+
+    ;
+
+    var fechaTermino = widget.fecha;
+    var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
+    var fechaActual = DateTime.now();
+    var tiempoRestante = daysBetween(fechaTerminoFormatoDate, fechaActual);
+    var tiempoRestanteString = tiempoRestante.toString();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -44,7 +59,8 @@ class _TimerEssbioState extends State<TimerEssbio> {
                 Icon(Icons.timer, color: Colors.white),
                 SizedBox(height: 10),
                 Text("Tiempo Restante:", style: TextStyle(color: Colors.white)),
-                Text("XXXX D", style: TextStyle(color: Colors.white)),
+                Text(tiempoRestanteString + " Días",
+                    style: TextStyle(color: Colors.white)),
               ],
             )),
       ],

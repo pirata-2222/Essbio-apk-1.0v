@@ -5,8 +5,8 @@ import 'package:essbio_apk/models/fase_retiro.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/theme_library.dart';
 import '../widgets/widgets_essbio.dart';
-// import 'package:provider/provider.dart';
-// import 'package:essbio_apk/api/api.dart';
+import 'package:provider/provider.dart';
+import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/screens/ot_instalacion_screen.dart';
 import 'package:essbio_apk/screens/ot_abast_screen.dart';
 import 'package:essbio_apk/screens/ot_medicion_screen.dart';
@@ -39,7 +39,8 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
   @override
   Widget build(BuildContext context) {
-    // final essbioP = Provider.of<EssbioProvider>(context);
+    final essbioP = Provider.of<EssbioProvider>(context);
+    // var IDUsuarioLogueado = essbioP.usuario;
     // for (var i = 0; i < cantidadTituloOT; i++) {
     //   var tituloOTInstalacion = essbioP.ordenesTrabajo[i].nombre_ot;
     // }
