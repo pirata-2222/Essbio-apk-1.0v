@@ -73,6 +73,7 @@ class _HomeState extends State<Home> {
                             ],
                           );
                         } else {
+                          essbioP.loginCounterController.close();
                           return ElevatedButton(
                               onPressed: () {
                                 if (essbioP.validateLogin(
@@ -120,6 +121,7 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
   String generateMd5(String input) {
     return md5.convert(utf8.encode(input)).toString();
   }

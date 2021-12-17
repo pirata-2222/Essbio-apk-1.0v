@@ -348,8 +348,7 @@ class EssbioProvider with ChangeNotifier {
               : modificacion["ARCHIVO_ADJUNTO"]
         }));
 
-    final url_ots =
-        '$server/ot_fase_instalacion/${faseInstalacion.id_ot}/?format=json';
+    final url_ots = '$server/mod_wkf_orden_trabajo/${faseInstalacion.id_ot}/?format=json';
     final response_ots = await http.get(Uri.parse(url_ots));
     var data_ots = json.decode(response_ots.body);
     var id_status = data_ots["ID_STATUS"].toString();
