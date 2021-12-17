@@ -319,7 +319,6 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
                 SizedBox(height: 20),
-                GuardarDatosBitacora(),
               ],
             ),
           )),

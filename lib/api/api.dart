@@ -283,6 +283,51 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
+  updateFasesAbastecimiento(FaseAbastecimiento faseAbastecimiento,
+      Map<String, dynamic> modificacion) async {
+    final id = faseAbastecimiento.id;
+    final url_abastecimiento = '$server/ot_fase_instalacion/$id/?format=json';
+    final response = await http.put(Uri.parse(url_abastecimiento),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "COMENTARIO_INSTALACION": modificacion["COMENTARIO_INSTALACION"] == ""
+              ? faseAbastecimiento.comentario
+              : modificacion["COMENTARIO_INSTALACION"],
+          "FECHA_MOD_XYGO":
+              DateTime.now().toIso8601String().substring(0, 19) + "Z",
+        }));
+
+    final url_ots =
+        '$server/ot_fase_instalacion/${faseAbastecimiento.id_ot}/?format=json';
+    final response_ots = await http.get(Uri.parse(url_ots));
+    var data_ots = json.decode(response_ots.body);
+    var id_status = data_ots["ID_STATUS"].toString();
+    print("id status: " + id_status.toString());
+    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
+
+    final response_status = await http.put(Uri.parse(url_status),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
+              ? faseAbastecimiento.id_tipo_status
+              : modificacion["ID_TIPO_STATUS"],
+          "FECHA_MOD_XYGO":
+              DateTime.now().toIso8601String().substring(0, 19) + "Z",
+        }));
+
+    if (response.statusCode == 200) {
+      print("Abast : Actualizada correctamente la fase");
+    } else {
+      print("Abast : Hubo un problema al actualizar la fase");
+    }
+    if (response_status.statusCode == 200) {
+      print("Abast : Actualizado correctamente el estado");
+    } else {
+      print(response_status.body);
+      print("Abast : Hubo un problema al actualizar el estado");
+    }
+  }
+
   updateFasesInstalacion(FaseInstalacion faseInstalacion,
       Map<String, dynamic> modificacion) async {
     final id = faseInstalacion.id;
@@ -307,7 +352,8 @@ class EssbioProvider with ChangeNotifier {
         '$server/ot_fase_instalacion/${faseInstalacion.id_ot}/?format=json';
     final response_ots = await http.get(Uri.parse(url_ots));
     var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"];
+    var id_status = data_ots["ID_STATUS"].toString();
+    print("id status: " + id_status.toString());
     final url_status = '$server/mod_wkf_status/$id_status/?format=json';
 
     final response_status = await http.put(Uri.parse(url_status),
@@ -328,7 +374,8 @@ class EssbioProvider with ChangeNotifier {
     if (response_status.statusCode == 200) {
       print("Actualizado correctamente el estado");
     } else {
-      print("Hubo un problema al actualizar");
+      print(response_status.body);
+      print("Hubo un problema al actualizar el estado");
     }
   }
 

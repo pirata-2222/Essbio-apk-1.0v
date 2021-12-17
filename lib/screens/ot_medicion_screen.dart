@@ -325,7 +325,6 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 SizedBox(height: 20),
 
                 //ADJUNTAR IMAGEN
-                GuardarDatosBitacora(),
               ],
             ),
           )),

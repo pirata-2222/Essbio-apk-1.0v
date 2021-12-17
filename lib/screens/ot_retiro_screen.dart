@@ -310,7 +310,6 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                 SizedBox(height: 20),
 
                 //GUARDAR DATOS
-                GuardarDatosBitacora(),
               ],
             ),
           )),

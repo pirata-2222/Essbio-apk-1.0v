@@ -464,7 +464,9 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 //RÓTULO TK
                 RotuloTKField(),
                 SizedBox(height: 20),
-                GuardarDatosBitacora(),
+                GuardarDatosBitacora(
+                  faseInstalacion: widget.faseInstalacion,
+                ),
               ],
             ),
           )),
