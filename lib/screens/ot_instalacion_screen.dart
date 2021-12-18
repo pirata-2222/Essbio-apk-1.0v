@@ -27,6 +27,31 @@ class OtPendienteInstalacion extends StatefulWidget {
 }
 
 class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
+  String estadoInstalacionenString() {
+    var dataEstadoinstalacion =
+        widget.faseInstalacion.id_tipo_status.toString();
+
+    switch (dataEstadoinstalacion) {
+      case "110":
+        dataEstadoinstalacion = "Finalizado";
+        break;
+      case "111":
+        dataEstadoinstalacion = "En Curso";
+        break;
+      case "112":
+        dataEstadoinstalacion = "Instalado";
+        break;
+      case "113":
+        dataEstadoinstalacion = "No Disponible";
+        break;
+      case "114":
+        dataEstadoinstalacion = "Pendiente";
+        break;
+      default:
+    }
+    return dataEstadoinstalacion;
+  }
+
   @override
   Widget build(BuildContext context) {
     // final essbioP = Provider.of<EssbioProvider>(context);
@@ -69,7 +94,7 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.faseInstalacion.id_tipo_status.toString(),
+                      estadoInstalacionenString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -93,6 +118,7 @@ class OtInstalacionScreen extends StatefulWidget {
 
 class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   Map<int, String> estadoInstalacion = {
+    110: "Finalizado",
     111: "En Curso",
     112: "Instalado",
     113: "No disponible",
@@ -228,17 +254,20 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
           widget.faseInstalacion.id_tipo_status.toString();
 
       switch (dataEstadoinstalacion) {
+        case "110":
+          dataEstadoinstalacion = "Finalizado";
+          break;
         case "111":
-          Text("En Curso");
+          dataEstadoinstalacion = "En Curso";
           break;
         case "112":
-          Text("Instalado");
+          dataEstadoinstalacion = "Instalado";
           break;
         case "113":
-          Text("No Disponible");
+          dataEstadoinstalacion = "No Disponible";
           break;
         case "114":
-          Text("Pendiente");
+          dataEstadoinstalacion = "Pendiente";
           break;
         default:
       }
@@ -309,9 +338,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                       Text("Fase 1 -Instalación",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text(
-                          "Estado: " +
-                              widget.faseInstalacion.id_tipo_status.toString(),
+                      Text("Estado: " + estadoInstalacionenString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],

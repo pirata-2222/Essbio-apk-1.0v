@@ -16,6 +16,28 @@ class OtPendienteRetiro extends StatefulWidget {
 }
 
 class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
+  String estadoRetiroenString() {
+    var dataEstadoRetiro = widget.faseRetiro.id_tipo_status.toString();
+
+    switch (dataEstadoRetiro) {
+      case "140":
+        dataEstadoRetiro = "Finalizado";
+        break;
+      case "141":
+        dataEstadoRetiro = "En Curso";
+        break;
+      case "142":
+        dataEstadoRetiro = "Retirado";
+        break;
+      case "143":
+        dataEstadoRetiro = "No Disponible";
+        break;
+      default:
+    }
+
+    return dataEstadoRetiro;
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -55,7 +77,7 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.faseRetiro.id_tipo_status.toString(),
+                      estadoRetiroenString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -84,6 +106,29 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
     140: "Finalizado",
   };
   String estadoSeleccionado = "";
+
+  String estadoRetiroenString() {
+    var dataEstadoRetiro = widget.faseRetiro.id_tipo_status.toString();
+
+    switch (dataEstadoRetiro) {
+      case "140":
+        dataEstadoRetiro = "Finalizado";
+        break;
+      case "141":
+        dataEstadoRetiro = "En Curso";
+        break;
+      case "142":
+        dataEstadoRetiro = "Retirado";
+        break;
+      case "143":
+        dataEstadoRetiro = "No Disponible";
+        break;
+      default:
+    }
+
+    return dataEstadoRetiro;
+  }
+
   @override
   Widget build(BuildContext context) {
     String placeholder = estadoRetiro[widget.faseRetiro.id_tipo_status]!;
@@ -149,9 +194,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                       Text("Fase 4 - Retiro",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text(
-                          "Estado: " +
-                              widget.faseRetiro.id_tipo_status.toString(),
+                      Text("Estado: " + estadoRetiroenString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],

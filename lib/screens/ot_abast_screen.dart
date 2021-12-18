@@ -26,6 +26,31 @@ class OtPendienteAbast extends StatefulWidget {
 }
 
 class _OtPendienteAbastState extends State<OtPendienteAbast> {
+  String estadoAbastecimientoenString() {
+    var dataEstadoAbastecimiento =
+        widget.faseAbastecimiento.id_tipo_status.toString();
+
+    switch (dataEstadoAbastecimiento) {
+      case "120":
+        dataEstadoAbastecimiento = "Finalizado";
+        break;
+      case "121":
+        dataEstadoAbastecimiento = "En Curso";
+        break;
+      case "122":
+        dataEstadoAbastecimiento = "No Disponible";
+        break;
+      case "126":
+        dataEstadoAbastecimiento = "Estanque Llenado";
+        break;
+      case "127":
+        dataEstadoAbastecimiento = "Cierre Abastecimiento";
+        break;
+      default:
+    }
+    return dataEstadoAbastecimiento;
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -67,7 +92,7 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
                       ),
                     ),
                     Text(
-                      widget.faseAbastecimiento.id_tipo_status.toString(),
+                      estadoAbastecimientoenString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -90,13 +115,38 @@ class OtAbastScreen extends StatefulWidget {
 
 class _OtAbastScreenState extends State<OtAbastScreen> {
   Map<int, String> estadoAbastecimiento = {
-    125: "En Curso",
+    121: "En Curso",
     127: "Cierre Abastecimiento",
     122: "No Disponible",
     126: "Estanque Llenado",
   };
   String estadoSeleccionado = "";
 
+  String estadoAbastecimientoenString() {
+    var dataEstadoAbastecimiento =
+        widget.faseAbastecimiento.id_tipo_status.toString();
+
+    switch (dataEstadoAbastecimiento) {
+      case "120":
+        dataEstadoAbastecimiento = "Finalizado";
+        break;
+      case "121":
+        dataEstadoAbastecimiento = "En Curso";
+        break;
+      case "122":
+        dataEstadoAbastecimiento = "No Disponible";
+        break;
+      case "126":
+        dataEstadoAbastecimiento = "Estanque Llenado";
+        break;
+      case "127":
+        dataEstadoAbastecimiento = "Cierre Abastecimiento";
+        break;
+      default:
+    }
+
+    return dataEstadoAbastecimiento;
+  }
   // FALTAN 123='INICIO CARGA CAMIÓN', 124='TÉRMINO CARGA CAMIÓN', 125='INICIO ABASTECIMIENTO',
 
   @override
@@ -161,10 +211,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                       Text("Fase 2 - Abastecimiento",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text(
-                          "Estado: " +
-                              widget.faseAbastecimiento.id_tipo_status
-                                  .toString(),
+                      Text("Estado: " + estadoAbastecimientoenString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],
@@ -192,14 +239,14 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         InkWell(
                           onTap: () {
                             setState(() {
-                              estadoSeleccionado = estadoAbastecimiento[125]!;
+                              estadoSeleccionado = estadoAbastecimiento[121]!;
                             });
                           },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: estadoSeleccionado ==
-                                      estadoAbastecimiento[125]
+                                      estadoAbastecimiento[121]
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),

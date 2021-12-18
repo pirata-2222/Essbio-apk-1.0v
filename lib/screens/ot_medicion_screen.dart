@@ -18,6 +18,28 @@ class OtPendienteMedicion extends StatefulWidget {
 }
 
 class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
+  String estadoMedicionenString() {
+    var dataEstadoMedicion = widget.faseAbastMedicion.id_tipo_status.toString();
+
+    switch (dataEstadoMedicion) {
+      case "130":
+        dataEstadoMedicion = "Finalizado";
+        break;
+      case "131":
+        dataEstadoMedicion = "En Curso";
+        break;
+      case "132":
+        dataEstadoMedicion = "No Disponible";
+        break;
+      case "133":
+        dataEstadoMedicion = "Medido";
+        break;
+      default:
+    }
+
+    return dataEstadoMedicion;
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -57,7 +79,7 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.faseAbastMedicion.id_tipo_status.toString(),
+                      estadoMedicionenString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
@@ -87,6 +109,32 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
     133: "Medido",
   };
   String estadoSeleccionado = "";
+
+  String estadoMedicionenString() {
+    var dataEstadoMedicion = widget.faseAbastMedicion.id_tipo_status.toString();
+//  130: "Finalizado",
+//     131: "En Curso",
+//     132: "No Disponible",
+//     133: "Medido",
+//   };
+    switch (dataEstadoMedicion) {
+      case "130":
+        dataEstadoMedicion = "Finalizado";
+        break;
+      case "131":
+        dataEstadoMedicion = "En Curso";
+        break;
+      case "132":
+        dataEstadoMedicion = "No Disponible";
+        break;
+      case "133":
+        dataEstadoMedicion = "Medido";
+        break;
+      default:
+    }
+
+    return dataEstadoMedicion;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -150,10 +198,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                       Text("Fase 3 - Medición",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text(
-                          "Estado Actual: " +
-                              widget.faseAbastMedicion.id_tipo_status
-                                  .toString(),
+                      Text("Estado Actual: " + estadoMedicionenString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],
