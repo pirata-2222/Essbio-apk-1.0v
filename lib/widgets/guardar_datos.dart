@@ -72,7 +72,7 @@ class BotonGuardar extends StatelessWidget {
 // ****************************************
 
 class GuardarDatosBitacora extends StatefulWidget {
-  FaseInstalacion faseInstalacion;
+  final FaseInstalacion faseInstalacion;
   GuardarDatosBitacora({Key? key, required this.faseInstalacion})
       : super(key: key);
   @override
