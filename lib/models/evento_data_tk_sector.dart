@@ -84,8 +84,8 @@ class DataTKSector {
         calle_1: json['CALLE_1']== null ? 'Sin datos' : json['CALLE_1'],
         calle_2: json['CALLE_2']== null ? 'Sin datos' : json['CALLE_2'],
         estado: json['ESTADO']== null ? 0 : json['ESTADO'],
-        lon: json['LON']== null ? 0 : json['LON'],
-        lat: json['LAT']== null ? 0 : json['LAT'],
+        lon: json['LON']== null ? 0.0 : json['LON'],
+        lat: json['LAT']== null ? 0.0 : json['LAT'],
         geom: json['GEOM']== null ? 'Sin datos' : json['GEOM'],
         fecha_mod_xygo: json['FECHA_MOD_XYGO']== null ? 'Sin datos' : json['FECHA_MOD_XYGO'],
         tipo_mod_xygo: json['TIPO_MOD_XYGO']== null ? 0 : json['TIPO_MOD_XYGO']);

@@ -15,6 +15,8 @@ class FaseAbastecimiento {
   var fecha_termino;
   var id_tipo_status;
   var nombre_ot;
+  var lat;
+  var lon;
 
   FaseAbastecimiento(
       {required this.id,
@@ -32,7 +34,9 @@ class FaseAbastecimiento {
       required this.fecha_inicio,
       required this.fecha_termino,
       required this.id_tipo_status,
-      required this.nombre_ot});
+      required this.nombre_ot,
+      required this.lat,
+      required this.lon});
 
   factory FaseAbastecimiento.fromJson(Map<String, dynamic> json) {
     return FaseAbastecimiento(
@@ -63,7 +67,9 @@ class FaseAbastecimiento {
         id_tipo_status: json['ID_TIPO_STATUS'] == null? 'Sin datos':json['ID_TIPO_STATUS'],
         nombre_ot: json["NOMBRE_OT"] == null
             ? 'Sin datos'
-            : json["NOMBRE_OT"]);
+            : json["NOMBRE_OT"],
+        lat: json["LAT"] == null ? '0.0' : json["LAT"],
+        lon: json["LON"] == null ? '0.0' : json["LON"]);
   }
   dynamic toJson() => {
         'ID': id,
@@ -82,5 +88,7 @@ class FaseAbastecimiento {
         'FECHA_FIN': fecha_termino,
         'ID_TIPO_STATUS': id_tipo_status,
         "NOMBRE_OT": nombre_ot,
+        "LAT": lat,
+        'LON': lon
       };
 }

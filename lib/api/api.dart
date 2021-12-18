@@ -502,6 +502,7 @@ class EssbioProvider with ChangeNotifier {
       List<FaseRetiro> fasesRetiro,
       List<Fase> fases,
       List<Status> statuses,
+      List<DataTKSector> sectores,
       int id_usuario) {
     List<FaseInstalacion> instalacionUsuario = [];
     List<FaseAbastMedicion> medicionUsuario = [];
@@ -569,6 +570,44 @@ class EssbioProvider with ChangeNotifier {
       }
     }
 
+    //Asignar ubicaciones
+    for (var sector in sectores) {
+      for (var instalacion in instalacionUsuario) {
+        if (instalacion.ubicacion == sector.id_tk) {
+          instalacion.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
+          instalacion.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
+          break;
+        }
+      }
+    }
+    for (var sector in sectores) {
+      for (var medicion in medicionUsuario) {
+        if (medicion.ubicacion == sector.id_tk) {
+          medicion.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
+          medicion.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
+          break;
+        }
+      }
+    }
+    for (var sector in sectores) {
+      for (var abastecimiento in abastecimientoUsuario) {
+        if (abastecimiento.ubicacion == sector.id_tk) {
+          abastecimiento.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
+          abastecimiento.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
+          break;
+        }
+      }
+    }
+    for (var sector in sectores) {
+      for (var retiro in retiroUsuario) {
+        if (retiro.ubicacion == sector.id_tk) {
+          retiro.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
+          retiro.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
+          break;
+        }
+      }
+    }
+
     //Asignar status
     for (var status in statusesUsuario) {
       for (var orden in ordenesTrabajoUsuario) {
@@ -581,6 +620,7 @@ class EssbioProvider with ChangeNotifier {
         }
       }
     }
+
     for (var status in statusesUsuario) {
       for (var orden in ordenesTrabajoUsuario) {
         if (orden.id_status == status.id_status) {
