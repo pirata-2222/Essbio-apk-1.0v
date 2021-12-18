@@ -1,5 +1,6 @@
 import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/theme_library.dart';
+import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
@@ -298,6 +299,11 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                     Text("Ver Mapa",
                         style: TextStyle(color: Color(0xFFDD0009))),
                   ],
+                ),
+                SizedBox(height: 25),
+                Mapa(
+                  lat: widget.faseAbastMedicion.lat,
+                  lon: widget.faseAbastMedicion.lon,
                 ),
                 SizedBox(height: 25),
                 Column(

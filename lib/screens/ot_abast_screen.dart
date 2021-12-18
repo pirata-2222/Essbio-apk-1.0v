@@ -1,5 +1,6 @@
 import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/theme_library.dart';
+import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
@@ -313,6 +314,11 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                     Text("Ver Mapa",
                         style: TextStyle(color: Color(0xFFDD0009))),
                   ],
+                ),
+                SizedBox(height: 25),
+                Mapa(
+                  lat: widget.faseAbastecimiento.lat,
+                  lon: widget.faseAbastecimiento.lon,
                 ),
                 SizedBox(height: 25),
                 ComentarioGeneral(),

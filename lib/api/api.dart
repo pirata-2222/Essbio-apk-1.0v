@@ -576,7 +576,6 @@ class EssbioProvider with ChangeNotifier {
         if (instalacion.ubicacion == sector.id_tk) {
           instalacion.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
           instalacion.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
-          break;
         }
       }
     }
@@ -585,7 +584,6 @@ class EssbioProvider with ChangeNotifier {
         if (medicion.ubicacion == sector.id_tk) {
           medicion.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
           medicion.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
-          break;
         }
       }
     }
@@ -594,7 +592,6 @@ class EssbioProvider with ChangeNotifier {
         if (abastecimiento.ubicacion == sector.id_tk) {
           abastecimiento.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
           abastecimiento.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
-          break;
         }
       }
     }
@@ -603,7 +600,6 @@ class EssbioProvider with ChangeNotifier {
         if (retiro.ubicacion == sector.id_tk) {
           retiro.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
           retiro.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
-          break;
         }
       }
     }

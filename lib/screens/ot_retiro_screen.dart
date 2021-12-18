@@ -1,5 +1,6 @@
 import 'package:essbio_apk/models/fase_retiro.dart';
 import 'package:essbio_apk/theme_library.dart';
+import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widgets_essbio.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
@@ -302,6 +303,10 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                   ],
                 ),
                 SizedBox(height: 25),
+                Mapa(
+                  lat: widget.faseRetiro.lat,
+                  lon: widget.faseRetiro.lon,
+                ),
                 SizedBox(height: 20),
                 //RÓTULO TK
                 RotuloTKField(),
