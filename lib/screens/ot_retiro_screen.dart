@@ -140,7 +140,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                   child: Column(
                     children: [
                       SizedBox(height: 5),
-                      Text("Salas/Zamorano",
+                      Text(widget.faseRetiro.nombre_ot,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -151,7 +151,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                       SizedBox(height: 5),
                       Text(
                           "Estado: " +
-                              estadoRetiro[widget.faseRetiro.id_tipo_status]!,
+                              widget.faseRetiro.id_tipo_status.toString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],

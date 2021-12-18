@@ -152,7 +152,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                   child: Column(
                     children: [
                       SizedBox(height: 5),
-                      Text("Rocha Esq Tocornal",
+                      Text(widget.faseAbastecimiento.nombre_ot,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -161,7 +161,10 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                       Text("Fase 2 - Abastecimiento",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text("Estado: Cierre de Abastecimiento",
+                      Text(
+                          "Estado: " +
+                              widget.faseAbastecimiento.id_tipo_status
+                                  .toString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],

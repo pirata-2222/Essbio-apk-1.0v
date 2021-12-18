@@ -141,7 +141,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                   child: Column(
                     children: [
                       SizedBox(height: 5),
-                      Text("Amunátegui JJVV",
+                      Text(widget.faseAbastMedicion.nombre_ot,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -150,7 +150,10 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                       Text("Fase 3 - Medición",
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
-                      Text("Estado Actual",
+                      Text(
+                          "Estado Actual: " +
+                              widget.faseAbastMedicion.id_tipo_status
+                                  .toString(),
                           style: TextStyle(color: Colors.white)),
                       SizedBox(height: 5),
                     ],

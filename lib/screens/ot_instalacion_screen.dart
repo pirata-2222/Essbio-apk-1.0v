@@ -218,6 +218,33 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
 
+// 111: "En Curso",
+//     112: "Instalado",
+//     113: "No disponible",
+//     114: "Pendiente",
+
+    String estadoInstalacionenString() {
+      var dataEstadoinstalacion =
+          widget.faseInstalacion.id_tipo_status.toString();
+
+      switch (dataEstadoinstalacion) {
+        case "111":
+          Text("En Curso");
+          break;
+        case "112":
+          Text("Instalado");
+          break;
+        case "113":
+          Text("No Disponible");
+          break;
+        case "114":
+          Text("Pendiente");
+          break;
+        default:
+      }
+      return dataEstadoinstalacion;
+    }
+
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -272,7 +299,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                     children: [
                       SizedBox(height: 5),
                       Text(
-                        essbioP.ordenesTrabajo[2].nombre_ot,
+                        widget.faseInstalacion.nombre_ot,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
