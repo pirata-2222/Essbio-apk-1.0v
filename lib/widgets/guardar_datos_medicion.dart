@@ -1,3 +1,4 @@
+import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:essbio_apk/api/api.dart';
@@ -6,28 +7,25 @@ import 'package:essbio_apk/models/fase_instalacion.dart';
 
 // **********BOTON GUARDAR**************
 
-class BotonGuardar extends StatelessWidget {
-  final FaseInstalacion faseInstalacion;
-  BotonGuardar({Key? key, required this.faseInstalacion}) : super(key: key);
+class BotonGuardarMedicion extends StatelessWidget {
+  final FaseAbastMedicion faseAbastMedicion;
+  Map<String, dynamic> modificacion;
+  BotonGuardarMedicion(
+      {Key? key, required this.faseAbastMedicion, required this.modificacion})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    Map<String, dynamic> modificacion = {
-      "ID_TIPO_STATUS": 112,
-      "COMENTARIO_INSTALACION": "Test update",
-      "ARCHIVO_ADJUNTO": "",
-      "ROTULO_TK": "",
-    };
     return Container(
       height: 50,
       width: 150,
       color: azulPrimarioEssbio,
       child: TextButton(
         onPressed: () {
-          print(faseInstalacion.id);
-          print(faseInstalacion.id_ot);
-          essbioP.updateFasesInstalacion(faseInstalacion, modificacion);
+          print(faseAbastMedicion.id);
+          print(faseAbastMedicion.id_ot);
+          essbioP.updateFasesMedicion(faseAbastMedicion, modificacion);
           /*showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -71,15 +69,16 @@ class BotonGuardar extends StatelessWidget {
 
 // ****************************************
 
-class GuardarDatosBitacora extends StatefulWidget {
-  final FaseInstalacion faseInstalacion;
-  GuardarDatosBitacora({Key? key, required this.faseInstalacion})
+class GuardarDatosBitacoraMedicion extends StatefulWidget {
+  final FaseAbastMedicion faseAbastMedicion;
+  final Map<String, dynamic> modificacion;
+  GuardarDatosBitacoraMedicion({Key? key, required this.faseAbastMedicion, required this.modificacion})
       : super(key: key);
   @override
-  _GuardarDatosBitacoraState createState() => _GuardarDatosBitacoraState();
+  _GuardarDatosBitacoraMedicionState createState() => _GuardarDatosBitacoraMedicionState();
 }
 
-class _GuardarDatosBitacoraState extends State<GuardarDatosBitacora> {
+class _GuardarDatosBitacoraMedicionState extends State<GuardarDatosBitacoraMedicion> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -87,7 +86,7 @@ class _GuardarDatosBitacoraState extends State<GuardarDatosBitacora> {
       children: [
         Text("Los campos marcados con * son obligatorios"),
         SizedBox(height: 10),
-        BotonGuardar(faseInstalacion: widget.faseInstalacion),
+        BotonGuardarMedicion(faseAbastMedicion: widget.faseAbastMedicion, modificacion: widget.modificacion,),
         SizedBox(height: 20),
       ],
     );

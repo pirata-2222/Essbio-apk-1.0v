@@ -1,6 +1,6 @@
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/theme_library.dart';
-import 'package:essbio_apk/widgets/guardar_datos.dart';
+import 'package:essbio_apk/widgets/guardar_datos_instalacion.dart';
 import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
@@ -243,11 +243,13 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-
-// 111: "En Curso",
-//     112: "Instalado",
-//     113: "No disponible",
-//     114: "Pendiente",
+    TextEditingController comentarioController = TextEditingController();
+    TextEditingController rotuloController = TextEditingController();
+    String comentario_instalacion =
+        widget.faseInstalacion.comentario_instalacion;
+    String rotulo_tk = widget.faseInstalacion.rotulo_tk;
+    String archivo_adjunto = widget.faseInstalacion.archivo_adjunto;
+    int id_tipo_status = widget.faseInstalacion.id_tipo_status;
 
     String estadoInstalacionenString() {
       var dataEstadoinstalacion =
@@ -367,6 +369,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoInstalacion[111]!;
+                              id_tipo_status = 111;
                             });
                           },
                           child: Container(
@@ -393,6 +396,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoInstalacion[113]!;
+                              id_tipo_status = 113;
                             });
                           },
                           child: Container(
@@ -425,6 +429,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoInstalacion[112]!;
+                              id_tipo_status = 112;
                             });
                           },
                           child: Container(
@@ -451,6 +456,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoInstalacion[114]!;
+                              id_tipo_status = 114;
                             });
                           },
                           child: Container(
@@ -497,7 +503,6 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 ),
                 SizedBox(height: 25),
                 ComentarioGeneral(),
-
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
                 Padding(
@@ -527,9 +532,20 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 //RÓTULO TK
                 RotuloTKField(),
                 SizedBox(height: 20),
-                GuardarDatosBitacora(
-                  faseInstalacion: widget.faseInstalacion,
-                ),
+                TextButton(
+                    onPressed: () {
+                      Map<String, dynamic> modificacion = {
+                        "COMENTARIO_INSTALACION": "hot",
+                        "ROTULO_TK": "HOLA",
+                        "ARCHIVO_ADJUNTO": "HOLA",
+                        "ID_TIPO_STATUS": "HOLA"
+                      };
+                      essbioP.updateFasesInstalacion(
+                          widget.faseInstalacion, modificacion);
+                    },
+                    child: Text('Guardar cambios',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold)))
               ],
             ),
           )),

@@ -403,7 +403,7 @@ class EssbioProvider with ChangeNotifier {
   updateFasesMedicion(FaseAbastMedicion faseAbastMedicion,
       Map<String, dynamic> modificacion) async {
     final id = faseAbastMedicion.id;
-    final url_medicion = '$server/ot_fase_medicion/$id/?format=json';
+    final url_medicion = '$server/ot_fase_abast_medicion/$id/?format=json';
     final response = await http.put(Uri.parse(url_medicion),
         headers: {"Content-Type": "application/json"},
         body: json.encode({
@@ -469,13 +469,13 @@ class EssbioProvider with ChangeNotifier {
   updateFasesRetiro(
       FaseRetiro faseRetiro, Map<String, dynamic> modificacion) async {
     final id = faseRetiro.id;
-    final url_retiro = '$server/ot_fase_abastecimiento/$id/?format=json';
+    final url_retiro = '$server/ot_fase_retiro/$id/?format=json';
     final response = await http.put(Uri.parse(url_retiro),
         headers: {"Content-Type": "application/json"},
         body: json.encode({
-          "'NUMERO_ESTANQUE'": modificacion["'NUMERO_ESTANQUE'"] == ""
+          'NUMERO_ESTANQUE': modificacion['NUMERO_ESTANQUE'] == ""
               ? faseRetiro.numero_estanque
-              : modificacion["'NUMERO_ESTANQUE'"],
+              : modificacion['NUMERO_ESTANQUE'],
           "COMENTARIO": modificacion["COMENTARIO"] == ""
               ? faseRetiro.comentario
               : modificacion["COMENTARIO_INSTALACION"],

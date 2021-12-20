@@ -222,8 +222,9 @@ class ComentarioGeneral extends StatefulWidget {
 }
 
 class _ComentarioGeneralState extends State<ComentarioGeneral> {
+  TextEditingController comentarioController = TextEditingController();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {   
     return Column(children: [
       Text("Comentario:",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
@@ -232,6 +233,7 @@ class _ComentarioGeneralState extends State<ComentarioGeneral> {
           color: Colors.white,
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: TextField(
+            controller: comentarioController,
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Escribe tu comentario'),
