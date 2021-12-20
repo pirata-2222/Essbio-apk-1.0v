@@ -283,12 +283,55 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     SizedBox(height: 20),
 
                     Center(
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Color(0xFF10988F))),
-                          onPressed: () {},
-                          child: Text("Limpiar OT Finalizadas")),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Colores según Tipo de Estado OT"),
+                          Row(
+                            children: [
+                              Container(
+                                  width: 40, height: 40, color: Colors.grey),
+                              Text("Sin Tipo Asignado"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  color: verdeTiempoCritico),
+                              Text("Alerta"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  color: amarilloTiempoCritico),
+                              Text("Pre-Emergencia"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  color: naranjaTiempoCritico),
+                              Text("Emergencia"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                  width: 40,
+                                  height: 40,
+                                  color: rojoTiempoCritico),
+                              Text("Crisis"),
+                            ],
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
