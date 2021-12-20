@@ -62,6 +62,8 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -153,6 +155,8 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     String placeholder = estadoRetiro[widget.faseRetiro.id_tipo_status]!;
     estadoSeleccionado == "" ? estadoSeleccionado : placeholder;
 
@@ -231,6 +235,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
 
                 //ESTADOS DE LA OT
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
                       "CAMBIO DE ESTADO",
@@ -256,7 +261,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: 180,
+                            width: screenWidth*0.4,
                             child: Center(
                               child: Text(
                                 "En Curso",
@@ -281,7 +286,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: 180,
+                            width: screenWidth*0.4,
                             child: Center(
                               child: Text(
                                 "No Disponible",
@@ -312,7 +317,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: 180,
+                            width: screenWidth*0.4,
                             child: Center(
                               child: Text(
                                 "Retirado",
@@ -337,7 +342,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: 180,
+                            width: screenWidth*0.4,
                             child: Center(
                               child: Text(
                                 "Pendiente",
