@@ -50,6 +50,8 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                     essbioP.fases,
                     essbioP.status,
                     essbioP.dataTKSectores,
+                    essbioP.procesos,
+                    essbioP.dataEventos,
                     essbioP.usuario!.idusuario);
                 Navigator.push(
                   context,

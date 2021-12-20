@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                     stream: essbioP.loginCounterController.stream,
                     builder: (context, AsyncSnapshot<int> snapshot) {
                       if (snapshot.hasData) {
-                        if (snapshot.data! < 13) {
+                        if (snapshot.data! < 14) {
                           return Column(
                             children: [
                               Text("Cargando desde base de datos"),
@@ -88,6 +88,8 @@ class _HomeState extends State<Home> {
                                       essbioP.fases,
                                       essbioP.status,
                                       essbioP.dataTKSectores,
+                                      essbioP.procesos,
+                                      essbioP.dataEventos,
                                       4
                                       /*essbioP.validateLogin(
                             usernameController.text, generateMd5(passwordController.text))[1].idusuario*/

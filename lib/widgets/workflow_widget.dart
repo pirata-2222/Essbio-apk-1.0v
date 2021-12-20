@@ -57,11 +57,6 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
         ),
       ),
       home: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print(DateTime.now().toIso8601String().substring(0, 19) + "Z");
-          },
-        ),
         appBar: AppBar(
           title: Text("ESSBIO APP"),
         ),

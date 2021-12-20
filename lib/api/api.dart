@@ -9,6 +9,7 @@ import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/models/fase_retiro.dart';
 import 'package:essbio_apk/models/mod_wkf_fase.dart';
+import 'package:essbio_apk/models/mod_wkf_proceso.dart';
 import 'package:essbio_apk/models/mod_wkf_status.dart';
 import 'package:essbio_apk/models/mod_wkf_tipo_modulo.dart';
 import 'package:essbio_apk/models/xygo_usuario.dart';
@@ -31,6 +32,7 @@ class EssbioProvider with ChangeNotifier {
     this.fetchFasesAbastecimiento();
     this.fetchFasesRetiro();
     this.fetchDataEventos();
+    this.fetchProcesos();
   }
   // final server = "http://10.0.2.2:8000";
   final server = "https://djangorestessbio.herokuapp.com";
@@ -107,12 +109,30 @@ class EssbioProvider with ChangeNotifier {
     return [..._usuarios];
   }
 
+  List<Proceso> _procesos = [];
+  List<Proceso> get procesos {
+    return [..._procesos];
+  }
+
   Usuario? _usuario;
   Usuario? get usuario {
     return _usuario;
   }
 
   //Funciones para solicitud GET
+
+  fetchProcesos() async {
+    final url = '${server}/mod_wkf_proceso/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _procesos = data.map<Proceso>((json) => Proceso.fromJson(json)).toList();
+      print("Procesos obtenidos");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
+    }
+  }
+
   fetchOrdenesTrabajo() async {
     final url = '${server}/mod_wkf_orden_trabajo/?format=json';
     final response = await http.get(Uri.parse(url));
@@ -503,6 +523,8 @@ class EssbioProvider with ChangeNotifier {
       List<Fase> fases,
       List<Status> statuses,
       List<DataTKSector> sectores,
+      List<Proceso> procesos,
+      List<DataEventos> eventos,
       int id_usuario) {
     List<FaseInstalacion> instalacionUsuario = [];
     List<FaseAbastMedicion> medicionUsuario = [];
@@ -574,32 +596,48 @@ class EssbioProvider with ChangeNotifier {
     for (var sector in sectores) {
       for (var instalacion in instalacionUsuario) {
         if (instalacion.ubicacion == sector.id_tk) {
-          instalacion.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
-          instalacion.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
+          instalacion.lat = sector.lat.runtimeType == String
+              ? double.parse(sector.lat)
+              : sector.lat;
+          instalacion.lon = sector.lon.runtimeType == String
+              ? double.parse(sector.lon)
+              : sector.lon;
         }
       }
     }
     for (var sector in sectores) {
       for (var medicion in medicionUsuario) {
         if (medicion.ubicacion == sector.id_tk) {
-          medicion.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
-          medicion.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
+          medicion.lat = sector.lat.runtimeType == String
+              ? double.parse(sector.lat)
+              : sector.lat;
+          medicion.lon = sector.lon.runtimeType == String
+              ? double.parse(sector.lon)
+              : sector.lon;
         }
       }
     }
     for (var sector in sectores) {
       for (var abastecimiento in abastecimientoUsuario) {
         if (abastecimiento.ubicacion == sector.id_tk) {
-          abastecimiento.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
-          abastecimiento.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
+          abastecimiento.lat = sector.lat.runtimeType == String
+              ? double.parse(sector.lat)
+              : sector.lat;
+          abastecimiento.lon = sector.lon.runtimeType == String
+              ? double.parse(sector.lon)
+              : sector.lon;
         }
       }
     }
     for (var sector in sectores) {
       for (var retiro in retiroUsuario) {
         if (retiro.ubicacion == sector.id_tk) {
-          retiro.lat = sector.lat.runtimeType == String? double.parse(sector.lat):sector.lat;
-          retiro.lon = sector.lon.runtimeType == String? double.parse(sector.lon):sector.lon;
+          retiro.lat = sector.lat.runtimeType == String
+              ? double.parse(sector.lat)
+              : sector.lat;
+          retiro.lon = sector.lon.runtimeType == String
+              ? double.parse(sector.lon)
+              : sector.lon;
         }
       }
     }
@@ -700,6 +738,28 @@ class EssbioProvider with ChangeNotifier {
         }
       }
     }
+    Stopwatch stopwatch = new Stopwatch()..start();
+    for (var evento in eventos) {
+      for (var proceso in procesos) {
+        if (evento.num_sisda == proceso.descripcion_proceso) {
+          for (var fase in fases) {
+            if (fase.id_flujo == proceso.id_flujo) {
+              for (var orden in ordenesTrabajo) {
+                if (orden.id_fase == fase.id_fase) {
+                  for (var instalacion in instalacionUsuario) {
+                    if (instalacion.id_ot == orden.id_ot) {
+                      instalacion.tipo_evento = evento.tipo_evento;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    print('for gigante executed in ${stopwatch.elapsed.inSeconds}');
+
     print("Terminé");
     return fasesUsuario;
   }
