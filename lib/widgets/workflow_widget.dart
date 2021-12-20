@@ -287,48 +287,40 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Colores según Tipo de Estado OT"),
-                          Row(
-                            children: [
-                              Container(
-                                  width: 40, height: 40, color: Colors.grey),
-                              Text("Sin Tipo Asignado"),
-                            ],
+                          SizedBox(
+                            height: 15,
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                  width: 40,
-                                  height: 40,
-                                  color: verdeTiempoCritico),
-                              Text("Alerta"),
-                            ],
+                          Container(
+                              width: 130,
+                              height: 40,
+                              color: Colors.grey,
+                              child: Center(child: Text("Sin Tipo Asignado"))),
+                          Container(
+                            width: 130,
+                            height: 40,
+                            color: verdeTiempoCritico,
+                            child: Center(child: Text("Alerta")),
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                  width: 40,
-                                  height: 40,
-                                  color: amarilloTiempoCritico),
-                              Text("Pre-Emergencia"),
-                            ],
+                          Container(
+                            width: 130,
+                            height: 40,
+                            color: amarilloTiempoCritico,
+                            child: Center(child: Text("Pre-Emergencia")),
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                  width: 40,
-                                  height: 40,
-                                  color: naranjaTiempoCritico),
-                              Text("Emergencia"),
-                            ],
+                          Container(
+                            width: 130,
+                            height: 40,
+                            color: naranjaTiempoCritico,
+                            child: Center(child: Text("Emergencia")),
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                  width: 40,
-                                  height: 40,
-                                  color: rojoTiempoCritico),
-                              Text("Crisis"),
-                            ],
+                          Container(
+                            width: 130,
+                            height: 40,
+                            color: rojoTiempoCritico,
+                            child: Center(child: Text("Crisis")),
+                          ),
+                          SizedBox(
+                            height: 15,
                           )
                         ],
                       ),
