@@ -263,6 +263,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     TextEditingController comentarioController = TextEditingController();
     TextEditingController rotuloController = TextEditingController();
     String comentario_instalacion =
@@ -374,134 +376,138 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         .substring(0, 10)),
 
                 //ESTADOS DE LA OT
-                Column(
-                  children: [
-                    Text(
-                      "CAMBIO DE ESTADO",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
-                    ),
-                    SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              estadoSeleccionado = estadoInstalacion[111]!;
-                              id_tipo_status = 111;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoSeleccionado == estadoInstalacion[111]
-                                      ? estadoActivo
-                                      : estadoPasivo,
-                            ),
-                            margin: EdgeInsets.only(left: 10, right: 5),
-                            height: 35,
-                            width: 180,
-                            child: Center(
-                              child: Text(
-                                "En Curso",
-                                style: TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
+                Container(
+                  width: screenWidth,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "CAMBIO DE ESTADO",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w800),
+                      ),
+                      SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                estadoSeleccionado = estadoInstalacion[111]!;
+                                id_tipo_status = 111;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color:
+                                    estadoSeleccionado == estadoInstalacion[111]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
+                              margin: EdgeInsets.only(left: 10, right: 5),
+                              height: 35,
+                              width: screenWidth*0.4,
+                              child: Center(
+                                child: Text(
+                                  "En Curso",
+                                  style: TextStyle(color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              estadoSeleccionado = estadoInstalacion[113]!;
-                              id_tipo_status = 113;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoSeleccionado == estadoInstalacion[113]
-                                      ? estadoActivo
-                                      : estadoPasivo,
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                estadoSeleccionado = estadoInstalacion[113]!;
+                                id_tipo_status = 113;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color:
+                                    estadoSeleccionado == estadoInstalacion[113]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
+                              margin: EdgeInsets.only(left: 5, right: 10),
+                              height: 35,
+                              width: screenWidth*0.4,
+                              child: Center(
+                                child: Text(
+                                  "No Disponible",
+                                  style: TextStyle(color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ),
-                            margin: EdgeInsets.only(left: 5, right: 10),
-                            height: 35,
-                            width: 180,
-                            child: Center(
-                              child: Text(
-                                "No Disponible",
-                                style: TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                estadoSeleccionado = estadoInstalacion[112]!;
+                                id_tipo_status = 112;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color:
+                                    estadoSeleccionado == estadoInstalacion[112]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
+                              margin: EdgeInsets.only(left: 10, right: 5),
+                              height: 35,
+                              width: screenWidth*0.4,
+                              child: Center(
+                                child: Text(
+                                  "Instalado",
+                                  style: TextStyle(color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              estadoSeleccionado = estadoInstalacion[112]!;
-                              id_tipo_status = 112;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoSeleccionado == estadoInstalacion[112]
-                                      ? estadoActivo
-                                      : estadoPasivo,
-                            ),
-                            margin: EdgeInsets.only(left: 10, right: 5),
-                            height: 35,
-                            width: 180,
-                            child: Center(
-                              child: Text(
-                                "Instalado",
-                                style: TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                estadoSeleccionado = estadoInstalacion[114]!;
+                                id_tipo_status = 114;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color:
+                                    estadoSeleccionado == estadoInstalacion[114]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
+                              margin: EdgeInsets.only(left: 5, right: 10),
+                              height: 35,
+                              width: screenWidth*0.4,
+                              child: Center(
+                                child: Text(
+                                  "Pendiente",
+                                  style: TextStyle(color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              estadoSeleccionado = estadoInstalacion[114]!;
-                              id_tipo_status = 114;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoSeleccionado == estadoInstalacion[114]
-                                      ? estadoActivo
-                                      : estadoPasivo,
-                            ),
-                            margin: EdgeInsets.only(left: 5, right: 10),
-                            height: 35,
-                            width: 180,
-                            child: Center(
-                              child: Text(
-                                "Pendiente",
-                                style: TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 25),
                 //UBICACIÓN TK
@@ -528,6 +534,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                   Center(
                     child: Container(
+                      height: 50.0,
+                      width: screenWidth*0.8,
                       color: Colors.white,
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: TextField(
@@ -596,20 +604,23 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                   ),
                 ]),
                 SizedBox(height: 20),
-                TextButton(
-                    onPressed: () {
-                      Map<String, dynamic> modificacion = {
-                        "COMENTARIO_INSTALACION": comentarioController.text,
-                        "ROTULO_TK": rotuloController.text,
-                        "ARCHIVO_ADJUNTO": "",
-                        "ID_TIPO_STATUS": id_tipo_status
-                      };
-                      essbioP.updateFasesInstalacion(
-                          widget.faseInstalacion, modificacion);
-                    },
-                    child: Text('Guardar cambios',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold)))
+                Container(
+                  color: azulPrimarioEssbio,
+                  child: TextButton(
+                      onPressed: () {
+                        Map<String, dynamic> modificacion = {
+                          "COMENTARIO_INSTALACION": comentarioController.text,
+                          "ROTULO_TK": rotuloController.text,
+                          "ARCHIVO_ADJUNTO": "",
+                          "ID_TIPO_STATUS": id_tipo_status
+                        };
+                        essbioP.updateFasesInstalacion(
+                            widget.faseInstalacion, modificacion);
+                      },
+                      child: Text('Guardar cambios',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold))),
+                )
               ],
             ),
           )),
