@@ -17,6 +17,7 @@ class FaseAbastecimiento {
   var nombre_ot;
   var lat;
   var lon;
+  var tipo_evento;
 
   FaseAbastecimiento(
       {required this.id,
@@ -36,7 +37,8 @@ class FaseAbastecimiento {
       required this.id_tipo_status,
       required this.nombre_ot,
       required this.lat,
-      required this.lon});
+      required this.lon,
+      required this.tipo_evento});
 
   factory FaseAbastecimiento.fromJson(Map<String, dynamic> json) {
     return FaseAbastecimiento(
@@ -62,14 +64,17 @@ class FaseAbastecimiento {
             ? 'Sin datos'
             : json['FECHA_MOD_XYGO'],
         ir_mapa: json['IR_MAPA'] == null ? 'Sin datos' : json['IR_MAPA'],
-        fecha_inicio: json['FECHA_INI'] == null ? 'Sin datos' : json['FECHA_INI'],
-        fecha_termino: json['FECHA_FIN'] == null? 'sin datos':json['FECHA_FIN'],
-        id_tipo_status: json['ID_TIPO_STATUS'] == null? 'Sin datos':json['ID_TIPO_STATUS'],
-        nombre_ot: json["NOMBRE_OT"] == null
+        fecha_inicio:
+            json['FECHA_INI'] == null ? 'Sin datos' : json['FECHA_INI'],
+        fecha_termino:
+            json['FECHA_FIN'] == null ? 'sin datos' : json['FECHA_FIN'],
+        id_tipo_status: json['ID_TIPO_STATUS'] == null
             ? 'Sin datos'
-            : json["NOMBRE_OT"],
+            : json['ID_TIPO_STATUS'],
+        nombre_ot: json["NOMBRE_OT"] == null ? 'Sin datos' : json["NOMBRE_OT"],
         lat: json["LAT"] == null ? '0.0' : json["LAT"],
-        lon: json["LON"] == null ? '0.0' : json["LON"]);
+        lon: json["LON"] == null ? '0.0' : json["LON"],
+        tipo_evento: json["TIPO_EVENTO"] == null ? '0.0' : json["TIPO_EVENTO"]);
   }
   dynamic toJson() => {
         'ID': id,
@@ -89,6 +94,7 @@ class FaseAbastecimiento {
         'ID_TIPO_STATUS': id_tipo_status,
         "NOMBRE_OT": nombre_ot,
         "LAT": lat,
-        'LON': lon
+        'LON': lon,
+        "TIPO_EVENTO": tipo_evento
       };
 }

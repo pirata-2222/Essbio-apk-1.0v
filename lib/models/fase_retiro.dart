@@ -16,6 +16,7 @@ class FaseRetiro {
   var nombre_ot;
   var lat;
   var lon;
+  var tipo_evento;
   FaseRetiro(
       {required this.id,
       required this.contratista,
@@ -33,7 +34,8 @@ class FaseRetiro {
       required this.id_tipo_status,
       required this.nombre_ot,
       required this.lat,
-      required this.lon});
+      required this.lon,
+      required this.tipo_evento});
 
   factory FaseRetiro.fromJson(Map<String, dynamic> json) {
     return FaseRetiro(
@@ -65,7 +67,9 @@ class FaseRetiro {
             ? 'Sin datos'
             : json["NOMBRE_OT"],
         lat: json["LAT"] == null ? '0.0' : json["LAT"],
-        lon: json["LON"] == null ? '0.0' : json["LON"]);
+        lon: json["LON"] == null ? '0.0' : json["LON"],
+        tipo_evento: json["TIPO_EVENTO"] == null ? '0.0' : json["TIPO_EVENTO"]
+        );
   }
   dynamic toJson() => {
         'ID': id,
@@ -84,6 +88,7 @@ class FaseRetiro {
         'ID_TIPO_STATUS': id_tipo_status,
         "NOMBRE_OT": nombre_ot,
         "LAT": lat,
-        'LON': lon
+        'LON': lon,
+        "TIPO_EVENTO": tipo_evento
       };
 }

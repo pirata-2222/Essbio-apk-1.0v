@@ -738,6 +738,8 @@ class EssbioProvider with ChangeNotifier {
         }
       }
     }
+
+    //Asignar tipo de evento
     Stopwatch stopwatch = new Stopwatch()..start();
     for (var evento in eventos) {
       for (var proceso in procesos) {
@@ -749,6 +751,21 @@ class EssbioProvider with ChangeNotifier {
                   for (var instalacion in instalacionUsuario) {
                     if (instalacion.id_ot == orden.id_ot) {
                       instalacion.tipo_evento = evento.tipo_evento;
+                    }
+                  }
+                  for (var medicion in medicionUsuario) {
+                    if (medicion.id_ot == orden.id_ot) {
+                      medicion.tipo_evento = evento.tipo_evento;
+                    }
+                  }
+                  for (var abastecimiento in abastecimientoUsuario) {
+                    if (abastecimiento.id_ot == orden.id_ot) {
+                      abastecimiento.tipo_evento = evento.tipo_evento;
+                    }
+                  }
+                  for (var retiro in retiroUsuario) {
+                    if (retiro.id_ot == orden.id_ot) {
+                      retiro.tipo_evento = evento.tipo_evento;
                     }
                   }
                 }

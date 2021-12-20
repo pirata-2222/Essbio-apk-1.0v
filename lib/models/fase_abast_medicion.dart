@@ -25,6 +25,7 @@ class FaseAbastMedicion {
   var nombre_ot;
   var lat;
   var lon;
+  var tipo_evento;
   FaseAbastMedicion(
       {required this.id,
       required this.personal,
@@ -51,7 +52,8 @@ class FaseAbastMedicion {
       required this.id_tipo_status,
       required this.nombre_ot,
       required this.lat,
-      required this.lon});
+      required this.lon,
+      required this.tipo_evento});
 
   factory FaseAbastMedicion.fromJson(Map<String, dynamic> json) {
     return FaseAbastMedicion(
@@ -105,7 +107,8 @@ class FaseAbastMedicion {
             : json['ID_TIPO_STATUS'],
         nombre_ot: json["NOMBRE_OT"] == null ? 'Sin datos' : json["NOMBRE_OT"],
         lat: json["LAT"] == null ? '0.0' : json["LAT"],
-        lon: json["LON"] == null ? '0.0' : json["LON"]);
+        lon: json["LON"] == null ? '0.0' : json["LON"],
+        tipo_evento: json["TIPO_EVENTO"] == null ? '0.0' : json["TIPO_EVENTO"]);
   }
   dynamic toJson() => {
         'ID': id,
@@ -133,6 +136,7 @@ class FaseAbastMedicion {
         'ID_TIPO_STATUS': id_tipo_status,
         "NOMBRE_OT": nombre_ot,
         "LAT": lat,
-        'LON': lon
+        'LON': lon,
+        'TIPO_EVENTO': tipo_evento
       };
 }
