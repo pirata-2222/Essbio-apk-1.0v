@@ -502,7 +502,22 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                   lon: widget.faseInstalacion.lon,
                 ),
                 SizedBox(height: 25),
-                ComentarioGeneral(),
+                Column(children: [
+                Text("Comentario:",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                Center(
+                  child: Container(
+                    color: Colors.white,
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: TextField(
+                      controller: comentarioController,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Escribe tu comentario'),
+                    ),
+                  ),
+                ),
+              ]),
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
                 Padding(
@@ -541,15 +556,31 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 ),
                 SizedBox(height: 20),
                 //RÓTULO TK
-                RotuloTKField(),
+                Column(children: [
+                  Text("Rótulo TK:",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      color: Colors.white,
+                      height: 30,
+                      margin: EdgeInsets.symmetric(horizontal: 25),
+                      child: TextField(
+                        controller: rotuloController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
                 SizedBox(height: 20),
                 TextButton(
                     onPressed: () {
                       Map<String, dynamic> modificacion = {
-                        "COMENTARIO_INSTALACION": "hot",
-                        "ROTULO_TK": "HOLA",
-                        "ARCHIVO_ADJUNTO": "HOLA",
-                        "ID_TIPO_STATUS": "HOLA"
+                        "COMENTARIO_INSTALACION": comentarioController.text,
+                        "ROTULO_TK": rotuloController.text,
+                        "ARCHIVO_ADJUNTO": "",
+                        "ID_TIPO_STATUS": id_tipo_status
                       };
                       essbioP.updateFasesInstalacion(
                           widget.faseInstalacion, modificacion);
