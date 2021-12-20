@@ -75,6 +75,8 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -221,22 +223,25 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                 Container(
                   color: Color(0xFF0513AA),
                   width: double.infinity,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 5),
-                      Text(widget.faseAbastecimiento.nombre_ot,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700)),
-                      SizedBox(height: 5),
-                      Text("Fase 2 - Abastecimiento",
-                          style: TextStyle(color: Colors.white)),
-                      SizedBox(height: 5),
-                      Text("Estado: " + estadoAbastecimientoenString(),
-                          style: TextStyle(color: Colors.white)),
-                      SizedBox(height: 5),
-                    ],
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(height: 5),
+                        Text(widget.faseAbastecimiento.nombre_ot,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700)),
+                        SizedBox(height: 5),
+                        Text("Fase 2 - Abastecimiento",
+                            style: TextStyle(color: Colors.white)),
+                        SizedBox(height: 5),
+                        Text("Estado: " + estadoAbastecimientoenString(),
+                            style: TextStyle(color: Colors.white)),
+                        SizedBox(height: 5),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),

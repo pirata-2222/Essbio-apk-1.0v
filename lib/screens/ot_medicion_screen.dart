@@ -64,6 +64,8 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -160,6 +162,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -209,6 +213,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                   color: Color(0xFF0513AA),
                   width: double.infinity,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(height: 5),
                       Text(widget.faseAbastMedicion.nombre_ot,
@@ -260,7 +265,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: 180,
+                            width: screenWidth*0.4,
                             child: Center(
                               child: Text(
                                 "En Curso",
@@ -285,7 +290,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: 180,
+                            width: screenWidth*0.4,
                             child: Center(
                               child: Text(
                                 "No Disponible",
@@ -316,7 +321,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: 180,
+                            width: screenWidth*0.4,
                             child: Center(
                               child: Text(
                                 "Medido",
@@ -341,7 +346,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: 180,
+                            width: screenWidth*0.4,
                             child: Center(
                               child: Text(
                                 "Finalizado",
