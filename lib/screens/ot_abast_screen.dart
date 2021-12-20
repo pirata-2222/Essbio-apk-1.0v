@@ -26,6 +26,28 @@ class OtPendienteAbast extends StatefulWidget {
 }
 
 class _OtPendienteAbastState extends State<OtPendienteAbast> {
+  Color colorOTabastecimiento() {
+    var dataTipoEvento = widget.faseAbastecimiento.tipo_evento.toString();
+    Color colorTipoEventoAbastecimiento;
+    switch (dataTipoEvento) {
+      case "Alerta":
+        colorTipoEventoAbastecimiento = verdeTiempoCritico;
+        break;
+      case "Pre-Emergencia":
+        colorTipoEventoAbastecimiento = amarilloTiempoCritico;
+        break;
+      case "Emergencia":
+        colorTipoEventoAbastecimiento = naranjaTiempoCritico;
+        break;
+      case "Crisis":
+        colorTipoEventoAbastecimiento = rojoTiempoCritico;
+        break;
+      default:
+        colorTipoEventoAbastecimiento = Colors.grey;
+    }
+    return colorTipoEventoAbastecimiento;
+  }
+
   String estadoAbastecimientoenString() {
     var dataEstadoAbastecimiento =
         widget.faseAbastecimiento.id_tipo_status.toString();
@@ -63,10 +85,10 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: naranjaTiempoCritico,
+            color: colorOTabastecimiento(),
           ),
-          width: 100,
-          height: 150,
+          width: 120,
+          height: 170,
           child: Column(
             children: [
               SizedBox(height: 5),

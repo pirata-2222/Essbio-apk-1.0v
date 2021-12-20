@@ -16,6 +16,28 @@ class OtPendienteRetiro extends StatefulWidget {
 }
 
 class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
+  Color colorOTretiro() {
+    var dataTipoEvento = widget.faseRetiro.tipo_evento.toString();
+    Color colorTipoEventoRetiro;
+    switch (dataTipoEvento) {
+      case "Alerta":
+        colorTipoEventoRetiro = verdeTiempoCritico;
+        break;
+      case "Pre-Emergencia":
+        colorTipoEventoRetiro = amarilloTiempoCritico;
+        break;
+      case "Emergencia":
+        colorTipoEventoRetiro = naranjaTiempoCritico;
+        break;
+      case "Crisis":
+        colorTipoEventoRetiro = rojoTiempoCritico;
+        break;
+      default:
+        colorTipoEventoRetiro = Colors.grey;
+    }
+    return colorTipoEventoRetiro;
+  }
+
   String estadoRetiroenString() {
     var dataEstadoRetiro = widget.faseRetiro.id_tipo_status.toString();
 
@@ -50,10 +72,10 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: verdeTiempoCritico,
+            color: colorOTretiro(),
           ),
-          width: 100,
-          height: 150,
+          width: 120,
+          height: 170,
           child: Column(
             children: [
               SizedBox(height: 5),

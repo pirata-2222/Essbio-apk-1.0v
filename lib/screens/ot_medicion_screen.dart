@@ -18,6 +18,28 @@ class OtPendienteMedicion extends StatefulWidget {
 }
 
 class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
+  Color colorOTmedicion() {
+    var dataTipoEvento = widget.faseAbastMedicion.tipo_evento.toString();
+    Color colorTipoEventoMedicion;
+    switch (dataTipoEvento) {
+      case "Alerta":
+        colorTipoEventoMedicion = verdeTiempoCritico;
+        break;
+      case "Pre-Emergencia":
+        colorTipoEventoMedicion = amarilloTiempoCritico;
+        break;
+      case "Emergencia":
+        colorTipoEventoMedicion = naranjaTiempoCritico;
+        break;
+      case "Crisis":
+        colorTipoEventoMedicion = rojoTiempoCritico;
+        break;
+      default:
+        colorTipoEventoMedicion = Colors.grey;
+    }
+    return colorTipoEventoMedicion;
+  }
+
   String estadoMedicionenString() {
     var dataEstadoMedicion = widget.faseAbastMedicion.id_tipo_status.toString();
 
@@ -52,10 +74,10 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: rojoTiempoCritico,
+            color: colorOTmedicion(),
           ),
-          width: 100,
-          height: 150,
+          width: 120,
+          height: 170,
           child: Column(
             children: [
               SizedBox(height: 5),

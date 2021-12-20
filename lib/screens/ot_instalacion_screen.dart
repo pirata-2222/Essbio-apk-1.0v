@@ -16,8 +16,6 @@ import 'package:path_provider/path_provider.dart';
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
 
-enum Estado { EnCurso, NoDisponible, Instalado, Pendiente, Empty }
-
 class OtPendienteInstalacion extends StatefulWidget {
   final FaseInstalacion faseInstalacion;
   OtPendienteInstalacion({Key? key, required this.faseInstalacion})
@@ -28,6 +26,28 @@ class OtPendienteInstalacion extends StatefulWidget {
 }
 
 class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
+  Color colorOTinstalacion() {
+    var dataTipoEvento = widget.faseInstalacion.tipo_evento.toString();
+    Color colorTipoEventoInstalacion;
+    switch (dataTipoEvento) {
+      case "Alerta":
+        colorTipoEventoInstalacion = verdeTiempoCritico;
+        break;
+      case "Pre-Emergencia":
+        colorTipoEventoInstalacion = amarilloTiempoCritico;
+        break;
+      case "Emergencia":
+        colorTipoEventoInstalacion = naranjaTiempoCritico;
+        break;
+      case "Crisis":
+        colorTipoEventoInstalacion = rojoTiempoCritico;
+        break;
+      default:
+        colorTipoEventoInstalacion = Colors.grey;
+    }
+    return colorTipoEventoInstalacion;
+  }
+
   String estadoInstalacionenString() {
     var dataEstadoinstalacion =
         widget.faseInstalacion.id_tipo_status.toString();
@@ -68,9 +88,9 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: amarilloTiempoCritico,
+            color: colorOTinstalacion(),
           ),
-          width: 100,
+          width: 120,
           height: 170,
           child: Column(
             children: [
@@ -503,21 +523,22 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 ),
                 SizedBox(height: 25),
                 Column(children: [
-                Text("Comentario:",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-                Center(
-                  child: Container(
-                    color: Colors.white,
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: TextField(
-                      controller: comentarioController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Escribe tu comentario'),
+                  Text("Comentario:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      color: Colors.white,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        controller: comentarioController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Escribe tu comentario'),
+                      ),
                     ),
                   ),
-                ),
-              ]),
+                ]),
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
                 Padding(
@@ -558,7 +579,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 //RÓTULO TK
                 Column(children: [
                   Text("Rótulo TK:",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                   Center(
                     child: Container(
                       color: Colors.white,
