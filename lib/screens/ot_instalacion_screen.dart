@@ -11,6 +11,7 @@ import 'package:essbio_apk/api/api.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -134,11 +135,12 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   };
 
 // *****CONFIGURACION PARA IMAGE PICKER*****
-  File? _imagen;
+  File? imagen = null;
   final picker = ImagePicker();
 
-  Future selImagen(op) async {
+  Future selimagen(op) async {
     var pickedFile;
+
     if (op == 1) {
       pickedFile = await picker.pickImage(source: ImageSource.camera);
     } else {
@@ -147,12 +149,11 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
 
     setState(() {
       if (pickedFile != null) {
-        _imagen = File(pickedFile.path);
+        imagen = File(pickedFile.path);
       } else {
-        print("No se ha seleccionado ninguna foto");
+        print('No selecciono una foto');
       }
     });
-    Navigator.of(context).pop();
   }
 
   opciones(context) {
@@ -160,81 +161,80 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              contentPadding: EdgeInsets.all(0),
-              content: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          selImagen(1);
-                          Navigator.of(context).pop();
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(width: 1, color: Colors.grey),
+            contentPadding: EdgeInsets.all(0),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      selimagen(1);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Tomar una foto',
+                              style: TextStyle(fontSize: 16),
                             ),
                           ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "Tomar una fotografía",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ),
-                              Icon(
-                                Icons.camera_alt,
-                                color: Colors.blue,
-                              )
-                            ],
+                          Icon(Icons.camera_alt, color: Colors.blue)
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      selimagen(2);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Seleccionar Foto',
+                              style: TextStyle(fontSize: 16),
+                            ),
                           ),
-                        )),
-                    InkWell(
-                        onTap: () {
-                          selImagen(2);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "Seleccionar de Galería",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ),
-                              Icon(
-                                Icons.image,
-                                color: Colors.blue,
-                              )
-                            ],
+                          Icon(Icons.image, color: Colors.blue)
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Listo',
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        )),
-                    InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(color: Colors.red),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  "Cancelar",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ))
-                  ],
-                ),
-              ));
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         });
   }
 
@@ -508,25 +508,36 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                 Padding(
                   padding: EdgeInsets.all(20),
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color(0xFFDD0009))),
-                            onPressed: () => opciones(context),
-                            child: Text(
-                              "Tomar/Adjuntar Fotografía",
-                              style: TextStyle(color: Colors.white),
-                            )),
-                        _imagen == null
-                            ? Icon(
-                                Icons.image_outlined,
-                                color: Colors.grey,
-                                size: 40,
-                              )
-                            : Image.file(_imagen!)
-                      ]),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(rojoEssbio)),
+                        onPressed: () {
+                          opciones(context);
+                        },
+                        child: Center(
+                          child: Row(
+                            children: [
+                              Text(
+                                '                        Adjuntar Fotografía',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Icon(Icons.image)
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      imagen != null ? Image.file(imagen!) : Center()
+                    ],
+                  ),
                 ),
                 SizedBox(height: 20),
                 //RÓTULO TK
