@@ -12,6 +12,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -27,25 +28,30 @@ class OtPendienteInstalacion extends StatefulWidget {
 
 class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
   Color colorOTinstalacion() {
-    var dataTipoEvento = widget.faseInstalacion.tipo_evento.toString();
-    Color colorTipoEventoInstalacion;
-    switch (dataTipoEvento) {
-      case "Alerta":
-        colorTipoEventoInstalacion = verdeTiempoCritico;
-        break;
-      case "Pre-Emergencia":
-        colorTipoEventoInstalacion = amarilloTiempoCritico;
-        break;
-      case "Emergencia":
-        colorTipoEventoInstalacion = naranjaTiempoCritico;
-        break;
-      case "Crisis":
-        colorTipoEventoInstalacion = rojoTiempoCritico;
-        break;
-      default:
-        colorTipoEventoInstalacion = Colors.grey;
+    int daysBetween(DateTime from, DateTime to) {
+      from = DateTime(from.year, from.month, from.day);
+      to = DateTime(to.year, to.month, to.day);
+      return (to.difference(from).inDays).round();
     }
-    return colorTipoEventoInstalacion;
+
+    var fechaTermino = widget.faseInstalacion.fecha_termino;
+    var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
+    var fechaActual = DateTime.now();
+    var tiempoRestanteInstalacion =
+        daysBetween(fechaTerminoFormatoDate, fechaActual);
+
+    Color colorTiempoRestanteInstalacion = Colors.grey;
+
+    if (tiempoRestanteInstalacion <= 7) {
+      colorTiempoRestanteInstalacion = rojoTiempoCritico;
+    }
+    if (tiempoRestanteInstalacion <= 14 && tiempoRestanteInstalacion > 7) {
+      colorTiempoRestanteInstalacion = amarilloTiempoCritico;
+    }
+    if (tiempoRestanteInstalacion > 14) {
+      colorTiempoRestanteInstalacion = verdeTiempoCritico;
+    }
+    return colorTiempoRestanteInstalacion;
   }
 
   String estadoInstalacionenString() {
