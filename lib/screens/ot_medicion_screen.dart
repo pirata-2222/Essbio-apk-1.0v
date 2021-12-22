@@ -66,8 +66,6 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -175,7 +173,6 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
     TextEditingController nivelTurbiedadController = TextEditingController();
     int id_tipo_status = widget.faseAbastMedicion.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),

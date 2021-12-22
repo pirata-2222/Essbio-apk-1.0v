@@ -77,8 +77,6 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -181,7 +179,6 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
     TextEditingController comentarioController = TextEditingController();
     int id_tipo_status = widget.faseAbastecimiento.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),

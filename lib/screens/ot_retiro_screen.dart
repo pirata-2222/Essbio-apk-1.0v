@@ -76,8 +76,6 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -174,7 +172,6 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
     TextEditingController numeroEstanqueController = TextEditingController();
     int id_tipo_status = widget.faseRetiro.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     String placeholder = estadoRetiro[widget.faseRetiro.id_tipo_status]!;
     estadoSeleccionado == "" ? estadoSeleccionado : placeholder;
 
