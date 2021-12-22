@@ -128,6 +128,10 @@ class OtMedicionScreen extends StatefulWidget {
 }
 
 class _OtMedicionScreenState extends State<OtMedicionScreen> {
+  String dropdownValueNivelAgua = 'NIVEL DE AGUA CUMPLE NORMA';
+  String dropdownValueNivelCloro = 'NIVEL CLORO CUMPLE NORMA';
+  String dropdownValueNivelTurbiedad = 'TURBIEDAD CUMPLE NORMA';
+
   Map<int, String> estadoMedicion = {
     130: "Finalizado",
     131: "En Curso",
@@ -395,17 +399,101 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                     Text("                NIVEL AGUA"),
                     MedicionTextField(),
                     SizedBox(height: 15),
-                    Center(child: DropdownButtonMedicion1()),
+                    Text("                NIVEL AGUA CUMPLE NORMA"),
+                    Center(
+                        child: Container(
+                      color: Color(0xFF8AB5CF),
+                      height: 30,
+                      width: 300,
+                      child: DropdownButton<String>(
+                        value: dropdownValueNivelAgua,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        underline: Container(
+                          height: 2,
+                          color: Color(0xFF8AB5CF),
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValueNivelAgua = newValue!;
+                          });
+                        },
+                        items: <String>[
+                          'NIVEL DE AGUA CUMPLE NORMA',
+                          'SI',
+                          'NO'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    )),
                     SizedBox(height: 15),
                     Text("                NIVEL CLORO Mg/L"),
                     MedicionTextField(),
                     SizedBox(height: 15),
-                    Center(child: DropdownButtonMedicion2()),
+                    Text("                NIVEL CLORO CUMPLE NORMA"),
+                    Center(
+                        child: Container(
+                      color: Color(0xFF8AB5CF),
+                      height: 30,
+                      width: 300,
+                      child: DropdownButton<String>(
+                        value: dropdownValueNivelCloro,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        underline: Container(
+                          height: 2,
+                          color: Color(0xFF8AB5CF),
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValueNivelCloro = newValue!;
+                          });
+                        },
+                        items: <String>['NIVEL CLORO CUMPLE NORMA', 'SI', 'NO']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    )),
                     SizedBox(height: 15),
                     Text("                TURBIEDAD"),
                     MedicionTextField(),
                     SizedBox(height: 15),
-                    Center(child: DropdownButtonMedicion3()),
+                    Text("                TURBIEDAD CUMPLE NORMA"),
+                    Center(
+                        child: Container(
+                      color: Color(0xFF8AB5CF),
+                      height: 30,
+                      width: 300,
+                      child: DropdownButton<String>(
+                        value: dropdownValueNivelTurbiedad,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        underline: Container(
+                          height: 2,
+                          color: Color(0xFF8AB5CF),
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValueNivelTurbiedad = newValue!;
+                          });
+                        },
+                        items: <String>['TURBIEDAD CUMPLE NORMA', 'SI', 'NO']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    )),
                   ],
                 ),
 
@@ -418,12 +506,12 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                       onPressed: () {
                         Map<String, dynamic> modificacion = {
                           "NIVEL_AGUA": nivelAguaController.text,
-                          "NIVEL_AGUA_CUMPLE_NORMA": comentarioController.text,
+                          "NIVEL_AGUA_CUMPLE_NORMA": dropdownValueNivelAgua,
                           "NIVEL_CLORO": nivelCloroController.text,
-                          "NIVEL_CLORO_CUMPLE_NORMA": comentarioController.text,
+                          "NIVEL_CLORO_CUMPLE_NORMA": dropdownValueNivelCloro,
                           "NIVEL_TURBIEDAD": nivelTurbiedadController.text,
                           "NIVEL_TURBIEDAD_CUMPLE_NORMA":
-                              comentarioController.text,
+                              dropdownValueNivelTurbiedad,
                           "COMENTARIO": comentarioController.text,
                           "ID_TIPO_STATUS": id_tipo_status
                         };
