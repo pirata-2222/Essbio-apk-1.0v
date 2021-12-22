@@ -407,7 +407,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               ),
                               margin: EdgeInsets.only(left: 10, right: 5),
                               height: 35,
-                              width: screenWidth*0.4,
+                              width: screenWidth * 0.4,
                               child: Center(
                                 child: Text(
                                   "En Curso",
@@ -434,7 +434,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               ),
                               margin: EdgeInsets.only(left: 5, right: 10),
                               height: 35,
-                              width: screenWidth*0.4,
+                              width: screenWidth * 0.4,
                               child: Center(
                                 child: Text(
                                   "No Disponible",
@@ -467,7 +467,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               ),
                               margin: EdgeInsets.only(left: 10, right: 5),
                               height: 35,
-                              width: screenWidth*0.4,
+                              width: screenWidth * 0.4,
                               child: Center(
                                 child: Text(
                                   "Instalado",
@@ -494,7 +494,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               ),
                               margin: EdgeInsets.only(left: 5, right: 10),
                               height: 35,
-                              width: screenWidth*0.4,
+                              width: screenWidth * 0.4,
                               child: Center(
                                 child: Text(
                                   "Pendiente",
@@ -535,7 +535,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                   Center(
                     child: Container(
                       height: 50.0,
-                      width: screenWidth*0.8,
+                      width: screenWidth * 0.8,
                       color: Colors.white,
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: TextField(
@@ -619,8 +619,10 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                       },
                       child: Text('Guardar cambios',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold))),
-                )
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold))),
+                ),
+                SizedBox(height: 20),
               ],
             ),
           )),

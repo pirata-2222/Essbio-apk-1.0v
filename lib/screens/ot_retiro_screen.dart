@@ -1,7 +1,9 @@
+import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/models/fase_retiro.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../widgets/widgets_essbio.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 
@@ -155,6 +157,10 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
+    TextEditingController comentarioController = TextEditingController();
+    TextEditingController numeroEstanqueController = TextEditingController();
+    int id_tipo_status = widget.faseRetiro.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     String placeholder = estadoRetiro[widget.faseRetiro.id_tipo_status]!;
@@ -261,7 +267,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "En Curso",
@@ -286,7 +292,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "No Disponible",
@@ -317,7 +323,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "Retirado",
@@ -342,7 +348,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "Pendiente",
@@ -383,6 +389,23 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                 SizedBox(height: 20),
                 ComentarioGeneral(),
                 SizedBox(height: 20),
+                Container(
+                  color: azulPrimarioEssbio,
+                  child: TextButton(
+                      onPressed: () {
+                        Map<String, dynamic> modificacion = {
+                          "COMENTARIO_INSTALACION": comentarioController.text,
+                          "NUMERO_ESTANQUE": numeroEstanqueController.text,
+                          "ID_TIPO_STATUS": id_tipo_status
+                        };
+                        essbioP.updateFasesRetiro(
+                            widget.faseRetiro, modificacion);
+                      },
+                      child: Text('Guardar cambios',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold))),
+                )
 
                 //GUARDAR DATOS
               ],

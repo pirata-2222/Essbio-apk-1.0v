@@ -1,9 +1,11 @@
+import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -175,6 +177,9 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
+    TextEditingController comentarioController = TextEditingController();
+    int id_tipo_status = widget.faseAbastecimiento.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
@@ -281,7 +286,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "En Curso",
@@ -307,7 +312,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "No Disponible",
@@ -339,7 +344,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "Estanque Llenado",
@@ -365,7 +370,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "Cierre de Abastecimiento",
@@ -403,6 +408,23 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                 ComentarioGeneral(),
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
+                SizedBox(height: 20),
+                Container(
+                  color: azulPrimarioEssbio,
+                  child: TextButton(
+                      onPressed: () {
+                        Map<String, dynamic> modificacion = {
+                          "COMENTARIO_INSTALACION": comentarioController.text,
+                          "ID_TIPO_STATUS": id_tipo_status
+                        };
+                        essbioP.updateFasesAbastecimiento(
+                            widget.faseAbastecimiento, modificacion);
+                      },
+                      child: Text('Guardar cambios',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold))),
+                ),
                 SizedBox(height: 20),
               ],
             ),

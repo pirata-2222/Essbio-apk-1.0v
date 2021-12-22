@@ -1,9 +1,11 @@
+import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
+import 'package:provider/provider.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -162,6 +164,12 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
+    TextEditingController comentarioController = TextEditingController();
+    TextEditingController nivelAguaController = TextEditingController();
+    TextEditingController nivelCloroController = TextEditingController();
+    TextEditingController nivelTurbiedadController = TextEditingController();
+    int id_tipo_status = widget.faseAbastMedicion.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return MaterialApp(
@@ -265,7 +273,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "En Curso",
@@ -290,7 +298,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "No Disponible",
@@ -321,7 +329,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "Medido",
@@ -346,7 +354,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             ),
                             margin: EdgeInsets.only(left: 5, right: 10),
                             height: 35,
-                            width: screenWidth*0.4,
+                            width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
                                 "Finalizado",
@@ -404,6 +412,30 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 SizedBox(height: 20),
                 ComentarioGeneral(),
                 SizedBox(height: 20),
+                Container(
+                  color: azulPrimarioEssbio,
+                  child: TextButton(
+                      onPressed: () {
+                        Map<String, dynamic> modificacion = {
+                          "NIVEL_AGUA": nivelAguaController.text,
+                          "NIVEL_AGUA_CUMPLE_NORMA": comentarioController.text,
+                          "NIVEL_CLORO": nivelCloroController.text,
+                          "NIVEL_CLORO_CUMPLE_NORMA": comentarioController.text,
+                          "NIVEL_TURBIEDAD": nivelTurbiedadController.text,
+                          "NIVEL_TURBIEDAD_CUMPLE_NORMA":
+                              comentarioController.text,
+                          "COMENTARIO": comentarioController.text,
+                          "ID_TIPO_STATUS": id_tipo_status
+                        };
+                        essbioP.updateFasesMedicion(
+                            widget.faseAbastMedicion, modificacion);
+                      },
+                      child: Text('Guardar cambios',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold))),
+                ),
+                SizedBox(height: 20)
 
                 //ADJUNTAR IMAGEN
               ],
