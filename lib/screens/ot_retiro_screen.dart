@@ -412,6 +412,22 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         };
                         essbioP.updateFasesRetiro(
                             widget.faseRetiro, modificacion);
+                        essbioP.fetchFasesRetiro();
+                        essbioP.fetchFases();
+                        essbioP.fetchOrdenesTrabajo();
+                        essbioP.fetchStatus();
+                        essbioP.getFasesUsuario(
+                            essbioP.ordenesTrabajo,
+                            essbioP.fasesInstalacion,
+                            essbioP.fasesAbastMedicion,
+                            essbioP.fasesAbastecimiento,
+                            essbioP.fasesRetiro,
+                            essbioP.fases,
+                            essbioP.status,
+                            essbioP.dataTKSectores,
+                            essbioP.procesos,
+                            essbioP.dataEventos,
+                            essbioP.usuario!.idusuario);
                       },
                       child: Text('Guardar cambios',
                           style: TextStyle(
