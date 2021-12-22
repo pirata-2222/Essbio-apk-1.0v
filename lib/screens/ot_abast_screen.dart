@@ -419,6 +419,22 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         };
                         essbioP.updateFasesAbastecimiento(
                             widget.faseAbastecimiento, modificacion);
+                        essbioP.fetchFasesAbastecimiento();
+                        essbioP.fetchFases();
+                        essbioP.fetchOrdenesTrabajo();
+                        essbioP.fetchStatus();
+                        essbioP.getFasesUsuario(
+                            essbioP.ordenesTrabajo,
+                            essbioP.fasesInstalacion,
+                            essbioP.fasesAbastMedicion,
+                            essbioP.fasesAbastecimiento,
+                            essbioP.fasesRetiro,
+                            essbioP.fases,
+                            essbioP.status,
+                            essbioP.dataTKSectores,
+                            essbioP.procesos,
+                            essbioP.dataEventos,
+                            essbioP.usuario!.idusuario);
                       },
                       child: Text('Guardar cambios',
                           style: TextStyle(
