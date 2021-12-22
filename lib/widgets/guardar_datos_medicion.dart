@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/theme_library.dart';
-import 'package:essbio_apk/models/fase_instalacion.dart';
+
 
 // **********BOTON GUARDAR**************
 
 class BotonGuardarMedicion extends StatelessWidget {
   final FaseAbastMedicion faseAbastMedicion;
-  Map<String, dynamic> modificacion;
+  final Map<String, dynamic> modificacion;
   BotonGuardarMedicion(
       {Key? key, required this.faseAbastMedicion, required this.modificacion})
       : super(key: key);
