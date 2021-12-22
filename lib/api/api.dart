@@ -364,7 +364,7 @@ class EssbioProvider with ChangeNotifier {
         body: json.encode({
           "COMENTARIO": modificacion["COMENTARIO"] == ""
               ? faseAbastecimiento.comentario
-              : modificacion["COMENTARIO_INSTALACION"],
+              : modificacion["COMENTARIO"],
           "FECHA_MOD_XYGO":
               DateTime.now().toIso8601String().substring(0, 19) + "Z",
         }));
@@ -404,6 +404,26 @@ class EssbioProvider with ChangeNotifier {
       Map<String, dynamic> modificacion) async {
     //TODO Mapear respuesta de Sí a S
     final id = faseAbastMedicion.id;
+    var agua_norma = "";
+    var cloro_norma = "";
+    var turbiedad_norma = "";
+
+    if (modificacion["NIVEL_AGUA_CUMPLE_NORMA"] == "SI") {
+      agua_norma = "S";
+    } else {
+      agua_norma = "N";
+    }
+    if (modificacion["NIVEL_CLORO_CUMPLE_NORMA"] == "SI") {
+      cloro_norma = "S";
+    } else {
+      cloro_norma = "N";
+    }
+    if (modificacion["NIVEL_TURBIEDAD_CUMPLE_NORMA"] == "SI") {
+      turbiedad_norma = "S";
+    } else {
+      turbiedad_norma = "N";
+    }
+
     final url_medicion = '$server/ot_fase_abast_medicion/$id/?format=json';
     final response = await http.put(Uri.parse(url_medicion),
         headers: {"Content-Type": "application/json"},
@@ -414,24 +434,24 @@ class EssbioProvider with ChangeNotifier {
           'NIVEL_AGUA_CUMPLE_NORMA':
               modificacion['NIVEL_AGUA_CUMPLE_NORMA'] == ""
                   ? faseAbastMedicion.nivel_agua_cumple_norma
-                  : modificacion['NIVEL_AGUA_CUMPLE_NORMA'],
+                  : agua_norma,
           'NIVEL_CLORO': modificacion['NIVEL_CLORO'] == ""
               ? faseAbastMedicion.nivel_cloro
               : modificacion['NIVEL_CLORO'],
           'NIVEL_CLORO_CUMPLE_NORMA':
               modificacion['NIVEL_CLORO_CUMPLE_NORMA'] == ""
                   ? faseAbastMedicion.nivel_cloro_cumple_norma
-                  : modificacion['NIVEL_CLORO_CUMPLE_NORMA'],
+                  : cloro_norma,
           'NIVEL_TURBIEDAD': modificacion['NIVEL_TURBIEDAD'] == ""
               ? faseAbastMedicion.nivel_turbiedad
               : modificacion['NIVEL_AGUA'],
           'NIVEL_TURBIEDAD_CUMPLE_NORMA':
               modificacion['NIVEL_TURBIEDAD_CUMPLE_NORMA'] == ""
                   ? faseAbastMedicion.nivel_turbiedad_cumple_norma
-                  : modificacion['NIVEL_TURBIEDAD_CUMPLE_NORMA'],
+                  : turbiedad_norma,
           "COMENTARIO": modificacion["COMENTARIO"] == ""
               ? faseAbastMedicion.comentario
-              : modificacion["COMENTARIO_INSTALACION"],
+              : modificacion["COMENTARIO"],
           "FECHA_MOD_XYGO":
               DateTime.now().toIso8601String().substring(0, 19) + "Z",
         }));
@@ -479,7 +499,7 @@ class EssbioProvider with ChangeNotifier {
               : modificacion['NUMERO_ESTANQUE'],
           "COMENTARIO": modificacion["COMENTARIO"] == ""
               ? faseRetiro.comentario
-              : modificacion["COMENTARIO_INSTALACION"],
+              : modificacion["COMENTARIO"],
           "FECHA_MOD_XYGO":
               DateTime.now().toIso8601String().substring(0, 19) + "Z",
         }));
