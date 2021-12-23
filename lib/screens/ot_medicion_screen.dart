@@ -510,35 +510,60 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                   color: azulPrimarioEssbio,
                   child: TextButton(
                       onPressed: () {
-                        Map<String, dynamic> modificacion = {
-                          "NIVEL_AGUA": nivelAguaController.text,
-                          "NIVEL_AGUA_CUMPLE_NORMA": dropdownValueNivelAgua,
-                          "NIVEL_CLORO": nivelCloroController.text,
-                          "NIVEL_CLORO_CUMPLE_NORMA": dropdownValueNivelCloro,
-                          "NIVEL_TURBIEDAD": nivelTurbiedadController.text,
-                          "NIVEL_TURBIEDAD_CUMPLE_NORMA":
-                              dropdownValueNivelTurbiedad,
-                          "COMENTARIO": comentarioController.text,
-                          "ID_TIPO_STATUS": id_tipo_status
-                        };
-                        essbioP.updateFasesMedicion(
-                            widget.faseAbastMedicion, modificacion);
-                        essbioP.fetchFasesAbastMedicion();
-                        essbioP.fetchFases();
-                        essbioP.fetchOrdenesTrabajo();
-                        essbioP.fetchStatus();
-                        essbioP.getFasesUsuario(
-                            essbioP.ordenesTrabajo,
-                            essbioP.fasesInstalacion,
-                            essbioP.fasesAbastMedicion,
-                            essbioP.fasesAbastecimiento,
-                            essbioP.fasesRetiro,
-                            essbioP.fases,
-                            essbioP.status,
-                            essbioP.dataTKSectores,
-                            essbioP.procesos,
-                            essbioP.dataEventos,
-                            essbioP.usuario!.idusuario);
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Guardar Cambios Datos OT'),
+                            content: const Text(
+                                'Has realizado modificaciones en los campos. Confirma para guardar los cambios'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('Cancelar'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Map<String, dynamic> modificacion = {
+                                    "NIVEL_AGUA": nivelAguaController.text,
+                                    "NIVEL_AGUA_CUMPLE_NORMA":
+                                        dropdownValueNivelAgua,
+                                    "NIVEL_CLORO": nivelCloroController.text,
+                                    "NIVEL_CLORO_CUMPLE_NORMA":
+                                        dropdownValueNivelCloro,
+                                    "NIVEL_TURBIEDAD":
+                                        nivelTurbiedadController.text,
+                                    "NIVEL_TURBIEDAD_CUMPLE_NORMA":
+                                        dropdownValueNivelTurbiedad,
+                                    "COMENTARIO": comentarioController.text,
+                                    "ID_TIPO_STATUS": id_tipo_status
+                                  };
+                                  essbioP.updateFasesMedicion(
+                                      widget.faseAbastMedicion, modificacion);
+                                  essbioP.fetchFasesAbastMedicion();
+                                  essbioP.fetchFases();
+                                  essbioP.fetchOrdenesTrabajo();
+                                  essbioP.fetchStatus();
+                                  essbioP.getFasesUsuario(
+                                      essbioP.ordenesTrabajo,
+                                      essbioP.fasesInstalacion,
+                                      essbioP.fasesAbastMedicion,
+                                      essbioP.fasesAbastecimiento,
+                                      essbioP.fasesRetiro,
+                                      essbioP.fases,
+                                      essbioP.status,
+                                      essbioP.dataTKSectores,
+                                      essbioP.procesos,
+                                      essbioP.dataEventos,
+                                      essbioP.usuario!.idusuario);
+
+                                  Navigator.pop(context, 'Cancel');
+                                },
+                                child: const Text('Confirmar'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Text('Guardar cambios',
                           style: TextStyle(

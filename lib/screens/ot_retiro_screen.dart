@@ -399,35 +399,60 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                   color: azulPrimarioEssbio,
                   child: TextButton(
                       onPressed: () {
-                        Map<String, dynamic> modificacion = {
-                          "COMENTARIO_INSTALACION": comentarioController.text,
-                          "NUMERO_ESTANQUE": numeroEstanqueController.text,
-                          "ID_TIPO_STATUS": id_tipo_status
-                        };
-                        essbioP.updateFasesRetiro(
-                            widget.faseRetiro, modificacion);
-                        essbioP.fetchFasesRetiro();
-                        essbioP.fetchFases();
-                        essbioP.fetchOrdenesTrabajo();
-                        essbioP.fetchStatus();
-                        essbioP.getFasesUsuario(
-                            essbioP.ordenesTrabajo,
-                            essbioP.fasesInstalacion,
-                            essbioP.fasesAbastMedicion,
-                            essbioP.fasesAbastecimiento,
-                            essbioP.fasesRetiro,
-                            essbioP.fases,
-                            essbioP.status,
-                            essbioP.dataTKSectores,
-                            essbioP.procesos,
-                            essbioP.dataEventos,
-                            essbioP.usuario!.idusuario);
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Guardar Cambios Datos OT'),
+                            content: const Text(
+                                'Has realizado modificaciones en los campos. Confirma para guardar los cambios'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('Cancelar'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Map<String, dynamic> modificacion = {
+                                    "COMENTARIO_INSTALACION":
+                                        comentarioController.text,
+                                    "NUMERO_ESTANQUE":
+                                        numeroEstanqueController.text,
+                                    "ID_TIPO_STATUS": id_tipo_status
+                                  };
+                                  essbioP.updateFasesRetiro(
+                                      widget.faseRetiro, modificacion);
+                                  essbioP.fetchFasesRetiro();
+                                  essbioP.fetchFases();
+                                  essbioP.fetchOrdenesTrabajo();
+                                  essbioP.fetchStatus();
+                                  essbioP.getFasesUsuario(
+                                      essbioP.ordenesTrabajo,
+                                      essbioP.fasesInstalacion,
+                                      essbioP.fasesAbastMedicion,
+                                      essbioP.fasesAbastecimiento,
+                                      essbioP.fasesRetiro,
+                                      essbioP.fases,
+                                      essbioP.status,
+                                      essbioP.dataTKSectores,
+                                      essbioP.procesos,
+                                      essbioP.dataEventos,
+                                      essbioP.usuario!.idusuario);
+
+                                  Navigator.pop(context, 'Cancel');
+                                },
+                                child: const Text('Confirmar'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Text('Guardar cambios',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold))),
-                )
+                ),
+                SizedBox(height: 20),
 
                 //GUARDAR DATOS
               ],

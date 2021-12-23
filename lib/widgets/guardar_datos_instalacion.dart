@@ -25,7 +25,7 @@ class BotonGuardarInstalacion extends StatelessWidget {
           print(faseInstalacion.id);
           print(faseInstalacion.id_ot);
           essbioP.updateFasesInstalacion(faseInstalacion, modificacion);
-          /*showDialog<String>(
+          showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: const Text('Guardar Cambios Datos OT'),
@@ -57,7 +57,7 @@ class BotonGuardarInstalacion extends StatelessWidget {
                 ),
               ],
             ),
-          );*/
+          );
         },
         child: const Text('Guardar cambios',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
@@ -71,13 +71,16 @@ class BotonGuardarInstalacion extends StatelessWidget {
 class GuardarDatosBitacoraInstalacion extends StatefulWidget {
   final FaseInstalacion faseInstalacion;
   final Map<String, dynamic> modificacion;
-  GuardarDatosBitacoraInstalacion({Key? key, required this.faseInstalacion, required this.modificacion})
+  GuardarDatosBitacoraInstalacion(
+      {Key? key, required this.faseInstalacion, required this.modificacion})
       : super(key: key);
   @override
-  _GuardarDatosBitacoraInstalacionState createState() => _GuardarDatosBitacoraInstalacionState();
+  _GuardarDatosBitacoraInstalacionState createState() =>
+      _GuardarDatosBitacoraInstalacionState();
 }
 
-class _GuardarDatosBitacoraInstalacionState extends State<GuardarDatosBitacoraInstalacion> {
+class _GuardarDatosBitacoraInstalacionState
+    extends State<GuardarDatosBitacoraInstalacion> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -85,7 +88,10 @@ class _GuardarDatosBitacoraInstalacionState extends State<GuardarDatosBitacoraIn
       children: [
         Text("Los campos marcados con * son obligatorios"),
         SizedBox(height: 10),
-        BotonGuardarInstalacion(faseInstalacion: widget.faseInstalacion, modificacion: widget.modificacion,),
+        BotonGuardarInstalacion(
+          faseInstalacion: widget.faseInstalacion,
+          modificacion: widget.modificacion,
+        ),
         SizedBox(height: 20),
       ],
     );

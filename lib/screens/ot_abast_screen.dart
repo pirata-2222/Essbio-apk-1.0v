@@ -422,28 +422,49 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                   color: azulPrimarioEssbio,
                   child: TextButton(
                       onPressed: () {
-                        Map<String, dynamic> modificacion = {
-                          "COMENTARIO_INSTALACION": comentarioController.text,
-                          "ID_TIPO_STATUS": id_tipo_status
-                        };
-                        essbioP.updateFasesAbastecimiento(
-                            widget.faseAbastecimiento, modificacion);
-                        essbioP.fetchFasesAbastecimiento();
-                        essbioP.fetchFases();
-                        essbioP.fetchOrdenesTrabajo();
-                        essbioP.fetchStatus();
-                        essbioP.getFasesUsuario(
-                            essbioP.ordenesTrabajo,
-                            essbioP.fasesInstalacion,
-                            essbioP.fasesAbastMedicion,
-                            essbioP.fasesAbastecimiento,
-                            essbioP.fasesRetiro,
-                            essbioP.fases,
-                            essbioP.status,
-                            essbioP.dataTKSectores,
-                            essbioP.procesos,
-                            essbioP.dataEventos,
-                            essbioP.usuario!.idusuario);
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Guardar Cambios Datos OT'),
+                            content: const Text(
+                                'Has realizado modificaciones en los campos. Confirma para guardar los cambios'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('Cancelar'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Map<String, dynamic> modificacion = {
+                                    "COMENTARIO": comentarioController.text,
+                                    "ID_TIPO_STATUS": id_tipo_status
+                                  };
+                                  essbioP.updateFasesAbastecimiento(
+                                      widget.faseAbastecimiento, modificacion);
+                                  essbioP.fetchFasesInstalacion();
+                                  essbioP.fetchFases();
+                                  essbioP.fetchOrdenesTrabajo();
+                                  essbioP.fetchStatus();
+                                  essbioP.getFasesUsuario(
+                                      essbioP.ordenesTrabajo,
+                                      essbioP.fasesInstalacion,
+                                      essbioP.fasesAbastMedicion,
+                                      essbioP.fasesAbastecimiento,
+                                      essbioP.fasesRetiro,
+                                      essbioP.fases,
+                                      essbioP.status,
+                                      essbioP.dataTKSectores,
+                                      essbioP.procesos,
+                                      essbioP.dataEventos,
+                                      essbioP.usuario!.idusuario);
+                                  Navigator.pop(context, 'Cancel');
+                                },
+                                child: const Text('Confirmar'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Text('Guardar cambios',
                           style: TextStyle(
