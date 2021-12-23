@@ -38,7 +38,7 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
     var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
     var fechaActual = DateTime.now();
     var tiempoRestanteInstalacion =
-        daysBetween(fechaTerminoFormatoDate, fechaActual);
+        daysBetween(fechaActual, fechaTerminoFormatoDate);
 
     Color colorTiempoRestanteInstalacion = Colors.grey;
 
@@ -46,9 +46,12 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
       colorTiempoRestanteInstalacion = rojoTiempoCritico;
     }
     if (tiempoRestanteInstalacion <= 14 && tiempoRestanteInstalacion > 7) {
+      colorTiempoRestanteInstalacion = naranjaTiempoCritico;
+    }
+    if (tiempoRestanteInstalacion > 14 && tiempoRestanteInstalacion <= 21) {
       colorTiempoRestanteInstalacion = amarilloTiempoCritico;
     }
-    if (tiempoRestanteInstalacion > 14) {
+    if (tiempoRestanteInstalacion > 21) {
       colorTiempoRestanteInstalacion = verdeTiempoCritico;
     }
     return colorTiempoRestanteInstalacion;

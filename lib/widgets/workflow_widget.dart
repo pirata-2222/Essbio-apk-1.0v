@@ -46,8 +46,6 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
     // }
     // ;
 
-    
-    
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -285,38 +283,37 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Colores según Tipo de Estado OT"),
+                          Text("Significado Colores OT según Tiempo Restante"),
                           SizedBox(
                             height: 15,
                           ),
                           Container(
-                              width: 130,
-                              height: 40,
-                              color: Colors.grey,
-                              child: Center(child: Text("Sin Tipo Asignado"))),
-                          Container(
-                            width: 130,
+                            width: 180,
                             height: 40,
                             color: verdeTiempoCritico,
-                            child: Center(child: Text("Alerta")),
+                            child:
+                                Center(child: Text("Más de 21 días de plazo")),
                           ),
                           Container(
-                            width: 130,
+                            width: 180,
                             height: 40,
                             color: amarilloTiempoCritico,
-                            child: Center(child: Text("Pre-Emergencia")),
+                            child: Center(
+                                child: Text("Menos de 21 días de plazo")),
                           ),
                           Container(
-                            width: 130,
+                            width: 180,
                             height: 40,
                             color: naranjaTiempoCritico,
-                            child: Center(child: Text("Emergencia")),
+                            child: Center(
+                                child: Text("Menos de 14 días de plazo")),
                           ),
                           Container(
-                            width: 130,
+                            width: 180,
                             height: 40,
                             color: rojoTiempoCritico,
-                            child: Center(child: Text("Crisis")),
+                            child:
+                                Center(child: Text("Menos de 7 días de plazo")),
                           ),
                           SizedBox(
                             height: 15,

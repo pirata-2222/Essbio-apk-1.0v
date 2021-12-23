@@ -25,6 +25,23 @@ class _TimerEssbioState extends State<TimerEssbio> {
     var tiempoRestante = daysBetween(fechaTerminoFormatoDate, fechaActual);
     var tiempoRestanteString = tiempoRestante.toString();
 
+    String timerString() {
+      var fechaTermino = widget.fecha;
+      var fechaTerminoFormatoDate =
+          DateFormat("yyyy-MM-dd").parse(fechaTermino);
+      var fechaActual = DateTime.now();
+      var tiempoRestante = daysBetween(fechaTerminoFormatoDate, fechaActual);
+
+      String tiempoFaltanteString = " ";
+      if (tiempoRestante > 0) {
+        tiempoFaltanteString = "Dias de Atraso:";
+      }
+      if (tiempoRestante <= 0) {
+        tiempoFaltanteString = "Tiempo Restante";
+      }
+      return tiempoFaltanteString;
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -58,7 +75,7 @@ class _TimerEssbioState extends State<TimerEssbio> {
                 SizedBox(height: 10),
                 Icon(Icons.timer, color: Colors.white),
                 SizedBox(height: 10),
-                Text("Tiempo Restante:", style: TextStyle(color: Colors.white)),
+                Text(timerString(), style: TextStyle(color: Colors.white)),
                 Text(tiempoRestanteString + " Días",
                     style: TextStyle(color: Colors.white)),
               ],

@@ -23,33 +23,30 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
     int daysBetween(DateTime from, DateTime to) {
       from = DateTime(from.year, from.month, from.day);
       to = DateTime(to.year, to.month, to.day);
-      return (to.difference(from).inHours / 24).round();
+      return (to.difference(from).inDays).round();
     }
 
     var fechaTermino = widget.faseRetiro.fecha_termino;
     var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
     var fechaActual = DateTime.now();
-    var tiempoRestante = daysBetween(fechaTerminoFormatoDate, fechaActual);
-    var tiempoRestanteString = tiempoRestante.toString();
-    var dataTipoEvento = widget.faseRetiro.tipo_evento.toString();
-    Color colorTipoEventoRetiro;
-    switch (dataTipoEvento) {
-      case "Alerta":
-        colorTipoEventoRetiro = verdeTiempoCritico;
-        break;
-      case "Pre-Emergencia":
-        colorTipoEventoRetiro = amarilloTiempoCritico;
-        break;
-      case "Emergencia":
-        colorTipoEventoRetiro = naranjaTiempoCritico;
-        break;
-      case "Crisis":
-        colorTipoEventoRetiro = rojoTiempoCritico;
-        break;
-      default:
-        colorTipoEventoRetiro = Colors.grey;
+    var tiempoRestanteRetiro =
+        daysBetween(fechaActual, fechaTerminoFormatoDate);
+
+    Color colorTiempoRestanteRetiro = Colors.grey;
+
+    if (tiempoRestanteRetiro <= 7) {
+      colorTiempoRestanteRetiro = rojoTiempoCritico;
     }
-    return colorTipoEventoRetiro;
+    if (tiempoRestanteRetiro <= 14 && tiempoRestanteRetiro > 7) {
+      colorTiempoRestanteRetiro = naranjaTiempoCritico;
+    }
+    if (tiempoRestanteRetiro > 14 && tiempoRestanteRetiro <= 21) {
+      colorTiempoRestanteRetiro = amarilloTiempoCritico;
+    }
+    if (tiempoRestanteRetiro > 21) {
+      colorTiempoRestanteRetiro = verdeTiempoCritico;
+    }
+    return colorTiempoRestanteRetiro;
   }
 
   String estadoRetiroenString() {

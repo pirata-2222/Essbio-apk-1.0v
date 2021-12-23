@@ -6,6 +6,8 @@ import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import 'package:latlong2/latlong.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -29,25 +31,35 @@ class OtPendienteAbast extends StatefulWidget {
 
 class _OtPendienteAbastState extends State<OtPendienteAbast> {
   Color colorOTabastecimiento() {
-    var dataTipoEvento = widget.faseAbastecimiento.tipo_evento.toString();
-    Color colorTipoEventoAbastecimiento;
-    switch (dataTipoEvento) {
-      case "Alerta":
-        colorTipoEventoAbastecimiento = verdeTiempoCritico;
-        break;
-      case "Pre-Emergencia":
-        colorTipoEventoAbastecimiento = amarilloTiempoCritico;
-        break;
-      case "Emergencia":
-        colorTipoEventoAbastecimiento = naranjaTiempoCritico;
-        break;
-      case "Crisis":
-        colorTipoEventoAbastecimiento = rojoTiempoCritico;
-        break;
-      default:
-        colorTipoEventoAbastecimiento = Colors.grey;
+    int daysBetween(DateTime from, DateTime to) {
+      from = DateTime(from.year, from.month, from.day);
+      to = DateTime(to.year, to.month, to.day);
+      return (to.difference(from).inDays).round();
     }
-    return colorTipoEventoAbastecimiento;
+
+    var fechaTermino = widget.faseAbastecimiento.fecha_termino;
+    var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
+    var fechaActual = DateTime.now();
+    var tiempoRestanteAbastecimiento =
+        daysBetween(fechaActual, fechaTerminoFormatoDate);
+
+    Color colorTiempoRestanteAbastecimiento = Colors.grey;
+
+    if (tiempoRestanteAbastecimiento <= 7) {
+      colorTiempoRestanteAbastecimiento = rojoTiempoCritico;
+    }
+    if (tiempoRestanteAbastecimiento <= 14 &&
+        tiempoRestanteAbastecimiento > 7) {
+      colorTiempoRestanteAbastecimiento = naranjaTiempoCritico;
+    }
+    if (tiempoRestanteAbastecimiento > 14 &&
+        tiempoRestanteAbastecimiento <= 21) {
+      colorTiempoRestanteAbastecimiento = amarilloTiempoCritico;
+    }
+    if (tiempoRestanteAbastecimiento > 21) {
+      colorTiempoRestanteAbastecimiento = verdeTiempoCritico;
+    }
+    return colorTiempoRestanteAbastecimiento;
   }
 
   String estadoAbastecimientoenString() {
