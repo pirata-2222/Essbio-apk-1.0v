@@ -49,7 +49,7 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     content: const Text(
-                        'Esta funcionalidad está en su última fase de pruebas. Se podrá utilizar desde el 27/12.'),
+                        'Esta funcionalidad está en su última fase de pruebasº. Se podrá utilizar desde el 27/12.'),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () => Navigator.pop(context, 'OK'),

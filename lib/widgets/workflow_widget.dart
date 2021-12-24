@@ -3,6 +3,7 @@ import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/models/fase_retiro.dart';
 import 'package:essbio_apk/models/xygo_usuario.dart';
+import 'package:essbio_apk/screens/mensajes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/theme_library.dart';
 import '../widgets/widgets_essbio.dart';
@@ -97,6 +98,39 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
               Container(
                 child: Column(
                   children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MensajeScreen()));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        decoration: BoxDecoration(
+                            color: azulPrimarioEssbio,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(
+                          children: [
+                            Center(
+                              child: Icon(Icons.message,
+                                  size: 50, color: Colors.white),
+                            ),
+                            Center(
+                              child: Text(
+                                "Ver Mensajes",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
                     //ROWS OT PENDIENTES INSTALACION
                     Column(
                       children: [
