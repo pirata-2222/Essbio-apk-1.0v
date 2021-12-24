@@ -32,7 +32,7 @@ class _MensajeScreenState extends State<MensajeScreen> {
                   Container(
                     height: 60,
                     width: 70,
-                    color: Color(0xFF248BCB),
+                    color: azulPrimarioEssbio,
                     child: InkWell(
                         child: Icon(
                           Icons.chevron_left_outlined,
@@ -46,7 +46,7 @@ class _MensajeScreenState extends State<MensajeScreen> {
                   Expanded(
                     child: Container(
                       height: 60,
-                      color: Color(0xFF248BCB),
+                      color: azulPrimarioEssbio,
                       child: Center(
                           child: Text("MENSAJES",
                               style: TextStyle(
@@ -60,39 +60,57 @@ class _MensajeScreenState extends State<MensajeScreen> {
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: Colors.grey,
+              ),
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: Colors.grey,
+              ),
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: Colors.grey,
+              ),
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: celesteEssbio,
+              ),
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: celesteEssbio,
+              ),
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: celesteEssbio,
+              ),
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: celesteEssbio,
+              ),
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: celesteEssbio,
+              ),
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(),
+              CardMensaje(
+                colorMensaje: celesteEssbio,
+              ),
               SizedBox(
                 height: 10,
               ),
@@ -107,7 +125,8 @@ class _MensajeScreenState extends State<MensajeScreen> {
 // ***********************************************************
 
 class CardMensaje extends StatefulWidget {
-  CardMensaje({Key? key}) : super(key: key);
+  Color colorMensaje;
+  CardMensaje({Key? key, required this.colorMensaje}) : super(key: key);
 
   @override
   _CardMensajeState createState() => _CardMensajeState();
@@ -123,7 +142,8 @@ class _CardMensajeState extends State<CardMensaje> {
       },
       child: Container(
         decoration: BoxDecoration(
-            color: celesteEssbio, borderRadius: BorderRadius.circular(10)),
+            color: widget.colorMensaje,
+            borderRadius: BorderRadius.circular(10)),
         height: 150,
         width: MediaQuery.of(context).size.width * 0.9,
         child: Column(
@@ -199,22 +219,84 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
           body: Container(
             child: Column(
               children: [
-                Text("Remitente"),
+                Row(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 70,
+                      color: azulPrimarioEssbio,
+                      child: InkWell(
+                          child: Icon(
+                            Icons.chevron_left_outlined,
+                            size: 40,
+                            color: Colors.white,
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                          }),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 60,
+                        color: azulPrimarioEssbio,
+                        child: Center(
+                            child: Text("MENSAJE OT",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17.5,
+                                    fontWeight: FontWeight.bold))),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Remitente:",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text("Persona que emite el mensaje"),
                 SizedBox(height: 20),
-                Text("Fecha de Envío"),
+                Text(
+                  "Fecha de Envío",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text("dd-MM-YYYY  -    12:00:00"),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Mensaje:",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                  child: Text(
+                      "aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus"),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 InkWell(
                     onTap: () {},
                     child: Container(
-                      decoration: BoxDecoration(color: azulPrimarioEssbio),
-                      child: Text("Confirmar Lectura"),
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          color: azulPrimarioEssbio,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        "Confirmar Lectura",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     )),
                 SizedBox(
                   height: 20,
                 ),
                 Center(
                   child: Container(
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 60.0,
+                    width: MediaQuery.of(context).size.width * 0.9,
                     color: Colors.white,
                     margin: EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
@@ -231,8 +313,14 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                 InkWell(
                     onTap: () {},
                     child: Container(
-                      decoration: BoxDecoration(color: azulPrimarioEssbio),
-                      child: Text("Responder"),
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          color: azulPrimarioEssbio,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        "Responder",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     )),
               ],
             ),
