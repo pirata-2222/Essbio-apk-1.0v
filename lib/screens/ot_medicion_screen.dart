@@ -595,17 +595,22 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   essbioP.fetchOrdenesTrabajo();
                                   essbioP.fetchStatus();
                                   essbioP.getFasesUsuario(
-                                      essbioP.ordenesTrabajo,
-                                      essbioP.fasesInstalacion,
-                                      essbioP.fasesAbastMedicion,
-                                      essbioP.fasesAbastecimiento,
-                                      essbioP.fasesRetiro,
-                                      essbioP.fases,
-                                      essbioP.status,
-                                      essbioP.dataTKSectores,
-                                      essbioP.procesos,
-                                      essbioP.dataEventos,
-                                      essbioP.usuario!.idusuario);
+                                    ordenesTrabajo: essbioP.ordenesTrabajo,
+                                    fasesInstalacion: essbioP.fasesInstalacion,
+                                    fasesAbastecimiento:
+                                        essbioP.fasesAbastecimiento,
+                                    fasesMedicion: essbioP.fasesAbastMedicion,
+                                    fasesRetiro: essbioP.fasesRetiro,
+                                    eventos: essbioP.dataEventos,
+                                    fases: essbioP.fases,
+                                    id_usuario: 4,
+                                    //essbioP.validateLogin(
+                                    //usernameController.text, generateMd5(passwordController.text))[1].idusuario
+                                    mensajes: essbioP.mensajes,
+                                    procesos: essbioP.procesos,
+                                    sectores: essbioP.dataTKSectores,
+                                    statuses: essbioP.status,
+                                  );
 
                                   Navigator.pop(context, 'Cancel');
                                 },

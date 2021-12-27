@@ -555,30 +555,40 @@ class EssbioProvider with ChangeNotifier {
   }
 
   List getFasesUsuario(
-      List<OrdenTrabajo> ordenesTrabajo,
-      List<FaseInstalacion> fasesInstalacion,
-      List<FaseAbastMedicion> fasesMedicion,
-      List<FaseAbastecimiento> fasesAbastecimiento,
-      List<FaseRetiro> fasesRetiro,
-      List<Fase> fases,
-      List<Status> statuses,
-      List<DataTKSector> sectores,
-      List<Proceso> procesos,
-      List<DataEventos> eventos,
-      int id_usuario) {
+      {required List<OrdenTrabajo> ordenesTrabajo,
+      required List<FaseInstalacion> fasesInstalacion,
+      required List<FaseAbastMedicion> fasesMedicion,
+      required List<FaseAbastecimiento> fasesAbastecimiento,
+      required List<FaseRetiro> fasesRetiro,
+      required List<Fase> fases,
+      required List<Status> statuses,
+      required List<DataTKSector> sectores,
+      required List<Proceso> procesos,
+      required List<DataEventos> eventos,
+      required List<Mensaje> mensajes,
+      required int id_usuario}) {
     List<FaseInstalacion> instalacionUsuario = [];
+    List<FaseInstalacion> instalacionActiva = [];
     List<FaseAbastMedicion> medicionUsuario = [];
+    List<FaseAbastMedicion> medicionActiva = [];
     List<FaseAbastecimiento> abastecimientoUsuario = [];
+    List<FaseAbastecimiento> abastecimientoActiva = [];
     List<FaseRetiro> retiroUsuario = [];
+    List<FaseRetiro> retiroActiva = [];
+    List<Mensaje> mensajesUsuario = [];
     List<OrdenTrabajo> ordenesTrabajoUsuario = [];
     List<Status> statusesUsuario = [];
+    List<Fase> faseUsuario = [];
+
     var fasesUsuario = [
-      instalacionUsuario,
-      medicionUsuario,
-      abastecimientoUsuario,
-      retiroUsuario
+      instalacionActiva,
+      medicionActiva,
+      abastecimientoActiva,
+      retiroActiva,
+      mensajesUsuario
     ];
 
+    //Filtra las OTs para que sólo muestre las que corresponden al usuario
     for (var instalacion in fasesInstalacion) {
       if (instalacion.contratista == id_usuario) {
         instalacionUsuario.add(instalacion);
@@ -624,6 +634,7 @@ class EssbioProvider with ChangeNotifier {
       }
     }
 
+    //Filtra para que aparezcan sólo los status correpondientes al usuario
     for (var status in statuses) {
       for (var orden in ordenesTrabajoUsuario) {
         if (status.id_ot == orden.id_ot) {
@@ -632,8 +643,41 @@ class EssbioProvider with ChangeNotifier {
       }
     }
 
-    //Asignar ubicaciones
+    //Asignar status a cada OT
+    for (var status in statusesUsuario) {
+      for (var orden in ordenesTrabajoUsuario) {
+        if (orden.id_status == status.id_status) {
+          //Instalación
+          for (var instalacion in instalacionUsuario) {
+            if (instalacion.id_ot == orden.id_ot) {
+              instalacion.id_tipo_status = status.id_tipo_status;
+            }
+          }
+          //Medición
+          for (var medicion in medicionUsuario) {
+            if (medicion.id_ot == orden.id_ot) {
+              medicion.id_tipo_status = status.id_tipo_status;
+            }
+          }
+          //Abastecimiento
+          for (var abastecimiento in abastecimientoUsuario) {
+            if (abastecimiento.id_ot == orden.id_ot) {
+              abastecimiento.id_tipo_status = status.id_tipo_status;
+            }
+          }
+          //Retiro
+          for (var retiro in retiroUsuario) {
+            if (retiro.id_ot == orden.id_ot) {
+              retiro.id_tipo_status = status.id_tipo_status;
+            }
+          }
+        }
+      }
+    }
+
+    //Asignar ubicaciones para los tanques en cada OT
     for (var sector in sectores) {
+      //Instalación
       for (var instalacion in instalacionUsuario) {
         if (instalacion.ubicacion == sector.id_tk) {
           instalacion.lat = sector.lat.runtimeType == String
@@ -644,8 +688,7 @@ class EssbioProvider with ChangeNotifier {
               : sector.lon;
         }
       }
-    }
-    for (var sector in sectores) {
+      //Medición
       for (var medicion in medicionUsuario) {
         if (medicion.ubicacion == sector.id_tk) {
           medicion.lat = sector.lat.runtimeType == String
@@ -656,8 +699,7 @@ class EssbioProvider with ChangeNotifier {
               : sector.lon;
         }
       }
-    }
-    for (var sector in sectores) {
+      //Abastecimiento
       for (var abastecimiento in abastecimientoUsuario) {
         if (abastecimiento.ubicacion == sector.id_tk) {
           abastecimiento.lat = sector.lat.runtimeType == String
@@ -668,8 +710,7 @@ class EssbioProvider with ChangeNotifier {
               : sector.lon;
         }
       }
-    }
-    for (var sector in sectores) {
+      //Retiro
       for (var retiro in retiroUsuario) {
         if (retiro.ubicacion == sector.id_tk) {
           retiro.lat = sector.lat.runtimeType == String
@@ -682,130 +723,88 @@ class EssbioProvider with ChangeNotifier {
       }
     }
 
-    //Asignar status
-    for (var status in statusesUsuario) {
-      for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_status == status.id_status) {
-          for (var instalacion in instalacionUsuario) {
-            if (instalacion.id_ot == orden.id_ot) {
-              instalacion.id_tipo_status = status.id_tipo_status;
-            }
-          }
-        }
-      }
-    }
-
-    for (var status in statusesUsuario) {
-      for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_status == status.id_status) {
-          for (var medicion in medicionUsuario) {
-            if (medicion.id_ot == orden.id_ot) {
-              medicion.id_tipo_status = status.id_tipo_status;
-            }
-          }
-        }
-      }
-    }
-    for (var status in statusesUsuario) {
-      for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_status == status.id_status) {
-          for (var abastecimiento in abastecimientoUsuario) {
-            if (abastecimiento.id_ot == orden.id_ot) {
-              abastecimiento.id_tipo_status = status.id_tipo_status;
-            }
-          }
-        }
-      }
-    }
-    for (var status in statusesUsuario) {
-      for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_status == status.id_status) {
-          for (var retiro in retiroUsuario) {
-            if (retiro.id_ot == orden.id_ot) {
-              retiro.id_tipo_status = status.id_tipo_status;
-            }
-          }
-        }
-      }
-    }
-
-    //Asignar Fechas
+    //Asignar Fechas de inicio y término para cada OT
     for (var fase in fases) {
       for (var orden in ordenesTrabajoUsuario) {
         if (orden.id_fase == fase.id_fase) {
+          //Instalacion
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
               instalacion.fecha_inicio = fase.fecha_ini;
               instalacion.fecha_termino = fase.fecha_fin;
+              faseUsuario.add(fase);
             }
           }
-        }
-      }
-    }
-    for (var fase in fases) {
-      for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_fase == fase.id_fase) {
+          //Medicion
           for (var medicion in medicionUsuario) {
             if (medicion.id_ot == orden.id_ot) {
               medicion.fecha_inicio = fase.fecha_ini;
               medicion.fecha_termino = fase.fecha_fin;
+              faseUsuario.add(fase);
             }
           }
-        }
-      }
-    }
-    for (var fase in fases) {
-      for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_fase == fase.id_fase) {
+          //Abastecimiento
           for (var abastecimiento in abastecimientoUsuario) {
             if (abastecimiento.id_ot == orden.id_ot) {
               abastecimiento.fecha_inicio = fase.fecha_ini;
               abastecimiento.fecha_termino = fase.fecha_fin;
+              faseUsuario.add(fase);
             }
           }
-        }
-      }
-    }
-    for (var fase in fases) {
-      for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_fase == fase.id_fase) {
+          //Retiro
           for (var retiro in retiroUsuario) {
             if (retiro.id_ot == orden.id_ot) {
               retiro.fecha_inicio = fase.fecha_ini;
               retiro.fecha_termino = fase.fecha_fin;
+              faseUsuario.add(fase);
             }
           }
         }
       }
     }
 
+    //Asignar mensajes
+    for (var mensaje in mensajes) {
+      if (mensaje.id_usuario == id_usuario) {
+        mensajesUsuario.add(mensaje);
+      }
+    }
+
+    //
+
     //Asignar tipo de evento
     Stopwatch stopwatch = new Stopwatch()..start();
-    for (var evento in eventos) {
-      for (var proceso in procesos) {
-        if (evento.num_sisda.toString() == proceso.descripcion_proceso) {
-          for (var fase in fases) {
-            if (fase.id_flujo == proceso.id_flujo) {
-              for (var orden in ordenesTrabajo) {
-                if (orden.id_fase == fase.id_fase) {
-                  for (var instalacion in instalacionUsuario) {
-                    if (instalacion.id_ot == orden.id_ot) {
-                      instalacion.tipo_evento = evento.tipo_evento;
+    for (var proceso in procesos) {
+      if (proceso.id_tipo_status.toString() != "3") {
+        for (var evento in eventos) {
+          if (evento.num_sisda.toString() == proceso.descripcion_proceso) {
+            for (var fase in faseUsuario) {
+              if (fase.id_flujo == proceso.id_flujo) {
+                for (var orden in ordenesTrabajoUsuario) {
+                  if (orden.id_fase == fase.id_fase) {
+                    for (var instalacion in instalacionUsuario) {
+                      if (instalacion.id_ot == orden.id_ot) {
+                        instalacion.tipo_evento = evento.tipo_evento;
+                        instalacionActiva.add(instalacion);
+                      }
                     }
-                  }
-                  for (var medicion in medicionUsuario) {
-                    if (medicion.id_ot == orden.id_ot) {
-                      medicion.tipo_evento = evento.tipo_evento;
+                    for (var medicion in medicionUsuario) {
+                      if (medicion.id_ot == orden.id_ot) {
+                        medicion.tipo_evento = evento.tipo_evento;
+                        medicionActiva.add(medicion);
+                      }
                     }
-                  }
-                  for (var abastecimiento in abastecimientoUsuario) {
-                    if (abastecimiento.id_ot == orden.id_ot) {
-                      abastecimiento.tipo_evento = evento.tipo_evento;
+                    for (var abastecimiento in abastecimientoUsuario) {
+                      if (abastecimiento.id_ot == orden.id_ot) {
+                        abastecimiento.tipo_evento = evento.tipo_evento;
+                        abastecimientoActiva.add(abastecimiento);
+                      }
                     }
-                  }
-                  for (var retiro in retiroUsuario) {
-                    if (retiro.id_ot == orden.id_ot) {
-                      retiro.tipo_evento = evento.tipo_evento;
+                    for (var retiro in retiroUsuario) {
+                      if (retiro.id_ot == orden.id_ot) {
+                        retiro.tipo_evento = evento.tipo_evento;
+                        retiroActiva.add(retiro);
+                      }
                     }
                   }
                 }
@@ -815,8 +814,6 @@ class EssbioProvider with ChangeNotifier {
         }
       }
     }
-    print('for gigante executed in ${stopwatch.elapsed.inSeconds}');
-
     print("Terminé");
     return fasesUsuario;
   }
