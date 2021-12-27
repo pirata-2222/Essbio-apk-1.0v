@@ -41,45 +41,45 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                       fontSize: 15,
                       fontWeight: FontWeight.bold)),
               onTap: () {
-                showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text(
-                      'Funcionalidad en Desarrollo',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    content: const Text(
-                        'Esta funcionalidad está en su última fase de pruebasº. Se podrá utilizar desde el 27/12.'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
-                // List fasesUsuario = essbioP.getFasesUsuario(
-                //     essbioP.ordenesTrabajo,
-                //     essbioP.fasesInstalacion,
-                //     essbioP.fasesAbastMedicion,
-                //     essbioP.fasesAbastecimiento,
-                //     essbioP.fasesRetiro,
-                //     essbioP.fases,
-                //     essbioP.status,
-                //     essbioP.dataTKSectores,
-                //     essbioP.procesos,
-                //     essbioP.dataEventos,
-                //     essbioP.usuario!.idusuario);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => WorkflowDesplegado(
-                //           instalacionUsuario: fasesUsuario[0],
-                //           medicionUsuario: fasesUsuario[1],
-                //           abastecimientoUsuario: fasesUsuario[2],
-                //           retiroUsuario: fasesUsuario[3],
-                //           usuario: essbioP.usuario!)),
+                // showDialog<String>(
+                //   context: context,
+                //   builder: (BuildContext context) => AlertDialog(
+                //     title: const Text(
+                //       'Funcionalidad en Desarrollo',
+                //       style: TextStyle(fontWeight: FontWeight.bold),
+                //     ),
+                //     content: const Text(
+                //         'Esta funcionalidad está en su última fase de pruebasº. Se podrá utilizar desde el 27/12.'),
+                //     actions: <Widget>[
+                //       TextButton(
+                //         onPressed: () => Navigator.pop(context, 'OK'),
+                //         child: const Text('OK'),
+                //       ),
+                //     ],
+                //   ),
                 // );
+                List fasesUsuario = essbioP.getFasesUsuario(
+                    essbioP.ordenesTrabajo,
+                    essbioP.fasesInstalacion,
+                    essbioP.fasesAbastMedicion,
+                    essbioP.fasesAbastecimiento,
+                    essbioP.fasesRetiro,
+                    essbioP.fases,
+                    essbioP.status,
+                    essbioP.dataTKSectores,
+                    essbioP.procesos,
+                    essbioP.dataEventos,
+                    essbioP.usuario!.idusuario);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => WorkflowDesplegado(
+                          instalacionUsuario: fasesUsuario[0],
+                          medicionUsuario: fasesUsuario[1],
+                          abastecimientoUsuario: fasesUsuario[2],
+                          retiroUsuario: fasesUsuario[3],
+                          usuario: essbioP.usuario!)),
+                );
               },
             ),
           ),

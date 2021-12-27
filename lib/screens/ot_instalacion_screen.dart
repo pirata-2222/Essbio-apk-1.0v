@@ -676,3 +676,29 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
     );
   }
 }
+
+
+
+// **********************CODIGO PARA DEFINIR COLOR SEGUN TIPO DE EVENTO************************
+
+// Color colorOTabastecimiento() {
+//     var dataTipoEvento = widget.faseAbastecimiento.tipo_evento.toString();
+//     Color colorTipoEventoAbastecimiento;
+//     switch (dataTipoEvento) {
+//       case "Alerta":
+//         colorTipoEventoAbastecimiento = verdeTiempoCritico;
+//         break;
+//       case "Pre-Emergencia":
+//         colorTipoEventoAbastecimiento = amarilloTiempoCritico;
+//         break;
+//       case "Emergencia":
+//         colorTipoEventoAbastecimiento = naranjaTiempoCritico;
+//         break;
+//       case "Crisis":
+//         colorTipoEventoAbastecimiento = rojoTiempoCritico;
+//         break;
+//       default:
+//         colorTipoEventoAbastecimiento = Colors.grey;
+//     }
+//     return colorTipoEventoAbastecimiento;
+//   }
