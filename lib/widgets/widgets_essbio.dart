@@ -1,4 +1,5 @@
 import 'package:essbio_apk/api/api.dart';
+import 'package:essbio_apk/login_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:provider/provider.dart';
@@ -58,17 +59,21 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                 //   ),
                 // );
                 List fasesUsuario = essbioP.getFasesUsuario(
-                    essbioP.ordenesTrabajo,
-                    essbioP.fasesInstalacion,
-                    essbioP.fasesAbastMedicion,
-                    essbioP.fasesAbastecimiento,
-                    essbioP.fasesRetiro,
-                    essbioP.fases,
-                    essbioP.status,
-                    essbioP.dataTKSectores,
-                    essbioP.procesos,
-                    essbioP.dataEventos,
-                    essbioP.usuario!.idusuario);
+                  ordenesTrabajo: essbioP.ordenesTrabajo,
+                  fasesInstalacion: essbioP.fasesInstalacion,
+                  fasesAbastecimiento: essbioP.fasesAbastecimiento,
+                  fasesMedicion: essbioP.fasesAbastMedicion,
+                  fasesRetiro: essbioP.fasesRetiro,
+                  eventos: essbioP.dataEventos,
+                  fases: essbioP.fases,
+                  id_usuario: 4,
+                  //essbioP.validateLogin(
+                  //usernameController.text, generateMd5(passwordController.text))[1].idusuario
+                  mensajes: essbioP.mensajes,
+                  procesos: essbioP.procesos,
+                  sectores: essbioP.dataTKSectores,
+                  statuses: essbioP.status,
+                );
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -331,14 +336,21 @@ class CerrarSesionFunction extends StatelessWidget {
           showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              title: const Text('Funcionalidad en Desarrollo'),
+              title: const Text('Cerrar Sesión'),
               content: const Text(
-                  'Esta funcionalidad está en su última fase de pruebas. Se podrá utilizar desde el 27/12.'),
+                  '¿Estás seguro de cerrar sesión? Recuerda guardar todos los cambios antes de salir'),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancelar'),
                 ),
+                TextButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  ),
+                  child: const Text('OK'),
+                )
               ],
             ),
           );
