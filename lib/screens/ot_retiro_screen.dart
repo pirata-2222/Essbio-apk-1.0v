@@ -19,6 +19,22 @@ class OtPendienteRetiro extends StatefulWidget {
 }
 
 class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
+  Color colorBordeRetiro() {
+    var dataTipoEvento = widget.faseRetiro.tipo_evento.toString();
+    Color colorTipoEventoRetiro;
+    switch (dataTipoEvento) {
+      case "Emergencia":
+        colorTipoEventoRetiro = Colors.purple;
+        break;
+      case "Crisis":
+        colorTipoEventoRetiro = Colors.deepOrange;
+        break;
+      default:
+        colorTipoEventoRetiro = Colors.grey;
+    }
+    return colorTipoEventoRetiro;
+  }
+
   Color colorOTretiro() {
     int daysBetween(DateTime from, DateTime to) {
       from = DateTime(from.year, from.month, from.day);
@@ -82,15 +98,16 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
+            border: Border.all(color: colorBordeRetiro(), width: 5.0),
             borderRadius: BorderRadius.circular(10),
             color: colorOTretiro(),
           ),
           width: 120,
-          height: 170,
+          height: 180,
           child: Column(
             children: [
               SizedBox(height: 5),
-              Icon(Icons.file_copy, color: Colors.white, size: 50),
+              Icon(Icons.file_copy, color: Colors.white, size: 37.5),
               SizedBox(height: 5),
               Center(
                 child: Text(

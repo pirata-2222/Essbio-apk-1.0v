@@ -30,6 +30,22 @@ class OtPendienteAbast extends StatefulWidget {
 }
 
 class _OtPendienteAbastState extends State<OtPendienteAbast> {
+  Color colorBordeAbastecimiento() {
+    var dataTipoEvento = widget.faseAbastecimiento.tipo_evento.toString();
+    Color colorTipoEventoAbastecimiento;
+    switch (dataTipoEvento) {
+      case "Emergencia":
+        colorTipoEventoAbastecimiento = Colors.purple;
+        break;
+      case "Crisis":
+        colorTipoEventoAbastecimiento = Colors.deepOrange;
+        break;
+      default:
+        colorTipoEventoAbastecimiento = Colors.grey;
+    }
+    return colorTipoEventoAbastecimiento;
+  }
+
   Color colorOTabastecimiento() {
     int daysBetween(DateTime from, DateTime to) {
       from = DateTime(from.year, from.month, from.day);
@@ -98,15 +114,16 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
+            border: Border.all(color: colorBordeAbastecimiento(), width: 5.0),
             borderRadius: BorderRadius.circular(10),
             color: colorOTabastecimiento(),
           ),
           width: 120,
-          height: 170,
+          height: 180,
           child: Column(
             children: [
               SizedBox(height: 5),
-              Icon(Icons.file_copy, color: Colors.white, size: 50),
+              Icon(Icons.file_copy, color: Colors.white, size: 37.5),
               SizedBox(height: 5),
               Center(
                 child: Text(

@@ -27,6 +27,22 @@ class OtPendienteInstalacion extends StatefulWidget {
 }
 
 class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
+  Color colorBordeInstalacion() {
+    var dataTipoEvento = widget.faseInstalacion.tipo_evento.toString();
+    Color colorTipoEventoInstalacion;
+    switch (dataTipoEvento) {
+      case "Emergencia":
+        colorTipoEventoInstalacion = Colors.purple;
+        break;
+      case "Crisis":
+        colorTipoEventoInstalacion = Colors.deepOrange;
+        break;
+      default:
+        colorTipoEventoInstalacion = Colors.grey;
+    }
+    return colorTipoEventoInstalacion;
+  }
+
   Color colorOTinstalacion() {
     int daysBetween(DateTime from, DateTime to) {
       from = DateTime(from.year, from.month, from.day);
@@ -96,15 +112,16 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
+            border: Border.all(color: colorBordeInstalacion(), width: 5.0),
             borderRadius: BorderRadius.circular(10),
             color: colorOTinstalacion(),
           ),
           width: 120,
-          height: 170,
+          height: 180,
           child: Column(
             children: [
               SizedBox(height: 5),
-              Icon(Icons.file_copy, color: Colors.white, size: 50),
+              Icon(Icons.file_copy, color: Colors.white, size: 37.5),
               SizedBox(height: 5),
               Center(
                 child: Text(
@@ -676,29 +693,3 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
     );
   }
 }
-
-
-
-// **********************CODIGO PARA DEFINIR COLOR SEGUN TIPO DE EVENTO************************
-
-// Color colorOTabastecimiento() {
-//     var dataTipoEvento = widget.faseAbastecimiento.tipo_evento.toString();
-//     Color colorTipoEventoAbastecimiento;
-//     switch (dataTipoEvento) {
-//       case "Alerta":
-//         colorTipoEventoAbastecimiento = verdeTiempoCritico;
-//         break;
-//       case "Pre-Emergencia":
-//         colorTipoEventoAbastecimiento = amarilloTiempoCritico;
-//         break;
-//       case "Emergencia":
-//         colorTipoEventoAbastecimiento = naranjaTiempoCritico;
-//         break;
-//       case "Crisis":
-//         colorTipoEventoAbastecimiento = rojoTiempoCritico;
-//         break;
-//       default:
-//         colorTipoEventoAbastecimiento = Colors.grey;
-//     }
-//     return colorTipoEventoAbastecimiento;
-//   }

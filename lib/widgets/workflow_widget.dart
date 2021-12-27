@@ -322,35 +322,100 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             height: 15,
                           ),
                           Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: verdeTiempoCritico),
                             width: 180,
                             height: 40,
-                            color: verdeTiempoCritico,
                             child:
                                 Center(child: Text("Más de 21 días de plazo")),
                           ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: amarilloTiempoCritico),
                             width: 180,
                             height: 40,
-                            color: amarilloTiempoCritico,
                             child: Center(
                                 child: Text("Menos de 21 días de plazo")),
                           ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: naranjaTiempoCritico),
                             width: 180,
                             height: 40,
-                            color: naranjaTiempoCritico,
                             child: Center(
                                 child: Text("Menos de 14 días de plazo")),
                           ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: rojoTiempoCritico),
                             width: 180,
                             height: 40,
-                            color: rojoTiempoCritico,
                             child:
                                 Center(child: Text("Menos de 7 días de plazo")),
                           ),
                           SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      ),
+                    ),
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                              "Significado Colores Bordes según Tipo de Evento"),
+                          SizedBox(
                             height: 15,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.grey, width: 5.0),
+                                borderRadius: BorderRadius.circular(10)),
+                            width: 180,
+                            height: 40,
+                            child: Center(child: Text("Sin Definir")),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 180,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.purple, width: 5.0),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(child: Text("Emergencia")),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 180,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.deepOrange, width: 5.0),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(child: Text("Crisis")),
+                          ),
+                          SizedBox(
+                            height: 20,
                           )
                         ],
                       ),

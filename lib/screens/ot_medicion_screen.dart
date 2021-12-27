@@ -21,6 +21,22 @@ class OtPendienteMedicion extends StatefulWidget {
 }
 
 class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
+  Color colorBordeMedicion() {
+    var dataTipoEvento = widget.faseAbastMedicion.tipo_evento.toString();
+    Color colorTipoEventoMedicion;
+    switch (dataTipoEvento) {
+      case "Emergencia":
+        colorTipoEventoMedicion = Colors.purple;
+        break;
+      case "Crisis":
+        colorTipoEventoMedicion = Colors.deepOrange;
+        break;
+      default:
+        colorTipoEventoMedicion = Colors.grey;
+    }
+    return colorTipoEventoMedicion;
+  }
+
   Color colorOTmedicion() {
     int daysBetween(DateTime from, DateTime to) {
       from = DateTime(from.year, from.month, from.day);
@@ -84,15 +100,16 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
+            border: Border.all(color: colorBordeMedicion(), width: 5.0),
             borderRadius: BorderRadius.circular(10),
             color: colorOTmedicion(),
           ),
           width: 120,
-          height: 170,
+          height: 180,
           child: Column(
             children: [
               SizedBox(height: 5),
-              Icon(Icons.file_copy, color: Colors.white, size: 50),
+              Icon(Icons.file_copy, color: Colors.white, size: 37.5),
               SizedBox(height: 5),
               Center(
                 child: Text(
