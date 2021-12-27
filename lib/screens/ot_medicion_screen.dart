@@ -293,8 +293,16 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoMedicionenString() == "En Curso"
+                                    ? estadoActivo
+                                    : estadoSeleccionado == estadoMedicion[131]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == estadoMedicion[131]
+                              color: estadoMedicionenString() == "En Curso"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -318,8 +326,17 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoMedicionenString() ==
+                                        "No Disponible"
+                                    ? estadoActivo
+                                    : estadoSeleccionado == estadoMedicion[132]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == estadoMedicion[132]
+                              color: estadoMedicionenString() == "No Disponible"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -349,8 +366,16 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoMedicionenString() == "Medido"
+                                    ? estadoActivo
+                                    : estadoSeleccionado == estadoMedicion[133]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == estadoMedicion[133]
+                              color: estadoMedicionenString() == "Medido"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -374,8 +399,16 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoMedicionenString() == "Finalizado"
+                                    ? estadoActivo
+                                    : estadoSeleccionado == estadoMedicion[130]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == estadoMedicion[130]
+                              color: estadoMedicionenString() == "Finalizado"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),

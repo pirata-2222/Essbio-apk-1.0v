@@ -304,11 +304,21 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color:
+                                    estadoAbastecimientoenString() == "En Curso"
+                                        ? estadoActivo
+                                        : estadoSeleccionado ==
+                                                estadoAbastecimiento[121]
+                                            ? estadoActivo
+                                            : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado ==
-                                      estadoAbastecimiento[121]
-                                  ? estadoActivo
-                                  : estadoPasivo,
+                              color:
+                                  estadoAbastecimientoenString() == "En Curso"
+                                      ? estadoActivo
+                                      : estadoPasivo,
                             ),
                             margin: EdgeInsets.only(left: 10, right: 5),
                             height: 35,
@@ -330,9 +340,19 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoAbastecimientoenString() ==
+                                        "No Disponible"
+                                    ? estadoActivo
+                                    : estadoSeleccionado ==
+                                            estadoAbastecimiento[122]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado ==
-                                      estadoAbastecimiento[122]
+                              color: estadoAbastecimientoenString() ==
+                                      "No Disponible"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -362,9 +382,19 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoAbastecimientoenString() ==
+                                        "Estanque Llenado"
+                                    ? estadoActivo
+                                    : estadoSeleccionado ==
+                                            estadoAbastecimiento[126]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado ==
-                                      estadoAbastecimiento[126]
+                              color: estadoAbastecimientoenString() ==
+                                      "Estanque Llenado"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -388,9 +418,19 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoAbastecimientoenString() ==
+                                        "Cierre Abastecimiento"
+                                    ? estadoActivo
+                                    : estadoSeleccionado ==
+                                            estadoAbastecimiento[127]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado ==
-                                      estadoAbastecimiento[127]
+                              color: estadoAbastecimientoenString() ==
+                                      "Cierre Abastecimiento"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -399,7 +439,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                             width: screenWidth * 0.4,
                             child: Center(
                               child: Text(
-                                "Cierre de Abastecimiento",
+                                "Cierre Abastecimiento",
                                 style: TextStyle(color: Colors.black),
                                 textAlign: TextAlign.center,
                               ),

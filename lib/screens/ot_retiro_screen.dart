@@ -283,8 +283,16 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoRetiroenString() == "En Curso"
+                                    ? estadoActivo
+                                    : estadoSeleccionado == estadoRetiro[141]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == estadoRetiro[141]
+                              color: estadoRetiroenString() == "En Curso"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -308,8 +316,16 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoRetiroenString() == "No Disponible"
+                                    ? estadoActivo
+                                    : estadoSeleccionado == estadoRetiro[143]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == estadoRetiro[143]
+                              color: estadoRetiroenString() == "No Disponible"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -339,8 +355,16 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoRetiroenString() == "Retirado"
+                                    ? estadoActivo
+                                    : estadoSeleccionado == estadoRetiro[142]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == estadoRetiro[142]!
+                              color: estadoRetiroenString() == "Retirado"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
@@ -364,8 +388,16 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 4,
+                                color: estadoRetiroenString() == "Pendiente"
+                                    ? estadoActivo
+                                    : estadoSeleccionado == estadoRetiro[140]
+                                        ? estadoActivo
+                                        : estadoPasivo,
+                              ),
                               borderRadius: BorderRadius.circular(15),
-                              color: estadoSeleccionado == estadoRetiro[140]!
+                              color: estadoRetiroenString() == "Pendiente"
                                   ? estadoActivo
                                   : estadoPasivo,
                             ),
