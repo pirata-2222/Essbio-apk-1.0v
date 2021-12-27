@@ -23,15 +23,10 @@ class _TimerEssbioState extends State<TimerEssbio> {
     var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
     var fechaActual = DateTime.now();
     var tiempoRestante = daysBetween(fechaTerminoFormatoDate, fechaActual);
-    var tiempoRestanteString = tiempoRestante.toString();
+    var tiempoRestanteAbsoluto = tiempoRestante.abs();
+    var tiempoRestanteString = tiempoRestanteAbsoluto.toString();
 
     String timerString() {
-      var fechaTermino = widget.fecha;
-      var fechaTerminoFormatoDate =
-          DateFormat("yyyy-MM-dd").parse(fechaTermino);
-      var fechaActual = DateTime.now();
-      var tiempoRestante = daysBetween(fechaTerminoFormatoDate, fechaActual);
-
       String tiempoFaltanteString = " ";
       if (tiempoRestante > 0) {
         tiempoFaltanteString = "Dias de Atraso:";
