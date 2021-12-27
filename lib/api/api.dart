@@ -764,7 +764,7 @@ class EssbioProvider with ChangeNotifier {
     Stopwatch stopwatch = new Stopwatch()..start();
     for (var evento in eventos) {
       for (var proceso in procesos) {
-        if (evento.num_sisda == proceso.descripcion_proceso) {
+        if (evento.num_sisda.toString() == proceso.descripcion_proceso) {
           for (var fase in fases) {
             if (fase.id_flujo == proceso.id_flujo) {
               for (var orden in ordenesTrabajo) {
