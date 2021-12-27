@@ -8,6 +8,7 @@ import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/models/fase_retiro.dart';
+import 'package:essbio_apk/models/mod_mensaje.dart';
 import 'package:essbio_apk/models/mod_wkf_fase.dart';
 import 'package:essbio_apk/models/mod_wkf_proceso.dart';
 import 'package:essbio_apk/models/mod_wkf_status.dart';
@@ -33,6 +34,7 @@ class EssbioProvider with ChangeNotifier {
     this.fetchFasesRetiro();
     this.fetchDataEventos();
     this.fetchProcesos();
+    this.fetchMensajes();
   }
   // final server = "http://10.0.2.2:8000";
   final server = "https://djangorestessbio.herokuapp.com";
@@ -112,6 +114,11 @@ class EssbioProvider with ChangeNotifier {
   List<Proceso> _procesos = [];
   List<Proceso> get procesos {
     return [..._procesos];
+  }
+
+  List<Mensaje> _mensajes = [];
+  List<Mensaje> get mensajes {
+    return [..._mensajes];
   }
 
   Usuario? _usuario;
@@ -298,6 +305,18 @@ class EssbioProvider with ChangeNotifier {
       _dataEventos =
           data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
       print("Data eventos obtenidas");
+      loginCounter = loginCounter + 1;
+      loginCounterController.add(loginCounter);
+    }
+  }
+
+  fetchMensajes() async {
+    final url = '${server}/mod_mensaje/?format=json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body) as List;
+      _mensajes = data.map<Mensaje>((json) => Mensaje.fromJson(json)).toList();
+      print("Mensajes obtenidos");
       loginCounter = loginCounter + 1;
       loginCounterController.add(loginCounter);
     }

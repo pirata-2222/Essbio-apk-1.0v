@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
                     stream: essbioP.loginCounterController.stream,
                     builder: (context, AsyncSnapshot<int> snapshot) {
                       if (snapshot.hasData) {
-                        if (snapshot.data! < 14) {
+                        if (snapshot.data! < 15) {
                           return Column(
                             children: [
                               Text("Cargando desde base de datos"),
