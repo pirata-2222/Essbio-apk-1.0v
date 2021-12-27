@@ -425,11 +425,20 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 4,
+                                  color:
+                                      estadoInstalacionenString() == "En Curso"
+                                          ? estadoActivo
+                                          : estadoSeleccionado ==
+                                                  estadoInstalacion[111]
+                                              ? estadoActivo
+                                              : estadoPasivo,
+                                ),
                                 borderRadius: BorderRadius.circular(15),
-                                color:
-                                    estadoSeleccionado == estadoInstalacion[111]
-                                        ? estadoActivo
-                                        : estadoPasivo,
+                                color: estadoInstalacionenString() == "En Curso"
+                                    ? estadoActivo
+                                    : estadoPasivo,
                               ),
                               margin: EdgeInsets.only(left: 10, right: 5),
                               height: 35,
@@ -452,11 +461,21 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 4,
+                                  color: estadoInstalacionenString() ==
+                                          "No Disponible"
+                                      ? estadoActivo
+                                      : estadoSeleccionado ==
+                                              estadoInstalacion[113]
+                                          ? estadoActivo
+                                          : estadoPasivo,
+                                ),
                                 borderRadius: BorderRadius.circular(15),
-                                color:
-                                    estadoSeleccionado == estadoInstalacion[113]
-                                        ? estadoActivo
-                                        : estadoPasivo,
+                                color: estadoInstalacionenString() ==
+                                        "No Disponible"
+                                    ? estadoActivo
+                                    : estadoPasivo,
                               ),
                               margin: EdgeInsets.only(left: 5, right: 10),
                               height: 35,
@@ -485,9 +504,19 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 4,
+                                  color:
+                                      estadoInstalacionenString() == "Instalado"
+                                          ? estadoActivo
+                                          : estadoSeleccionado ==
+                                                  estadoInstalacion[112]
+                                              ? estadoActivo
+                                              : estadoPasivo,
+                                ),
                                 borderRadius: BorderRadius.circular(15),
                                 color:
-                                    estadoSeleccionado == estadoInstalacion[112]
+                                    estadoInstalacionenString() == "Instalado"
                                         ? estadoActivo
                                         : estadoPasivo,
                               ),
@@ -512,9 +541,19 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 4,
+                                  color:
+                                      estadoInstalacionenString() == "Pendiente"
+                                          ? estadoActivo
+                                          : estadoSeleccionado ==
+                                                  estadoInstalacion[114]
+                                              ? estadoActivo
+                                              : estadoPasivo,
+                                ),
                                 borderRadius: BorderRadius.circular(15),
                                 color:
-                                    estadoSeleccionado == estadoInstalacion[114]
+                                    estadoInstalacionenString() == "Pendiente"
                                         ? estadoActivo
                                         : estadoPasivo,
                               ),

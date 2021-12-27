@@ -32,7 +32,7 @@ class _TimerEssbioState extends State<TimerEssbio> {
         tiempoFaltanteString = "Dias de Atraso:";
       }
       if (tiempoRestante <= 0) {
-        tiempoFaltanteString = "Tiempo Restante";
+        tiempoFaltanteString = "Tiempo Restante:";
       }
       return tiempoFaltanteString;
     }
@@ -52,7 +52,8 @@ class _TimerEssbioState extends State<TimerEssbio> {
                 SizedBox(height: 10),
                 Icon(Icons.calendar_today_rounded, color: Colors.white),
                 SizedBox(height: 10),
-                Text("Fecha de Término", style: TextStyle(color: Colors.white)),
+                Text("Fecha de Término:",
+                    style: TextStyle(color: Colors.white)),
                 Text(widget.fecha, style: TextStyle(color: Colors.white)),
               ],
             )),
