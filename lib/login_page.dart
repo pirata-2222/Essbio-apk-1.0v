@@ -82,19 +82,20 @@ class _HomeState extends State<Home> {
                                   List fasesUsuario = essbioP.getFasesUsuario(
                                     ordenesTrabajo: essbioP.ordenesTrabajo,
                                     fasesInstalacion: essbioP.fasesInstalacion,
-                                    fasesAbastecimiento: essbioP.fasesAbastecimiento, 
+                                    fasesAbastecimiento:
+                                        essbioP.fasesAbastecimiento,
                                     fasesMedicion: essbioP.fasesAbastMedicion,
                                     fasesRetiro: essbioP.fasesRetiro,
                                     eventos: essbioP.dataEventos,
-                                    fases: essbioP.fases,                                       
-                                    id_usuario: 4, 
+                                    fases: essbioP.fases,
+                                    id_usuario: 4,
                                     //essbioP.validateLogin(
-                            //usernameController.text, generateMd5(passwordController.text))[1].idusuario
-                                    mensajes: essbioP.mensajes, 
-                                    procesos: essbioP.procesos, 
+                                    //usernameController.text, generateMd5(passwordController.text))[1].idusuario
+                                    mensajes: essbioP.mensajes,
+                                    procesos: essbioP.procesos,
                                     sectores: essbioP.dataTKSectores,
                                     statuses: essbioP.status,
-                                      );
+                                  );
 
                                   Navigator.push(
                                     context,

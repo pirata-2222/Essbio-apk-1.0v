@@ -341,14 +341,18 @@ class CerrarSesionFunction extends StatelessWidget {
                   '¿Estás seguro de cerrar sesión? Recuerda guardar todos los cambios antes de salir'),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  onPressed: () {
+                    Navigator.pop(context, 'Cancel');
+                  },
                   child: const Text('Cancelar'),
                 ),
                 TextButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
                   child: const Text('OK'),
                 )
               ],

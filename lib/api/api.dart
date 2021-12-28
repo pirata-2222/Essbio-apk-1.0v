@@ -40,7 +40,7 @@ class EssbioProvider with ChangeNotifier {
   final server = "https://djangorestessbio.herokuapp.com";
 
   int loginCounter = 0;
-  StreamController<int> loginCounterController = StreamController();
+  StreamController<int> loginCounterController = StreamController.broadcast();
 
   //Mod_WKF
   List<OrdenTrabajo> _ordenesTrabajo = [];
