@@ -336,9 +336,9 @@ class CerrarSesionFunction extends StatelessWidget {
           showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              title: const Text('Cerrar Sesión'),
+              title: const Text('Salir de la Aplicación'),
               content: const Text(
-                  '¿Estás seguro de cerrar sesión? Recuerda guardar todos los cambios antes de salir'),
+                  '¿Estás seguro de querer salir de la aplicación? Recuerda guardar todos los cambios antes de salir'),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
@@ -347,19 +347,14 @@ class CerrarSesionFunction extends StatelessWidget {
                   child: const Text('Cancelar'),
                 ),
                 TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
-                  },
-                  child: const Text('OK'),
+                  onPressed: () => exit(0),
+                  child: const Text('Salir'),
                 )
               ],
             ),
           );
         },
-        child: const Text('Cerrar Sesión',
+        child: const Text('Salir de la Aplicación',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
