@@ -116,6 +116,7 @@ class _HomeState extends State<Home> {
                               child: Text("Entrar"));
                         }
                       } else {
+                        print("Snapshot no recupera data");
                         return CircularProgressIndicator();
                       }
                     },

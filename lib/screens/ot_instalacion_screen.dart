@@ -13,12 +13,14 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
 
 class OtPendienteInstalacion extends StatefulWidget {
   final FaseInstalacion faseInstalacion;
+
   OtPendienteInstalacion({Key? key, required this.faseInstalacion})
       : super(key: key);
 
@@ -50,25 +52,25 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
       return (to.difference(from).inDays).round();
     }
 
+    var fechaInicio = widget.faseInstalacion.fecha_inicio;
+    var fechainicioFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaInicio);
     var fechaTermino = widget.faseInstalacion.fecha_termino;
     var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
     var fechaActual = DateTime.now();
+    var eventosFuturosTiempo = daysBetween(fechaActual, fechainicioFormatoDate);
     var tiempoRestanteInstalacion =
         daysBetween(fechaActual, fechaTerminoFormatoDate);
 
     Color colorTiempoRestanteInstalacion = Colors.grey;
 
-    if (tiempoRestanteInstalacion <= 7) {
+    if (tiempoRestanteInstalacion > 0) {
       colorTiempoRestanteInstalacion = rojoTiempoCritico;
     }
-    if (tiempoRestanteInstalacion <= 14 && tiempoRestanteInstalacion > 7) {
-      colorTiempoRestanteInstalacion = naranjaTiempoCritico;
-    }
-    if (tiempoRestanteInstalacion > 14 && tiempoRestanteInstalacion <= 21) {
-      colorTiempoRestanteInstalacion = amarilloTiempoCritico;
-    }
-    if (tiempoRestanteInstalacion > 21) {
+    if (tiempoRestanteInstalacion <= 0) {
       colorTiempoRestanteInstalacion = verdeTiempoCritico;
+    }
+    if (eventosFuturosTiempo > 0) {
+      colorTiempoRestanteInstalacion = celesteEssbio;
     }
     return colorTiempoRestanteInstalacion;
   }
@@ -687,11 +689,17 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
+                                  final imagenEnBytes =
+                                      imagen!.readAsBytesSync();
+                                  String imagenFormatoEncode64 =
+                                      base64Encode(imagenEnBytes);
+                                  print(
+                                      imagenFormatoEncode64.substring(0, 100));
                                   Map<String, dynamic> modificacion = {
                                     "COMENTARIO_INSTALACION":
                                         comentarioController.text,
                                     "ROTULO_TK": rotuloController.text,
-                                    "ARCHIVO_ADJUNTO": "",
+                                    "ARCHIVO_ADJUNTO": imagenFormatoEncode64,
                                     "ID_TIPO_STATUS": id_tipo_status
                                   };
                                   essbioP.updateFasesInstalacion(
