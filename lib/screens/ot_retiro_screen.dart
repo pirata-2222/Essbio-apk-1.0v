@@ -42,25 +42,25 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
       return (to.difference(from).inDays).round();
     }
 
+    var fechaInicio = widget.faseRetiro.fecha_inicio;
+    var fechainicioFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaInicio);
     var fechaTermino = widget.faseRetiro.fecha_termino;
     var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
     var fechaActual = DateTime.now();
+    var eventosFuturosTiempo = daysBetween(fechaActual, fechainicioFormatoDate);
     var tiempoRestanteRetiro =
         daysBetween(fechaActual, fechaTerminoFormatoDate);
 
     Color colorTiempoRestanteRetiro = Colors.grey;
 
-    if (tiempoRestanteRetiro <= 7) {
+    if (tiempoRestanteRetiro > 0 && eventosFuturosTiempo < 0) {
+      colorTiempoRestanteRetiro = verdeTiempoCritico;
+    }
+    if (tiempoRestanteRetiro <= 0 && eventosFuturosTiempo < 0) {
       colorTiempoRestanteRetiro = rojoTiempoCritico;
     }
-    if (tiempoRestanteRetiro <= 14 && tiempoRestanteRetiro > 7) {
-      colorTiempoRestanteRetiro = naranjaTiempoCritico;
-    }
-    if (tiempoRestanteRetiro > 14 && tiempoRestanteRetiro <= 21) {
-      colorTiempoRestanteRetiro = amarilloTiempoCritico;
-    }
-    if (tiempoRestanteRetiro > 21) {
-      colorTiempoRestanteRetiro = verdeTiempoCritico;
+    if (eventosFuturosTiempo > 0) {
+      colorTiempoRestanteRetiro = celesteEssbio;
     }
     return colorTiempoRestanteRetiro;
   }

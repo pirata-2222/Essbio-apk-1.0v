@@ -64,10 +64,10 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
     Color colorTiempoRestanteInstalacion = Colors.grey;
 
     if (tiempoRestanteInstalacion > 0) {
-      colorTiempoRestanteInstalacion = rojoTiempoCritico;
+      colorTiempoRestanteInstalacion = verdeTiempoCritico;
     }
     if (tiempoRestanteInstalacion <= 0) {
-      colorTiempoRestanteInstalacion = verdeTiempoCritico;
+      colorTiempoRestanteInstalacion = rojoTiempoCritico;
     }
     if (eventosFuturosTiempo > 0) {
       colorTiempoRestanteInstalacion = celesteEssbio;

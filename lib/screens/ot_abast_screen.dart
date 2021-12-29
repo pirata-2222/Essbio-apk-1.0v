@@ -53,27 +53,26 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
       return (to.difference(from).inDays).round();
     }
 
+    var fechaInicio = widget.faseAbastecimiento.fecha_inicio;
+    var fechainicioFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaInicio);
     var fechaTermino = widget.faseAbastecimiento.fecha_termino;
     var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
     var fechaActual = DateTime.now();
+    var eventosFuturosAbastecimientoTiempo =
+        daysBetween(fechaActual, fechainicioFormatoDate);
     var tiempoRestanteAbastecimiento =
         daysBetween(fechaActual, fechaTerminoFormatoDate);
 
     Color colorTiempoRestanteAbastecimiento = Colors.grey;
 
-    if (tiempoRestanteAbastecimiento <= 7) {
+    if (tiempoRestanteAbastecimiento > 0) {
+      colorTiempoRestanteAbastecimiento = verdeTiempoCritico;
+    }
+    if (tiempoRestanteAbastecimiento <= 0) {
       colorTiempoRestanteAbastecimiento = rojoTiempoCritico;
     }
-    if (tiempoRestanteAbastecimiento <= 14 &&
-        tiempoRestanteAbastecimiento > 7) {
-      colorTiempoRestanteAbastecimiento = naranjaTiempoCritico;
-    }
-    if (tiempoRestanteAbastecimiento > 14 &&
-        tiempoRestanteAbastecimiento <= 21) {
-      colorTiempoRestanteAbastecimiento = amarilloTiempoCritico;
-    }
-    if (tiempoRestanteAbastecimiento > 21) {
-      colorTiempoRestanteAbastecimiento = verdeTiempoCritico;
+    if (eventosFuturosAbastecimientoTiempo > 0) {
+      colorTiempoRestanteAbastecimiento = celesteEssbio;
     }
     return colorTiempoRestanteAbastecimiento;
   }

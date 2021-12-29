@@ -44,25 +44,26 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
       return (to.difference(from).inDays).round();
     }
 
+    var fechaInicio = widget.faseAbastMedicion.fecha_inicio;
+    var fechainicioFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaInicio);
     var fechaTermino = widget.faseAbastMedicion.fecha_termino;
     var fechaTerminoFormatoDate = DateFormat("yyyy-MM-dd").parse(fechaTermino);
     var fechaActual = DateTime.now();
+    var eventosFuturosMedicionTiempo =
+        daysBetween(fechaActual, fechainicioFormatoDate);
     var tiempoRestanteMedicion =
         daysBetween(fechaActual, fechaTerminoFormatoDate);
 
     Color colorTiempoRestanteMedicion = Colors.grey;
 
-    if (tiempoRestanteMedicion <= 7) {
+    if (tiempoRestanteMedicion > 0) {
+      colorTiempoRestanteMedicion = verdeTiempoCritico;
+    }
+    if (tiempoRestanteMedicion <= 0) {
       colorTiempoRestanteMedicion = rojoTiempoCritico;
     }
-    if (tiempoRestanteMedicion <= 14 && tiempoRestanteMedicion > 7) {
-      colorTiempoRestanteMedicion = naranjaTiempoCritico;
-    }
-    if (tiempoRestanteMedicion > 14 && tiempoRestanteMedicion <= 21) {
-      colorTiempoRestanteMedicion = amarilloTiempoCritico;
-    }
-    if (tiempoRestanteMedicion > 21) {
-      colorTiempoRestanteMedicion = verdeTiempoCritico;
+    if (eventosFuturosMedicionTiempo > 0) {
+      colorTiempoRestanteMedicion = celesteEssbio;
     }
     return colorTiempoRestanteMedicion;
   }
