@@ -27,47 +27,50 @@ class _MensajeScreenState extends State<MensajeScreen> {
           title: Text("ESSBIO APP"),
         ),
         drawer: EssbioDrawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Container(
+        body: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 60,
+                  width: 70,
+                  color: azulPrimarioEssbio,
+                  child: InkWell(
+                      child: Icon(
+                        Icons.chevron_left_outlined,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                      }),
+                ),
+                Expanded(
+                  child: Container(
                     height: 60,
-                    width: 70,
                     color: azulPrimarioEssbio,
-                    child: InkWell(
-                        child: Icon(
-                          Icons.chevron_left_outlined,
-                          size: 40,
-                          color: Colors.white,
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
+                    child: Center(
+                        child: Text("MENSAJES",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17.5,
+                                fontWeight: FontWeight.bold))),
                   ),
-                  Expanded(
-                    child: Container(
-                      height: 60,
-                      color: azulPrimarioEssbio,
-                      child: Center(
-                          child: Text("MENSAJES",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17.5,
-                                  fontWeight: FontWeight.bold))),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              ListView.builder(itemBuilder: (BuildContext context, int index) {
-                return CardMensaje(mensajeEssbio: widget.mensajesLista[index]);
-              })
-            ],
-          ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: widget.mensajesLista.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return CardMensaje(
+                      mensajeEssbio: widget.mensajesLista[index]);
+                })
+          ],
         ),
       ),
     );
@@ -89,8 +92,11 @@ class _CardMensajeState extends State<CardMensaje> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => CardMensajeDesplegado()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CardMensajeDesplegado(
+                    mensajeEssbio: widget.mensajeEssbio)));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -103,9 +109,8 @@ class _CardMensajeState extends State<CardMensaje> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Fecha: dd-MM-YYYY",
-                    style: TextStyle(color: Colors.white)),
-                Text("Hora de Envío: 12:00:00",
+                Text("Fecha de Envío:", style: TextStyle(color: Colors.white)),
+                Text(widget.mensajeEssbio.fecha_creacion,
                     style: TextStyle(color: Colors.white))
               ],
             ),
@@ -122,7 +127,7 @@ class _CardMensajeState extends State<CardMensaje> {
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "ACA COLOCAR MENSAJERO",
+                    widget.mensajeEssbio.id_usuario_creacion,
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -134,8 +139,7 @@ class _CardMensajeState extends State<CardMensaje> {
             Center(
                 child: Container(
               margin: EdgeInsets.only(left: 25, top: 10),
-              child: Text(
-                  "Mensaje con Contenido en donde se entregará la información",
+              child: Text(widget.mensajeEssbio.mensaje,
                   style: TextStyle(color: Colors.white)),
             ))
           ],
@@ -146,7 +150,9 @@ class _CardMensajeState extends State<CardMensaje> {
 }
 
 class CardMensajeDesplegado extends StatefulWidget {
-  const CardMensajeDesplegado({Key? key}) : super(key: key);
+  final Mensaje mensajeEssbio;
+  const CardMensajeDesplegado({Key? key, required this.mensajeEssbio})
+      : super(key: key);
 
   @override
   _CardMensajeDesplegadoState createState() => _CardMensajeDesplegadoState();
@@ -207,13 +213,13 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                   "Remitente:",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text("Persona que emite el mensaje"),
+                Text(widget.mensajeEssbio.id_usuario_creacion),
                 SizedBox(height: 20),
                 Text(
                   "Fecha de Envío",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text("dd-MM-YYYY  -    12:00:00"),
+                Text(widget.mensajeEssbio.fecha_creacion),
                 SizedBox(
                   height: 20,
                 ),
@@ -223,8 +229,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
-                  child: Text(
-                      "aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus"),
+                  child: Text(widget.mensajeEssbio.mensaje),
                 ),
                 SizedBox(
                   height: 20,
