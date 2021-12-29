@@ -103,7 +103,9 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MensajeScreen()));
+                                builder: (context) => MensajeScreen(
+                                      mensajesLista: [],
+                                    )));
                       },
                       child: Container(
                         padding: EdgeInsets.all(20),

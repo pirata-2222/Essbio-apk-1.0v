@@ -1,9 +1,12 @@
+import 'package:essbio_apk/models/mod_mensaje.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
 
 class MensajeScreen extends StatefulWidget {
-  const MensajeScreen({Key? key}) : super(key: key);
+  final List<Mensaje> mensajesLista;
+  const MensajeScreen({Key? key, required this.mensajesLista})
+      : super(key: key);
 
   @override
   _MensajeScreenState createState() => _MensajeScreenState();
@@ -60,60 +63,9 @@ class _MensajeScreenState extends State<MensajeScreen> {
               SizedBox(
                 height: 10,
               ),
-              CardMensaje(
-                colorMensaje: Colors.grey,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CardMensaje(
-                colorMensaje: Colors.grey,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CardMensaje(
-                colorMensaje: Colors.grey,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CardMensaje(
-                colorMensaje: celesteEssbio,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CardMensaje(
-                colorMensaje: celesteEssbio,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CardMensaje(
-                colorMensaje: celesteEssbio,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CardMensaje(
-                colorMensaje: celesteEssbio,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CardMensaje(
-                colorMensaje: celesteEssbio,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CardMensaje(
-                colorMensaje: celesteEssbio,
-              ),
-              SizedBox(
-                height: 10,
-              ),
+              ListView.builder(itemBuilder: (BuildContext context, int index) {
+                return CardMensaje(mensajeEssbio: widget.mensajesLista[index]);
+              })
             ],
           ),
         ),
@@ -125,8 +77,8 @@ class _MensajeScreenState extends State<MensajeScreen> {
 // ***********************************************************
 
 class CardMensaje extends StatefulWidget {
-  Color colorMensaje;
-  CardMensaje({Key? key, required this.colorMensaje}) : super(key: key);
+  final Mensaje mensajeEssbio;
+  CardMensaje({Key? key, required this.mensajeEssbio}) : super(key: key);
 
   @override
   _CardMensajeState createState() => _CardMensajeState();
@@ -142,8 +94,7 @@ class _CardMensajeState extends State<CardMensaje> {
       },
       child: Container(
         decoration: BoxDecoration(
-            color: widget.colorMensaje,
-            borderRadius: BorderRadius.circular(10)),
+            color: Colors.grey, borderRadius: BorderRadius.circular(10)),
         height: 150,
         width: MediaQuery.of(context).size.width * 0.9,
         child: Column(
@@ -202,8 +153,8 @@ class CardMensajeDesplegado extends StatefulWidget {
 }
 
 class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
-  @override
   TextEditingController comentarioMensajeController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
