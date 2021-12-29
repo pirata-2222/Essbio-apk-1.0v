@@ -327,32 +327,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                 color: verdeTiempoCritico),
                             width: 180,
                             height: 40,
-                            child:
-                                Center(child: Text("Más de 21 días de plazo")),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: amarilloTiempoCritico),
-                            width: 180,
-                            height: 40,
-                            child: Center(
-                                child: Text("Menos de 21 días de plazo")),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: naranjaTiempoCritico),
-                            width: 180,
-                            height: 40,
-                            child: Center(
-                                child: Text("Menos de 14 días de plazo")),
+                            child: Center(child: Text("Evento en Curso")),
                           ),
                           SizedBox(
                             height: 10,
@@ -363,8 +338,18 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                 color: rojoTiempoCritico),
                             width: 180,
                             height: 40,
-                            child:
-                                Center(child: Text("Menos de 7 días de plazo")),
+                            child: Center(child: Text("Evento Atrasado")),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: celesteEssbio),
+                            width: 180,
+                            height: 40,
+                            child: Center(child: Text("Evento Futuro")),
                           ),
                           SizedBox(
                             height: 20,
