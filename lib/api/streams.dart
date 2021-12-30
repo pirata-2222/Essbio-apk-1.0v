@@ -1,5 +1,6 @@
 import 'dart:async';
 import "dart:convert";
+import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/models/evento_camion.dart';
 import 'package:essbio_apk/models/evento_contratista.dart';
 import 'package:essbio_apk/models/evento_data_eventos.dart';
@@ -16,10 +17,11 @@ import 'package:essbio_apk/models/mod_wkf_tipo_modulo.dart';
 import 'package:essbio_apk/models/xygo_usuario.dart';
 import "package:http/http.dart" as http;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/mod_wkf_orden_trabajo.dart';
 
-class EssbioProvider with ChangeNotifier {
-  EssbioProvider() {
+class Streams {
+  /*Streams() {
     this.fetchUsuarios();
     this.fetchOrdenesTrabajo();
     this.fetchStatus();
@@ -35,12 +37,26 @@ class EssbioProvider with ChangeNotifier {
     this.fetchDataEventos();
     this.fetchProcesos();
     this.fetchMensajes();
-  }
+  }*/
+
   // final server = "http://10.0.2.2:8000";
   final server = "https://djangorestessbio.herokuapp.com";
-
-  int loginCounter = 0;
-  StreamController<int> loginCounterController = StreamController.broadcast();
+  bool boolUsuarios = false;
+  bool boolOrdenesTrabajo = false;
+  bool boolStatus = false;
+  bool boolFases = false;
+  bool boolCamiones = false;
+  bool boolContratistas = false;
+  bool boolDataTKSectores = false;
+  bool boolTiposModulo = false;
+  bool boolFasesInstalacion = false;
+  bool boolFasesAbastMedicion = false;
+  bool boolFasesAbastecimiento = false;
+  bool boolFasesRetiro = false;
+  bool boolDataEventos = false;
+  bool boolProcesos = false;
+  bool boolMensajes = false;
+  bool completado = false;
 
   //Mod_WKF
   List<OrdenTrabajo> _ordenesTrabajo = [];
@@ -135,8 +151,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _procesos = data.map<Proceso>((json) => Proceso.fromJson(json)).toList();
       print("Procesos obtenidos");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolProcesos = true;
     }
   }
 
@@ -149,8 +164,7 @@ class EssbioProvider with ChangeNotifier {
           .map<OrdenTrabajo>((json) => OrdenTrabajo.fromJson(json))
           .toList();
       print("Ordenes de trabajo obtenidas");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolOrdenesTrabajo = true;
     }
   }
 
@@ -162,8 +176,7 @@ class EssbioProvider with ChangeNotifier {
       _tiposModulo =
           data.map<TipoModulo>((json) => TipoModulo.fromJson(json)).toList();
       print("Tipos modulo obtenidos");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolTiposModulo = true;
     }
   }
 
@@ -174,8 +187,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _camiones = data.map<Camion>((json) => Camion.fromJson(json)).toList();
       print("Camiones obtenidos");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolCamiones = true;
     }
   }
 
@@ -187,8 +199,7 @@ class EssbioProvider with ChangeNotifier {
       _contratistas =
           data.map<Contratista>((json) => Contratista.fromJson(json)).toList();
       print("Contratistas obtenidos");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolContratistas = true;
     }
   }
 
@@ -201,8 +212,7 @@ class EssbioProvider with ChangeNotifier {
           .map<DataTKSector>((json) => DataTKSector.fromJson(json))
           .toList();
       print("Data TK Sectores obtenidos");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolDataTKSectores = true;
     }
   }
 
@@ -215,8 +225,7 @@ class EssbioProvider with ChangeNotifier {
           .map<FaseInstalacion>((json) => FaseInstalacion.fromJson(json))
           .toList();
       print("Fases de instalación obtenidas");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolFasesInstalacion = true;
     }
   }
 
@@ -229,8 +238,7 @@ class EssbioProvider with ChangeNotifier {
           .map<FaseAbastMedicion>((json) => FaseAbastMedicion.fromJson(json))
           .toList();
       print("Fases de medición obtenidas");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolFasesAbastMedicion = true;
     }
   }
 
@@ -243,8 +251,7 @@ class EssbioProvider with ChangeNotifier {
           .map<FaseAbastecimiento>((json) => FaseAbastecimiento.fromJson(json))
           .toList();
       print("Fases de abastecimiento obtenidas");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolFasesAbastecimiento = true;
     }
   }
 
@@ -256,8 +263,7 @@ class EssbioProvider with ChangeNotifier {
       _fasesRetiro =
           data.map<FaseRetiro>((json) => FaseRetiro.fromJson(json)).toList();
       print("Fases de retiro obtenidas");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolFasesRetiro = true;
     }
   }
 
@@ -268,8 +274,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _usuarios = data.map<Usuario>((json) => Usuario.fromJson(json)).toList();
       print("Usuarios obtenidos");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolUsuarios = true;
     }
   }
 
@@ -280,8 +285,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _status = data.map<Status>((json) => Status.fromJson(json)).toList();
       print("Status obtenidos");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolStatus = true;
     }
   }
 
@@ -292,8 +296,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
       print("Fases obtenidas");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolFases = true;
     }
   }
 
@@ -305,8 +308,7 @@ class EssbioProvider with ChangeNotifier {
       _dataEventos =
           data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
       print("Data eventos obtenidas");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolDataEventos = true;
     }
   }
 
@@ -317,8 +319,7 @@ class EssbioProvider with ChangeNotifier {
       var data = json.decode(response.body) as List;
       _mensajes = data.map<Mensaje>((json) => Mensaje.fromJson(json)).toList();
       print("Mensajes obtenidos");
-      loginCounter = loginCounter + 1;
-      loginCounterController.add(loginCounter);
+      boolMensajes = true;
     }
   }
 
@@ -837,14 +838,54 @@ class EssbioProvider with ChangeNotifier {
     return [loginState, loggedUser];
   }
 
-  Stream<List<FaseInstalacion>> instalacionStream() async* {
-    yield* Stream.periodic(Duration(seconds: 10), (_) async {
-      final url = '${server}/ot_fase_instalacion/?format=json';
-      final response = await http.get(Uri.parse(url));
-      final data = json.decode(response.body) as List;
-      return data
-          .map<FaseInstalacion>((json) => FaseInstalacion.fromJson(json))
-          .toList();
+  Stream<Map> instalacionStream() async* {
+    yield* Stream.periodic(Duration(seconds: 60), (_) async {
+      await fetchUsuarios();
+      await fetchOrdenesTrabajo();
+      await fetchStatus();
+      await fetchFases();
+      await fetchCamiones();
+      await fetchContratistas();
+      await fetchDataTKSectores();
+      await fetchTiposModulo();
+      await fetchFasesInstalacion();
+      await fetchFasesAbastMedicion();
+      await fetchFasesAbastecimiento();
+      await fetchFasesRetiro();
+      await fetchDataEventos();
+      await fetchProcesos();
+      await fetchMensajes();
+      if (boolUsuarios == true &&
+          boolOrdenesTrabajo == true &&
+          boolStatus == true &&
+          boolFases == true &&
+          boolCamiones == true &&
+          boolContratistas == true &&
+          boolDataTKSectores == true &&
+          boolTiposModulo == true &&
+          boolFasesInstalacion == true &&
+          boolFasesAbastMedicion == true &&
+          boolFasesAbastecimiento == true &&
+          boolFasesRetiro == true &&
+          boolDataEventos == true &&
+          boolProcesos == true &&
+          boolMensajes == true) {
+          completado = true;
+      }
+      return 
+        {"ordenesTrabajo":ordenesTrabajo,
+        "fasesInstalacion":fasesInstalacion,
+        "fasesAbastMedicion":fasesAbastMedicion,
+        "fasesAbastecimiento": fasesAbastecimiento,
+        "fasesRetiro": fasesRetiro,
+        "fases":fases,
+        "status":status,
+        "dataTKSectores":dataTKSectores,
+        "procesos":procesos,
+        "dataEventos":dataEventos,
+        "mensajes":mensajes,
+        "completado":completado}
+      ;
     }).asyncMap((event) async => await event);
   }
 }
