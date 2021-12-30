@@ -78,11 +78,13 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => WorkflowDesplegado(
-                          instalacionUsuario: fasesUsuario[0],
-                          medicionUsuario: fasesUsuario[1],
-                          abastecimientoUsuario: fasesUsuario[2],
-                          retiroUsuario: fasesUsuario[3],
-                          usuario: essbioP.usuario!)),
+                            instalacionUsuario: fasesUsuario[0],
+                            medicionUsuario: fasesUsuario[1],
+                            abastecimientoUsuario: fasesUsuario[2],
+                            retiroUsuario: fasesUsuario[3],
+                            usuario: essbioP.usuario!,
+                            mensajesEssbio: essbioP.mensajes,
+                          )),
                 );
               },
             ),
