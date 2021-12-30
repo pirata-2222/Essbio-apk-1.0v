@@ -323,238 +323,6 @@ class Streams {
     }
   }
 
-  updateFasesInstalacion(FaseInstalacion faseInstalacion,
-      Map<String, dynamic> modificacion) async {
-    final id = faseInstalacion.id;
-    final url_instalacion = '$server/ot_fase_instalacion/$id/?format=json';
-    final response = await http.put(Uri.parse(url_instalacion),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "COMENTARIO_INSTALACION": modificacion["COMENTARIO_INSTALACION"] == ""
-              ? faseInstalacion.comentario_instalacion
-              : modificacion["COMENTARIO_INSTALACION"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-          "ROTULO_TK": modificacion["ROTULO_TK"] == ""
-              ? faseInstalacion.rotulo_tk
-              : modificacion["ROTULO_TK"],
-          "ARCHIVO_ADJUNTO": modificacion["ARCHIVO_ADJUNTO"] == ""
-              ? faseInstalacion.archivo_adjunto
-              : modificacion["ARCHIVO_ADJUNTO"]
-        }));
-
-    final url_ots =
-        '$server/mod_wkf_orden_trabajo/${faseInstalacion.id_ot}/?format=json';
-    final response_ots = await http.get(Uri.parse(url_ots));
-    var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"].toString();
-    print("id status: " + id_status.toString());
-    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
-
-    final response_status = await http.put(Uri.parse(url_status),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
-              ? faseInstalacion.id_tipo_status
-              : modificacion["ID_TIPO_STATUS"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-        }));
-
-    if (response.statusCode == 200) {
-      print("Actualizada correctamente la fase");
-    } else {
-      print("Hubo un problema al actualizar la fase");
-    }
-    if (response_status.statusCode == 200) {
-      print("Actualizado correctamente el estado");
-    } else {
-      print(response_status.body);
-      print("Hubo un problema al actualizar el estado");
-    }
-  }
-
-  updateFasesAbastecimiento(FaseAbastecimiento faseAbastecimiento,
-      Map<String, dynamic> modificacion) async {
-    final id = faseAbastecimiento.id;
-    final url_abastecimiento =
-        '$server/ot_fase_abastecimiento/$id/?format=json';
-    final response = await http.put(Uri.parse(url_abastecimiento),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "COMENTARIO": modificacion["COMENTARIO"] == ""
-              ? faseAbastecimiento.comentario
-              : modificacion["COMENTARIO"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-        }));
-
-    final url_ots =
-        '$server/mod_wkf_orden_trabajo/${faseAbastecimiento.id_ot}/?format=json';
-    final response_ots = await http.get(Uri.parse(url_ots));
-    var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"].toString();
-    print("id status: " + id_status.toString());
-    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
-
-    final response_status = await http.put(Uri.parse(url_status),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
-              ? faseAbastecimiento.id_tipo_status
-              : modificacion["ID_TIPO_STATUS"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-        }));
-
-    if (response.statusCode == 200) {
-      print("Abast : Actualizada correctamente la fase");
-    } else {
-      print("Abast : Hubo un problema al actualizar la fase");
-    }
-    if (response_status.statusCode == 200) {
-      print("Abast : Actualizado correctamente el estado");
-    } else {
-      print(response_status.body);
-      print("Abast : Hubo un problema al actualizar el estado");
-    }
-  }
-
-  updateFasesMedicion(FaseAbastMedicion faseAbastMedicion,
-      Map<String, dynamic> modificacion) async {
-    //TODO Mapear respuesta de Sí a S
-    final id = faseAbastMedicion.id;
-    var agua_norma = "";
-    var cloro_norma = "";
-    var turbiedad_norma = "";
-
-    if (modificacion["NIVEL_AGUA_CUMPLE_NORMA"] == "SI") {
-      agua_norma = "S";
-    } else {
-      agua_norma = "N";
-    }
-    if (modificacion["NIVEL_CLORO_CUMPLE_NORMA"] == "SI") {
-      cloro_norma = "S";
-    } else {
-      cloro_norma = "N";
-    }
-    if (modificacion["NIVEL_TURBIEDAD_CUMPLE_NORMA"] == "SI") {
-      turbiedad_norma = "S";
-    } else {
-      turbiedad_norma = "N";
-    }
-
-    final url_medicion = '$server/ot_fase_abast_medicion/$id/?format=json';
-    final response = await http.put(Uri.parse(url_medicion),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          'NIVEL_AGUA': modificacion['NIVEL_AGUA'] == ""
-              ? faseAbastMedicion.nivel_agua
-              : modificacion['NIVEL_AGUA'],
-          'NIVEL_AGUA_CUMPLE_NORMA':
-              modificacion['NIVEL_AGUA_CUMPLE_NORMA'] == ""
-                  ? faseAbastMedicion.nivel_agua_cumple_norma
-                  : agua_norma,
-          'NIVEL_CLORO': modificacion['NIVEL_CLORO'] == ""
-              ? faseAbastMedicion.nivel_cloro
-              : modificacion['NIVEL_CLORO'],
-          'NIVEL_CLORO_CUMPLE_NORMA':
-              modificacion['NIVEL_CLORO_CUMPLE_NORMA'] == ""
-                  ? faseAbastMedicion.nivel_cloro_cumple_norma
-                  : cloro_norma,
-          'NIVEL_TURBIEDAD': modificacion['NIVEL_TURBIEDAD'] == ""
-              ? faseAbastMedicion.nivel_turbiedad
-              : modificacion['NIVEL_AGUA'],
-          'NIVEL_TURBIEDAD_CUMPLE_NORMA':
-              modificacion['NIVEL_TURBIEDAD_CUMPLE_NORMA'] == ""
-                  ? faseAbastMedicion.nivel_turbiedad_cumple_norma
-                  : turbiedad_norma,
-          "COMENTARIO": modificacion["COMENTARIO"] == ""
-              ? faseAbastMedicion.comentario
-              : modificacion["COMENTARIO"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-        }));
-
-    final url_ots =
-        '$server/mod_wkf_orden_trabajo/${faseAbastMedicion.id_ot}/?format=json';
-    final response_ots = await http.get(Uri.parse(url_ots));
-    var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"].toString();
-    print("id status: " + id_status.toString());
-    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
-
-    final response_status = await http.put(Uri.parse(url_status),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
-              ? faseAbastMedicion.id_tipo_status
-              : modificacion["ID_TIPO_STATUS"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-        }));
-
-    if (response.statusCode == 200) {
-      print("Abast : Actualizada correctamente la fase");
-    } else {
-      print("Abast : Hubo un problema al actualizar la fase");
-    }
-    if (response_status.statusCode == 200) {
-      print("Abast : Actualizado correctamente el estado");
-    } else {
-      print(response_status.body);
-      print("Abast : Hubo un problema al actualizar el estado");
-    }
-  }
-
-  updateFasesRetiro(
-      FaseRetiro faseRetiro, Map<String, dynamic> modificacion) async {
-    final id = faseRetiro.id;
-    final url_retiro = '$server/ot_fase_retiro/$id/?format=json';
-    final response = await http.put(Uri.parse(url_retiro),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          'NUMERO_ESTANQUE': modificacion['NUMERO_ESTANQUE'] == ""
-              ? faseRetiro.numero_estanque
-              : modificacion['NUMERO_ESTANQUE'],
-          "COMENTARIO": modificacion["COMENTARIO"] == ""
-              ? faseRetiro.comentario
-              : modificacion["COMENTARIO"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-        }));
-
-    final url_ots =
-        '$server/mod_wkf_orden_trabajo/${faseRetiro.id_ot}/?format=json';
-    final response_ots = await http.get(Uri.parse(url_ots));
-    var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"].toString();
-    print("id status: " + id_status.toString());
-    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
-
-    final response_status = await http.put(Uri.parse(url_status),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
-              ? faseRetiro.id_tipo_status
-              : modificacion["ID_TIPO_STATUS"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-        }));
-
-    if (response.statusCode == 200) {
-      print("Abast : Actualizada correctamente la fase");
-    } else {
-      print("Abast : Hubo un problema al actualizar la fase");
-    }
-    if (response_status.statusCode == 200) {
-      print("Abast : Actualizado correctamente el estado");
-    } else {
-      print(response_status.body);
-      print("Abast : Hubo un problema al actualizar el estado");
-    }
-  }
-
   List getFasesUsuario(
       {required List<OrdenTrabajo> ordenesTrabajo,
       required List<FaseInstalacion> fasesInstalacion,
@@ -838,8 +606,9 @@ class Streams {
     return [loginState, loggedUser];
   }
 
-  Stream<Map> instalacionStream() async* {
-    yield* Stream.periodic(Duration(seconds: 60), (_) async {
+  Stream<Map> workflowStream() async* {
+    while (true) {
+      await Future.delayed(Duration(seconds: 5));
       await fetchUsuarios();
       await fetchOrdenesTrabajo();
       await fetchStatus();
@@ -855,37 +624,21 @@ class Streams {
       await fetchDataEventos();
       await fetchProcesos();
       await fetchMensajes();
-      if (boolUsuarios == true &&
-          boolOrdenesTrabajo == true &&
-          boolStatus == true &&
-          boolFases == true &&
-          boolCamiones == true &&
-          boolContratistas == true &&
-          boolDataTKSectores == true &&
-          boolTiposModulo == true &&
-          boolFasesInstalacion == true &&
-          boolFasesAbastMedicion == true &&
-          boolFasesAbastecimiento == true &&
-          boolFasesRetiro == true &&
-          boolDataEventos == true &&
-          boolProcesos == true &&
-          boolMensajes == true) {
-          completado = true;
-      }
-      return 
-        {"ordenesTrabajo":ordenesTrabajo,
-        "fasesInstalacion":fasesInstalacion,
-        "fasesAbastMedicion":fasesAbastMedicion,
-        "fasesAbastecimiento": fasesAbastecimiento,
-        "fasesRetiro": fasesRetiro,
-        "fases":fases,
-        "status":status,
-        "dataTKSectores":dataTKSectores,
-        "procesos":procesos,
-        "dataEventos":dataEventos,
-        "mensajes":mensajes,
-        "completado":completado}
-      ;
-    }).asyncMap((event) async => await event);
+      yield {
+        "ordenesTrabajo": _ordenesTrabajo,
+        "fasesInstalacion": _fasesInstalacion,
+        "fasesAbastMedicion": _fasesAbastMedicion,
+        "fasesAbastecimiento": _fasesAbastecimiento,
+        "fasesRetiro": _fasesRetiro,
+        "fases": _fases,
+        "status": _status,
+        "dataTKSectores": _dataTKSectores,
+        "procesos": _procesos,
+        "dataEventos": _dataEventos,
+        "mensajes": _mensajes,
+        "completado": completado
+      };
+
+    }
   }
 }

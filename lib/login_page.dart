@@ -115,37 +115,40 @@ class _HomeState extends State<Home> {
                                       builder: (context) {
                                         return StreamBuilder<Map>(
                                             stream: stream
-                                                .instalacionStream()
-                                                .asBroadcastStream(),
+                                                .workflowStream(),
                                             builder: (context,
                                                 AsyncSnapshot<Map> snapshot) {
                                               if (snapshot.hasData &&
                                                   snapshot
-                                                      .data!["completado"]) {
+                                                      .data?["completado"]) {
                                                 var ordenesTrabajo = snapshot
-                                                    .data!["ordenesTrabajo"];
+                                                    .data?["ordenesTrabajo"];
                                                 var fasesInstalacion = snapshot
-                                                    .data!["fasesInstalacion"];
+                                                    .data?["fasesInstalacion"];
                                                 var fasesMedicion = snapshot
-                                                    .data!["fasesMedicion"];
+                                                    .data?["fasesMedicion"];
                                                 var fasesAbastecimiento =
-                                                    snapshot.data![
+                                                    snapshot.data?[
                                                         "fasesAbastecimiento"];
                                                 var fasesRetiro = snapshot
-                                                    .data!["fasesRetiro"];
+                                                    .data?["fasesRetiro"];
                                                 var fases =
-                                                    snapshot.data!["fases"];
+                                                    snapshot.data?["fases"];
                                                 var statuses =
-                                                    snapshot.data!["statuses"];
+                                                    snapshot.data?["statuses"];
                                                 var sectores =
-                                                    snapshot.data!["sectores"];
+                                                    snapshot.data?["sectores"];
                                                 var procesos =
-                                                    snapshot.data!["procesos"];
+                                                    snapshot.data?["procesos"];
                                                 var eventos =
-                                                    snapshot.data!["eventos"];
+                                                    snapshot.data?["eventos"];
                                                 var mensajes =
-                                                    snapshot.data!["mensajes"];
+                                                    snapshot.data?["mensajes"];
                                                 var id_usuario = 4;
+                                                
+                                                print(ordenesTrabajo.length);
+
+
                                                 fasesUsuario = stream.getFasesUsuario(
                                                     ordenesTrabajo:
                                                         ordenesTrabajo == null
@@ -185,6 +188,7 @@ class _HomeState extends State<Home> {
                                                         ? []
                                                         : mensajes,
                                                     id_usuario: id_usuario);
+
                                                 return WorkflowDesplegado(
                                                     instalacionUsuario:
                                                         fasesUsuario[0],
@@ -233,7 +237,7 @@ class _HomeState extends State<Home> {
                                                         fasesUsuario[2],
                                                     retiroUsuario:
                                                         fasesUsuario[3],
-                                                    usuario: 
+                                                    usuario:
                                                         essbioP.validateLogin(
                                                             usernameController
                                                                 .text,
