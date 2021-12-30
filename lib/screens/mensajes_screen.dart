@@ -62,14 +62,16 @@ class _MensajeScreenState extends State<MensajeScreen> {
             SizedBox(
               height: 10,
             ),
-            ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: widget.mensajesLista.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return CardMensaje(
-                      mensajeEssbio: widget.mensajesLista[index]);
-                })
+            Expanded(
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: widget.mensajesLista.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return CardMensaje(
+                        mensajeEssbio: widget.mensajesLista[index]);
+                  }),
+            )
           ],
         ),
       ),
@@ -90,6 +92,19 @@ class CardMensaje extends StatefulWidget {
 class _CardMensajeState extends State<CardMensaje> {
   @override
   Widget build(BuildContext context) {
+    Color colorMensajes() {
+      var confirmarLectura = widget.mensajeEssbio.confirmacion.toString();
+
+      Color colorMensajeOT = Colors.grey;
+      if (confirmarLectura == "S") {
+        colorMensajeOT = celesteEssbio;
+      } else {
+        colorMensajeOT = verdeTiempoCritico;
+      }
+
+      return colorMensajeOT;
+    }
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -98,28 +113,36 @@ class _CardMensajeState extends State<CardMensaje> {
                 builder: (context) => CardMensajeDesplegado(
                     mensajeEssbio: widget.mensajeEssbio)));
       },
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.grey, borderRadius: BorderRadius.circular(10)),
-        height: 150,
-        width: MediaQuery.of(context).size.width * 0.9,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Fecha de Envío:", style: TextStyle(color: Colors.white)),
-                Text(widget.mensajeEssbio.fecha_creacion,
-                    style: TextStyle(color: Colors.white))
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 20),
-              child: Row(
+      child: Expanded(
+        child: Container(
+          padding: EdgeInsets.only(top: 10, bottom: 10, right: 5),
+          margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+          decoration: BoxDecoration(
+              color: colorMensajes(),
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20))),
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Prioridad: " + widget.mensajeEssbio.prioridad.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                  "Fecha de Envío: " +
+                      widget.mensajeEssbio.fecha_creacion.toString(),
+                  style: TextStyle(color: Colors.white)),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Remitente: ",
@@ -127,22 +150,22 @@ class _CardMensajeState extends State<CardMensaje> {
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    widget.mensajeEssbio.id_usuario_creacion,
+                    widget.mensajeEssbio.id_usuario_creacion.toString(),
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-                child: Container(
-              margin: EdgeInsets.only(left: 25, top: 10),
-              child: Text(widget.mensajeEssbio.mensaje,
-                  style: TextStyle(color: Colors.white)),
-            ))
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                  child: Container(
+                margin: EdgeInsets.only(left: 25, top: 10),
+                child: Text(widget.mensajeEssbio.mensaje.toString(),
+                    style: TextStyle(color: Colors.white)),
+              ))
+            ],
+          ),
         ),
       ),
     );
@@ -160,8 +183,22 @@ class CardMensajeDesplegado extends StatefulWidget {
 
 class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
   TextEditingController comentarioMensajeController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    String confirmacionLecturaString() {
+      var confirmarLectura = widget.mensajeEssbio.confirmacion.toString();
+
+      String confirmacionString = " ";
+      if (confirmarLectura == "S") {
+        confirmacionString = "Mensaje Leído";
+      } else {
+        confirmacionString = "Aún no se confirma lectura del mensaje";
+      }
+
+      return confirmacionString;
+    }
+
     return MaterialApp(
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -210,42 +247,113 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                   height: 20,
                 ),
                 Text(
+                  "Prioridad:",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(widget.mensajeEssbio.prioridad.toString()),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
                   "Remitente:",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(widget.mensajeEssbio.id_usuario_creacion),
+                Text(widget.mensajeEssbio.id_usuario_creacion.toString()),
                 SizedBox(height: 20),
                 Text(
                   "Fecha de Envío",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(widget.mensajeEssbio.fecha_creacion),
+                Text(widget.mensajeEssbio.fecha_creacion.toString()),
                 SizedBox(
                   height: 20,
-                ),
-                Text(
-                  "Mensaje:",
-                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
-                  child: Text(widget.mensajeEssbio.mensaje),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          color: azulPrimarioEssbio,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        "Confirmar Lectura",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                        color: azulPrimarioEssbio,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20))),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Mensaje:",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        SizedBox(height: 10),
+                        Container(
+                          margin: EdgeInsets.only(left: 10, right: 10),
+                          child: Text(
+                            widget.mensajeEssbio.mensaje.toString(),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
                     )),
+                SizedBox(
+                  height: 10,
+                ),
+                confirmacionLecturaString() == "Mensaje Leído"
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: rojoEssbio,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              confirmacionLecturaString(),
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      )
+                    : InkWell(
+                        onTap: () {},
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: azulPrimarioEssbio,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Text(
+                            "Confirmar Lectura",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )),
+                SizedBox(
+                  height: 10,
+                ),
+                widget.mensajeEssbio.mensaje_respuesta.toString() != null
+                    ? Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                            color: verdeTiempoCritico,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20))),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Última Respuesta:",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              child: Text(
+                                widget.mensajeEssbio.mensaje_respuesta
+                                    .toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ))
+                    : Text(" "),
                 SizedBox(
                   height: 20,
                 ),
