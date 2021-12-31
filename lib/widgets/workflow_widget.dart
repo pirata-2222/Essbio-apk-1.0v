@@ -2,6 +2,7 @@ import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/models/fase_retiro.dart';
+import 'package:essbio_apk/models/mod_mensaje.dart';
 import 'package:essbio_apk/models/xygo_usuario.dart';
 import 'package:essbio_apk/screens/mensajes_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class WorkflowDesplegado extends StatefulWidget {
   final List<FaseAbastecimiento> abastecimientoUsuario;
   final List<FaseRetiro> retiroUsuario;
   final Usuario usuario;
+  final List<Mensaje> mensajesEssbio;
 
   WorkflowDesplegado(
       {Key? key,
@@ -25,7 +27,8 @@ class WorkflowDesplegado extends StatefulWidget {
       required this.abastecimientoUsuario,
       required this.medicionUsuario,
       required this.retiroUsuario,
-      required this.usuario})
+      required this.usuario,
+      required this.mensajesEssbio})
       : super(key: key);
 
   @override
@@ -104,7 +107,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MensajeScreen(
-                                      mensajesLista: [],
+                                      mensajesLista: widget.mensajesEssbio,
                                     )));
                       },
                       child: Container(

@@ -82,7 +82,8 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                           medicionUsuario: fasesUsuario[1],
                           abastecimientoUsuario: fasesUsuario[2],
                           retiroUsuario: fasesUsuario[3],
-                          usuario: essbioP.usuario!)),
+                          usuario: essbioP.usuario!,
+                          mensajesEssbio: essbioP.mensajes)),
                 );
               },
             ),

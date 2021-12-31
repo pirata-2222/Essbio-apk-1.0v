@@ -114,8 +114,7 @@ class _HomeState extends State<Home> {
                                     MaterialPageRoute(
                                       builder: (context) {
                                         return StreamBuilder<Map>(
-                                            stream: stream
-                                                .workflowStream(),
+                                            stream: stream.workflowStream(),
                                             builder: (context,
                                                 AsyncSnapshot<Map> snapshot) {
                                               if (snapshot.hasData &&
@@ -145,9 +144,8 @@ class _HomeState extends State<Home> {
                                                 var mensajes =
                                                     snapshot.data?["mensajes"];
                                                 var id_usuario = 4;
-                                                
-                                                print(ordenesTrabajo.length);
 
+                                                print(ordenesTrabajo.length);
 
                                                 fasesUsuario = stream.getFasesUsuario(
                                                     ordenesTrabajo:
@@ -190,20 +188,23 @@ class _HomeState extends State<Home> {
                                                     id_usuario: id_usuario);
 
                                                 return WorkflowDesplegado(
-                                                    instalacionUsuario:
-                                                        fasesUsuario[0],
-                                                    medicionUsuario:
-                                                        fasesUsuario[1],
-                                                    abastecimientoUsuario:
-                                                        fasesUsuario[2],
-                                                    retiroUsuario:
-                                                        fasesUsuario[3],
-                                                    usuario:
-                                                        essbioP.validateLogin(
-                                                            usernameController
-                                                                .text,
-                                                            passwordController
-                                                                .text)[1]);
+                                                  instalacionUsuario:
+                                                      fasesUsuario[0],
+                                                  medicionUsuario:
+                                                      fasesUsuario[1],
+                                                  abastecimientoUsuario:
+                                                      fasesUsuario[2],
+                                                  retiroUsuario:
+                                                      fasesUsuario[3],
+                                                  usuario:
+                                                      essbioP.validateLogin(
+                                                          usernameController
+                                                              .text,
+                                                          passwordController
+                                                              .text)[1],
+                                                  mensajesEssbio:
+                                                      essbioP.mensajes,
+                                                );
                                               } else {
                                                 fasesUsuario =
                                                     essbioP.getFasesUsuario(
@@ -229,20 +230,23 @@ class _HomeState extends State<Home> {
                                                   statuses: essbioP.status,
                                                 );
                                                 return WorkflowDesplegado(
-                                                    instalacionUsuario:
-                                                        fasesUsuario[0],
-                                                    medicionUsuario:
-                                                        fasesUsuario[1],
-                                                    abastecimientoUsuario:
-                                                        fasesUsuario[2],
-                                                    retiroUsuario:
-                                                        fasesUsuario[3],
-                                                    usuario:
-                                                        essbioP.validateLogin(
-                                                            usernameController
-                                                                .text,
-                                                            passwordController
-                                                                .text)[1]);
+                                                  instalacionUsuario:
+                                                      fasesUsuario[0],
+                                                  medicionUsuario:
+                                                      fasesUsuario[1],
+                                                  abastecimientoUsuario:
+                                                      fasesUsuario[2],
+                                                  retiroUsuario:
+                                                      fasesUsuario[3],
+                                                  usuario:
+                                                      essbioP.validateLogin(
+                                                          usernameController
+                                                              .text,
+                                                          passwordController
+                                                              .text)[1],
+                                                  mensajesEssbio:
+                                                      essbioP.mensajes,
+                                                );
                                               }
                                             });
                                       },
