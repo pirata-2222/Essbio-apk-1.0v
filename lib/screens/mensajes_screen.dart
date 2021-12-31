@@ -105,6 +105,13 @@ class _CardMensajeState extends State<CardMensaje> {
       return colorMensajeOT;
     }
 
+    var fechaYHoraMensajeString =
+        widget.mensajeEssbio.fecha_creacion.toString();
+    var splitFechayHora = fechaYHoraMensajeString.split("T");
+    var fechaMensajeString = splitFechayHora[0];
+    // var split2 = splitFechayHora[1].split("Z");
+    // var horaMensajeString = split2[0];
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -134,9 +141,7 @@ class _CardMensajeState extends State<CardMensaje> {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                  "Fecha de Envío: " +
-                      widget.mensajeEssbio.fecha_creacion.toString(),
+              Text("Fecha de Envío: " + fechaMensajeString,
                   style: TextStyle(color: Colors.white)),
               SizedBox(
                 height: 10,
@@ -198,6 +203,11 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
 
       return confirmacionString;
     }
+
+    var fechaYHoraMensajeString =
+        widget.mensajeEssbio.fecha_creacion.toString();
+    var splitFechayHora = fechaYHoraMensajeString.split("T");
+    var fechaMensajeString = splitFechayHora[0];
 
     return MaterialApp(
         theme: ThemeData(
@@ -264,7 +274,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                   "Fecha de Envío",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(widget.mensajeEssbio.fecha_creacion.toString()),
+                Text(fechaMensajeString),
                 SizedBox(
                   height: 20,
                 ),
@@ -283,6 +293,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                           "Mensaje:",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.white),
+                          textAlign: TextAlign.start,
                         ),
                         SizedBox(height: 10),
                         Container(
@@ -290,6 +301,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                           child: Text(
                             widget.mensajeEssbio.mensaje.toString(),
                             style: TextStyle(color: Colors.white),
+                            textAlign: TextAlign.left,
                           ),
                         ),
                       ],
@@ -341,6 +353,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
+                              textAlign: TextAlign.start,
                             ),
                             SizedBox(height: 10),
                             Container(
@@ -349,6 +362,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                                 widget.mensajeEssbio.mensaje_respuesta
                                     .toString(),
                                 style: TextStyle(color: Colors.white),
+                                textAlign: TextAlign.start,
                               ),
                             ),
                           ],
