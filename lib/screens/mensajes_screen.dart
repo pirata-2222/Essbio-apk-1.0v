@@ -2,6 +2,8 @@ import 'package:essbio_apk/models/mod_mensaje.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
+import 'package:essbio_apk/api/api.dart';
+import 'package:provider/provider.dart';
 
 class MensajeScreen extends StatefulWidget {
   final List<Mensaje> mensajesLista;
@@ -112,6 +114,26 @@ class _CardMensajeState extends State<CardMensaje> {
     // var split2 = splitFechayHora[1].split("Z");
     // var horaMensajeString = split2[0];
 
+    final essbioP = Provider.of<EssbioProvider>(context);
+
+    String nombreRemitenteMensaje() {
+      var usuariosLength = essbioP.usuarios.length;
+      var usuarioCreacionString =
+          widget.mensajeEssbio.id_usuario_creacion.toString();
+      String nombreRemitente = " ";
+      for (var i = 0; i < usuariosLength; i++) {
+        var usuarioIDString = essbioP.usuarios[i].idusuario.toString();
+        var nombreUsuarioString = essbioP.usuarios[i].nomusuario;
+        var nombreUsuario = essbioP.usuarios[i].nombres;
+        // var apellidoUsuario = essbioP.usuarios[i].apellidos;
+        if (usuarioCreacionString == usuarioIDString) {
+          nombreRemitente =
+              nombreUsuario + " " + "(" + nombreUsuarioString + ")";
+        }
+      }
+      return nombreRemitente;
+    }
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -150,12 +172,12 @@ class _CardMensajeState extends State<CardMensaje> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Remitente: ",
+                    "Enviado por: ",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    widget.mensajeEssbio.id_usuario_creacion.toString(),
+                    nombreRemitenteMensaje(),
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -208,6 +230,26 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
         widget.mensajeEssbio.fecha_creacion.toString();
     var splitFechayHora = fechaYHoraMensajeString.split("T");
     var fechaMensajeString = splitFechayHora[0];
+
+    final essbioP = Provider.of<EssbioProvider>(context);
+
+    String nombreRemitenteMensaje() {
+      var usuariosLength = essbioP.usuarios.length;
+      var usuarioCreacionString =
+          widget.mensajeEssbio.id_usuario_creacion.toString();
+      String nombreRemitente = " ";
+      for (var i = 0; i < usuariosLength; i++) {
+        var usuarioIDString = essbioP.usuarios[i].idusuario.toString();
+        var nombreUsuarioString = essbioP.usuarios[i].nomusuario;
+        var nombreUsuario = essbioP.usuarios[i].nombres;
+        // var apellidoUsuario = essbioP.usuarios[i].apellidos;
+        if (usuarioCreacionString == usuarioIDString) {
+          nombreRemitente =
+              nombreUsuario + " " + "(" + nombreUsuarioString + ")";
+        }
+      }
+      return nombreRemitente;
+    }
 
     return MaterialApp(
         theme: ThemeData(
@@ -265,10 +307,10 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                   height: 20,
                 ),
                 Text(
-                  "Remitente:",
+                  "Enviado por:",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(widget.mensajeEssbio.id_usuario_creacion.toString()),
+                Text(nombreRemitenteMensaje()),
                 SizedBox(height: 20),
                 Text(
                   "Fecha de Envío",
