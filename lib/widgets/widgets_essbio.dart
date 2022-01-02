@@ -3,7 +3,7 @@ import 'package:essbio_apk/login_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:provider/provider.dart';
-import 'workflow_widget.dart';
+import '../screens/workflow_widget.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';

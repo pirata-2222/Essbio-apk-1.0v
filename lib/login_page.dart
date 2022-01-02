@@ -12,7 +12,7 @@ import 'package:essbio_apk/models/mod_wkf_fase.dart';
 import 'package:essbio_apk/models/mod_wkf_orden_trabajo.dart';
 import 'package:essbio_apk/models/mod_wkf_proceso.dart';
 import 'package:essbio_apk/models/mod_wkf_status.dart';
-import 'package:essbio_apk/widgets/workflow_widget.dart';
+import 'package:essbio_apk/screens/workflow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'api/api.dart';
