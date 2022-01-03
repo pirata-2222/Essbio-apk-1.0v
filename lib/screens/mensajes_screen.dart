@@ -263,199 +263,231 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
           appBar: AppBar(
             title: Text("ESSBIO APP"),
           ),
-          body: Container(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      height: 60,
-                      width: 70,
-                      color: azulPrimarioEssbio,
-                      child: InkWell(
-                          child: Icon(
-                            Icons.chevron_left_outlined,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                          }),
-                    ),
-                    Expanded(
-                      child: Container(
+          body: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
                         height: 60,
+                        width: 70,
                         color: azulPrimarioEssbio,
-                        child: Center(
-                            child: Text("MENSAJE OT",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17.5,
-                                    fontWeight: FontWeight.bold))),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Prioridad:",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(widget.mensajeEssbio.prioridad.toString()),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Enviado por:",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(nombreRemitenteMensaje()),
-                SizedBox(height: 20),
-                Text(
-                  "Fecha de Envío",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text(fechaMensajeString),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                        color: azulPrimarioEssbio,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20))),
-                    child: Column(
-                      children: [
-                        Container(
-                          // TODO: ver el margen con medidas relativas para responsividad
-                          margin: EdgeInsets.only(right: 250),
-                          child: Text(
-                            "Mensaje:",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Container(
-                          margin: EdgeInsets.only(left: 10, right: 10),
-                          child: Text(
-                            widget.mensajeEssbio.mensaje.toString(),
-                            style: TextStyle(color: Colors.white),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      ],
-                    )),
-                SizedBox(
-                  height: 10,
-                ),
-                confirmacionLecturaString() == "Mensaje Leído"
-                    ? Container(
-                        decoration: BoxDecoration(
-                            color: rojoEssbio,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              confirmacionLecturaString(),
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      )
-                    : InkWell(
-                        onTap: () {
-                          setState(() {
-                            // TODO: Aquí se debe cambiar el Estado de confirmación a leído
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                              color: azulPrimarioEssbio,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Text(
-                            "Confirmar Lectura",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )),
-                SizedBox(
-                  height: 10,
-                ),
-                widget.mensajeEssbio.mensaje_respuesta.toString() != null
-                    ? Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            color: verdeTiempoCritico,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20))),
-                        child: Column(
-                          children: [
-                            Container(
-                                // TODO: ver el margen con medidas relativas para responsividad
-                                margin: EdgeInsets.only(right: 200),
-                                child: Text(
-                                  "Última Respuesta:",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                  textAlign: TextAlign.start,
-                                )),
-                            SizedBox(height: 10),
-                            Container(
-                              margin: EdgeInsets.only(left: 10, right: 10),
-                              child: Text(
-                                widget.mensajeEssbio.mensaje_respuesta
-                                    .toString(),
-                                style: TextStyle(color: Colors.white),
-                                textAlign: TextAlign.start,
-                              ),
+                        child: InkWell(
+                            child: Icon(
+                              Icons.chevron_left_outlined,
+                              size: 40,
+                              color: Colors.white,
                             ),
-                          ],
-                        ))
-                    : Text(" "),
-                SizedBox(
-                  height: 20,
-                ),
-                Center(
-                  child: Container(
-                    height: 60.0,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    color: Colors.white,
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: TextField(
-                      controller: comentarioMensajeController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Aquí puedes escribir tu respuesta'),
-                    ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 60,
+                          color: azulPrimarioEssbio,
+                          child: Center(
+                              child: Text("MENSAJE OT",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17.5,
+                                      fontWeight: FontWeight.bold))),
+                        ),
+                      )
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(15),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Prioridad:",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(widget.mensajeEssbio.prioridad.toString()),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Enviado por:",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(nombreRemitenteMensaje()),
+                  SizedBox(height: 20),
+                  Text(
+                    "Fecha de Envío",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(fechaMensajeString),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      padding: EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                           color: azulPrimarioEssbio,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        "Responder",
-                        style: TextStyle(color: Colors.white),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20))),
+                      child: Column(
+                        children: [
+                          Container(
+                            // TODO: ver el margen con medidas relativas para responsividad
+                            margin: EdgeInsets.only(right: 250),
+                            child: Text(
+                              "Mensaje:",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            margin: EdgeInsets.only(left: 10, right: 10),
+                            child: Text(
+                              widget.mensajeEssbio.mensaje.toString(),
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ],
+                      )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  confirmacionLecturaString() == "Mensaje Leído"
+                      ? Container(
+                          decoration: BoxDecoration(
+                              color: rojoEssbio,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                confirmacionLecturaString(),
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        )
+                      : InkWell(
+                          onTap: () {
+                            setState(() {
+                              // TODO: Aquí se debe cambiar el Estado de confirmación a leído
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                                color: azulPrimarioEssbio,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text(
+                              "Confirmar Lectura",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  widget.mensajeEssbio.mensaje_respuesta.toString() != null
+                      ? Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                              color: verdeTiempoCritico,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20))),
+                          child: Column(
+                            children: [
+                              Container(
+                                  // TODO: ver el margen con medidas relativas para responsividad
+                                  margin: EdgeInsets.only(right: 200),
+                                  child: Text(
+                                    "Última Respuesta:",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                    textAlign: TextAlign.start,
+                                  )),
+                              SizedBox(height: 10),
+                              Container(
+                                margin: EdgeInsets.only(left: 10, right: 10),
+                                child: Text(
+                                  widget.mensajeEssbio.mensaje_respuesta
+                                      .toString(),
+                                  style: TextStyle(color: Colors.white),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ],
+                          ))
+                      : Text(" "),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: Container(
+                      height: 60.0,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      color: Colors.white,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        controller: comentarioMensajeController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Aquí puedes escribir tu respuesta'),
                       ),
-                    )),
-              ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                    title: const Text('Enviar Respuesta'),
+                                    content: const Text(
+                                        'Estás a punto de enviar una respuesta al mensaje enviado. Por favor confirma para enviar'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancelar'),
+                                      ),
+                                      TextButton(
+                                          onPressed: () {
+                                            Map<String, dynamic> modificacion =
+                                                {
+                                              "MENSAJE_RESPUESTA":
+                                                  comentarioMensajeController
+                                                      .text,
+                                            };
+                                            essbioP.updateMensaje(
+                                                widget.mensajeEssbio,
+                                                modificacion);
+                                            print(
+                                                "Se debería actualizar tabla con mensaje respuesta");
+                                            Navigator.pop(context, 'Cancel');
+                                          },
+                                          child: const Text('Confirmar')),
+                                    ]));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            color: azulPrimarioEssbio,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text(
+                          "Responder",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      )),
+                ],
+              ),
             ),
           ),
         ));

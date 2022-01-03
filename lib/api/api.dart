@@ -373,6 +373,20 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
+  updateMensaje(Mensaje mensaje, Map<String, dynamic> modificacion) async {
+    final id = mensaje.id_usuario;
+    final url_mensaje = '${server}/mod_mensaje/$id/?format=json';
+    final response = await http.put(Uri.parse(url_mensaje),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "MENSAJE_RESPUESTA": modificacion["MENSAJE_RESPUESTA"] == ""
+              ? mensaje.mensaje_respuesta
+              : modificacion["MENSAJE_RESPUESTA"],
+          "FECHA_MOD_XYGO":
+              DateTime.now().toIso8601String().substring(0, 19) + "Z"
+        }));
+  }
+
   updateFasesAbastecimiento(FaseAbastecimiento faseAbastecimiento,
       Map<String, dynamic> modificacion) async {
     final id = faseAbastecimiento.id;
