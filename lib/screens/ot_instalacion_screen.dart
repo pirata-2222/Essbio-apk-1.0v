@@ -704,6 +704,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                   };
                                   essbioP.updateFasesInstalacion(
                                       widget.faseInstalacion, modificacion);
+                                      /*
                                   essbioP.fetchFasesInstalacion();
                                   essbioP.fetchFases();
                                   essbioP.fetchOrdenesTrabajo();
@@ -724,7 +725,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                     procesos: essbioP.procesos,
                                     sectores: essbioP.dataTKSectores,
                                     statuses: essbioP.status,
-                                  );
+                                  );*/
                                   Navigator.pop(context, 'Cancel');
                                 },
                                 child: const Text('Confirmar'),
