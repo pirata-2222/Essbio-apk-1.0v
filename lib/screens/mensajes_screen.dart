@@ -145,57 +145,55 @@ class _CardMensajeState extends State<CardMensaje> {
                 builder: (context) => CardMensajeDesplegado(
                     mensajeEssbio: widget.mensajeEssbio)));
       },
-      child: Expanded(
-        child: Container(
-          padding: EdgeInsets.only(top: 10, bottom: 10, right: 5),
-          margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-          decoration: BoxDecoration(
-              color: colorMensajes(),
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Prioridad: " + widget.mensajeEssbio.prioridad.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text("Fecha de Envío: " + fechaMensajeString,
+      child: Container(
+        padding: EdgeInsets.only(top: 10, bottom: 10, right: 5),
+        margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+        decoration: BoxDecoration(
+            color: colorMensajes(),
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20))),
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Prioridad: " + widget.mensajeEssbio.prioridad.toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text("Fecha de Envío: " + fechaMensajeString,
+                style: TextStyle(color: Colors.white)),
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Enviado por: ",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  nombreRemitenteMensaje(),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+                child: Container(
+              margin: EdgeInsets.only(left: 25, top: 10),
+              child: Text(widget.mensajeEssbio.mensaje.toString(),
                   style: TextStyle(color: Colors.white)),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Enviado por: ",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    nombreRemitenteMensaje(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Center(
-                  child: Container(
-                margin: EdgeInsets.only(left: 25, top: 10),
-                child: Text(widget.mensajeEssbio.mensaje.toString(),
-                    style: TextStyle(color: Colors.white)),
-              ))
-            ],
-          ),
+            ))
+          ],
         ),
       ),
     );
