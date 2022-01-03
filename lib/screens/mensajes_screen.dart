@@ -17,6 +17,8 @@ class MensajeScreen extends StatefulWidget {
 class _MensajeScreenState extends State<MensajeScreen> {
   @override
   Widget build(BuildContext context) {
+    final essbioP = Provider.of<EssbioProvider>(context);
+
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFFE5E5E5),
@@ -70,8 +72,9 @@ class _MensajeScreenState extends State<MensajeScreen> {
                   shrinkWrap: true,
                   itemCount: widget.mensajesLista.length,
                   itemBuilder: (BuildContext context, int index) {
+                    int reverseIndex = widget.mensajesLista.length - 1 - index;
                     return CardMensaje(
-                        mensajeEssbio: widget.mensajesLista[index]);
+                        mensajeEssbio: widget.mensajesLista[reverseIndex]);
                   }),
             )
           ],
