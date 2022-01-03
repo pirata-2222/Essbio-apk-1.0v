@@ -171,7 +171,7 @@ class _CardMensajeState extends State<CardMensaje> {
               SizedBox(
                 height: 10,
               ),
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -334,11 +334,16 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                             bottomRight: Radius.circular(20))),
                     child: Column(
                       children: [
-                        Text(
-                          "Mensaje:",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
-                          textAlign: TextAlign.start,
+                        Container(
+                          // TODO: ver el margen con medidas relativas para responsividad
+                          margin: EdgeInsets.only(right: 250),
+                          child: Text(
+                            "Mensaje:",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                            textAlign: TextAlign.left,
+                          ),
                         ),
                         SizedBox(height: 10),
                         Container(
@@ -367,7 +372,11 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                             )),
                       )
                     : InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            // TODO: Aquí se debe cambiar el Estado de confirmación a leído
+                          });
+                        },
                         child: Container(
                           padding: EdgeInsets.all(15),
                           decoration: BoxDecoration(
@@ -393,13 +402,16 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                                 bottomRight: Radius.circular(20))),
                         child: Column(
                           children: [
-                            Text(
-                              "Última Respuesta:",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.start,
-                            ),
+                            Container(
+                                // TODO: ver el margen con medidas relativas para responsividad
+                                margin: EdgeInsets.only(right: 200),
+                                child: Text(
+                                  "Última Respuesta:",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  textAlign: TextAlign.start,
+                                )),
                             SizedBox(height: 10),
                             Container(
                               margin: EdgeInsets.only(left: 10, right: 10),
