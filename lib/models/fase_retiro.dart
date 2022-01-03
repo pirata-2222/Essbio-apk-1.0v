@@ -60,8 +60,8 @@ class FaseRetiro {
             ? 'Sin datos'
             : json['ARCHIVO_ADJUNTO'],
         ir_mapa: json['IR_MAPA'] == null ? 'Sin datos' : json['IR_MAPA'],
-        fecha_inicio: json['FECHA_INI'] == null ? 'Sin datos' : json['FECHA_INI'],
-        fecha_termino: json['FECHA_FIN'] == null? 'sin datos':json['FECHA_FIN'],
+        fecha_inicio: json['FECHA_INI'] == null ? '1993-12-09' : json['FECHA_INI'],
+        fecha_termino: json['FECHA_FIN'] == null? '1993-12-09':json['FECHA_FIN'],
         id_tipo_status: json['ID_TIPO_STATUS'] == null? 'Sin datos':json['ID_TIPO_STATUS'],
         nombre_ot: json["NOMBRE_OT"] == null
             ? 'Sin datos'

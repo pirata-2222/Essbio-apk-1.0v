@@ -608,7 +608,7 @@ class Streams {
 
   Stream<Map> workflowStream() async* {
     while (true) {
-      await Future.delayed(Duration(seconds: 5));
+      //  await Future.delayed(Duration(seconds: 5));
       await fetchUsuarios();
       await fetchOrdenesTrabajo();
       await fetchStatus();
@@ -624,7 +624,26 @@ class Streams {
       await fetchDataEventos();
       await fetchProcesos();
       await fetchMensajes();
+      var fasesUsuario = getFasesUsuario(
+          ordenesTrabajo: _ordenesTrabajo,
+          fasesInstalacion: _fasesInstalacion,
+          fasesMedicion: _fasesAbastMedicion,
+          fasesAbastecimiento: _fasesAbastecimiento,
+          fasesRetiro: _fasesRetiro,
+          fases: _fases,
+          statuses: _status,
+          sectores: _dataTKSectores,
+          procesos: _procesos,
+          eventos: _dataEventos,
+          mensajes: _mensajes,
+          id_usuario: 4);
       yield {
+        "fasesInstalacion": fasesUsuario[0],
+        "fasesAbastMedicion": fasesUsuario[1],
+        "fasesAbastecimiento": fasesUsuario[2],
+        "fasesRetiro": fasesUsuario[3],
+        "mensajes": fasesUsuario[4]};
+      /*{
         "ordenesTrabajo": _ordenesTrabajo,
         "fasesInstalacion": _fasesInstalacion,
         "fasesAbastMedicion": _fasesAbastMedicion,
@@ -636,9 +655,7 @@ class Streams {
         "procesos": _procesos,
         "dataEventos": _dataEventos,
         "mensajes": _mensajes,
-        "completado": completado
-      };
-
+      };*/
     }
   }
 }

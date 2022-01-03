@@ -65,9 +65,9 @@ class FaseAbastecimiento {
             : json['FECHA_MOD_XYGO'],
         ir_mapa: json['IR_MAPA'] == null ? 'Sin datos' : json['IR_MAPA'],
         fecha_inicio:
-            json['FECHA_INI'] == null ? 'Sin datos' : json['FECHA_INI'],
+            json['FECHA_INI'] == null ? '1993-12-09' : json['FECHA_INI'],
         fecha_termino:
-            json['FECHA_FIN'] == null ? 'sin datos' : json['FECHA_FIN'],
+            json['FECHA_FIN'] == null ? '1993-12-09' : json['FECHA_FIN'],
         id_tipo_status: json['ID_TIPO_STATUS'] == null
             ? 'Sin datos'
             : json['ID_TIPO_STATUS'],

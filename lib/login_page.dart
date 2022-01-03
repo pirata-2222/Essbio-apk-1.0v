@@ -117,85 +117,16 @@ class _HomeState extends State<Home> {
                                             stream: stream.workflowStream(),
                                             builder: (context,
                                                 AsyncSnapshot<Map> snapshot) {
-                                              if (snapshot.hasData &&
-                                                  snapshot
-                                                      .data?["completado"]) {
-                                                var ordenesTrabajo = snapshot
-                                                    .data?["ordenesTrabajo"];
-                                                var fasesInstalacion = snapshot
-                                                    .data?["fasesInstalacion"];
-                                                var fasesMedicion = snapshot
-                                                    .data?["fasesMedicion"];
-                                                var fasesAbastecimiento =
-                                                    snapshot.data?[
-                                                        "fasesAbastecimiento"];
-                                                var fasesRetiro = snapshot
-                                                    .data?["fasesRetiro"];
-                                                var fases =
-                                                    snapshot.data?["fases"];
-                                                var statuses =
-                                                    snapshot.data?["statuses"];
-                                                var sectores =
-                                                    snapshot.data?["sectores"];
-                                                var procesos =
-                                                    snapshot.data?["procesos"];
-                                                var eventos =
-                                                    snapshot.data?["eventos"];
-                                                var mensajes =
-                                                    snapshot.data?["mensajes"];
-                                                var id_usuario = 4;
-
-                                                print(ordenesTrabajo.length);
-
-                                                fasesUsuario = stream.getFasesUsuario(
-                                                    ordenesTrabajo:
-                                                        ordenesTrabajo == null
-                                                            ? []
-                                                            : ordenesTrabajo,
-                                                    fasesInstalacion:
-                                                        fasesInstalacion == null
-                                                            ? []
-                                                            : fasesInstalacion,
-                                                    fasesMedicion:
-                                                        fasesMedicion == null
-                                                            ? []
-                                                            : fasesMedicion,
-                                                    fasesAbastecimiento:
-                                                        fasesAbastecimiento == null
-                                                            ? []
-                                                            : fasesAbastecimiento,
-                                                    fasesRetiro: fasesRetiro == null
-                                                        ? []
-                                                        : fasesRetiro,
-                                                    fases: fases == null
-                                                        ? []
-                                                        : fases,
-                                                    statuses: statuses == null
-                                                        ? []
-                                                        : statuses,
-                                                    sectores: sectores == null
-                                                        ? []
-                                                        : sectores,
-                                                    procesos: procesos == null
-                                                        ? []
-                                                        : procesos,
-                                                    eventos: eventos == null
-                                                        ? []
-                                                        : eventos,
-                                                    mensajes: mensajes == null
-                                                        ? []
-                                                        : mensajes,
-                                                    id_usuario: id_usuario);
-
+                                              if (snapshot.hasData) {                                                
                                                 return WorkflowDesplegado(
                                                   instalacionUsuario:
-                                                      fasesUsuario[0],
+                                                      snapshot.data?["fasesInstalacion"],
                                                   medicionUsuario:
-                                                      fasesUsuario[1],
+                                                      snapshot.data?["fasesAbastMedicion"],
                                                   abastecimientoUsuario:
-                                                      fasesUsuario[2],
+                                                      snapshot.data?["fasesAbastecimiento"],
                                                   retiroUsuario:
-                                                      fasesUsuario[3],
+                                                      snapshot.data?["fasesRetiro"],
                                                   usuario:
                                                       essbioP.validateLogin(
                                                           usernameController
@@ -203,10 +134,11 @@ class _HomeState extends State<Home> {
                                                           passwordController
                                                               .text)[1],
                                                   mensajesEssbio:
-                                                      fasesUsuario[4],
+                                                      snapshot.data?["mensajes"],
                                                 );
                                               } else {
-                                                fasesUsuario =
+                                                return CircularProgressIndicator();
+                                                /* fasesUsuario =
                                                     essbioP.getFasesUsuario(
                                                   ordenesTrabajo:
                                                       essbioP.ordenesTrabajo,
@@ -246,7 +178,7 @@ class _HomeState extends State<Home> {
                                                               .text)[1],
                                                   mensajesEssbio:
                                                       fasesUsuario[4],
-                                                );
+                                                );*/
                                               }
                                             });
                                       },
