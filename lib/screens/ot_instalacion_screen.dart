@@ -2,18 +2,14 @@ import 'dart:typed_data';
 
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/theme_library.dart';
-import 'package:essbio_apk/widgets/guardar_datos_instalacion.dart';
 import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:essbio_apk/api/api.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 
@@ -80,7 +76,6 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
   String estadoInstalacionenString() {
     var dataEstadoinstalacion =
         widget.faseInstalacion.id_tipo_status.toString();
-
     switch (dataEstadoinstalacion) {
       case "110":
         dataEstadoinstalacion = "Finalizado";
@@ -102,6 +97,13 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
     return dataEstadoinstalacion;
   }
 
+  callback(int newStatus) {
+    setState(() {
+      print(newStatus);
+      widget.faseInstalacion.id_tipo_status = newStatus;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // final essbioP = Provider.of<EssbioProvider>(context);
@@ -112,7 +114,8 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
           context,
           MaterialPageRoute(
               builder: (context) => OtInstalacionScreen(
-                  faseInstalacion: widget.faseInstalacion))),
+                  faseInstalacion: widget.faseInstalacion,
+                  callback: callback))),
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
@@ -160,7 +163,9 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
 
 class OtInstalacionScreen extends StatefulWidget {
   final FaseInstalacion faseInstalacion;
-  OtInstalacionScreen({Key? key, required this.faseInstalacion})
+  final Function(int) callback;
+  OtInstalacionScreen(
+      {Key? key, required this.faseInstalacion, required this.callback})
       : super(key: key);
 
   @override
@@ -294,13 +299,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     TextEditingController comentarioController = TextEditingController();
     TextEditingController rotuloController = TextEditingController();
-    String comentario_instalacion =
-        widget.faseInstalacion.comentario_instalacion;
-    String rotulo_tk = widget.faseInstalacion.rotulo_tk;
-    String archivo_adjunto = widget.faseInstalacion.archivo_adjunto;
     int id_tipo_status = widget.faseInstalacion.id_tipo_status;
 
     String estadoInstalacionenString() {
@@ -717,6 +717,10 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                       id_tipo_status.toString());
                                   widget.faseInstalacion.id_tipo_status =
                                       numeroIDstatusInstalacion;
+                                  widget.callback(numeroIDstatusInstalacion);
+                                  setState(() {
+                                    estadoInstalacionenString();
+                                  });
                                   essbioP.updateFasesInstalacion(
                                       widget.faseInstalacion, modificacion);
                                   Navigator.pop(context, 'Cancel');

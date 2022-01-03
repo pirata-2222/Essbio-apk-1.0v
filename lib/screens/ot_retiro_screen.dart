@@ -87,6 +87,13 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
     return dataEstadoRetiro;
   }
 
+  callback(int newStatus) {
+    setState(() {
+      print(newStatus);
+      widget.faseRetiro.id_tipo_status = newStatus;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -94,7 +101,8 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  OtRetiroScreen(faseRetiro: widget.faseRetiro))),
+                  OtRetiroScreen(faseRetiro: widget.faseRetiro,
+                  callback: callback))),
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
@@ -142,7 +150,8 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
 
 class OtRetiroScreen extends StatefulWidget {
   final FaseRetiro faseRetiro;
-  OtRetiroScreen({Key? key, required this.faseRetiro}) : super(key: key);
+  final Function(int) callback;
+  OtRetiroScreen({Key? key, required this.faseRetiro, required this.callback}) : super(key: key);
 
   @override
   _OtRetiroScreenState createState() => _OtRetiroScreenState();
@@ -475,30 +484,15 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                                         numeroEstanqueController.text,
                                     "ID_TIPO_STATUS": id_tipo_status
                                   };
+                                  widget.faseRetiro.id_tipo_status =
+                                      numeroIDstatusRetiro;
+                                  widget.callback(numeroIDstatusRetiro);
+                                  setState(() {
+                                    estadoRetiroenString();
+                                  });
                                   essbioP.updateFasesRetiro(
                                       widget.faseRetiro, modificacion);
-                                  essbioP.fetchFasesRetiro();
-                                  essbioP.fetchFases();
-                                  essbioP.fetchOrdenesTrabajo();
-                                  essbioP.fetchStatus();
-                                  essbioP.getFasesUsuario(
-                                    ordenesTrabajo: essbioP.ordenesTrabajo,
-                                    fasesInstalacion: essbioP.fasesInstalacion,
-                                    fasesAbastecimiento:
-                                        essbioP.fasesAbastecimiento,
-                                    fasesMedicion: essbioP.fasesAbastMedicion,
-                                    fasesRetiro: essbioP.fasesRetiro,
-                                    eventos: essbioP.dataEventos,
-                                    fases: essbioP.fases,
-                                    id_usuario: 4,
-                                    //essbioP.validateLogin(
-                                    //usernameController.text, generateMd5(passwordController.text))[1].idusuario
-                                    mensajes: essbioP.mensajes,
-                                    procesos: essbioP.procesos,
-                                    sectores: essbioP.dataTKSectores,
-                                    statuses: essbioP.status,
-                                  );
-
+                                  
                                   Navigator.pop(context, 'Cancel');
                                 },
                                 child: const Text('Confirmar'),

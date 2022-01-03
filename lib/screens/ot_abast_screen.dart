@@ -102,6 +102,13 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
     return dataEstadoAbastecimiento;
   }
 
+  callback(int newStatus) {
+    setState(() {
+      print(newStatus);
+      widget.faseAbastecimiento.id_tipo_status = newStatus;
+    });
+  }
+
   int numeroIDstatusAbastecimiento = 0;
 
   @override
@@ -111,7 +118,8 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
           context,
           MaterialPageRoute(
               builder: (context) => OtAbastScreen(
-                  faseAbastecimiento: widget.faseAbastecimiento))),
+                  faseAbastecimiento: widget.faseAbastecimiento,
+                  callback: callback))),
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
@@ -161,7 +169,8 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
 
 class OtAbastScreen extends StatefulWidget {
   final FaseAbastecimiento faseAbastecimiento;
-  OtAbastScreen({Key? key, required this.faseAbastecimiento}) : super(key: key);
+  final Function(int) callback;
+  OtAbastScreen({Key? key, required this.faseAbastecimiento, required this.callback}) : super(key: key);
 
   @override
   _OtAbastScreenState createState() => _OtAbastScreenState();
@@ -504,29 +513,15 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                                     "ID_TIPO_STATUS":
                                         numeroIDstatusAbastecimiento
                                   };
+                                  widget.faseAbastecimiento.id_tipo_status =
+                                      numeroIDstatusAbastecimiento;
+                                  widget.callback(numeroIDstatusAbastecimiento);
+                                  setState(() {
+                                    estadoAbastecimientoenString();
+                                  });
                                   essbioP.updateFasesAbastecimiento(
                                       widget.faseAbastecimiento, modificacion);
-                                  essbioP.fetchFasesInstalacion();
-                                  essbioP.fetchFases();
-                                  essbioP.fetchOrdenesTrabajo();
-                                  essbioP.fetchStatus();
-                                  essbioP.getFasesUsuario(
-                                    ordenesTrabajo: essbioP.ordenesTrabajo,
-                                    fasesInstalacion: essbioP.fasesInstalacion,
-                                    fasesAbastecimiento:
-                                        essbioP.fasesAbastecimiento,
-                                    fasesMedicion: essbioP.fasesAbastMedicion,
-                                    fasesRetiro: essbioP.fasesRetiro,
-                                    eventos: essbioP.dataEventos,
-                                    fases: essbioP.fases,
-                                    id_usuario: 4,
-                                    //essbioP.validateLogin(
-                                    //usernameController.text, generateMd5(passwordController.text))[1].idusuario
-                                    mensajes: essbioP.mensajes,
-                                    procesos: essbioP.procesos,
-                                    sectores: essbioP.dataTKSectores,
-                                    statuses: essbioP.status,
-                                  );
+                                  
                                   Navigator.pop(context, 'Cancel');
                                 },
                                 child: const Text('Confirmar'),

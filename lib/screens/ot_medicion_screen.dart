@@ -90,6 +90,13 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
     return dataEstadoMedicion;
   }
 
+  callback(int newStatus) {
+    setState(() {
+      print(newStatus);
+      widget.faseAbastMedicion.id_tipo_status = newStatus;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -97,7 +104,8 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
           context,
           MaterialPageRoute(
               builder: (context) => OtMedicionScreen(
-                  faseAbastMedicion: widget.faseAbastMedicion))),
+                  faseAbastMedicion: widget.faseAbastMedicion,
+                  callback: callback))),
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
@@ -145,7 +153,9 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
 
 class OtMedicionScreen extends StatefulWidget {
   final FaseAbastMedicion faseAbastMedicion;
-  OtMedicionScreen({Key? key, required this.faseAbastMedicion})
+  final Function(int) callback;
+  OtMedicionScreen(
+      {Key? key, required this.faseAbastMedicion, required this.callback})
       : super(key: key);
 
   @override
@@ -595,29 +605,14 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                     "COMENTARIO": comentarioController.text,
                                     "ID_TIPO_STATUS": id_tipo_status
                                   };
+                                  widget.faseAbastMedicion.id_tipo_status =
+                                      numeroIDstatusMedicion;
+                                  widget.callback(numeroIDstatusMedicion);
+                                  setState(() {
+                                    estadoMedicionenString();
+                                  });
                                   essbioP.updateFasesMedicion(
                                       widget.faseAbastMedicion, modificacion);
-                                  essbioP.fetchFasesAbastMedicion();
-                                  essbioP.fetchFases();
-                                  essbioP.fetchOrdenesTrabajo();
-                                  essbioP.fetchStatus();
-                                  essbioP.getFasesUsuario(
-                                    ordenesTrabajo: essbioP.ordenesTrabajo,
-                                    fasesInstalacion: essbioP.fasesInstalacion,
-                                    fasesAbastecimiento:
-                                        essbioP.fasesAbastecimiento,
-                                    fasesMedicion: essbioP.fasesAbastMedicion,
-                                    fasesRetiro: essbioP.fasesRetiro,
-                                    eventos: essbioP.dataEventos,
-                                    fases: essbioP.fases,
-                                    id_usuario: 4,
-                                    //essbioP.validateLogin(
-                                    //usernameController.text, generateMd5(passwordController.text))[1].idusuario
-                                    mensajes: essbioP.mensajes,
-                                    procesos: essbioP.procesos,
-                                    sectores: essbioP.dataTKSectores,
-                                    statuses: essbioP.status,
-                                  );
 
                                   Navigator.pop(context, 'Cancel');
                                 },
