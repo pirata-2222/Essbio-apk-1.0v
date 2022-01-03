@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:essbio_apk/models/fase_instalacion.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/guardar_datos_instalacion.dart';
@@ -693,12 +695,16 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  final imagenEnBytes =
-                                      imagen!.readAsBytesSync();
-                                  String imagenFormatoEncode64 =
-                                      base64Encode(imagenEnBytes);
-                                  print(
-                                      imagenFormatoEncode64.substring(0, 100));
+                                  var imagenEnBytes = Uint8List(100);
+                                  imagen == null
+                                      ? ""
+                                      : imagenEnBytes =
+                                          imagen!.readAsBytesSync();
+                                  String imagenFormatoEncode64 = "";
+                                  imagen == null
+                                      ? ""
+                                      : imagenFormatoEncode64 =
+                                          base64Encode(imagenEnBytes);
                                   Map<String, dynamic> modificacion = {
                                     "COMENTARIO_INSTALACION":
                                         comentarioController.text,
@@ -709,31 +715,10 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
 
                                   print("id tipo status es " +
                                       id_tipo_status.toString());
-
+                                  widget.faseInstalacion.id_tipo_status =
+                                      numeroIDstatusInstalacion;
                                   essbioP.updateFasesInstalacion(
                                       widget.faseInstalacion, modificacion);
-                                  /*
-                                  essbioP.fetchFasesInstalacion();
-                                  essbioP.fetchFases();
-                                  essbioP.fetchOrdenesTrabajo();
-                                  essbioP.fetchStatus();
-                                  essbioP.getFasesUsuario(
-                                    ordenesTrabajo: essbioP.ordenesTrabajo,
-                                    fasesInstalacion: essbioP.fasesInstalacion,
-                                    fasesAbastecimiento:
-                                        essbioP.fasesAbastecimiento,
-                                    fasesMedicion: essbioP.fasesAbastMedicion,
-                                    fasesRetiro: essbioP.fasesRetiro,
-                                    eventos: essbioP.dataEventos,
-                                    fases: essbioP.fases,
-                                    id_usuario: 4,
-                                    //essbioP.validateLogin(
-                                    //usernameController.text, generateMd5(passwordController.text))[1].idusuario
-                                    mensajes: essbioP.mensajes,
-                                    procesos: essbioP.procesos,
-                                    sectores: essbioP.dataTKSectores,
-                                    statuses: essbioP.status,
-                                  );*/
                                   Navigator.pop(context, 'Cancel');
                                 },
                                 child: const Text('Confirmar'),
