@@ -137,8 +137,8 @@ class _HomeState extends State<Home> {
                                                       snapshot.data?["mensajes"],
                                                 );
                                               } else {
-                                                return CircularProgressIndicator();
-                                                /* fasesUsuario =
+                                                //return CircularProgressIndicator();
+                                                 fasesUsuario =
                                                     essbioP.getFasesUsuario(
                                                   ordenesTrabajo:
                                                       essbioP.ordenesTrabajo,
@@ -178,7 +178,7 @@ class _HomeState extends State<Home> {
                                                               .text)[1],
                                                   mensajesEssbio:
                                                       fasesUsuario[4],
-                                                );*/
+                                                );
                                               }
                                             });
                                       },
