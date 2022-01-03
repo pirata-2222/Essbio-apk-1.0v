@@ -191,6 +191,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
     return dataEstadoMedicion;
   }
 
+  int numeroIDstatusMedicion = 0;
+
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -290,6 +292,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoMedicion[131]!;
+                              numeroIDstatusMedicion = 131;
                             });
                           },
                           child: Container(
@@ -323,6 +326,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoMedicion[132]!;
+                              numeroIDstatusMedicion = 132;
                             });
                           },
                           child: Container(
@@ -363,6 +367,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoMedicion[133]!;
+                              numeroIDstatusMedicion = 133;
                             });
                           },
                           child: Container(
@@ -396,6 +401,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoMedicion[130]!;
+                              numeroIDstatusMedicion = 130;
                             });
                           },
                           child: Container(

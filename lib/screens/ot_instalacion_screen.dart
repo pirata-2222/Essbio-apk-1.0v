@@ -287,7 +287,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   }
 
   // *******************************************************************
-  int numeroIDstatus = 0;
+  int numeroIDstatusInstalacion = 0;
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -423,7 +423,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               setState(() {
                                 estadoSeleccionado = estadoInstalacion[111]!;
                                 id_tipo_status = 111;
-                                numeroIDstatus = 111;
+                                numeroIDstatusInstalacion = 111;
                               });
                             },
                             child: Container(
@@ -460,7 +460,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               setState(() {
                                 estadoSeleccionado = estadoInstalacion[113]!;
                                 id_tipo_status = 113;
-                                numeroIDstatus = 113;
+                                numeroIDstatusInstalacion = 113;
                               });
                             },
                             child: Container(
@@ -504,7 +504,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               setState(() {
                                 estadoSeleccionado = estadoInstalacion[112]!;
                                 id_tipo_status = 112;
-                                numeroIDstatus = 112;
+                                numeroIDstatusInstalacion = 112;
                               });
                             },
                             child: Container(
@@ -542,7 +542,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               setState(() {
                                 estadoSeleccionado = estadoInstalacion[114]!;
                                 id_tipo_status = 114;
-                                numeroIDstatus = 114;
+                                numeroIDstatusInstalacion = 114;
                               });
                             },
                             child: Container(
@@ -704,7 +704,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                         comentarioController.text,
                                     "ROTULO_TK": rotuloController.text,
                                     "ARCHIVO_ADJUNTO": imagenFormatoEncode64,
-                                    "ID_TIPO_STATUS": numeroIDstatus
+                                    "ID_TIPO_STATUS": numeroIDstatusInstalacion
                                   };
 
                                   print("id tipo status es " +

@@ -179,6 +179,8 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
     return dataEstadoRetiro;
   }
 
+  int numeroIDstatusRetiro = 0;
+
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -279,6 +281,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoRetiro[141]!;
+                              numeroIDstatusRetiro = 141;
                             });
                           },
                           child: Container(
@@ -312,6 +315,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoRetiro[143]!;
+                              numeroIDstatusRetiro = 143;
                             });
                           },
                           child: Container(
@@ -351,6 +355,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoRetiro[142]!;
+                              numeroIDstatusRetiro = 142;
                             });
                           },
                           child: Container(
@@ -384,6 +389,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoRetiro[140]!;
+                              numeroIDstatusRetiro = 140;
                             });
                           },
                           child: Container(

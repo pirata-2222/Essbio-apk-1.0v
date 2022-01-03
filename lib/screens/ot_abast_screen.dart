@@ -102,6 +102,8 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
     return dataEstadoAbastecimiento;
   }
 
+  int numeroIDstatusAbastecimiento = 0;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -199,8 +201,9 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
 
     return dataEstadoAbastecimiento;
   }
-  // FALTAN 123='INICIO CARGA CAMIÓN', 124='TÉRMINO CARGA CAMIÓN', 125='INICIO ABASTECIMIENTO',
 
+  // FALTAN 123='INICIO CARGA CAMIÓN', 124='TÉRMINO CARGA CAMIÓN', 125='INICIO ABASTECIMIENTO',
+  int numeroIDstatusAbastecimiento = 0;
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -299,6 +302,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoAbastecimiento[121]!;
+                              numeroIDstatusAbastecimiento = 121;
                             });
                           },
                           child: Container(
@@ -335,6 +339,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoAbastecimiento[122]!;
+                              numeroIDstatusAbastecimiento = 122;
                             });
                           },
                           child: Container(
@@ -377,6 +382,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoAbastecimiento[126]!;
+                              numeroIDstatusAbastecimiento = 126;
                             });
                           },
                           child: Container(
@@ -413,6 +419,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           onTap: () {
                             setState(() {
                               estadoSeleccionado = estadoAbastecimiento[127]!;
+                              numeroIDstatusAbastecimiento = 127;
                             });
                           },
                           child: Container(
@@ -494,7 +501,8 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                                 onPressed: () {
                                   Map<String, dynamic> modificacion = {
                                     "COMENTARIO": comentarioController.text,
-                                    "ID_TIPO_STATUS": id_tipo_status
+                                    "ID_TIPO_STATUS":
+                                        numeroIDstatusAbastecimiento
                                   };
                                   essbioP.updateFasesAbastecimiento(
                                       widget.faseAbastecimiento, modificacion);
