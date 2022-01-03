@@ -695,16 +695,12 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  var imagenEnBytes = Uint8List(100);
-                                  imagen == null
-                                      ? ""
-                                      : imagenEnBytes =
-                                          imagen!.readAsBytesSync();
+                                  var imagenEnBytes = imagen?.readAsBytesSync();
                                   String imagenFormatoEncode64 = "";
                                   imagen == null
                                       ? ""
                                       : imagenFormatoEncode64 =
-                                          base64Encode(imagenEnBytes);
+                                          base64Encode(imagenEnBytes!);
                                   Map<String, dynamic> modificacion = {
                                     "COMENTARIO_INSTALACION":
                                         comentarioController.text,
