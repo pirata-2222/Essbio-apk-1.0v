@@ -571,6 +571,24 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 ),
 
                 SizedBox(height: 20),
+                Column(children: [
+                  Text("Último Comentario:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      height: 50.0,
+                      width: screenWidth * 0.8,
+                      color: azulPrimarioEssbio,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        widget.faseAbastMedicion.comentario.toString(),
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ]),
+                SizedBox(height: 25),
                 ComentarioGeneral(),
                 SizedBox(height: 20),
                 Container(
