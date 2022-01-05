@@ -248,7 +248,7 @@ class _ComentarioGeneralState extends State<ComentarioGeneral> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text("Comentario:",
+      Text("Comentar:",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
       Center(
         child: Container(
