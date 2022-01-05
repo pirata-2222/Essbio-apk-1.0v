@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/models/fase_abastecimiento.dart';
 import 'package:essbio_apk/models/fase_instalacion.dart';
@@ -45,11 +47,17 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
   @override
   Widget build(BuildContext context) {
-    var mensajesLength = widget.mensajesEssbio.length;
-    for (var i = 0; i < mensajesLength; i++) {
-      if (widget.mensajesEssbio[i].confirmacion == "N") {
-        // TODO: Terminar función para mostrar o no icono de notificacion
+    bool mensajesLeidosEssbio() {
+      bool mensajesLeidos = true;
+      var mensajesLength = widget.mensajesEssbio.length;
+      for (var i = 0; i < mensajesLength; i++) {
+        if (widget.mensajesEssbio[i].confirmacion == "N") {
+          bool mensajesLeidos = false;
+        } else {
+          bool mensajesLeidos = true;
+        }
       }
+      return mensajesLeidos;
     }
 
     return MaterialApp(
