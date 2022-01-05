@@ -35,10 +35,10 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
     Color colorTipoEventoAbastecimiento;
     switch (dataTipoEvento) {
       case "Emergencia":
-        colorTipoEventoAbastecimiento = Colors.purple;
+        colorTipoEventoAbastecimiento = colorEstadoEmergencia;
         break;
       case "Crisis":
-        colorTipoEventoAbastecimiento = Colors.deepOrange;
+        colorTipoEventoAbastecimiento = colorEstadoCrisis;
         break;
       default:
         colorTipoEventoAbastecimiento = Colors.grey;
@@ -71,14 +71,16 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
 
     Color colorTiempoRestanteAbastecimiento = Colors.grey;
 
-    if (tiempoRestanteAbastecimiento > 0) {
-      colorTiempoRestanteAbastecimiento = verdeTiempoCritico;
+    if (tiempoRestanteAbastecimiento > 0 &&
+        eventosFuturosAbastecimientoTiempo < 0) {
+      colorTiempoRestanteAbastecimiento = colorEventoEnCurso;
     }
-    if (tiempoRestanteAbastecimiento <= 0) {
-      colorTiempoRestanteAbastecimiento = rojoTiempoCritico;
+    if (tiempoRestanteAbastecimiento <= 0 &&
+        eventosFuturosAbastecimientoTiempo < 0) {
+      colorTiempoRestanteAbastecimiento = colorEventoAtrasado;
     }
     if (eventosFuturosAbastecimientoTiempo > 0) {
-      colorTiempoRestanteAbastecimiento = celesteEssbio;
+      colorTiempoRestanteAbastecimiento = colorEventoFuturo;
     }
     return colorTiempoRestanteAbastecimiento;
   }

@@ -24,10 +24,10 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
     Color colorTipoEventoRetiro;
     switch (dataTipoEvento) {
       case "Emergencia":
-        colorTipoEventoRetiro = Colors.purple;
+        colorTipoEventoRetiro = colorEstadoEmergencia;
         break;
       case "Crisis":
-        colorTipoEventoRetiro = Colors.deepOrange;
+        colorTipoEventoRetiro = colorEstadoCrisis;
         break;
       default:
         colorTipoEventoRetiro = Colors.grey;
@@ -54,13 +54,13 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
     Color colorTiempoRestanteRetiro = Colors.grey;
 
     if (tiempoRestanteRetiro > 0 && eventosFuturosTiempo < 0) {
-      colorTiempoRestanteRetiro = verdeTiempoCritico;
+      colorTiempoRestanteRetiro = colorEventoEnCurso;
     }
     if (tiempoRestanteRetiro <= 0 && eventosFuturosTiempo < 0) {
-      colorTiempoRestanteRetiro = rojoTiempoCritico;
+      colorTiempoRestanteRetiro = colorEventoAtrasado;
     }
     if (eventosFuturosTiempo > 0) {
-      colorTiempoRestanteRetiro = celesteEssbio;
+      colorTiempoRestanteRetiro = colorEventoFuturo;
     }
     return colorTiempoRestanteRetiro;
   }
@@ -100,9 +100,8 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  OtRetiroScreen(faseRetiro: widget.faseRetiro,
-                  callback: callback))),
+              builder: (context) => OtRetiroScreen(
+                  faseRetiro: widget.faseRetiro, callback: callback))),
       child: Container(
           margin: EdgeInsets.only(right: 10.0),
           decoration: BoxDecoration(
@@ -151,7 +150,8 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
 class OtRetiroScreen extends StatefulWidget {
   final FaseRetiro faseRetiro;
   final Function(int) callback;
-  OtRetiroScreen({Key? key, required this.faseRetiro, required this.callback}) : super(key: key);
+  OtRetiroScreen({Key? key, required this.faseRetiro, required this.callback})
+      : super(key: key);
 
   @override
   _OtRetiroScreenState createState() => _OtRetiroScreenState();
@@ -492,7 +492,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                                   });
                                   essbioP.updateFasesRetiro(
                                       widget.faseRetiro, modificacion);
-                                  
+
                                   Navigator.pop(context, 'Cancel');
                                 },
                                 child: const Text('Confirmar'),

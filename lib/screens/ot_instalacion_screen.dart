@@ -32,10 +32,10 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
     Color colorTipoEventoInstalacion;
     switch (dataTipoEvento) {
       case "Emergencia":
-        colorTipoEventoInstalacion = Colors.purple;
+        colorTipoEventoInstalacion = colorEstadoEmergencia;
         break;
       case "Crisis":
-        colorTipoEventoInstalacion = Colors.deepOrange;
+        colorTipoEventoInstalacion = colorEstadoCrisis;
         break;
       default:
         colorTipoEventoInstalacion = Colors.grey;
@@ -61,14 +61,14 @@ class _OtPendienteInstalacionState extends State<OtPendienteInstalacion> {
 
     Color colorTiempoRestanteInstalacion = Colors.grey;
 
-    if (tiempoRestanteInstalacion > 0) {
-      colorTiempoRestanteInstalacion = verdeTiempoCritico;
+    if (tiempoRestanteInstalacion > 0 && eventosFuturosTiempo < 0) {
+      colorTiempoRestanteInstalacion = colorEventoEnCurso;
     }
-    if (tiempoRestanteInstalacion <= 0) {
-      colorTiempoRestanteInstalacion = rojoTiempoCritico;
+    if (tiempoRestanteInstalacion <= 0 && eventosFuturosTiempo < 0) {
+      colorTiempoRestanteInstalacion = colorEventoAtrasado;
     }
     if (eventosFuturosTiempo > 0) {
-      colorTiempoRestanteInstalacion = celesteEssbio;
+      colorTiempoRestanteInstalacion = colorEventoFuturo;
     }
     return colorTiempoRestanteInstalacion;
   }

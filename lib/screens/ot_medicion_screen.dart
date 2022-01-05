@@ -26,10 +26,10 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
     Color colorTipoEventoMedicion;
     switch (dataTipoEvento) {
       case "Emergencia":
-        colorTipoEventoMedicion = Colors.purple;
+        colorTipoEventoMedicion = colorEstadoEmergencia;
         break;
       case "Crisis":
-        colorTipoEventoMedicion = Colors.deepOrange;
+        colorTipoEventoMedicion = colorEstadoCrisis;
         break;
       default:
         colorTipoEventoMedicion = Colors.grey;
@@ -56,14 +56,14 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
 
     Color colorTiempoRestanteMedicion = Colors.grey;
 
-    if (tiempoRestanteMedicion > 0) {
-      colorTiempoRestanteMedicion = verdeTiempoCritico;
+    if (tiempoRestanteMedicion > 0 && eventosFuturosMedicionTiempo < 0) {
+      colorTiempoRestanteMedicion = colorEventoEnCurso;
     }
-    if (tiempoRestanteMedicion <= 0) {
-      colorTiempoRestanteMedicion = rojoTiempoCritico;
+    if (tiempoRestanteMedicion <= 0 && eventosFuturosMedicionTiempo < 0) {
+      colorTiempoRestanteMedicion = colorEventoAtrasado;
     }
     if (eventosFuturosMedicionTiempo > 0) {
-      colorTiempoRestanteMedicion = celesteEssbio;
+      colorTiempoRestanteMedicion = colorEventoFuturo;
     }
     return colorTiempoRestanteMedicion;
   }
