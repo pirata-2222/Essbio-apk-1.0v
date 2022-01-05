@@ -47,17 +47,16 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
   @override
   Widget build(BuildContext context) {
-    bool mensajesLeidosEssbio() {
-      bool mensajesLeidos = true;
+    String numeroMensajesLeidosEssbio() {
+      int contadorMensaje = 0;
       var mensajesLength = widget.mensajesEssbio.length;
       for (var i = 0; i < mensajesLength; i++) {
-        if (widget.mensajesEssbio[i].confirmacion == "N") {
-          bool mensajesLeidos = false;
-        } else {
-          bool mensajesLeidos = true;
+        if (widget.mensajesEssbio[i].confirmacion.toString() != "S") {
+          contadorMensaje++;
         }
       }
-      return mensajesLeidos;
+
+      return contadorMensaje.toString();
     }
 
     return MaterialApp(
@@ -111,50 +110,84 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
               Container(
                 child: Column(
                   children: [
-                    Badge(
-                      position: BadgePosition.topEnd(top: -10, end: -15),
-                      badgeColor: Colors.red,
-                      badgeContent: Container(
-                        width: 30,
-                        height: 30,
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.notifications,
-                          color: Colors.white,
-                        ),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MensajeScreen(
-                                        mensajesLista: widget.mensajesEssbio,
-                                      )));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: azulPrimarioEssbio,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Column(
-                            children: [
-                              Center(
-                                child: Icon(Icons.message,
-                                    size: 50, color: Colors.white),
+                    numeroMensajesLeidosEssbio() != "0"
+                        ? Badge(
+                            position: BadgePosition.topEnd(top: -10, end: -15),
+                            badgeColor: Colors.red,
+                            badgeContent: Container(
+                              width: 30,
+                              height: 30,
+                              alignment: Alignment.center,
+                              child: Text(
+                                numeroMensajesLeidosEssbio(),
+                                style: TextStyle(color: Colors.white),
                               ),
-                              Center(
-                                child: Text(
-                                  "Ver Mensajes",
-                                  style: TextStyle(color: Colors.white),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MensajeScreen(
+                                              mensajesLista:
+                                                  widget.mensajesEssbio,
+                                            )));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(20),
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                decoration: BoxDecoration(
+                                    color: azulPrimarioEssbio,
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Column(
+                                  children: [
+                                    Center(
+                                      child: Icon(Icons.message,
+                                          size: 50, color: Colors.white),
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        "Ver Mensajes",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
+                          )
+                        : InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MensajeScreen(
+                                            mensajesLista:
+                                                widget.mensajesEssbio,
+                                          )));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              decoration: BoxDecoration(
+                                  color: azulPrimarioEssbio,
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Column(
+                                children: [
+                                  Center(
+                                    child: Icon(Icons.message,
+                                        size: 50, color: Colors.white),
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "Ver Mensajes",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
 
                     SizedBox(
                       height: 20,
@@ -352,7 +385,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: verdeTiempoCritico),
+                                color: colorEventoEnCurso),
                             width: 180,
                             height: 40,
                             child: Center(child: Text("Evento en Curso")),
@@ -363,7 +396,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: rojoTiempoCritico),
+                                color: colorEventoAtrasado),
                             width: 180,
                             height: 40,
                             child: Center(child: Text("Evento Atrasado")),
@@ -374,7 +407,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: celesteEssbio),
+                                color: colorEventoFuturo),
                             width: 180,
                             height: 40,
                             child: Center(child: Text("Evento Futuro")),
@@ -411,7 +444,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             height: 40,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: Colors.purple, width: 5.0),
+                                    color: colorEstadoEmergencia, width: 5.0),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(child: Text("Emergencia")),
                           ),
@@ -423,7 +456,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             height: 40,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: Colors.deepOrange, width: 5.0),
+                                    color: colorEstadoCrisis, width: 5.0),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(child: Text("Crisis")),
                           ),

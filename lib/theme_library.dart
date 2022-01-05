@@ -18,6 +18,11 @@ const Color rojoTiempoCritico = Color(0xFFB40007);
 const Color amarilloTiempoCritico = Color(0xFFC3C711);
 const Color naranjaTiempoCritico = Color(0xFFC65C21);
 const Color verdeTiempoCritico = Color(0xFF10988F);
+const Color colorEstadoCrisis = Color(0xFF403152);
+const Color colorEstadoEmergencia = Color(0xFFFF0000);
+const Color colorEventoFuturo = Color(0xFF08749B);
+const Color colorEventoEnCurso = Color(0xFF396C03);
+const Color colorEventoAtrasado = Color(0xFFE1A803);
 // }
 
 // *****FUENTES*******

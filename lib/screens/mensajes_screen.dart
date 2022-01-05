@@ -379,7 +379,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                               essbioP.updateConfirmacionLectura(
                                   widget.mensajeEssbio, modificacion);
                               print(
-                                  "Se debería actualizar tabla con mensaje respuesta");
+                                  "Se debería actualizar tabla con lectura confirmada");
                             });
                           },
                           child: Container(
