@@ -582,7 +582,6 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           color: azulPrimarioEssbio),
                       height: 50.0,
                       width: screenWidth * 0.8,
-                      color: azulPrimarioEssbio,
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         widget.faseAbastMedicion.comentario.toString(),

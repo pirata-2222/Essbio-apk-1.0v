@@ -507,7 +507,6 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                           color: azulPrimarioEssbio),
                       height: 50.0,
                       width: screenWidth * 0.8,
-                      color: azulPrimarioEssbio,
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         widget.faseAbastecimiento.comentario.toString(),

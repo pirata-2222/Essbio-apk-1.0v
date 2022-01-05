@@ -468,7 +468,6 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           color: azulPrimarioEssbio),
                       height: 50.0,
                       width: screenWidth * 0.8,
-                      color: azulPrimarioEssbio,
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         widget.faseRetiro.comentario.toString(),
