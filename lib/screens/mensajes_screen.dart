@@ -373,7 +373,13 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                       : InkWell(
                           onTap: () {
                             setState(() {
-                              // TODO: Aquí se debe cambiar el Estado de confirmación a leído
+                              Map<String, dynamic> modificacion = {
+                                "CONFIRMACION": "S",
+                              };
+                              essbioP.updateConfirmacionLectura(
+                                  widget.mensajeEssbio, modificacion);
+                              print(
+                                  "Se debería actualizar tabla con mensaje respuesta");
                             });
                           },
                           child: Container(

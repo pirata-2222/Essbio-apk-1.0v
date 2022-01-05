@@ -46,6 +46,12 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
     return colorTipoEventoAbastecimiento;
   }
 
+// TODO: Hacer funcion para icono de OT Abastecimiento
+  Icon iconoOTAbastecimiento() {
+    Icon iconoAbast = Icon(Icons.ac_unit);
+    return Icon(Icons.ac_unit);
+  }
+
   Color colorOTabastecimiento() {
     int daysBetween(DateTime from, DateTime to) {
       from = DateTime(from.year, from.month, from.day);
@@ -170,7 +176,9 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
 class OtAbastScreen extends StatefulWidget {
   final FaseAbastecimiento faseAbastecimiento;
   final Function(int) callback;
-  OtAbastScreen({Key? key, required this.faseAbastecimiento, required this.callback}) : super(key: key);
+  OtAbastScreen(
+      {Key? key, required this.faseAbastecimiento, required this.callback})
+      : super(key: key);
 
   @override
   _OtAbastScreenState createState() => _OtAbastScreenState();
@@ -521,7 +529,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                                   });
                                   essbioP.updateFasesAbastecimiento(
                                       widget.faseAbastecimiento, modificacion);
-                                  
+
                                   Navigator.pop(context, 'Cancel');
                                 },
                                 child: const Text('Confirmar'),

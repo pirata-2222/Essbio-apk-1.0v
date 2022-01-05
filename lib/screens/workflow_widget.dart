@@ -12,6 +12,7 @@ import 'package:essbio_apk/screens/ot_instalacion_screen.dart';
 import 'package:essbio_apk/screens/ot_abast_screen.dart';
 import 'package:essbio_apk/screens/ot_medicion_screen.dart';
 import 'package:essbio_apk/screens/ot_retiro_screen.dart';
+import 'package:badges/badges.dart';
 
 class WorkflowDesplegado extends StatefulWidget {
   final List<FaseInstalacion> instalacionUsuario;
@@ -44,11 +45,12 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
   @override
   Widget build(BuildContext context) {
-    // var IDUsuarioLogueado = essbioP.usuario;
-    // for (var i = 0; i < cantidadTituloOT; i++) {
-    //   var tituloOTInstalacion = essbioP.ordenesTrabajo[i].nombre_ot;
-    // }
-    // ;
+    var mensajesLength = widget.mensajesEssbio.length;
+    for (var i = 0; i < mensajesLength; i++) {
+      if (widget.mensajesEssbio[i].confirmacion == "N") {
+        // TODO: Terminar función para mostrar o no icono de notificacion
+      }
+    }
 
     return MaterialApp(
       theme: ThemeData(
@@ -101,34 +103,47 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
               Container(
                 child: Column(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MensajeScreen(
-                                      mensajesLista: widget.mensajesEssbio,
-                                    )));
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        decoration: BoxDecoration(
-                            color: azulPrimarioEssbio,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Column(
-                          children: [
-                            Center(
-                              child: Icon(Icons.message,
-                                  size: 50, color: Colors.white),
-                            ),
-                            Center(
-                              child: Text(
-                                "Ver Mensajes",
-                                style: TextStyle(color: Colors.white),
+                    Badge(
+                      position: BadgePosition.topEnd(top: -10, end: -15),
+                      badgeColor: Colors.red,
+                      badgeContent: Container(
+                        width: 30,
+                        height: 30,
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.notifications,
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MensajeScreen(
+                                        mensajesLista: widget.mensajesEssbio,
+                                      )));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          decoration: BoxDecoration(
+                              color: azulPrimarioEssbio,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Column(
+                            children: [
+                              Center(
+                                child: Icon(Icons.message,
+                                    size: 50, color: Colors.white),
                               ),
-                            ),
-                          ],
+                              Center(
+                                child: Text(
+                                  "Ver Mensajes",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

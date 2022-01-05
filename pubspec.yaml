@@ -36,6 +36,7 @@ dependencies:
   crypto: ^3.0.1
   flutter_map: any
   latlong2: ^0.8.1
+  badges: ^2.0.2
 
 dev_dependencies:
   flutter_test:

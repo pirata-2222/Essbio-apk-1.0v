@@ -387,6 +387,22 @@ class EssbioProvider with ChangeNotifier {
         }));
   }
 
+  // TODO: Completar función para botón confirmación lectura
+  updateConfirmacionLectura(
+      Mensaje mensaje, Map<String, dynamic> modificacion) async {
+    final id = mensaje.id_usuario;
+    final url_mensaje = '${server}/mod_mensaje/$id/?format=json';
+    final response = await http.put(Uri.parse(url_mensaje),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "CONFIRMACION": modificacion["CONFIRMACION"] == ""
+              ? mensaje.confirmacion
+              : modificacion["CONFIRMACION"],
+          "FECHA_MOD_XYGO":
+              DateTime.now().toIso8601String().substring(0, 19) + "Z"
+        }));
+  }
+
   updateFasesAbastecimiento(FaseAbastecimiento faseAbastecimiento,
       Map<String, dynamic> modificacion) async {
     final id = faseAbastecimiento.id;
