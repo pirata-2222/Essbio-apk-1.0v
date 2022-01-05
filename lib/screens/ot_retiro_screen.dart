@@ -453,9 +453,10 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                   lat: widget.faseRetiro.lat,
                   lon: widget.faseRetiro.lon,
                 ),
-                SizedBox(height: 20),
-                //RÓTULO TK
-                RotuloTKField(),
+                // SizedBox(height: 20),
+
+                // //RÓTULO TK
+                // RotuloTKField(),
                 SizedBox(height: 20),
                 Column(children: [
                   Text("Último Comentario:",
@@ -465,13 +466,16 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: azulPrimarioEssbio),
+                          color: celesteEssbio),
                       height: 50.0,
                       width: screenWidth * 0.8,
                       margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        widget.faseRetiro.comentario.toString(),
-                        style: TextStyle(color: Colors.white),
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text(
+                          widget.faseRetiro.comentario.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
