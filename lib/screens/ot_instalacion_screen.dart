@@ -607,21 +607,26 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                   Center(
                     child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: azulPrimarioEssbio),
                       height: 50.0,
                       width: screenWidth * 0.8,
-                      color: azulPrimarioEssbio,
                       margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        widget.faseInstalacion.comentario_instalacion
-                            .toString(),
-                        style: TextStyle(color: Colors.white),
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text(
+                          widget.faseInstalacion.comentario_instalacion
+                              .toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
                 ]),
                 SizedBox(height: 25),
                 Column(children: [
-                  Text("Comentario:",
+                  Text("Comentar:",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                   Center(
@@ -676,6 +681,30 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                   ),
                 ),
                 SizedBox(height: 20),
+                Column(children: [
+                  Text("Último Rótulo TK Registrado:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: azulPrimarioEssbio),
+                      height: 50.0,
+                      width: screenWidth * 0.8,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: Center(
+                        child: Text(
+                          widget.faseInstalacion.rotulo_tk.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+                SizedBox(
+                  height: 25,
+                ),
                 //RÓTULO TK
                 Column(children: [
                   Text("Rótulo TK:",
@@ -696,23 +725,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                   ),
                 ]),
                 SizedBox(height: 20),
-                Column(children: [
-                  Text("Último Rótulo TK Registrado:",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-                  Center(
-                    child: Container(
-                      height: 50.0,
-                      width: screenWidth * 0.8,
-                      color: azulPrimarioEssbio,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        widget.faseInstalacion.rotulo_tk.toString(),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ]),
+
                 Container(
                   color: azulPrimarioEssbio,
                   child: TextButton(
