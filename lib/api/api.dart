@@ -322,57 +322,6 @@ class EssbioProvider with ChangeNotifier {
     }
   }
 
-  updateFasesInstalacion(FaseInstalacion faseInstalacion,
-      Map<String, dynamic> modificacion) async {
-    final id = faseInstalacion.id;
-    final url_instalacion = '$server/ot_fase_instalacion/$id/?format=json';
-    final response = await http.put(Uri.parse(url_instalacion),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "COMENTARIO_INSTALACION": modificacion["COMENTARIO_INSTALACION"] == ""
-              ? faseInstalacion.comentario_instalacion
-              : modificacion["COMENTARIO_INSTALACION"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-          "ROTULO_TK": modificacion["ROTULO_TK"] == ""
-              ? faseInstalacion.rotulo_tk
-              : modificacion["ROTULO_TK"],
-          "ARCHIVO_ADJUNTO": modificacion["ARCHIVO_ADJUNTO"] == ""
-              ? faseInstalacion.archivo_adjunto
-              : modificacion["ARCHIVO_ADJUNTO"]
-        }));
-
-    final url_ots =
-        '$server/mod_wkf_orden_trabajo/${faseInstalacion.id_ot}/?format=json';
-    final response_ots = await http.get(Uri.parse(url_ots));
-    var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"].toString();
-    print("id status: " + id_status.toString());
-    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
-
-    final response_status = await http.put(Uri.parse(url_status),
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({
-          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
-              ? faseInstalacion.id_tipo_status
-              : modificacion["ID_TIPO_STATUS"],
-          "FECHA_MOD_XYGO":
-              DateTime.now().toIso8601String().substring(0, 19) + "Z",
-        }));
-
-    if (response.statusCode == 200) {
-      print("Actualizada correctamente la fase");
-    } else {
-      print("Hubo un problema al actualizar la fase");
-    }
-    if (response_status.statusCode == 200) {
-      print("Actualizado correctamente el estado");
-    } else {
-      print(response_status.body);
-      print("Hubo un problema al actualizar el estado");
-    }
-  }
-
   updateMensaje(Mensaje mensaje, Map<String, dynamic> modificacion) async {
     final id = mensaje.id_mensaje;
     final url_mensaje = '${server}/mod_mensaje/$id/?format=json';
@@ -417,6 +366,52 @@ class EssbioProvider with ChangeNotifier {
         }));
   }
 
+  updateFasesInstalacion(FaseInstalacion faseInstalacion,
+      Map<String, dynamic> modificacion) async {
+    final id = faseInstalacion.id;
+    final url_instalacion = '$server/ot_fase_instalacion/$id/?format=json';
+    final response = await http.put(Uri.parse(url_instalacion),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "COMENTARIO_INSTALACION": modificacion["COMENTARIO_INSTALACION"] == ""
+              ? faseInstalacion.comentario_instalacion
+              : modificacion["COMENTARIO_INSTALACION"],
+          "FECHA_MOD_XYGO":
+              DateTime.now().toIso8601String().substring(0, 19) + "Z",
+          "ROTULO_TK": modificacion["ROTULO_TK"] == ""
+              ? faseInstalacion.rotulo_tk
+              : modificacion["ROTULO_TK"],
+          "ARCHIVO_ADJUNTO": modificacion["ARCHIVO_ADJUNTO"] == ""
+              ? faseInstalacion.archivo_adjunto
+              : modificacion["ARCHIVO_ADJUNTO"]
+        }));
+
+    final url_ots =
+        '$server/mod_wkf_orden_trabajo/${faseInstalacion.id_ot}/?format=json';
+    final response_status = await http.put(Uri.parse(url_ots),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "ID_STATUS": modificacion["ID_TIPO_STATUS"] == ""
+              ? faseInstalacion.id_tipo_status
+              : modificacion["ID_TIPO_STATUS"],
+          "FECHA_MOD_XYGO":
+              DateTime.now().toIso8601String().substring(0, 19) + "Z",
+        }));
+
+    if (response.statusCode == 200) {
+      print("Actualizada correctamente la fase");
+    } else {
+      print("Hubo un problema al actualizar la fase");
+    }
+    if (response_status.statusCode == 200) {
+      print("Actualizado correctamente el estado");
+    } else {
+      print(response_status.body);
+      print("Hubo un problema al actualizar el estado");
+    }
+  }
+
+
   updateFasesAbastecimiento(FaseAbastecimiento faseAbastecimiento,
       Map<String, dynamic> modificacion) async {
     final id = faseAbastecimiento.id;
@@ -434,16 +429,10 @@ class EssbioProvider with ChangeNotifier {
 
     final url_ots =
         '$server/mod_wkf_orden_trabajo/${faseAbastecimiento.id_ot}/?format=json';
-    final response_ots = await http.get(Uri.parse(url_ots));
-    var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"].toString();
-    print("id status: " + id_status.toString());
-    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
-
-    final response_status = await http.put(Uri.parse(url_status),
+    final response_status = await http.put(Uri.parse(url_ots),
         headers: {"Content-Type": "application/json"},
         body: json.encode({
-          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
+          "ID_STATUS": modificacion["ID_TIPO_STATUS"] == ""
               ? faseAbastecimiento.id_tipo_status
               : modificacion["ID_TIPO_STATUS"],
           "FECHA_MOD_XYGO":
@@ -521,16 +510,10 @@ class EssbioProvider with ChangeNotifier {
 
     final url_ots =
         '$server/mod_wkf_orden_trabajo/${faseAbastMedicion.id_ot}/?format=json';
-    final response_ots = await http.get(Uri.parse(url_ots));
-    var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"].toString();
-    print("id status: " + id_status.toString());
-    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
-
-    final response_status = await http.put(Uri.parse(url_status),
+    final response_status = await http.put(Uri.parse(url_ots),
         headers: {"Content-Type": "application/json"},
         body: json.encode({
-          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
+          "ID_STATUS": modificacion["ID_TIPO_STATUS"] == ""
               ? faseAbastMedicion.id_tipo_status
               : modificacion["ID_TIPO_STATUS"],
           "FECHA_MOD_XYGO":
@@ -569,16 +552,10 @@ class EssbioProvider with ChangeNotifier {
 
     final url_ots =
         '$server/mod_wkf_orden_trabajo/${faseRetiro.id_ot}/?format=json';
-    final response_ots = await http.get(Uri.parse(url_ots));
-    var data_ots = json.decode(response_ots.body);
-    var id_status = data_ots["ID_STATUS"].toString();
-    print("id status: " + id_status.toString());
-    final url_status = '$server/mod_wkf_status/$id_status/?format=json';
-
-    final response_status = await http.put(Uri.parse(url_status),
+    final response_status = await http.put(Uri.parse(url_ots),
         headers: {"Content-Type": "application/json"},
         body: json.encode({
-          "ID_TIPO_STATUS": modificacion["ID_TIPO_STATUS"] == ""
+          "ID_STATUS": modificacion["ID_TIPO_STATUS"] == ""
               ? faseRetiro.id_tipo_status
               : modificacion["ID_TIPO_STATUS"],
           "FECHA_MOD_XYGO":
