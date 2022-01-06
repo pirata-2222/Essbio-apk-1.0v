@@ -56,10 +56,11 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
   @override
   Widget build(BuildContext context) {
     String numeroMensajesLeidosEssbio() {
-      int contadorMensaje = 0 + stream.modificador;
+      int contadorMensaje = 0;
       var mensajesLength = widget.mensajesEssbio.length;
       for (var i = 0; i < mensajesLength; i++) {
-        if (widget.mensajesEssbio[i].confirmacion.toString() != "S") {
+        if (widget.mensajesEssbio[i].estado.toString() == "1" ||
+            widget.mensajesEssbio[i].estado.toString() == "2") {
           contadorMensaje++;
         }
       }
