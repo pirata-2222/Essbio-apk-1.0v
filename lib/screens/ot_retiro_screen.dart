@@ -189,12 +189,13 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
   }
 
   int numeroIDstatusRetiro = 0;
+  TextEditingController comentarioController = TextEditingController();
+  TextEditingController numeroEstanqueController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    TextEditingController comentarioController = TextEditingController();
-    TextEditingController numeroEstanqueController = TextEditingController();
+
     int id_tipo_status = widget.faseRetiro.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
     String placeholder = estadoRetiro[widget.faseRetiro.id_tipo_status]!;

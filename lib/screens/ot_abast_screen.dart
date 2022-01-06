@@ -223,10 +223,11 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
 
   // FALTAN 123='INICIO CARGA CAMIÓN', 124='TÉRMINO CARGA CAMIÓN', 125='INICIO ABASTECIMIENTO',
   int numeroIDstatusAbastecimiento = 0;
+  TextEditingController comentarioController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    TextEditingController comentarioController = TextEditingController();
+
     int id_tipo_status = widget.faseAbastecimiento.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
     return MaterialApp(

@@ -295,12 +295,14 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
 
   // *******************************************************************
   int numeroIDstatusInstalacion = 0;
+  String databaseText = " ";
+  TextEditingController comentarioController = TextEditingController();
+  TextEditingController rotuloController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
-    TextEditingController comentarioController = TextEditingController();
-    TextEditingController rotuloController = TextEditingController();
+
     int id_tipo_status = widget.faseInstalacion.id_tipo_status;
 
     String estadoInstalacionenString() {
