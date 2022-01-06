@@ -503,7 +503,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
     );
   }
   Container estadosOT(
-      Map<int, int> opciones, String estadoInstalacionenString) {
+      Map<int, int> statuses, String estadoInstalacionenString) {
     Map<int, String> tipo_status = {
       8: 'INSTALADO',
       9: 'NO DISPONIBLE',
@@ -552,25 +552,25 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
     //20988 : 112}
     // current status = 20888
 
-    InkWell opcion(int opcion) {
+    InkWell widgetEstado(int status) {
       return InkWell(
         onTap: () {
           setState(() {
-            estadoSeleccionado = tipo_status[opcion]!;
+            estadoSeleccionado = tipo_status[status]!;
           });
         },
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
               width: 4,
-              color: estadoInstalacionenString == tipo_status[opcion]
+              color: estadoInstalacionenString == tipo_status[status]
                   ? estadoActivo
-                  : estadoSeleccionado == tipo_status[opcion]
+                  : estadoSeleccionado == tipo_status[status]
                       ? estadoActivo
                       : estadoPasivo,
             ),
             borderRadius: BorderRadius.circular(15),
-            color: estadoInstalacionenString == tipo_status[opcion]
+            color: estadoInstalacionenString == tipo_status[status]
                 ? estadoActivo
                 : estadoPasivo,
           ),
@@ -579,7 +579,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
           width: screenWidth * 0.4,
           child: Center(
             child: Text(
-              tipo_status[opcion]!.toLowerCase(),
+              tipo_status[status]!.toLowerCase(),
               style: TextStyle(color: Colors.black),
               textAlign: TextAlign.center,
             ),
@@ -588,9 +588,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
       );
     }
 
-    opciones.forEach((id_status, id_tipo_status) {
-      estados.add(opcion(id_tipo_status));
-      print(opciones);
+    statuses.forEach((id_status, id_tipo_status) {
+      estados.add(widgetEstado(id_tipo_status));
     });
     return Container(
       width: screenWidth,

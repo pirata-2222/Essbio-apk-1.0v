@@ -694,6 +694,7 @@ class EssbioProvider with ChangeNotifier {
           //Instalación
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
+              //TODO: Acá escribe el diccionario
               instalacion.statuses[status.id_status] = status.id_tipo_status;
               instalacion.id_tipo_status = instalacion.statuses[orden.id_status];
             }
