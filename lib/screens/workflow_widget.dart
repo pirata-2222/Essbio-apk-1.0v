@@ -15,6 +15,7 @@ import 'package:essbio_apk/screens/ot_abast_screen.dart';
 import 'package:essbio_apk/screens/ot_medicion_screen.dart';
 import 'package:essbio_apk/screens/ot_retiro_screen.dart';
 import 'package:badges/badges.dart';
+import 'package:essbio_apk/api/streams.dart';
 
 class WorkflowDesplegado extends StatefulWidget {
   final List<FaseInstalacion> instalacionUsuario;
@@ -44,11 +45,18 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
   bool abastIsVisible = true;
   bool medicionIsVisible = true;
   bool retiroIsVisible = true;
+  final stream = Streams();
+
+  callback() {
+    setState(() {
+      stream.modificador = -1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     String numeroMensajesLeidosEssbio() {
-      int contadorMensaje = 0;
+      int contadorMensaje = 0 + stream.modificador;
       var mensajesLength = widget.mensajesEssbio.length;
       for (var i = 0; i < mensajesLength; i++) {
         if (widget.mensajesEssbio[i].confirmacion.toString() != "S") {
@@ -129,9 +137,9 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => MensajeScreen(
-                                              mensajesLista:
-                                                  widget.mensajesEssbio,
-                                            )));
+                                            mensajesLista:
+                                                widget.mensajesEssbio,
+                                            callback: callback)));
                               },
                               child: Container(
                                 padding: EdgeInsets.all(20),
@@ -164,6 +172,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                       builder: (context) => MensajeScreen(
                                             mensajesLista:
                                                 widget.mensajesEssbio,
+                                            callback: callback,
                                           )));
                             },
                             child: Container(

@@ -57,7 +57,7 @@ class Streams {
   bool boolProcesos = false;
   bool boolMensajes = false;
   bool completado = false;
-
+  int modificador = 0;
   //Mod_WKF
   List<OrdenTrabajo> _ordenesTrabajo = [];
   List<OrdenTrabajo> get ordenesTrabajo {
@@ -624,6 +624,7 @@ class Streams {
       await fetchDataEventos();
       await fetchProcesos();
       await fetchMensajes();
+      modificador = 0;
       var fasesUsuario = getFasesUsuario(
           ordenesTrabajo: _ordenesTrabajo,
           fasesInstalacion: _fasesInstalacion,
@@ -642,7 +643,8 @@ class Streams {
         "fasesAbastMedicion": fasesUsuario[1],
         "fasesAbastecimiento": fasesUsuario[2],
         "fasesRetiro": fasesUsuario[3],
-        "mensajes": fasesUsuario[4]};
+        "mensajes": fasesUsuario[4]
+      };
       /*{
         "ordenesTrabajo": _ordenesTrabajo,
         "fasesInstalacion": _fasesInstalacion,

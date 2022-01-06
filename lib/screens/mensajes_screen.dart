@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 
 class MensajeScreen extends StatefulWidget {
   final List<Mensaje> mensajesLista;
-  const MensajeScreen({Key? key, required this.mensajesLista})
+  final Function callback;
+  const MensajeScreen(
+      {Key? key, required this.mensajesLista, required this.callback})
       : super(key: key);
 
   @override
@@ -79,7 +81,9 @@ class _MensajeScreenState extends State<MensajeScreen> {
                         .sort((a, b) => a.prioridad.compareTo(b.prioridad));
 
                     return CardMensaje(
-                        mensajeEssbio: widget.mensajesLista[reverseIndex]);
+                      mensajeEssbio: widget.mensajesLista[reverseIndex],
+                      callback: widget.callback,
+                    );
                   }),
             )
           ],
@@ -93,7 +97,9 @@ class _MensajeScreenState extends State<MensajeScreen> {
 
 class CardMensaje extends StatefulWidget {
   final Mensaje mensajeEssbio;
-  CardMensaje({Key? key, required this.mensajeEssbio}) : super(key: key);
+  final Function callback;
+  CardMensaje({Key? key, required this.mensajeEssbio, required this.callback})
+      : super(key: key);
 
   @override
   _CardMensajeState createState() => _CardMensajeState();
@@ -144,6 +150,8 @@ class _CardMensajeState extends State<CardMensaje> {
 
     return InkWell(
       onTap: () {
+        TODO:
+        widget.callback();
         Navigator.push(
             context,
             MaterialPageRoute(
