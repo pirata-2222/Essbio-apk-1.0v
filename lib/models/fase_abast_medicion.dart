@@ -26,6 +26,10 @@ class FaseAbastMedicion {
   var lat;
   var lon;
   var tipo_evento;
+  String nombre_corte = "";
+  String ods = "";
+  List statuses = [];
+  
   FaseAbastMedicion(
       {required this.id,
       required this.personal,

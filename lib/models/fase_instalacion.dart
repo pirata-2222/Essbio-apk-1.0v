@@ -17,6 +17,9 @@ class FaseInstalacion {
   var lat;
   var lon;
   var tipo_evento;
+  String nombre_corte = "";
+  String ods = "";
+  Map<int,int> statuses = {};
 
   FaseInstalacion(
       {required this.id,

@@ -17,6 +17,10 @@ class FaseRetiro {
   var lat;
   var lon;
   var tipo_evento;
+  String nombre_corte = "";
+  String ods = "";
+  List statuses = [];
+
   FaseRetiro(
       {required this.id,
       required this.contratista,

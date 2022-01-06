@@ -18,6 +18,9 @@ class FaseAbastecimiento {
   var lat;
   var lon;
   var tipo_evento;
+  String nombre_corte = "";
+  String ods = "";
+  List statuses = [];
 
   FaseAbastecimiento(
       {required this.id,
