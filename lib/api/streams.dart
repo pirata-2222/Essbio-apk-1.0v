@@ -415,29 +415,33 @@ class Streams {
     //Asignar status a cada OT
     for (var status in statusesUsuario) {
       for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_status == status.id_status) {
+        if (orden.id_ot == status.id_ot) {
           //Instalación
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
-              instalacion.id_tipo_status = status.id_tipo_status;
+              instalacion.statuses[status.id_status] = status.id_tipo_status;
+              instalacion.id_tipo_status = instalacion.statuses[orden.id_status];
             }
           }
           //Medición
           for (var medicion in medicionUsuario) {
             if (medicion.id_ot == orden.id_ot) {
-              medicion.id_tipo_status = status.id_tipo_status;
+              medicion.statuses[status.id_status] = status.id_tipo_status;
+              medicion.id_tipo_status = medicion.statuses[orden.id_status];
             }
           }
           //Abastecimiento
           for (var abastecimiento in abastecimientoUsuario) {
             if (abastecimiento.id_ot == orden.id_ot) {
-              abastecimiento.id_tipo_status = status.id_tipo_status;
+              abastecimiento.statuses[status.id_status] = status.id_tipo_status;
+              abastecimiento.id_tipo_status = abastecimiento.statuses[orden.id_status];
             }
           }
           //Retiro
           for (var retiro in retiroUsuario) {
             if (retiro.id_ot == orden.id_ot) {
-              retiro.id_tipo_status = status.id_tipo_status;
+              retiro.statuses[status.id_status] = status.id_tipo_status;
+              retiro.id_tipo_status = retiro.statuses[orden.id_status];
             }
           }
         }
