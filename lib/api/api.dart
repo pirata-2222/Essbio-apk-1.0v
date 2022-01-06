@@ -387,7 +387,21 @@ class EssbioProvider with ChangeNotifier {
         }));
   }
 
-  // TODO: Completar función para botón confirmación lectura
+  updateMensajeLeidoClick(
+      Mensaje mensaje, Map<String, dynamic> modificacion) async {
+    final id = mensaje.id_mensaje;
+    final url_mensaje = '${server}/mod_mensaje/$id/?format=json';
+    final response = await http.put(Uri.parse(url_mensaje),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          "ESTADO": modificacion["ESTADO"] == ""
+              ? mensaje.confirmacion
+              : modificacion["ESTADO"],
+          "FECHA_MOD_XYGO":
+              DateTime.now().toIso8601String().substring(0, 19) + "Z"
+        }));
+  }
+
   updateConfirmacionLectura(
       Mensaje mensaje, Map<String, dynamic> modificacion) async {
     final id = mensaje.id_mensaje;
@@ -681,7 +695,8 @@ class EssbioProvider with ChangeNotifier {
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
               instalacion.statuses[status.id_status] = status.id_tipo_status;
-              instalacion.id_tipo_status = instalacion.statuses[orden.id_status];
+              instalacion.id_tipo_status =
+                  instalacion.statuses[orden.id_status];
             }
           }
           //Medición

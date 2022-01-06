@@ -65,6 +65,49 @@ class _MensajeScreenState extends State<MensajeScreen> {
                 )
               ],
             ),
+            Container(
+              height: 60,
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Text("Mensaje Leído: "),
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                              color: celesteEssbio,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20))),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Text("Mensaje No Leído: "),
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                              color: estadoPasivo,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20))),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
@@ -77,6 +120,8 @@ class _MensajeScreenState extends State<MensajeScreen> {
                     int reverseIndex = widget.mensajesLista.length - 1 - index;
                     widget.mensajesLista.sort(
                         (a, b) => b.confirmacion.compareTo(a.confirmacion));
+                    widget.mensajesLista
+                        .sort((a, b) => b.estado.compareTo(a.estado));
                     widget.mensajesLista
                         .sort((a, b) => a.prioridad.compareTo(b.prioridad));
 
@@ -109,10 +154,12 @@ class _CardMensajeState extends State<CardMensaje> {
   @override
   Widget build(BuildContext context) {
     Color colorMensajes() {
-      var confirmarLectura = widget.mensajeEssbio.confirmacion.toString();
+      var mensajeLeidoClick = widget.mensajeEssbio.estado.toString();
 
       Color colorMensajeOT = Colors.grey;
-      if (confirmarLectura == "S") {
+      if (mensajeLeidoClick == "3" ||
+          mensajeLeidoClick == "4" ||
+          mensajeLeidoClick == "5") {
         colorMensajeOT = celesteEssbio;
       } else {
         colorMensajeOT = verdeTiempoCritico;
@@ -150,8 +197,17 @@ class _CardMensajeState extends State<CardMensaje> {
 
     return InkWell(
       onTap: () {
-        TODO:
-        widget.callback();
+        if (widget.mensajeEssbio.estado.toString() == "1" ||
+            widget.mensajeEssbio.estado.toString() == "2") {
+          setState(() {
+            Map<String, dynamic> modificacion = {"ESTADO": 3};
+            essbioP.updateMensajeLeidoClick(widget.mensajeEssbio, modificacion);
+            colorMensajes();
+          });
+          print("Debería cambiar estado");
+          widget.callback();
+        }
+
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -224,7 +280,7 @@ class CardMensajeDesplegado extends StatefulWidget {
 
 class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
   TextEditingController comentarioMensajeController = TextEditingController();
-
+  String ultimaRespuesta = " ";
   @override
   Widget build(BuildContext context) {
     String confirmacionLecturaString() {
@@ -232,7 +288,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
 
       String confirmacionString = " ";
       if (confirmarLectura == "S") {
-        confirmacionString = "Mensaje Leído";
+        confirmacionString = "Mensaje Confirmado";
       } else {
         confirmacionString = "Aún no se confirma lectura del mensaje";
       }
@@ -371,7 +427,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                   SizedBox(
                     height: 10,
                   ),
-                  confirmacionLecturaString() == "Mensaje Leído"
+                  confirmacionLecturaString() == "Mensaje Confirmado"
                       ? Container(
                           decoration: BoxDecoration(
                               color: rojoEssbio,
@@ -401,7 +457,7 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                                 color: azulPrimarioEssbio,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Text(
-                              "Confirmar Lectura",
+                              "Confirmar Mensaje",
                               style: TextStyle(color: Colors.white),
                             ),
                           )),
@@ -434,7 +490,8 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                               Container(
                                 margin: EdgeInsets.only(left: 10, right: 10),
                                 child: Text(
-                                  widget.mensajeEssbio.mensaje_respuesta
+                                  ultimaRespuesta = widget
+                                      .mensajeEssbio.mensaje_respuesta
                                       .toString(),
                                   style: TextStyle(color: Colors.white),
                                   textAlign: TextAlign.start,
@@ -491,6 +548,26 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                                             print(
                                                 "Se debería actualizar tabla con mensaje respuesta");
                                             Navigator.pop(context, 'Cancel');
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        AlertDialog(
+                                                          title: const Text(
+                                                              "Respuesta enviada"),
+                                                          content: const Text(
+                                                              "Tu respuesta ha sido enviada con éxito al emisor del mensaje, los cambios deberían verse reflejados en menos de 1 minuto en tu app"),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      context,
+                                                                      'Cancel'),
+                                                              child: const Text(
+                                                                  'OK'),
+                                                            ),
+                                                          ],
+                                                        ));
                                           },
                                           child: const Text('Confirmar')),
                                     ]));
