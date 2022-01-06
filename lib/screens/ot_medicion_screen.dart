@@ -202,14 +202,14 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
   }
 
   int numeroIDstatusMedicion = 0;
-
+  TextEditingController comentarioController = TextEditingController();
+  TextEditingController nivelAguaController = TextEditingController();
+  TextEditingController nivelCloroController = TextEditingController();
+  TextEditingController nivelTurbiedadController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
-    TextEditingController comentarioController = TextEditingController();
-    TextEditingController nivelAguaController = TextEditingController();
-    TextEditingController nivelCloroController = TextEditingController();
-    TextEditingController nivelTurbiedadController = TextEditingController();
+
     int id_tipo_status = widget.faseAbastMedicion.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
     return MaterialApp(
