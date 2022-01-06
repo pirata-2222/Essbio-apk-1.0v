@@ -65,6 +65,49 @@ class _MensajeScreenState extends State<MensajeScreen> {
                 )
               ],
             ),
+            Container(
+              height: 60,
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Text("Mensaje Leído: "),
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                              color: celesteEssbio,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20))),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Text("Mensaje No Leído: "),
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                              color: estadoPasivo,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20))),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(
               height: 10,
             ),

@@ -62,9 +62,9 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
         if (widget.mensajesEssbio[i].estado.toString() == "1" ||
             widget.mensajesEssbio[i].estado.toString() == "2") {
           contadorMensaje++;
-          if (contadorMensaje < 0) {
-            contadorMensaje = 0;
-          }
+        }
+        if (contadorMensaje < 0) {
+          contadorMensaje = 0;
         }
       }
 
