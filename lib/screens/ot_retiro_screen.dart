@@ -275,8 +275,11 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         .substring(0, 10)),
 
                 //ESTADOS DE LA OT
-                estadosOT(widget.faseRetiro.statuses,
-                    estadoRetiroenString()),
+                Text("Cambio de Estado",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                SizedBox(height: 5),
+                estadosOT(widget.faseRetiro.statuses, estadoRetiroenString()),
 
                 //UBICACIÓN TK
 
@@ -383,6 +386,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
           )),
     );
   }
+
   Container estadosOT(
       Map<int, int> statuses, String estadoInstalacionenString) {
     Map<int, String> tipo_status = {
@@ -444,14 +448,14 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 4,
-              color: estadoInstalacionenString == tipo_status[status]
+              color: widget.faseRetiro.id_tipo_status == status
                   ? estadoActivo
                   : estadoSeleccionado == tipo_status[status]
                       ? estadoActivo
                       : estadoPasivo,
             ),
             borderRadius: BorderRadius.circular(15),
-            color: estadoInstalacionenString == tipo_status[status]
+            color: widget.faseRetiro.id_tipo_status == status
                 ? estadoActivo
                 : estadoPasivo,
           ),
@@ -460,7 +464,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
           width: screenWidth * 0.4,
           child: Center(
             child: Text(
-              tipo_status[status]!.toLowerCase(),
+              tipo_status[status]!,
               style: TextStyle(color: Colors.black),
               textAlign: TextAlign.center,
             ),
