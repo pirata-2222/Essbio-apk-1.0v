@@ -19,7 +19,7 @@ class FaseRetiro {
   var tipo_evento;
   String nombre_corte = "";
   String ods = "";
-  List statuses = [];
+  Map<int,int> statuses = {};
 
   FaseRetiro(
       {required this.id,

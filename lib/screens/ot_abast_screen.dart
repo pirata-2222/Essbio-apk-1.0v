@@ -307,176 +307,8 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         .substring(0, 10)),
 
                 //ESTADOS DE LA OT
-                Column(
-                  children: [
-                    Text(
-                      "CAMBIO DE ESTADO",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
-                    ),
-                    SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              estadoSeleccionado = estadoAbastecimiento[121]!;
-                              numeroIDstatusAbastecimiento = 121;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 4,
-                                color:
-                                    estadoAbastecimientoenString() == "En Curso"
-                                        ? estadoActivo
-                                        : estadoSeleccionado ==
-                                                estadoAbastecimiento[121]
-                                            ? estadoActivo
-                                            : estadoPasivo,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
-                              color:
-                                  estadoAbastecimientoenString() == "En Curso"
-                                      ? estadoActivo
-                                      : estadoPasivo,
-                            ),
-                            margin: EdgeInsets.only(left: 10, right: 5),
-                            height: 35,
-                            width: screenWidth * 0.4,
-                            child: Center(
-                              child: Text(
-                                "En Curso",
-                                style: TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              estadoSeleccionado = estadoAbastecimiento[122]!;
-                              numeroIDstatusAbastecimiento = 122;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 4,
-                                color: estadoAbastecimientoenString() ==
-                                        "No Disponible"
-                                    ? estadoActivo
-                                    : estadoSeleccionado ==
-                                            estadoAbastecimiento[122]
-                                        ? estadoActivo
-                                        : estadoPasivo,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
-                              color: estadoAbastecimientoenString() ==
-                                      "No Disponible"
-                                  ? estadoActivo
-                                  : estadoPasivo,
-                            ),
-                            margin: EdgeInsets.only(left: 5, right: 10),
-                            height: 35,
-                            width: screenWidth * 0.4,
-                            child: Center(
-                              child: Text(
-                                "No Disponible",
-                                style: TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              estadoSeleccionado = estadoAbastecimiento[126]!;
-                              numeroIDstatusAbastecimiento = 126;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 4,
-                                color: estadoAbastecimientoenString() ==
-                                        "Estanque Llenado"
-                                    ? estadoActivo
-                                    : estadoSeleccionado ==
-                                            estadoAbastecimiento[126]
-                                        ? estadoActivo
-                                        : estadoPasivo,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
-                              color: estadoAbastecimientoenString() ==
-                                      "Estanque Llenado"
-                                  ? estadoActivo
-                                  : estadoPasivo,
-                            ),
-                            margin: EdgeInsets.only(left: 10, right: 5),
-                            height: 35,
-                            width: screenWidth * 0.4,
-                            child: Center(
-                              child: Text(
-                                "Estanque Llenado",
-                                style: TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              estadoSeleccionado = estadoAbastecimiento[127]!;
-                              numeroIDstatusAbastecimiento = 127;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 4,
-                                color: estadoAbastecimientoenString() ==
-                                        "Cierre Abastecimiento"
-                                    ? estadoActivo
-                                    : estadoSeleccionado ==
-                                            estadoAbastecimiento[127]
-                                        ? estadoActivo
-                                        : estadoPasivo,
-                              ),
-                              borderRadius: BorderRadius.circular(15),
-                              color: estadoAbastecimientoenString() ==
-                                      "Cierre Abastecimiento"
-                                  ? estadoActivo
-                                  : estadoPasivo,
-                            ),
-                            margin: EdgeInsets.only(left: 5, right: 10),
-                            height: 35,
-                            width: screenWidth * 0.4,
-                            child: Center(
-                              child: Text(
-                                "Cierre Abastecimiento",
-                                style: TextStyle(color: Colors.black),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                  ],
-                ),
+                estadosOT(widget.faseAbastecimiento.statuses,
+                    estadoAbastecimientoenString()),
 
                 SizedBox(height: 25),
                 //UBICACIÓN TK
@@ -573,6 +405,104 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
               ],
             ),
           )),
+    );
+  }
+  Container estadosOT(
+      Map<int, int> opciones, String estadoInstalacionenString) {
+    Map<int, String> tipo_status = {
+      8: 'INSTALADO',
+      9: 'NO DISPONIBLE',
+      17: 'RETIRADO',
+      18: 'NO DISPONIBLE (R)',
+      10: 'INICIO CARGA CAMIÓN',
+      11: 'TÉRMINO CARGA CAMIÓN',
+      12: 'INICIO ABASTECIMIENTO',
+      13: 'TÉRMINO ABASTECIMIENTO',
+      15: 'MEDIDO',
+      16: 'SUPERVISADO',
+      14: 'CIERRE ABASTECIMIENTO',
+      1: 'INICIO',
+      2: 'CANCELADO',
+      3: 'FINALIZADO',
+      4: 'EN CURSO',
+      5: 'PAUSA',
+      6: 'RECHAZADO',
+      7: 'REVISION',
+      110: 'FINALIZADO',
+      111: 'EN CURSO',
+      112: 'FINALIZADO',
+      113: 'FINALIZADO',
+      120: 'FINALIZADO',
+      121: 'EN CURSO',
+      122: 'FINALIZADO',
+      123: 'INICIO CARGA CAMIÓN',
+      124: 'TÉRMINO CARGA CAMIÓN',
+      125: 'INICIO ABASTECIMIENTO',
+      126: 'ESTANQUE LLENADO',
+      127: 'FINALIZADO',
+      130: 'FINALIZADO',
+      131: 'EN CURSO',
+      132: 'FINALIZADO',
+      133: 'FINALIZADO',
+      140: 'FINALIZADO',
+      141: 'EN CURSO',
+      142: 'FINALIZADO',
+      143: 'FINALIZADO',
+      114: 'POR INSTALAR'
+    };
+    var screenWidth = MediaQuery.of(context).size.width;
+    List<InkWell> estados = [];
+    // opciones = {
+    //20987 : 113
+    //20988 : 112}
+    // current status = 20888
+
+    InkWell opcion(int opcion) {
+      return InkWell(
+        onTap: () {
+          setState(() {
+            estadoSeleccionado = tipo_status[opcion]!;
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 4,
+              color: estadoInstalacionenString == tipo_status[opcion]
+                  ? estadoActivo
+                  : estadoSeleccionado == tipo_status[opcion]
+                      ? estadoActivo
+                      : estadoPasivo,
+            ),
+            borderRadius: BorderRadius.circular(15),
+            color: estadoInstalacionenString == tipo_status[opcion]
+                ? estadoActivo
+                : estadoPasivo,
+          ),
+          margin: EdgeInsets.only(left: 10, right: 5),
+          height: 35,
+          width: screenWidth * 0.4,
+          child: Center(
+            child: Text(
+              tipo_status[opcion]!.toLowerCase(),
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      );
+    }
+
+    opciones.forEach((id_status, id_tipo_status) {
+      estados.add(opcion(id_tipo_status));
+      print(opciones);
+    });
+    return Container(
+      width: screenWidth,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: estados,
+      ),
     );
   }
 }
