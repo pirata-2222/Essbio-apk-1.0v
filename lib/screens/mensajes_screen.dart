@@ -159,6 +159,7 @@ class _CardMensajeState extends State<CardMensaje> {
           setState(() {
             Map<String, dynamic> modificacion = {"ESTADO": 3};
             essbioP.updateMensajeLeidoClick(widget.mensajeEssbio, modificacion);
+            colorMensajes();
           });
           print("Debería cambiar estado");
           widget.callback();
@@ -236,7 +237,7 @@ class CardMensajeDesplegado extends StatefulWidget {
 
 class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
   TextEditingController comentarioMensajeController = TextEditingController();
-
+  String ultimaRespuesta = " ";
   @override
   Widget build(BuildContext context) {
     String confirmacionLecturaString() {
@@ -446,7 +447,8 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                               Container(
                                 margin: EdgeInsets.only(left: 10, right: 10),
                                 child: Text(
-                                  widget.mensajeEssbio.mensaje_respuesta
+                                  ultimaRespuesta = widget
+                                      .mensajeEssbio.mensaje_respuesta
                                       .toString(),
                                   style: TextStyle(color: Colors.white),
                                   textAlign: TextAlign.start,
@@ -503,6 +505,26 @@ class _CardMensajeDesplegadoState extends State<CardMensajeDesplegado> {
                                             print(
                                                 "Se debería actualizar tabla con mensaje respuesta");
                                             Navigator.pop(context, 'Cancel');
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        AlertDialog(
+                                                          title: const Text(
+                                                              "Respuesta enviada"),
+                                                          content: const Text(
+                                                              "Tu respuesta ha sido enviada con éxito al emisor del mensaje, los cambios deberían verse reflejados en menos de 1 minuto en tu app"),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      context,
+                                                                      'Cancel'),
+                                                              child: const Text(
+                                                                  'OK'),
+                                                            ),
+                                                          ],
+                                                        ));
                                           },
                                           child: const Text('Confirmar')),
                                     ]));

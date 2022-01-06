@@ -55,17 +55,20 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
 
   @override
   Widget build(BuildContext context) {
-    String numeroMensajesLeidosEssbio() {
-      int contadorMensaje = 0;
+    int numeroMensajesLeidosEssbio() {
+      int contadorMensaje = 0 + stream.modificador;
       var mensajesLength = widget.mensajesEssbio.length;
       for (var i = 0; i < mensajesLength; i++) {
         if (widget.mensajesEssbio[i].estado.toString() == "1" ||
             widget.mensajesEssbio[i].estado.toString() == "2") {
           contadorMensaje++;
+          if (contadorMensaje < 0) {
+            contadorMensaje = 0;
+          }
         }
       }
 
-      return contadorMensaje.toString();
+      return contadorMensaje;
     }
 
     return MaterialApp(
@@ -119,7 +122,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
               Container(
                 child: Column(
                   children: [
-                    numeroMensajesLeidosEssbio() != "0"
+                    numeroMensajesLeidosEssbio() != 0
                         ? Badge(
                             position: BadgePosition.topEnd(top: -10, end: -15),
                             badgeColor: Colors.red,
@@ -128,7 +131,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                               height: 30,
                               alignment: Alignment.center,
                               child: Text(
-                                numeroMensajesLeidosEssbio(),
+                                numeroMensajesLeidosEssbio().toString(),
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
