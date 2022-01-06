@@ -408,6 +408,10 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         .substring(0, 10)),
 
                 //ESTADOS DE LA OT
+                Text("Cambio de Estado",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                SizedBox(height: 5),
                 estadosOT(widget.faseInstalacion.statuses,
                     estadoInstalacionenString()),
                 SizedBox(height: 25),
@@ -677,23 +681,23 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 4,
-              color: estadoInstalacionenString == tipo_status[status]
+              color: widget.faseInstalacion.id_tipo_status == status
                   ? estadoActivo
                   : estadoSeleccionado == tipo_status[status]
                       ? estadoActivo
                       : estadoPasivo,
             ),
             borderRadius: BorderRadius.circular(15),
-            color: estadoInstalacionenString == tipo_status[status]
+            color: widget.faseInstalacion.id_tipo_status == status
                 ? estadoActivo
                 : estadoPasivo,
           ),
-          margin: EdgeInsets.only(left: 10, right: 5),
+          margin: EdgeInsets.only(left: 10, right: 5, bottom: 10),
           height: 35,
           width: screenWidth * 0.4,
           child: Center(
             child: Text(
-              tipo_status[status]!.toLowerCase(),
+              tipo_status[status]!,
               style: TextStyle(color: Colors.black),
               textAlign: TextAlign.center,
             ),
