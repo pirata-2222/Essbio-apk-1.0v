@@ -374,7 +374,7 @@ class EssbioProvider with ChangeNotifier {
   }
 
   updateMensaje(Mensaje mensaje, Map<String, dynamic> modificacion) async {
-    final id = mensaje.id_usuario;
+    final id = mensaje.id_mensaje;
     final url_mensaje = '${server}/mod_mensaje/$id/?format=json';
     final response = await http.put(Uri.parse(url_mensaje),
         headers: {"Content-Type": "application/json"},
@@ -390,7 +390,7 @@ class EssbioProvider with ChangeNotifier {
   // TODO: Completar función para botón confirmación lectura
   updateConfirmacionLectura(
       Mensaje mensaje, Map<String, dynamic> modificacion) async {
-    final id = mensaje.id_usuario;
+    final id = mensaje.id_mensaje;
     final url_mensaje = '${server}/mod_mensaje/$id/?format=json';
     final response = await http.put(Uri.parse(url_mensaje),
         headers: {"Content-Type": "application/json"},
@@ -676,11 +676,12 @@ class EssbioProvider with ChangeNotifier {
     //Asignar status a cada OT
     for (var status in statusesUsuario) {
       for (var orden in ordenesTrabajoUsuario) {
-        if (orden.id_status == status.id_status) {
+        if (orden.id_ot == status.id_ot) {
           //Instalación
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
-              instalacion.id_tipo_status = status.id_tipo_status;
+              instalacion.statuses[status.id_status] = status.id_tipo_status;
+              instalacion.id_tipo_status = instalacion.statuses[orden.id_status];
             }
           }
           //Medición
