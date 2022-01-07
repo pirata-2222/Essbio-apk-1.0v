@@ -204,6 +204,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
     114: "Pendiente",
   };
   String estadoSeleccionado = "";
+  var currentStatus;
+  String estadoActualString = " ";
 
   Map<String, dynamic> datosActualizarInstalacion = {
     "ID_TIPO_STATUS": "",
@@ -610,14 +612,16 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                         comentarioController.text,
                                     "ROTULO_TK": rotuloController.text,
                                     "ARCHIVO_ADJUNTO": imagenFormatoEncode64,
-                                    "ID_TIPO_STATUS": numeroIDstatusInstalacion
+                                    // "ID_TIPO_STATUS": numeroIDstatusInstalacion,
+                                    "ID_TIPO_STATUS": currentStatus
                                   };
 
-                                  print("id tipo status es " +
-                                      id_tipo_status.toString());
-                                  widget.faseInstalacion.id_tipo_status =
-                                      numeroIDstatusInstalacion;
-                                  widget.callback(numeroIDstatusInstalacion);
+                                  // print("id tipo status es " +
+                                  //     id_tipo_status.toString());
+                                  // widget.faseInstalacion.id_tipo_status =
+                                  //     numeroIDstatusInstalacion;
+                                  // widget.callback(numeroIDstatusInstalacion);
+                                  widget.callback(currentStatus);
                                   setState(() {
                                     estadoInstalacionenString();
                                   });
@@ -698,7 +702,39 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
         onTap: () {
           setState(() {
             estadoSeleccionado = tipo_status[status]!;
+            estadoActualString = tipo_status[status]!.toString();
+            if (estadoActualString == "EN CURSO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 111)
+                  .key;
+            }
+            if (estadoActualString == "INSTALADO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 112)
+                  .key;
+            }
+            if (estadoActualString == "NO DISPONIBLE") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 113)
+                  .key;
+            }
+
+            print("tipo_status[status]: " + tipo_status[status].toString());
+            print("tipo_status: " + tipo_status.toString());
+            print("status: " + status.toString());
+            print("statuses: " + statuses.toString());
+            print("statuses.keys: " + statuses.keys.toString());
+            print("statuses.values: " + statuses.values.toString());
+            print("estadoSeleccionado: " + estadoSeleccionado);
+            print("current status: " + currentStatus.toString());
           });
+
+          // I/flutter (20302): tipo_status[status]: EN CURSO
+//           I/flutter (20302): status: 111
+// I/flutter (20302): statuses: {22502: 111, 22503: 112, 22504: 113}
+// I/flutter (20302): statuses.keys: (22502, 22503, 22504)
+// I/flutter (20302): statuses.values: (111, 112, 113)
+// I/flutter (20302): estadoSeleccionado: EN CURSO
         },
         child: Container(
           decoration: BoxDecoration(

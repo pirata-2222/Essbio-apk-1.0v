@@ -217,6 +217,8 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
     126: "Estanque Llenado",
   };
   String estadoSeleccionado = "";
+  var currentStatus;
+  String estadoActualString = " ";
 
   String estadoAbastecimientoenString() {
     var dataEstadoAbastecimiento =
@@ -403,12 +405,14 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                                 onPressed: () {
                                   Map<String, dynamic> modificacion = {
                                     "COMENTARIO": comentarioController.text,
-                                    "ID_TIPO_STATUS":
-                                        numeroIDstatusAbastecimiento
+                                    // "ID_TIPO_STATUS":
+                                    //     numeroIDstatusAbastecimiento,
+                                    "ID_TIPO_STATUS": currentStatus,
                                   };
-                                  widget.faseAbastecimiento.id_tipo_status =
-                                      numeroIDstatusAbastecimiento;
-                                  widget.callback(numeroIDstatusAbastecimiento);
+                                  // widget.faseAbastecimiento.id_tipo_status =
+                                  //     numeroIDstatusAbastecimiento;
+                                  // widget.callback(numeroIDstatusAbastecimiento);
+                                  widget.callback(currentStatus);
                                   setState(() {
                                     estadoAbastecimientoenString();
                                   });
@@ -490,6 +494,36 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
         onTap: () {
           setState(() {
             estadoSeleccionado = tipo_status[status]!;
+            estadoActualString = tipo_status[status]!.toString();
+            if (estadoActualString == "EN CURSO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 121)
+                  .key;
+            }
+            if (estadoActualString == "ESTANQUE LLENADO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 126)
+                  .key;
+            }
+            if (estadoActualString == "NO DISPONIBLE") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 122)
+                  .key;
+            }
+            if (estadoActualString == "CIERRE ABASTECIMIENTO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 127)
+                  .key;
+            }
+
+            print("tipo_status[status]: " + tipo_status[status].toString());
+            print("tipo_status: " + tipo_status.toString());
+            print("status: " + status.toString());
+            print("statuses: " + statuses.toString());
+            print("statuses.keys: " + statuses.keys.toString());
+            print("statuses.values: " + statuses.values.toString());
+            print("estadoSeleccionado: " + estadoSeleccionado);
+            print("current status: " + currentStatus.toString());
           });
         },
         child: Container(

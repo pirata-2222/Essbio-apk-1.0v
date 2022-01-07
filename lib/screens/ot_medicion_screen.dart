@@ -197,6 +197,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
     133: "Medido",
   };
   String estadoSeleccionado = "";
+  var currentStatus;
+  String estadoActualString = " ";
 
   String estadoMedicionenString() {
     var dataEstadoMedicion = widget.faseAbastMedicion.id_tipo_status.toString();
@@ -497,11 +499,13 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                     "NIVEL_TURBIEDAD_CUMPLE_NORMA":
                                         dropdownValueNivelTurbiedad,
                                     "COMENTARIO": comentarioController.text,
-                                    "ID_TIPO_STATUS": id_tipo_status
+                                    // "ID_TIPO_STATUS": id_tipo_status,
+                                    "ID_TIPO_STATUS": currentStatus
                                   };
-                                  widget.faseAbastMedicion.id_tipo_status =
-                                      numeroIDstatusMedicion;
-                                  widget.callback(numeroIDstatusMedicion);
+                                  // widget.faseAbastMedicion.id_tipo_status =
+                                  //     numeroIDstatusMedicion;
+                                  // widget.callback(numeroIDstatusMedicion);
+                                  widget.callback(currentStatus);
                                   setState(() {
                                     estadoMedicionenString();
                                   });
@@ -585,6 +589,31 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
         onTap: () {
           setState(() {
             estadoSeleccionado = tipo_status[status]!;
+            estadoActualString = tipo_status[status]!.toString();
+            if (estadoActualString == "EN CURSO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 131)
+                  .key;
+            }
+            if (estadoActualString == "MEDIDO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 133)
+                  .key;
+            }
+            if (estadoActualString == "NO DISPONIBLE") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 132)
+                  .key;
+            }
+
+            print("tipo_status[status]: " + tipo_status[status].toString());
+            print("tipo_status: " + tipo_status.toString());
+            print("status: " + status.toString());
+            print("statuses: " + statuses.toString());
+            print("statuses.keys: " + statuses.keys.toString());
+            print("statuses.values: " + statuses.values.toString());
+            print("estadoSeleccionado: " + estadoSeleccionado);
+            print("current status: " + currentStatus.toString());
           });
         },
         child: Container(

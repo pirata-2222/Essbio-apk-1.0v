@@ -188,6 +188,8 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
     140: "Finalizado",
   };
   String estadoSeleccionado = "";
+  var currentStatus;
+  String estadoActualString = " ";
 
   String estadoRetiroenString() {
     var dataEstadoRetiro = widget.faseRetiro.id_tipo_status.toString();
@@ -377,11 +379,10 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                                         comentarioController.text,
                                     "NUMERO_ESTANQUE":
                                         numeroEstanqueController.text,
-                                    "ID_TIPO_STATUS": id_tipo_status
+                                    "ID_TIPO_STATUS": currentStatus
                                   };
-                                  widget.faseRetiro.id_tipo_status =
-                                      numeroIDstatusRetiro;
-                                  widget.callback(numeroIDstatusRetiro);
+                                  // TODO: revisar correcto funcionamiento del callback
+                                  widget.callback(currentStatus);
                                   setState(() {
                                     estadoRetiroenString();
                                   });
@@ -465,6 +466,31 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
         onTap: () {
           setState(() {
             estadoSeleccionado = tipo_status[status]!;
+            estadoActualString = tipo_status[status]!.toString();
+            if (estadoActualString == "EN CURSO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 141)
+                  .key;
+            }
+            if (estadoActualString == "RETIRADO") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 142)
+                  .key;
+            }
+            if (estadoActualString == "NO DISPONIBLE (R)") {
+              currentStatus = statuses.entries
+                  .firstWhere((entry) => entry.value == 143)
+                  .key;
+            }
+
+            // print("tipo_status[status]: " + tipo_status[status].toString());
+            // print("tipo_status: " + tipo_status.toString());
+            // print("status: " + status.toString());
+            // print("statuses: " + statuses.toString());
+            // print("statuses.keys: " + statuses.keys.toString());
+            // print("statuses.values: " + statuses.values.toString());
+            // print("estadoSeleccionado: " + estadoSeleccionado);
+            // print("current status: " + currentStatus.toString());
           });
         },
         child: Container(
