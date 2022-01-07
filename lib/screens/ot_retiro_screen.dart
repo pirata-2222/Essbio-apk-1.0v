@@ -109,13 +109,21 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
             borderRadius: BorderRadius.circular(10),
             color: colorOTretiro(),
           ),
-          width: 120,
-          height: 180,
+          width: 160,
+          height: 220,
           child: Column(
             children: [
               SizedBox(height: 5),
               Icon(Icons.file_copy, color: Colors.white, size: 37.5),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
+              Center(
+                child: Text(
+                  widget.faseRetiro.nombre_corte,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 10),
               Center(
                 child: Text(
                   widget.faseRetiro.nombre_ot,
@@ -123,7 +131,7 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
               Center(
                 child: Column(
                   children: [
@@ -137,6 +145,21 @@ class _OtPendienteRetiroState extends State<OtPendienteRetiro> {
                       estadoRetiroenString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                    Column(
+                      children: [
+                        Text(
+                          "Número ODS: ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          widget.faseRetiro.ods,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -459,7 +482,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                 ? estadoActivo
                 : estadoPasivo,
           ),
-          margin: EdgeInsets.only(left: 10, right: 5),
+          margin: EdgeInsets.only(left: 10, right: 5, bottom: 10),
           height: 35,
           width: screenWidth * 0.4,
           child: Center(

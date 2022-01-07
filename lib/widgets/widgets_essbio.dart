@@ -1,5 +1,6 @@
 import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/login_page.dart';
+import 'package:essbio_apk/temporal_usuarioprueba.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:provider/provider.dart';
@@ -66,7 +67,7 @@ class _EssbioDrawerState extends State<EssbioDrawer> {
                   fasesRetiro: essbioP.fasesRetiro,
                   eventos: essbioP.dataEventos,
                   fases: essbioP.fases,
-                  id_usuario: 4,
+                  id_usuario: usuarioPrueba,
                   //essbioP.validateLogin(
                   //usernameController.text, generateMd5(passwordController.text))[1].idusuario
                   mensajes: essbioP.mensajes,

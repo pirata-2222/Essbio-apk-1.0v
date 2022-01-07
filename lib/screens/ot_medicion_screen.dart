@@ -113,13 +113,21 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
             borderRadius: BorderRadius.circular(10),
             color: colorOTmedicion(),
           ),
-          width: 120,
-          height: 180,
+          width: 160,
+          height: 220,
           child: Column(
             children: [
               SizedBox(height: 5),
               Icon(Icons.file_copy, color: Colors.white, size: 37.5),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
+              Center(
+                child: Text(
+                  widget.faseAbastMedicion.nombre_corte,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 10),
               Center(
                 child: Text(
                   widget.faseAbastMedicion.nombre_ot,
@@ -127,7 +135,7 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
               Center(
                 child: Column(
                   children: [
@@ -141,6 +149,21 @@ class _OtPendienteMedicionState extends State<OtPendienteMedicion> {
                       estadoMedicionenString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                    Column(
+                      children: [
+                        Text(
+                          "Número ODS: ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          widget.faseAbastMedicion.ods,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -16,6 +16,7 @@ import 'package:essbio_apk/screens/workflow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'api/api.dart';
+import 'temporal_usuarioprueba.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -101,7 +102,7 @@ class _HomeState extends State<Home> {
                                     fasesRetiro: essbioP.fasesRetiro,
                                     eventos: essbioP.dataEventos,
                                     fases: essbioP.fases,
-                                    id_usuario: 4,
+                                    id_usuario: usuarioPrueba,
                                     //essbioP.validateLogin(
                                     //usernameController.text, generateMd5(passwordController.text))[1].idusuario
                                     mensajes: essbioP.mensajes,
@@ -117,28 +118,31 @@ class _HomeState extends State<Home> {
                                             stream: stream.workflowStream(),
                                             builder: (context,
                                                 AsyncSnapshot<Map> snapshot) {
-                                              if (snapshot.hasData) {                                                
+                                              if (snapshot.hasData) {
                                                 return WorkflowDesplegado(
                                                   instalacionUsuario:
-                                                      snapshot.data?["fasesInstalacion"],
+                                                      snapshot.data?[
+                                                          "fasesInstalacion"],
                                                   medicionUsuario:
-                                                      snapshot.data?["fasesAbastMedicion"],
+                                                      snapshot.data?[
+                                                          "fasesAbastMedicion"],
                                                   abastecimientoUsuario:
-                                                      snapshot.data?["fasesAbastecimiento"],
-                                                  retiroUsuario:
-                                                      snapshot.data?["fasesRetiro"],
+                                                      snapshot.data?[
+                                                          "fasesAbastecimiento"],
+                                                  retiroUsuario: snapshot
+                                                      .data?["fasesRetiro"],
                                                   usuario:
                                                       essbioP.validateLogin(
                                                           usernameController
                                                               .text,
                                                           passwordController
                                                               .text)[1],
-                                                  mensajesEssbio:
-                                                      snapshot.data?["mensajes"],
+                                                  mensajesEssbio: snapshot
+                                                      .data?["mensajes"],
                                                 );
                                               } else {
                                                 //return CircularProgressIndicator();
-                                                 fasesUsuario =
+                                                fasesUsuario =
                                                     essbioP.getFasesUsuario(
                                                   ordenesTrabajo:
                                                       essbioP.ordenesTrabajo,
@@ -152,7 +156,7 @@ class _HomeState extends State<Home> {
                                                       essbioP.fasesRetiro,
                                                   eventos: essbioP.dataEventos,
                                                   fases: essbioP.fases,
-                                                  id_usuario: 4,
+                                                  id_usuario: usuarioPrueba,
                                                   //essbioP.validateLogin(
                                                   //usernameController.text, generateMd5(passwordController.text))[1].idusuario
                                                   mensajes: essbioP.mensajes,

@@ -239,7 +239,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     Visibility(
                       visible: instalacionIsVisible,
                       child: Container(
-                        height: 200,
+                        height: 260,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -279,7 +279,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     Visibility(
                       visible: abastIsVisible,
                       child: Container(
-                        height: 200,
+                        height: 260,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -327,7 +327,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     Visibility(
                       visible: medicionIsVisible,
                       child: Container(
-                        height: 200,
+                        height: 260,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -374,7 +374,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                     Visibility(
                       visible: retiroIsVisible,
                       child: Container(
-                        height: 200,
+                        height: 260,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,

@@ -135,13 +135,21 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
             borderRadius: BorderRadius.circular(10),
             color: colorOTabastecimiento(),
           ),
-          width: 120,
-          height: 180,
+          width: 160,
+          height: 220,
           child: Column(
             children: [
               SizedBox(height: 5),
               Icon(Icons.file_copy, color: Colors.white, size: 37.5),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
+              Center(
+                child: Text(
+                  widget.faseAbastecimiento.nombre_corte,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 10),
               Center(
                 child: Text(
                   widget.faseAbastecimiento.nombre_ot,
@@ -149,7 +157,7 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
               Center(
                 child: Column(
                   children: [
@@ -165,6 +173,21 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
                       estadoAbastecimientoenString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                    Column(
+                      children: [
+                        Text(
+                          "Número ODS: ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          widget.faseAbastecimiento.ods,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
                     ),
                   ],
                 ),
