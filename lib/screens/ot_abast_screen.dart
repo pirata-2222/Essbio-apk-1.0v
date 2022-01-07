@@ -248,7 +248,8 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
 
   // FALTAN 123='INICIO CARGA CAMIÓN', 124='TÉRMINO CARGA CAMIÓN', 125='INICIO ABASTECIMIENTO',
   int numeroIDstatusAbastecimiento = 0;
-  TextEditingController comentarioController = TextEditingController();
+  TextEditingController comentarioAbastecimientoController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -381,7 +382,25 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                   ),
                 ]),
                 SizedBox(height: 25),
-                ComentarioGeneral(),
+                Column(children: [
+                  Text("Comentar:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      height: 50.0,
+                      width: screenWidth * 0.8,
+                      color: Colors.white,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        controller: comentarioAbastecimientoController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Escribe tu comentario'),
+                      ),
+                    ),
+                  ),
+                ]),
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
                 SizedBox(height: 20),
@@ -404,7 +423,8 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                               TextButton(
                                 onPressed: () {
                                   Map<String, dynamic> modificacion = {
-                                    "COMENTARIO": comentarioController.text,
+                                    "COMENTARIO":
+                                        comentarioAbastecimientoController.text,
                                     // "ID_TIPO_STATUS":
                                     //     numeroIDstatusAbastecimiento,
                                     "ID_TIPO_STATUS": currentStatus,
@@ -420,6 +440,22 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                                       widget.faseAbastecimiento, modificacion);
 
                                   Navigator.pop(context, 'Cancel');
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                            title:
+                                                const Text("Cambios Guardados"),
+                                            content: const Text(
+                                                "Tus cambios han sido guardados con éxito, estos deberían verse reflejados en menos de 1 minuto en tu app"),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    context, 'Cancel'),
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          ));
                                 },
                                 child: const Text('Confirmar'),
                               ),

@@ -628,6 +628,22 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                   essbioP.updateFasesInstalacion(
                                       widget.faseInstalacion, modificacion);
                                   Navigator.pop(context, 'Cancel');
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                            title:
+                                                const Text("Cambios Guardados"),
+                                            content: const Text(
+                                                "Tus cambios han sido guardados con éxito, estos deberían verse reflejados en menos de 1 minuto en tu app"),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    context, 'Cancel'),
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          ));
                                 },
                                 child: const Text('Confirmar'),
                               ),

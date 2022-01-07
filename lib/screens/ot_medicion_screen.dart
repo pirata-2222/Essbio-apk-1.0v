@@ -227,7 +227,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
   }
 
   int numeroIDstatusMedicion = 0;
-  TextEditingController comentarioController = TextEditingController();
+  TextEditingController comentarioMedicionController = TextEditingController();
   TextEditingController nivelAguaController = TextEditingController();
   TextEditingController nivelCloroController = TextEditingController();
   TextEditingController nivelTurbiedadController = TextEditingController();
@@ -467,7 +467,25 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                   ),
                 ]),
                 SizedBox(height: 25),
-                ComentarioGeneral(),
+                Column(children: [
+                  Text("Comentar:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      height: 50.0,
+                      width: screenWidth * 0.8,
+                      color: Colors.white,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        controller: comentarioMedicionController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Escribe tu comentario'),
+                      ),
+                    ),
+                  ),
+                ]),
                 SizedBox(height: 20),
                 Container(
                   color: azulPrimarioEssbio,
@@ -498,7 +516,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                         nivelTurbiedadController.text,
                                     "NIVEL_TURBIEDAD_CUMPLE_NORMA":
                                         dropdownValueNivelTurbiedad,
-                                    "COMENTARIO": comentarioController.text,
+                                    "COMENTARIO":
+                                        comentarioMedicionController.text,
                                     // "ID_TIPO_STATUS": id_tipo_status,
                                     "ID_TIPO_STATUS": currentStatus
                                   };
@@ -513,6 +532,22 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                       widget.faseAbastMedicion, modificacion);
 
                                   Navigator.pop(context, 'Cancel');
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                            title:
+                                                const Text("Cambios Guardados"),
+                                            content: const Text(
+                                                "Tus cambios han sido guardados con éxito, estos deberían verse reflejados en menos de 1 minuto en tu app"),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    context, 'Cancel'),
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          ));
                                 },
                                 child: const Text('Confirmar'),
                               ),

@@ -214,7 +214,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
   }
 
   int numeroIDstatusRetiro = 0;
-  TextEditingController comentarioController = TextEditingController();
+  TextEditingController comentarioRetiroController = TextEditingController();
   TextEditingController numeroEstanqueController = TextEditingController();
 
   @override
@@ -223,8 +223,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
 
     int id_tipo_status = widget.faseRetiro.id_tipo_status;
     double screenWidth = MediaQuery.of(context).size.width;
-    String placeholder = estadoRetiro[widget.faseRetiro.id_tipo_status]!;
-    estadoSeleccionado == "" ? estadoSeleccionado : placeholder;
+    String estadoSeleccionado = " ";
 
     return MaterialApp(
       theme: ThemeData(
@@ -354,7 +353,25 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                   ),
                 ]),
                 SizedBox(height: 25),
-                ComentarioGeneral(),
+                Column(children: [
+                  Text("Comentar:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      height: 50.0,
+                      width: screenWidth * 0.8,
+                      color: Colors.white,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        controller: comentarioRetiroController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Escribe tu comentario'),
+                      ),
+                    ),
+                  ),
+                ]),
                 SizedBox(height: 20),
                 Container(
                   color: azulPrimarioEssbio,
@@ -375,14 +392,14 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                               TextButton(
                                 onPressed: () {
                                   Map<String, dynamic> modificacion = {
-                                    "COMENTARIO_INSTALACION":
-                                        comentarioController.text,
+                                    "COMENTARIO":
+                                        comentarioRetiroController.text,
                                     "NUMERO_ESTANQUE":
                                         numeroEstanqueController.text,
                                     "ID_TIPO_STATUS": currentStatus
                                   };
                                   // TODO: revisar correcto funcionamiento del callback
-                                  widget.callback(currentStatus);
+                                  // widget.callback(currentStatus);
                                   setState(() {
                                     estadoRetiroenString();
                                   });
@@ -390,6 +407,22 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                                       widget.faseRetiro, modificacion);
 
                                   Navigator.pop(context, 'Cancel');
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                            title:
+                                                const Text("Cambios Guardados"),
+                                            content: const Text(
+                                                "Tus cambios han sido guardados con éxito, estos deberían verse reflejados en menos de 1 minuto en tu app"),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    context, 'Cancel'),
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          ));
                                 },
                                 child: const Text('Confirmar'),
                               ),
