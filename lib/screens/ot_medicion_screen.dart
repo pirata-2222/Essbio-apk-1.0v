@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/models/fase_abast_medicion.dart';
 import 'package:essbio_apk/theme_library.dart';
@@ -5,6 +8,7 @@ import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -186,6 +190,112 @@ class OtMedicionScreen extends StatefulWidget {
 }
 
 class _OtMedicionScreenState extends State<OtMedicionScreen> {
+// *****CONFIGURACION PARA IMAGE PICKER*****
+  File? imagen = null;
+  final picker = ImagePicker();
+
+  Future selimagen(op) async {
+    var pickedFile;
+
+    if (op == 1) {
+      pickedFile = await picker.pickImage(source: ImageSource.camera);
+    } else {
+      pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    }
+
+    setState(() {
+      if (pickedFile != null) {
+        imagen = File(pickedFile.path);
+      } else {
+        print('No selecciono una foto');
+      }
+    });
+  }
+
+  opciones(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.all(0),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      selimagen(1);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Tomar una foto',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Icon(Icons.camera_alt, color: Colors.blue)
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      selimagen(2);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Seleccionar Foto',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Icon(Icons.image, color: Colors.blue)
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Listo',
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  // *******************************************************************
+
   String dropdownValueNivelAgua = 'NIVEL DE AGUA CUMPLE NORMA';
   String dropdownValueNivelCloro = 'NIVEL CLORO CUMPLE NORMA';
   String dropdownValueNivelTurbiedad = 'TURBIEDAD CUMPLE NORMA';
@@ -231,6 +341,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
   TextEditingController nivelAguaController = TextEditingController();
   TextEditingController nivelCloroController = TextEditingController();
   TextEditingController nivelTurbiedadController = TextEditingController();
+  TextEditingController horaMedicionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -342,7 +453,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("                NIVEL AGUA"),
+                    Text("                NIVEL AGUA (%)"),
                     Center(
                       child: Container(
                         color: Color(0xFF8AB5CF),
@@ -483,6 +594,63 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 ),
 
                 SizedBox(height: 20),
+                // CAMPO HORA DE MEDICIÓN
+                Column(children: [
+                  Text("Hora de Medición:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      height: 50.0,
+                      width: screenWidth * 0.8,
+                      color: Colors.white,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        controller: horaMedicionController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Escribe tu comentario'),
+                      ),
+                    ),
+                  ),
+                ]),
+                SizedBox(height: 20),
+                //ADJUNTAR IMAGEN
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(rojoEssbio)),
+                        onPressed: () {
+                          opciones(context);
+                        },
+                        child: Center(
+                          child: Row(
+                            children: [
+                              Text(
+                                '                        Adjuntar Fotografía',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Icon(Icons.image)
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      imagen != null ? Image.file(imagen!) : Center()
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
                 Column(children: [
                   Text("Último Comentario:",
                       style:
@@ -544,6 +712,12 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
+                                  var imagenEnBytes = imagen?.readAsBytesSync();
+                                  String imagenFormatoEncode64 = "";
+                                  imagen == null
+                                      ? ""
+                                      : imagenFormatoEncode64 =
+                                          base64Encode(imagenEnBytes!);
                                   Map<String, dynamic> modificacion = {
                                     "NIVEL_AGUA": nivelAguaController.text,
                                     "NIVEL_AGUA_CUMPLE_NORMA":
@@ -555,6 +729,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                         nivelTurbiedadController.text,
                                     "NIVEL_TURBIEDAD_CUMPLE_NORMA":
                                         dropdownValueNivelTurbiedad,
+                                    "HORA_MEDICION":
+                                        horaMedicionController.text,
+                                    "IMAGEN": imagenFormatoEncode64,
                                     "COMENTARIO":
                                         comentarioMedicionController.text,
                                     // "ID_TIPO_STATUS": id_tipo_status,
