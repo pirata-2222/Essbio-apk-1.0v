@@ -343,7 +343,20 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("                NIVEL AGUA"),
-                    MedicionTextField(),
+                    Center(
+                      child: Container(
+                        color: Color(0xFF8AB5CF),
+                        height: 30,
+                        width: 300,
+                        margin: EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(
+                          controller: nivelAguaController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 15),
                     Text("                NIVEL AGUA CUMPLE NORMA"),
                     Center(
@@ -378,7 +391,20 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                     )),
                     SizedBox(height: 15),
                     Text("                NIVEL CLORO Mg/L"),
-                    MedicionTextField(),
+                    Center(
+                      child: Container(
+                        color: Color(0xFF8AB5CF),
+                        height: 30,
+                        width: 300,
+                        margin: EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(
+                          controller: nivelCloroController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 15),
                     Text("                NIVEL CLORO CUMPLE NORMA"),
                     Center(
@@ -410,7 +436,20 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                     )),
                     SizedBox(height: 15),
                     Text("                TURBIEDAD"),
-                    MedicionTextField(),
+                    Center(
+                      child: Container(
+                        color: Color(0xFF8AB5CF),
+                        height: 30,
+                        width: 300,
+                        margin: EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(
+                          controller: nivelTurbiedadController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 15),
                     Text("                TURBIEDAD CUMPLE NORMA"),
                     Center(
@@ -524,7 +563,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   // widget.faseAbastMedicion.id_tipo_status =
                                   //     numeroIDstatusMedicion;
                                   // widget.callback(numeroIDstatusMedicion);
-                                  widget.callback(currentStatus);
+                                  // widget.callback(currentStatus);
                                   setState(() {
                                     estadoMedicionenString();
                                   });

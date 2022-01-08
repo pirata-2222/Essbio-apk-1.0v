@@ -621,7 +621,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                   // widget.faseInstalacion.id_tipo_status =
                                   //     numeroIDstatusInstalacion;
                                   // widget.callback(numeroIDstatusInstalacion);
-                                  widget.callback(currentStatus);
+                                  // widget.callback(currentStatus);
                                   setState(() {
                                     estadoInstalacionenString();
                                   });

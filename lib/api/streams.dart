@@ -15,6 +15,7 @@ import 'package:essbio_apk/models/mod_wkf_proceso.dart';
 import 'package:essbio_apk/models/mod_wkf_status.dart';
 import 'package:essbio_apk/models/mod_wkf_tipo_modulo.dart';
 import 'package:essbio_apk/models/xygo_usuario.dart';
+import 'package:essbio_apk/temporal_usuarioprueba.dart';
 import "package:http/http.dart" as http;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -420,7 +421,8 @@ class Streams {
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
               instalacion.statuses[status.id_status] = status.id_tipo_status;
-              instalacion.id_tipo_status = instalacion.statuses[orden.id_status];
+              instalacion.id_tipo_status =
+                  instalacion.statuses[orden.id_status];
             }
           }
           //Medición
@@ -434,7 +436,8 @@ class Streams {
           for (var abastecimiento in abastecimientoUsuario) {
             if (abastecimiento.id_ot == orden.id_ot) {
               abastecimiento.statuses[status.id_status] = status.id_tipo_status;
-              abastecimiento.id_tipo_status = abastecimiento.statuses[orden.id_status];
+              abastecimiento.id_tipo_status =
+                  abastecimiento.statuses[orden.id_status];
             }
           }
           //Retiro
@@ -649,7 +652,7 @@ class Streams {
           procesos: _procesos,
           eventos: _dataEventos,
           mensajes: _mensajes,
-          id_usuario: 4);
+          id_usuario: usuarioPrueba);
       yield {
         "fasesInstalacion": fasesUsuario[0],
         "fasesAbastMedicion": fasesUsuario[1],
