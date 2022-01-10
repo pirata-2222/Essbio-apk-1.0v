@@ -345,15 +345,15 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
   TextEditingController horaMedicionController = TextEditingController();
 
   // Initial Selected Value
-  String dropdownvalue = 'Item 1';
+  String dropdownvalue = '- Seleccionar Opción -';
 
   // List of items in our dropdown menu
   var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
+    '- Seleccionar Opción -',
+    '1. Ministerio de Salud',
+    '2. Municipalidad',
+    '3. SISS',
+    '4. Sin Acompañante',
   ];
 
   @override
@@ -578,6 +578,37 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 ]),
                 SizedBox(height: 20),
                 //ADJUNTAR IMAGEN
+                Column(children: [
+                  Text("Acompañado por: ",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: DropdownButton(
+                      // Initial Value
+                      value: dropdownvalue,
+
+                      // Down Arrow Icon
+                      icon: const Icon(Icons.keyboard_arrow_down),
+
+                      // Array list of items
+                      items: items.map((String items) {
+                        return DropdownMenuItem(
+                          value: items,
+                          child: Text(items),
+                        );
+                      }).toList(),
+                      // After selecting the desired option,it will
+                      // change button value to selected value
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue = newValue!;
+                        });
+                      },
+                    ),
+                  ),
+                ]),
+
+                SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.all(20),
                   child: Column(
@@ -612,36 +643,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Column(children: [
-                  Text("Acompañado por: ",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-                  Center(
-                    child: DropdownButton(
-                      // Initial Value
-                      value: dropdownvalue,
-
-                      // Down Arrow Icon
-                      icon: const Icon(Icons.keyboard_arrow_down),
-
-                      // Array list of items
-                      items: items.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      },
-                    ),
-                  ),
-                ]),
+                SizedBox(
+                  height: 30,
+                ),
                 Column(children: [
                   Text("Último Comentario:",
                       style:
