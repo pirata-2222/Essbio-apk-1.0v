@@ -344,6 +344,11 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
   TextEditingController nivelTurbiedadController = TextEditingController();
   TextEditingController horaMedicionController = TextEditingController();
 
+  var numeroIdAcompanante;
+  String aguaCumple = " ";
+  String cloroCumple = " ";
+  String turbiedadCumple = " ";
+
   // Initial Selected Value
   String dropdownvalue = '- Seleccionar Opción -';
 
@@ -476,6 +481,21 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 25),
                         child: TextField(
                           controller: nivelAguaController,
+                          onChanged: (value) {
+                            setState(() {
+                              var valorControllerAgua =
+                                  double.parse(nivelAguaController.text);
+                              if (valorControllerAgua < 30) {
+                                aguaCumple = "NIVEL DE AGUA NO CUMPLE NORMA";
+                              }
+                              if (valorControllerAgua > 30) {
+                                aguaCumple = "NIVEL DE AGUA CUMPLE NORMA";
+                              }
+                              if (valorControllerAgua == null) {
+                                cloroCumple = "SE REQUIEREN DATOS DE MEDICIÓN";
+                              }
+                            });
+                          },
                           decoration:
                               InputDecoration(border: OutlineInputBorder()),
                         ),
@@ -488,7 +508,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         color: Color(0xFF8AB5CF),
                         height: 30,
                         width: 300,
-                        child: Text(nivelAguaCumpleNorma),
+                        child: Text(aguaCumple),
                         // double.parse(nivelAguaController.text) < 30
                         //     ? Text("NO")
                         //     : Text("SÍ"),
@@ -504,6 +524,24 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 25),
                         child: TextField(
                           controller: nivelCloroController,
+                          onChanged: (value) {
+                            setState(() {
+                              var valorControllerCloro =
+                                  double.parse(nivelCloroController.text);
+
+                              if (valorControllerCloro < 0.2 ||
+                                  valorControllerCloro > 2) {
+                                cloroCumple = "NIVEL DE CLORO NO CUMPLE NORMA";
+                              }
+                              if (valorControllerCloro >= 0.2 &&
+                                  valorControllerCloro <= 2) {
+                                cloroCumple = "NIVEL DE CLORO CUMPLE NORMA";
+                              }
+                              if (valorControllerCloro == null) {
+                                cloroCumple = "SE REQUIEREN DATOS DE MEDICIÓN";
+                              }
+                            });
+                          },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                           ),
@@ -517,7 +555,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         color: Color(0xFF8AB5CF),
                         height: 30,
                         width: 300,
-                        child: Text(nivelCloroCumpleNorma),
+                        child: Text(cloroCumple),
                         // child: double.parse(nivelCloroController.text) < 30
                         //     ? Text("NO")
                         //     : Text("SÍ"),
@@ -533,6 +571,25 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 25),
                         child: TextField(
                           controller: nivelTurbiedadController,
+                          onChanged: (value) {
+                            setState(() {
+                              var valorControllerTurbiedad =
+                                  double.parse(nivelTurbiedadController.text);
+                              if (valorControllerTurbiedad > 2) {
+                                turbiedadCumple =
+                                    "NIVEL DE TURBIEDAD NO CUMPLE NORMA";
+                              }
+                              if (valorControllerTurbiedad <= 2) {
+                                turbiedadCumple =
+                                    "NIVEL DE TURBIEDAD CUMPLE NORMA";
+                              }
+
+                              if (valorControllerTurbiedad == null ||
+                                  nivelTurbiedadController.text == "") {
+                                cloroCumple = "SE REQUIEREN DATOS DE MEDICIÓN";
+                              }
+                            });
+                          },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                           ),
@@ -546,7 +603,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           color: Color(0xFF8AB5CF),
                           height: 30,
                           width: 300,
-                          child: Text(nivelTurbiedadCumpleNorma)
+                          child: Text(turbiedadCumple)
                           // double.parse(nivelTurbiedadController.text) > 2
                           //     ? Text("Valor no cumple norma")
                           //     : Text("Valor sí cumple norma"),
@@ -577,7 +634,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                   ),
                 ]),
                 SizedBox(height: 20),
-                //ADJUNTAR IMAGEN
+                //ACOMPAÑADO POR
                 Column(children: [
                   Text("Acompañado por: ",
                       style:
@@ -609,6 +666,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 ]),
 
                 SizedBox(height: 20),
+                //ADJUNTAR IMAGEN
                 Padding(
                   padding: EdgeInsets.all(20),
                   child: Column(
@@ -736,15 +794,30 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   } else {
                                     nivelAguaCumpleNorma = "N";
                                   }
-//                                   NIVEL CLORO (MG/L):
-// $VALOR < 0.2 || 2 < $VALOR => No cumple norma
-// 0.2 <= $VALOR && $VALOR <= 2 => Cumple norma
 
-// TURBIEDAD:
+                                  if (dropdownvalue ==
+                                      '- Seleccionar Opción -') {
+                                    numeroIdAcompanante = null;
+                                  }
+                                  if (dropdownvalue ==
+                                      '1. Ministerio de Salud') {
+                                    numeroIdAcompanante = 1;
+                                  }
+                                  if (dropdownvalue == '2. Municipalidad') {
+                                    numeroIdAcompanante = 2;
+                                  }
+                                  if (dropdownvalue == '3. SISS') {
+                                    numeroIdAcompanante = 3;
+                                  }
+                                  if (dropdownvalue == '4. Sin Acompañante') {
+                                    numeroIdAcompanante = 4;
+                                  }
 
-// 2 < $VALOR => No cumple norma
-// $VALOR <= 2 => Cumple norma
-
+//  '- Seleccionar Opción -',
+//     '1. Ministerio de Salud',
+//     '2. Municipalidad',
+//     '3. SISS',
+//     '4. Sin Acompañante',
                                   Map<String, dynamic> modificacion = {
                                     "NIVEL_AGUA": nivelAguaController.text,
                                     "NIVEL_AGUA_CUMPLE_NORMA":
@@ -758,6 +831,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                         nivelTurbiedadCumpleNorma,
                                     "HORA_MEDICION":
                                         horaMedicionController.text,
+                                    "ACOMPANADO_POR": numeroIdAcompanante,
                                     "IMAGEN": imagenFormatoEncode64,
                                     "COMENTARIO":
                                         comentarioMedicionController.text,
@@ -804,8 +878,6 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                               fontWeight: FontWeight.bold))),
                 ),
                 SizedBox(height: 20)
-
-                //ADJUNTAR IMAGEN
               ],
             ),
           )),
