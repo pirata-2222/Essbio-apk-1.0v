@@ -373,6 +373,50 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                   ),
                 ]),
                 SizedBox(height: 20),
+                Column(children: [
+                  Text("Último Rótulo TK Registrado:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: celesteEssbio),
+                      height: 50.0,
+                      width: screenWidth * 0.8,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: Center(
+                        child: Text(
+                          widget.faseRetiro.numero_estanque(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+                SizedBox(
+                  height: 25,
+                ),
+                //RÓTULO TK
+                Column(children: [
+                  Text("Rótulo TK:",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: Container(
+                      color: Colors.white,
+                      height: 30,
+                      margin: EdgeInsets.symmetric(horizontal: 25),
+                      child: TextField(
+                        controller: numeroEstanqueController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+                SizedBox(height: 20),
                 Container(
                   color: azulPrimarioEssbio,
                   child: TextButton(
