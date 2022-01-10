@@ -323,8 +323,11 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   String databaseText = " ";
   TextEditingController comentarioController = TextEditingController();
   TextEditingController rotuloController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    comentarioController.text = widget.faseInstalacion.comentario_instalacion;
+    rotuloController.text = widget.faseInstalacion.rotulo_tk;
     final essbioP = Provider.of<EssbioProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -457,30 +460,30 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                   lat: widget.faseInstalacion.lat,
                   lon: widget.faseInstalacion.lon,
                 ),
-                SizedBox(height: 25),
-                Column(children: [
-                  Text("Último Comentario:",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: celesteEssbio),
-                      height: 50.0,
-                      width: screenWidth * 0.8,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Text(
-                          widget.faseInstalacion.comentario_instalacion
-                              .toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ]),
+                // SizedBox(height: 25),
+                // Column(children: [
+                //   Text("Último Comentario:",
+                //       style:
+                //           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                //   Center(
+                //     child: Container(
+                //       decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(10),
+                //           color: celesteEssbio),
+                //       height: 50.0,
+                //       width: screenWidth * 0.8,
+                //       margin: EdgeInsets.symmetric(horizontal: 20),
+                //       child: Container(
+                //         margin: EdgeInsets.all(10),
+                //         child: Text(
+                //           widget.faseInstalacion.comentario_instalacion
+                //               .toString(),
+                //           style: TextStyle(color: Colors.white),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ]),
                 SizedBox(height: 25),
                 Column(children: [
                   Text("Comentar:",
@@ -488,12 +491,14 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                   Center(
                     child: Container(
-                      height: 50.0,
+                      height: 80.0,
                       width: screenWidth * 0.8,
                       color: Colors.white,
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: TextField(
                         controller: comentarioController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Escribe tu comentario'),
@@ -537,28 +542,28 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Column(children: [
-                  Text("Último Rótulo TK Registrado:",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: celesteEssbio),
-                      height: 50.0,
-                      width: screenWidth * 0.8,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Center(
-                        child: Text(
-                          widget.faseInstalacion.rotulo_tk.toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ]),
+                // SizedBox(height: 20),
+                // Column(children: [
+                //   Text("Último Rótulo TK Registrado:",
+                //       style:
+                //           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                //   Center(
+                //     child: Container(
+                //       decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(10),
+                //           color: celesteEssbio),
+                //       height: 50.0,
+                //       width: screenWidth * 0.8,
+                //       margin: EdgeInsets.symmetric(horizontal: 20),
+                //       child: Center(
+                //         child: Text(
+                //           widget.faseInstalacion.rotulo_tk.toString(),
+                //           style: TextStyle(color: Colors.white),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ]),
                 SizedBox(
                   height: 25,
                 ),
@@ -627,6 +632,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                   });
                                   essbioP.updateFasesInstalacion(
                                       widget.faseInstalacion, modificacion);
+
                                   Navigator.pop(context, 'Cancel');
                                   showDialog(
                                       context: context,

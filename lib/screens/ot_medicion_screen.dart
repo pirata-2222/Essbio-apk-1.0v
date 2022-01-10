@@ -363,6 +363,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    comentarioMedicionController.text = widget.faseAbastMedicion.comentario;
+    horaMedicionController.text = widget.faseAbastMedicion.hora_medicion;
     final essbioP = Provider.of<EssbioProvider>(context);
 
     int id_tipo_status = widget.faseAbastMedicion.id_tipo_status;
@@ -701,31 +703,31 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                Column(children: [
-                  Text("Último Comentario:",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: celesteEssbio),
-                      height: 50.0,
-                      width: screenWidth * 0.8,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Text(
-                          widget.faseAbastMedicion.comentario.toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ]),
+                // SizedBox(
+                //   height: 30,
+                // ),
+                // Column(children: [
+                //   Text("Último Comentario:",
+                //       style:
+                //           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                //   Center(
+                //     child: Container(
+                //       decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(10),
+                //           color: celesteEssbio),
+                //       height: 50.0,
+                //       width: screenWidth * 0.8,
+                //       margin: EdgeInsets.symmetric(horizontal: 20),
+                //       child: Container(
+                //         margin: EdgeInsets.all(10),
+                //         child: Text(
+                //           widget.faseAbastMedicion.comentario.toString(),
+                //           style: TextStyle(color: Colors.white),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ]),
                 SizedBox(height: 25),
                 Column(children: [
                   Text("Comentar:",
@@ -739,6 +741,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: TextField(
                         controller: comentarioMedicionController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Escribe tu comentario'),

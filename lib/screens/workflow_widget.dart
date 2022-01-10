@@ -245,6 +245,9 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.instalacionUsuario.length,
                             itemBuilder: (BuildContext context, int index) {
+                              widget.instalacionUsuario.sort((a, b) =>
+                                  b.nombre_corte.compareTo(a.nombre_corte));
+
                               return OtPendienteInstalacion(
                                   faseInstalacion:
                                       widget.instalacionUsuario[index]);
