@@ -19,7 +19,8 @@ class FaseInstalacion {
   var tipo_evento;
   String nombre_corte = "";
   String ods = "";
-  Map<int,int> statuses = {};
+  Map<int, int> statuses = {};
+  var id_responsable;
 
   FaseInstalacion(
       {required this.id,

@@ -20,6 +20,7 @@ class FaseRetiro {
   String nombre_corte = "";
   String ods = "";
   Map<int,int> statuses = {};
+  var id_responsable;
 
   FaseRetiro(
       {required this.id,

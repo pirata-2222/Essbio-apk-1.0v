@@ -29,6 +29,7 @@ class FaseAbastMedicion {
   String nombre_corte = "";
   String ods = "";
   Map<int,int> statuses = {};
+  var id_responsable;
   
   FaseAbastMedicion(
       {required this.id,

@@ -21,6 +21,7 @@ class FaseAbastecimiento {
   String nombre_corte = "";
   String ods = "";
   Map<int,int> statuses = {};
+  var id_responsable;
 
   FaseAbastecimiento(
       {required this.id,
