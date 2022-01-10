@@ -133,7 +133,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/mod_wkf_proceso/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _procesos = data.map<Proceso>((json) => Proceso.fromJson(json)).toList();
       print("Procesos obtenidos");
       loginCounter = loginCounter + 1;
@@ -145,7 +145,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/mod_wkf_orden_trabajo/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _ordenesTrabajo = data
           .map<OrdenTrabajo>((json) => OrdenTrabajo.fromJson(json))
           .toList();
@@ -159,7 +159,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/mod_wkf_tipo_modulo/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _tiposModulo =
           data.map<TipoModulo>((json) => TipoModulo.fromJson(json)).toList();
       print("Tipos modulo obtenidos");
@@ -172,7 +172,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/evento_camion/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _camiones = data.map<Camion>((json) => Camion.fromJson(json)).toList();
       print("Camiones obtenidos");
       loginCounter = loginCounter + 1;
@@ -184,7 +184,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/evento_contratista/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _contratistas =
           data.map<Contratista>((json) => Contratista.fromJson(json)).toList();
       print("Contratistas obtenidos");
@@ -197,7 +197,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/evento_data_tk_sector/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _dataTKSectores = data
           .map<DataTKSector>((json) => DataTKSector.fromJson(json))
           .toList();
@@ -211,7 +211,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/ot_fase_instalacion/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _fasesInstalacion = data
           .map<FaseInstalacion>((json) => FaseInstalacion.fromJson(json))
           .toList();
@@ -225,7 +225,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/ot_fase_abast_medicion/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _fasesAbastMedicion = data
           .map<FaseAbastMedicion>((json) => FaseAbastMedicion.fromJson(json))
           .toList();
@@ -239,7 +239,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/ot_fase_abastecimiento/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _fasesAbastecimiento = data
           .map<FaseAbastecimiento>((json) => FaseAbastecimiento.fromJson(json))
           .toList();
@@ -253,7 +253,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/ot_fase_retiro/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _fasesRetiro =
           data.map<FaseRetiro>((json) => FaseRetiro.fromJson(json)).toList();
       print("Fases de retiro obtenidas");
@@ -266,7 +266,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/xygo_usuarios/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _usuarios = data.map<Usuario>((json) => Usuario.fromJson(json)).toList();
       print("Usuarios obtenidos");
       loginCounter = loginCounter + 1;
@@ -278,7 +278,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/mod_wkf_status/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _status = data.map<Status>((json) => Status.fromJson(json)).toList();
       print("Status obtenidos");
       loginCounter = loginCounter + 1;
@@ -290,7 +290,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/mod_wkf_fase/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _fases = data.map<Fase>((json) => Fase.fromJson(json)).toList();
       print("Fases obtenidas");
       loginCounter = loginCounter + 1;
@@ -302,7 +302,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/evento_data_eventos/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _dataEventos =
           data.map<DataEventos>((json) => DataEventos.fromJson(json)).toList();
       print("Data eventos obtenidas");
@@ -315,7 +315,7 @@ class EssbioProvider with ChangeNotifier {
     final url = '${server}/mod_mensaje/?format=json';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(utf8.decode(response.bodyBytes)) as List;
       _mensajes = data.map<Mensaje>((json) => Mensaje.fromJson(json)).toList();
       print("Mensajes obtenidos");
       loginCounter = loginCounter + 1;
@@ -881,7 +881,7 @@ class EssbioProvider with ChangeNotifier {
     yield* Stream.periodic(Duration(seconds: 10), (_) async {
       final url = '${server}/ot_fase_instalacion/?format=json';
       final response = await http.get(Uri.parse(url));
-      final data = json.decode(response.body) as List;
+      final data = json.decode(utf8.decode(response.bodyBytes)) as List;
       return data
           .map<FaseInstalacion>((json) => FaseInstalacion.fromJson(json))
           .toList();
