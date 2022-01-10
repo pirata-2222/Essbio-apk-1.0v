@@ -37,6 +37,7 @@ dependencies:
   flutter_map: any
   latlong2: ^0.8.1
   badges: ^2.0.2
+  geolocator: ^8.0.1
 
 dev_dependencies:
   flutter_test:
