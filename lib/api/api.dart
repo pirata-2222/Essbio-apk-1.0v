@@ -15,6 +15,7 @@ import 'package:essbio_apk/models/mod_wkf_proceso.dart';
 import 'package:essbio_apk/models/mod_wkf_status.dart';
 import 'package:essbio_apk/models/mod_wkf_tipo_modulo.dart';
 import 'package:essbio_apk/models/xygo_usuario.dart';
+import 'package:geolocator/geolocator.dart';
 import "package:http/http.dart" as http;
 import 'package:flutter/material.dart';
 import '../models/mod_wkf_orden_trabajo.dart';
@@ -572,6 +573,25 @@ class EssbioProvider with ChangeNotifier {
     } else {
       print(response_status.body);
       print("Abast : Hubo un problema al actualizar el estado");
+    }
+  }
+
+  updateGps(Map<String, dynamic> modificacion) async {
+    final url_gps = '$server/cont_gps/?format=json';
+    final response = await http.post(Uri.parse(url_gps),
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({
+          'ID_USUARIO': modificacion['ID_USUARIO'],
+          "LATITUD": modificacion["LATITUD"],
+          "LONGITUD": modificacion["LONGITUD"],
+          "ID_OTS": modificacion["ID_OTS"],
+          "FECHA": DateTime.now().toIso8601String().substring(0, 19) + "Z",
+        }));
+
+    if (response.statusCode == 200) {
+      print("GPS : Actualizada correctamente la ubicación");
+    } else {
+      print("Abast : Hubo un problema al actualizar la ubicación");
     }
   }
 

@@ -82,7 +82,6 @@ class _HomeState extends State<Home> {
                           essbioP.loginCounterController.close();
                           return ElevatedButton(
                               onPressed: () {
-                                getLocation();
                                 if (essbioP.validateLogin(
                                     usernameController.text,
                                     passwordController.text)[0]) {
@@ -114,7 +113,32 @@ class _HomeState extends State<Home> {
                                             stream: stream.workflowStream(),
                                             builder: (context,
                                                 AsyncSnapshot<Map> snapshot) {
+                                              List<String> listaIdOts = [];
                                               if (snapshot.hasData) {
+                                                for (var instalacion
+                                                    in snapshot.data?[
+                                                        "fasesInstalacion"]) {
+                                                  listaIdOts
+                                                      .add(instalacion.id_ot);
+                                                }
+                                                for (var medicion
+                                                    in snapshot.data?[
+                                                        "fasesAbastMedicion"]) {
+                                                  listaIdOts
+                                                      .add(medicion.id_ot);
+                                                }
+                                                for (var abastecimiento
+                                                    in snapshot.data?[
+                                                        "fasesAbastecimiento"]) {
+                                                  listaIdOts.add(
+                                                      abastecimiento.id_ot);
+                                                }
+                                                for (var retiro in snapshot
+                                                    .data?["fasesRetiro"]) {
+                                                  listaIdOts.add(retiro.id_ot);
+                                                }
+                                                getLocation(
+                                                    essbioP, listaIdOts);
                                                 return WorkflowDesplegado(
                                                   instalacionUsuario:
                                                       snapshot.data?[
@@ -166,6 +190,7 @@ class _HomeState extends State<Home> {
                                                       essbioP.dataTKSectores,
                                                   statuses: essbioP.status,
                                                 );
+
                                                 return WorkflowDesplegado(
                                                   instalacionUsuario:
                                                       fasesUsuario[0],
@@ -225,18 +250,18 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void getLocation() async {
+  void getLocation(EssbioProvider essbioP, List<String> idOts) async {
     var status = await Permission.location.status;
     if (status.isGranted) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
-      print(position);
-      while (true) {
-        await Future.delayed(Duration(seconds: 5));
-        Position position = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.best);
-        print(position);
-      }
+      Map<String, dynamic> modificacion = {
+        "ID_USUARIO": essbioP.usuario!.idusuario,
+        "LATITUD": position.latitude.toString(),
+        "LONGITUD": position.longitude.toString(),
+        "ID_OTS": idOts.toString().substring(1, idOts.toString().length - 1)
+      };
+      essbioP.updateGps(modificacion);
     } else {
       showDialog(
           context: context,
@@ -250,16 +275,7 @@ class _HomeState extends State<Home> {
                         onPressed: () => Navigator.of(context).pop()),
                     CupertinoDialogAction(
                         child: Text('Configurar'),
-                        onPressed: () =>
-                            openAppSettings().whenComplete(() async {
-                              while (true) {
-                                await Future.delayed(Duration(seconds: 5));
-                                Position position =
-                                    await Geolocator.getCurrentPosition(
-                                        desiredAccuracy: LocationAccuracy.best);
-                                print(position);
-                              }
-                            }))
+                        onPressed: () => openAppSettings())
                   ]));
     }
   }
