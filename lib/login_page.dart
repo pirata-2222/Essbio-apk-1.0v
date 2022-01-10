@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'api/api.dart';
 import 'temporal_usuarioprueba.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,8 +14,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String? ubicacion;
+  Position? userLocation;
+  @override
+  void initState() {
+    super.initState();
+    _getLocation().then((position) {
+      userLocation = position;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    userLocation == null
+        ? CircularProgressIndicator()
+        : ubicacion = userLocation!.latitude.toString() +
+            ", " +
+            userLocation!.longitude.toString();
     final essbioP = Provider.of<EssbioProvider>(context);
     final stream = Streams();
     TextEditingController usernameController = TextEditingController();
@@ -153,8 +169,8 @@ class _HomeState extends State<Home> {
                                                           .validateLogin(
                                                               usernameController
                                                                   .text,
-                                                                  passwordController
-                                                                      .text)[1]
+                                                              passwordController
+                                                                  .text)[1]
                                                           .idusuario,
                                                   mensajes: essbioP.mensajes,
                                                   procesos: essbioP.procesos,
@@ -175,8 +191,8 @@ class _HomeState extends State<Home> {
                                                       essbioP.validateLogin(
                                                           usernameController
                                                               .text,
-                                                              passwordController
-                                                                  .text)[1],
+                                                          passwordController
+                                                              .text)[1],
                                                   mensajesEssbio:
                                                       fasesUsuario[4],
                                                 );
@@ -205,5 +221,18 @@ class _HomeState extends State<Home> {
     print("La contraseña convertida es: " +
         md5.convert(utf8.encode(input)).toString());
     return md5.convert(utf8.encode(input)).toString();
+  }
+
+  Future<Position> _getLocation() async {
+    await Future.delayed(Duration(seconds: 5));
+    var currentLocation;
+    try {
+      currentLocation = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+      print(currentLocation);
+    } catch (e) {
+      currentLocation = null;
+    }
+    return currentLocation;
   }
 }
