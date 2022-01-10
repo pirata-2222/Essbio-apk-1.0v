@@ -494,7 +494,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                 aguaCumple = "NIVEL DE AGUA CUMPLE NORMA";
                               }
                               if (valorControllerAgua == null) {
-                                cloroCumple = "SE REQUIEREN DATOS DE MEDICIÓN";
+                                aguaCumple = "SE REQUIEREN DATOS DE MEDICIÓN";
                               }
                             });
                           },
@@ -586,9 +586,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                     "NIVEL DE TURBIEDAD CUMPLE NORMA";
                               }
 
-                              if (valorControllerTurbiedad == null ||
-                                  nivelTurbiedadController.text == "") {
-                                cloroCumple = "SE REQUIEREN DATOS DE MEDICIÓN";
+                              if (valorControllerTurbiedad == false) {
+                                turbiedadCumple =
+                                    "SE REQUIEREN DATOS DE MEDICIÓN";
                               }
                             });
                           },
@@ -735,7 +735,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                   Center(
                     child: Container(
-                      height: 50.0,
+                      height: 80.0,
                       width: screenWidth * 0.8,
                       color: Colors.white,
                       margin: EdgeInsets.symmetric(horizontal: 20),

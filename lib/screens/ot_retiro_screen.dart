@@ -361,7 +361,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                   Center(
                     child: Container(
-                      height: 50.0,
+                      height: 80.0,
                       width: screenWidth * 0.8,
                       color: Colors.white,
                       margin: EdgeInsets.symmetric(horizontal: 20),
