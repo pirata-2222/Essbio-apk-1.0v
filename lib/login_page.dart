@@ -127,6 +127,7 @@ class _HomeState extends State<Home> {
                                             builder: (context,
                                                 AsyncSnapshot<Map> snapshot) {
                                               if (snapshot.hasData) {
+                                                _getLocation();
                                                 return WorkflowDesplegado(
                                                   instalacionUsuario:
                                                       snapshot.data?[
@@ -224,15 +225,16 @@ class _HomeState extends State<Home> {
   }
 
   Future<Position> _getLocation() async {
-    await Future.delayed(Duration(seconds: 5));
-    var currentLocation;
-    try {
-      currentLocation = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-      print(currentLocation);
-    } catch (e) {
-      currentLocation = null;
+    while (true) {
+      var currentLocation;
+      try {
+        currentLocation = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best);
+        print(currentLocation);
+      } catch (e) {
+        currentLocation = null;
+      }
+      return currentLocation;
     }
-    return currentLocation;
   }
 }
