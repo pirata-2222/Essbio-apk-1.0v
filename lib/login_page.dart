@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'api/api.dart';
 import 'temporal_usuarioprueba.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 
 class Home extends StatefulWidget {
@@ -14,23 +15,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String? ubicacion;
-  Position? userLocation;
-  @override
-  void initState() {
-    super.initState();
-    _getLocation().then((position) {
-      userLocation = position;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    userLocation == null
-        ? CircularProgressIndicator()
-        : ubicacion = userLocation!.latitude.toString() +
-            ", " +
-            userLocation!.longitude.toString();
     final essbioP = Provider.of<EssbioProvider>(context);
     final stream = Streams();
     TextEditingController usernameController = TextEditingController();
@@ -235,6 +221,18 @@ class _HomeState extends State<Home> {
         currentLocation = null;
       }
       return currentLocation;
+    }
+  }
+
+  void getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
+    print(position);
+    while (true) {
+      Future.delayed(Duration(seconds: 5));
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+      print(position);
     }
   }
 }
