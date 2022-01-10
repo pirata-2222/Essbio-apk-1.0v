@@ -343,6 +343,19 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
   TextEditingController nivelCloroController = TextEditingController();
   TextEditingController nivelTurbiedadController = TextEditingController();
   TextEditingController horaMedicionController = TextEditingController();
+
+  // Initial Selected Value
+  String dropdownvalue = 'Item 1';
+
+  // List of items in our dropdown menu
+  var items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+
   @override
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -601,6 +614,35 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                 ),
                 SizedBox(height: 20),
                 Column(children: [
+                  Text("Acompañado por: ",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Center(
+                    child: DropdownButton(
+                      // Initial Value
+                      value: dropdownvalue,
+
+                      // Down Arrow Icon
+                      icon: const Icon(Icons.keyboard_arrow_down),
+
+                      // Array list of items
+                      items: items.map((String items) {
+                        return DropdownMenuItem(
+                          value: items,
+                          child: Text(items),
+                        );
+                      }).toList(),
+                      // After selecting the desired option,it will
+                      // change button value to selected value
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue = newValue!;
+                        });
+                      },
+                    ),
+                  ),
+                ]),
+                Column(children: [
                   Text("Último Comentario:",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
@@ -667,13 +709,45 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                       ? ""
                                       : imagenFormatoEncode64 =
                                           base64Encode(imagenEnBytes!);
+                                  if (int.parse(nivelAguaController.text) <
+                                      30) {
+                                    nivelAguaCumpleNorma = "S";
+                                  } else {
+                                    nivelAguaCumpleNorma = "N";
+                                  }
+
+                                  if (int.parse(nivelCloroController.text) <
+                                          0.2 ||
+                                      int.parse(nivelCloroController.text) >
+                                          2) {
+                                    nivelAguaCumpleNorma = "N";
+                                  } else {
+                                    nivelAguaCumpleNorma = "S";
+                                  }
+
+                                  if (int.parse(
+                                          nivelTurbiedadController.text) <=
+                                      2) {
+                                    nivelAguaCumpleNorma = "S";
+                                  } else {
+                                    nivelAguaCumpleNorma = "N";
+                                  }
+//                                   NIVEL CLORO (MG/L):
+// $VALOR < 0.2 || 2 < $VALOR => No cumple norma
+// 0.2 <= $VALOR && $VALOR <= 2 => Cumple norma
+
+// TURBIEDAD:
+
+// 2 < $VALOR => No cumple norma
+// $VALOR <= 2 => Cumple norma
+
                                   Map<String, dynamic> modificacion = {
                                     "NIVEL_AGUA": nivelAguaController.text,
                                     "NIVEL_AGUA_CUMPLE_NORMA":
                                         nivelAguaCumpleNorma,
                                     "NIVEL_CLORO": nivelCloroController.text,
                                     "NIVEL_CLORO_CUMPLE_NORMA":
-                                        nivelCloroCumpleNorma,
+                                        widget.faseAbastMedicion,
                                     "NIVEL_TURBIEDAD":
                                         nivelTurbiedadController.text,
                                     "NIVEL_TURBIEDAD_CUMPLE_NORMA":
