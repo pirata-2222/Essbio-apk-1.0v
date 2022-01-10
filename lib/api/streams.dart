@@ -1,5 +1,6 @@
 import 'dart:async';
 import "dart:convert";
+import 'package:crypto/crypto.dart';
 import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/models/evento_camion.dart';
 import 'package:essbio_apk/models/evento_contratista.dart';
@@ -607,6 +608,7 @@ class Streams {
   }
 
   List validateLogin(String username, String password) {
+    password = md5.convert(utf8.encode(password)).toString();
     bool loginState = false;
     Usuario? loggedUser;
     for (var usuario in usuarios) {

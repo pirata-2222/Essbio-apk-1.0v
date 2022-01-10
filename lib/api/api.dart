@@ -1,5 +1,6 @@
 import 'dart:async';
 import "dart:convert";
+import 'package:crypto/crypto.dart';
 import 'package:essbio_apk/models/evento_camion.dart';
 import 'package:essbio_apk/models/evento_contratista.dart';
 import 'package:essbio_apk/models/evento_data_eventos.dart';
@@ -858,17 +859,17 @@ class EssbioProvider with ChangeNotifier {
   }
 
   List validateLogin(String username, String password) {
+    password = md5.convert(utf8.encode(password)).toString();
+    print(password);
     bool loginState = false;
     Usuario? loggedUser;
     for (var usuario in usuarios) {
-      print(usuario.nomusuario);
       if (usuario.nomusuario == username && usuario.clave == password) {
         loginState = true;
         loggedUser = usuario;
         _usuario = loggedUser;
         break;
       } else {
-        print("No se encontró usuario");
         loginState = false;
         loggedUser = usuario;
       }

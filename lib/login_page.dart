@@ -1,17 +1,6 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:essbio_apk/api/streams.dart';
-import 'package:essbio_apk/models/evento_data_eventos.dart';
-import 'package:essbio_apk/models/evento_data_tk_sector.dart';
-import 'package:essbio_apk/models/fase_abast_medicion.dart';
-import 'package:essbio_apk/models/fase_abastecimiento.dart';
-import 'package:essbio_apk/models/fase_instalacion.dart';
-import 'package:essbio_apk/models/fase_retiro.dart';
-import 'package:essbio_apk/models/mod_mensaje.dart';
-import 'package:essbio_apk/models/mod_wkf_fase.dart';
-import 'package:essbio_apk/models/mod_wkf_orden_trabajo.dart';
-import 'package:essbio_apk/models/mod_wkf_proceso.dart';
-import 'package:essbio_apk/models/mod_wkf_status.dart';
 import 'package:essbio_apk/screens/workflow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -102,9 +91,12 @@ class _HomeState extends State<Home> {
                                     fasesRetiro: essbioP.fasesRetiro,
                                     eventos: essbioP.dataEventos,
                                     fases: essbioP.fases,
-                                    id_usuario: usuarioPrueba,
-                                    //essbioP.validateLogin(
-                                    //usernameController.text, generateMd5(passwordController.text))[1].idusuario
+                                    id_usuario: //usuarioPrueba,
+                                        essbioP
+                                            .validateLogin(
+                                                usernameController.text,
+                                                passwordController.text)[1]
+                                            .idusuario,
                                     mensajes: essbioP.mensajes,
                                     procesos: essbioP.procesos,
                                     sectores: essbioP.dataTKSectores,
@@ -156,9 +148,14 @@ class _HomeState extends State<Home> {
                                                       essbioP.fasesRetiro,
                                                   eventos: essbioP.dataEventos,
                                                   fases: essbioP.fases,
-                                                  id_usuario: usuarioPrueba,
-                                                  //essbioP.validateLogin(
-                                                  //usernameController.text, generateMd5(passwordController.text))[1].idusuario
+                                                  id_usuario: //usuarioPrueba,
+                                                      essbioP
+                                                          .validateLogin(
+                                                              usernameController
+                                                                  .text,
+                                                                  passwordController
+                                                                      .text)[1]
+                                                          .idusuario,
                                                   mensajes: essbioP.mensajes,
                                                   procesos: essbioP.procesos,
                                                   sectores:
@@ -178,8 +175,8 @@ class _HomeState extends State<Home> {
                                                       essbioP.validateLogin(
                                                           usernameController
                                                               .text,
-                                                          passwordController
-                                                              .text)[1],
+                                                              passwordController
+                                                                  .text)[1],
                                                   mensajesEssbio:
                                                       fasesUsuario[4],
                                                 );
@@ -205,6 +202,8 @@ class _HomeState extends State<Home> {
   }
 
   String generateMd5(String input) {
+    print("La contraseña convertida es: " +
+        md5.convert(utf8.encode(input)).toString());
     return md5.convert(utf8.encode(input)).toString();
   }
 }
