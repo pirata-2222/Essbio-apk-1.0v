@@ -296,9 +296,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
 
   // *******************************************************************
 
-  String dropdownValueNivelAgua = 'NIVEL DE AGUA CUMPLE NORMA';
-  String dropdownValueNivelCloro = 'NIVEL CLORO CUMPLE NORMA';
-  String dropdownValueNivelTurbiedad = 'TURBIEDAD CUMPLE NORMA';
+  String nivelAguaCumpleNorma = 'NIVEL DE AGUA CUMPLE NORMA';
+  String nivelCloroCumpleNorma = 'NIVEL CLORO CUMPLE NORMA';
+  String nivelTurbiedadCumpleNorma = 'TURBIEDAD CUMPLE NORMA';
 
   Map<int, String> estadoMedicion = {
     130: "Finalizado",
@@ -339,6 +339,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
   int numeroIDstatusMedicion = 0;
   TextEditingController comentarioMedicionController = TextEditingController();
   TextEditingController nivelAguaController = TextEditingController();
+  TextEditingController nivelAguaNormaController = TextEditingController();
   TextEditingController nivelCloroController = TextEditingController();
   TextEditingController nivelTurbiedadController = TextEditingController();
   TextEditingController horaMedicionController = TextEditingController();
@@ -462,44 +463,24 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 25),
                         child: TextField(
                           controller: nivelAguaController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                          ),
+                          decoration:
+                              InputDecoration(border: OutlineInputBorder()),
                         ),
                       ),
                     ),
                     SizedBox(height: 15),
                     Text("                NIVEL AGUA CUMPLE NORMA"),
                     Center(
-                        child: Container(
-                      color: Color(0xFF8AB5CF),
-                      height: 30,
-                      width: 300,
-                      child: DropdownButton<String>(
-                        value: dropdownValueNivelAgua,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(
-                          height: 2,
-                          color: Color(0xFF8AB5CF),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValueNivelAgua = newValue!;
-                          });
-                        },
-                        items: <String>[
-                          'NIVEL DE AGUA CUMPLE NORMA',
-                          'SI',
-                          'NO'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                      child: Container(
+                        color: Color(0xFF8AB5CF),
+                        height: 30,
+                        width: 300,
+                        child: Text(nivelAguaCumpleNorma),
+                        // double.parse(nivelAguaController.text) < 30
+                        //     ? Text("NO")
+                        //     : Text("SÍ"),
                       ),
-                    )),
+                    ),
                     SizedBox(height: 15),
                     Text("                NIVEL CLORO Mg/L"),
                     Center(
@@ -519,32 +500,16 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                     SizedBox(height: 15),
                     Text("                NIVEL CLORO CUMPLE NORMA"),
                     Center(
-                        child: Container(
-                      color: Color(0xFF8AB5CF),
-                      height: 30,
-                      width: 300,
-                      child: DropdownButton<String>(
-                        value: dropdownValueNivelCloro,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(
-                          height: 2,
-                          color: Color(0xFF8AB5CF),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValueNivelCloro = newValue!;
-                          });
-                        },
-                        items: <String>['NIVEL CLORO CUMPLE NORMA', 'SI', 'NO']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                      child: Container(
+                        color: Color(0xFF8AB5CF),
+                        height: 30,
+                        width: 300,
+                        child: Text(nivelCloroCumpleNorma),
+                        // child: double.parse(nivelCloroController.text) < 30
+                        //     ? Text("NO")
+                        //     : Text("SÍ"),
                       ),
-                    )),
+                    ),
                     SizedBox(height: 15),
                     Text("                TURBIEDAD"),
                     Center(
@@ -564,32 +529,16 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                     SizedBox(height: 15),
                     Text("                TURBIEDAD CUMPLE NORMA"),
                     Center(
-                        child: Container(
-                      color: Color(0xFF8AB5CF),
-                      height: 30,
-                      width: 300,
-                      child: DropdownButton<String>(
-                        value: dropdownValueNivelTurbiedad,
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(
-                          height: 2,
+                      child: Container(
                           color: Color(0xFF8AB5CF),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValueNivelTurbiedad = newValue!;
-                          });
-                        },
-                        items: <String>['TURBIEDAD CUMPLE NORMA', 'SI', 'NO']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    )),
+                          height: 30,
+                          width: 300,
+                          child: Text(nivelTurbiedadCumpleNorma)
+                          // double.parse(nivelTurbiedadController.text) > 2
+                          //     ? Text("Valor no cumple norma")
+                          //     : Text("Valor sí cumple norma"),
+                          ),
+                    ),
                   ],
                 ),
 
@@ -602,14 +551,14 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                   Center(
                     child: Container(
                       height: 50.0,
-                      width: screenWidth * 0.8,
+                      width: screenWidth * 0.5,
                       color: Colors.white,
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: TextField(
                         controller: horaMedicionController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'Escribe tu comentario'),
+                            hintText: 'Ejemplo: 14:38'),
                       ),
                     ),
                   ),
@@ -721,14 +670,14 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   Map<String, dynamic> modificacion = {
                                     "NIVEL_AGUA": nivelAguaController.text,
                                     "NIVEL_AGUA_CUMPLE_NORMA":
-                                        dropdownValueNivelAgua,
+                                        nivelAguaCumpleNorma,
                                     "NIVEL_CLORO": nivelCloroController.text,
                                     "NIVEL_CLORO_CUMPLE_NORMA":
-                                        dropdownValueNivelCloro,
+                                        nivelCloroCumpleNorma,
                                     "NIVEL_TURBIEDAD":
                                         nivelTurbiedadController.text,
                                     "NIVEL_TURBIEDAD_CUMPLE_NORMA":
-                                        dropdownValueNivelTurbiedad,
+                                        nivelTurbiedadCumpleNorma,
                                     "HORA_MEDICION":
                                         horaMedicionController.text,
                                     "IMAGEN": imagenFormatoEncode64,
