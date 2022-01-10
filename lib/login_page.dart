@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:essbio_apk/api/streams.dart';
 import 'package:essbio_apk/screens/workflow_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'api/api.dart';
@@ -81,6 +82,7 @@ class _HomeState extends State<Home> {
                           essbioP.loginCounterController.close();
                           return ElevatedButton(
                               onPressed: () {
+                                getLocation();
                                 if (essbioP.validateLogin(
                                     usernameController.text,
                                     passwordController.text)[0]) {
@@ -113,7 +115,6 @@ class _HomeState extends State<Home> {
                                             builder: (context,
                                                 AsyncSnapshot<Map> snapshot) {
                                               if (snapshot.hasData) {
-                                                _getLocation();
                                                 return WorkflowDesplegado(
                                                   instalacionUsuario:
                                                       snapshot.data?[
@@ -225,14 +226,41 @@ class _HomeState extends State<Home> {
   }
 
   void getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    print(position);
-    while (true) {
-      Future.delayed(Duration(seconds: 5));
+    var status = await Permission.location.status;
+    if (status.isGranted) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
       print(position);
+      while (true) {
+        await Future.delayed(Duration(seconds: 5));
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best);
+        print(position);
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+                  title: Text('Permiso de localización'),
+                  content: Text(
+                      'Esta aplicación requiere del uso de su localización para funcionar'),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                        child: Text('Denegar'),
+                        onPressed: () => Navigator.of(context).pop()),
+                    CupertinoDialogAction(
+                        child: Text('Configurar'),
+                        onPressed: () =>
+                            openAppSettings().whenComplete(() async {
+                              while (true) {
+                                await Future.delayed(Duration(seconds: 5));
+                                Position position =
+                                    await Geolocator.getCurrentPosition(
+                                        desiredAccuracy: LocationAccuracy.best);
+                                print(position);
+                              }
+                            }))
+                  ]));
     }
   }
 }
