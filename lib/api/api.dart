@@ -611,7 +611,7 @@ class EssbioProvider with ChangeNotifier {
 
     //Filtra las OTs para que sólo muestre las que corresponden al usuario
     for (var instalacion in fasesInstalacion) {
-      if (instalacion.contratista == id_usuario) {
+      if (instalacion.id_responsable == id_usuario) {
         instalacionUsuario.add(instalacion);
         for (var orden in ordenesTrabajo) {
           if (orden.id_ot == instalacion.id_ot) {
@@ -622,7 +622,7 @@ class EssbioProvider with ChangeNotifier {
       }
     }
     for (var medicion in fasesMedicion) {
-      if (medicion.personal == id_usuario) {
+      if (medicion.id_responsable == id_usuario) {
         medicionUsuario.add(medicion);
         for (var orden in ordenesTrabajo) {
           if (orden.id_ot == medicion.id_ot) {
@@ -633,7 +633,7 @@ class EssbioProvider with ChangeNotifier {
       }
     }
     for (var abastecimiento in fasesAbastecimiento) {
-      if (abastecimiento.contratista == id_usuario) {
+      if (abastecimiento.id_responsable == id_usuario) {
         abastecimientoUsuario.add(abastecimiento);
         for (var orden in ordenesTrabajo) {
           if (orden.id_ot == abastecimiento.id_ot) {
@@ -644,7 +644,7 @@ class EssbioProvider with ChangeNotifier {
       }
     }
     for (var retiro in fasesRetiro) {
-      if (retiro.contratista == id_usuario) {
+      if (retiro.id_responsable == id_usuario) {
         retiroUsuario.add(retiro);
         for (var orden in ordenesTrabajo) {
           if (orden.id_ot == retiro.id_ot) {
