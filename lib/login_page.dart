@@ -118,24 +118,37 @@ class _HomeState extends State<Home> {
                                                 for (var instalacion
                                                     in snapshot.data?[
                                                         "fasesInstalacion"]) {
-                                                  listaIdOts
-                                                      .add(instalacion.id_ot);
+                                                  if (!listaIdOts.contains(
+                                                      instalacion.id_ot)) {
+                                                    listaIdOts
+                                                        .add(instalacion.id_ot);
+                                                  }
                                                 }
                                                 for (var medicion
                                                     in snapshot.data?[
                                                         "fasesAbastMedicion"]) {
-                                                  listaIdOts
-                                                      .add(medicion.id_ot);
+                                                  if (!listaIdOts.contains(
+                                                      medicion.id_ot)) {
+                                                    listaIdOts
+                                                        .add(medicion.id_ot);
+                                                  }
                                                 }
                                                 for (var abastecimiento
                                                     in snapshot.data?[
                                                         "fasesAbastecimiento"]) {
-                                                  listaIdOts.add(
-                                                      abastecimiento.id_ot);
+                                                  if (!listaIdOts.contains(
+                                                      abastecimiento.id_ot)) {
+                                                    listaIdOts
+                                                        .add(abastecimiento.id_ot);
+                                                  }
                                                 }
                                                 for (var retiro in snapshot
                                                     .data?["fasesRetiro"]) {
-                                                  listaIdOts.add(retiro.id_ot);
+                                                  if (!listaIdOts.contains(
+                                                      retiro.id_ot)) {
+                                                    listaIdOts
+                                                        .add(retiro.id_ot);
+                                                  }
                                                 }
                                                 getLocation(
                                                     essbioP, listaIdOts);
