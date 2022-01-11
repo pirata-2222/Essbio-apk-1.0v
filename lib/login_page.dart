@@ -260,7 +260,7 @@ class _HomeState extends State<Home> {
         "ID_USUARIO": essbioP.usuario!.idusuario,
         "LATITUD": position.latitude.toString(),
         "LONGITUD": position.longitude.toString(),
-        "ID_OTS": idOts.toString().substring(1, idOts.toString().length - 2)
+        "ID_OTS": idOts.toString().substring(1, idOts.toString().length - 1).replaceAll(" ", "")
       };
       essbioP.updateGps(modificacion);
     } else {

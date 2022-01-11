@@ -499,7 +499,7 @@ class Streams {
             if (instalacion.id_ot == orden.id_ot) {
               instalacion.fecha_inicio = fase.fecha_ini;
               instalacion.fecha_termino = fase.fecha_fin;
-              if(!faseUsuario.contains(fase)){
+              if (!faseUsuario.contains(fase)) {
                 faseUsuario.add(fase);
               }
             }
@@ -509,7 +509,7 @@ class Streams {
             if (medicion.id_ot == orden.id_ot) {
               medicion.fecha_inicio = fase.fecha_ini;
               medicion.fecha_termino = fase.fecha_fin;
-              if(!faseUsuario.contains(fase)){
+              if (!faseUsuario.contains(fase)) {
                 faseUsuario.add(fase);
               }
             }
@@ -519,7 +519,7 @@ class Streams {
             if (abastecimiento.id_ot == orden.id_ot) {
               abastecimiento.fecha_inicio = fase.fecha_ini;
               abastecimiento.fecha_termino = fase.fecha_fin;
-              if(!faseUsuario.contains(fase)){
+              if (!faseUsuario.contains(fase)) {
                 faseUsuario.add(fase);
               }
             }
@@ -529,7 +529,7 @@ class Streams {
             if (retiro.id_ot == orden.id_ot) {
               retiro.fecha_inicio = fase.fecha_ini;
               retiro.fecha_termino = fase.fecha_fin;
-              if(!faseUsuario.contains(fase)){
+              if (!faseUsuario.contains(fase)) {
                 faseUsuario.add(fase);
               }
             }
@@ -557,7 +557,8 @@ class Streams {
                 for (var orden in ordenesTrabajoUsuario) {
                   if (orden.id_fase == fase.id_fase) {
                     for (var instalacion in instalacionUsuario) {
-                      if (instalacion.id_ot == orden.id_ot) {
+                      if (instalacion.id_ot == orden.id_ot &&
+                          instalacion.id_tipo_status != 110) {
                         instalacion.tipo_evento = evento.tipo_evento;
                         instalacion.nombre_corte = proceso.nombre_proceso;
                         instalacion.ods = proceso.descripcion_proceso;
@@ -565,7 +566,8 @@ class Streams {
                       }
                     }
                     for (var medicion in medicionUsuario) {
-                      if (medicion.id_ot == orden.id_ot) {
+                      if (medicion.id_ot == orden.id_ot &&
+                          medicion.id_tipo_status != 130) {
                         medicion.tipo_evento = evento.tipo_evento;
                         medicion.nombre_corte = proceso.nombre_proceso;
                         medicion.ods = proceso.descripcion_proceso;
@@ -573,7 +575,8 @@ class Streams {
                       }
                     }
                     for (var abastecimiento in abastecimientoUsuario) {
-                      if (abastecimiento.id_ot == orden.id_ot) {
+                      if (abastecimiento.id_ot == orden.id_ot &&
+                          abastecimiento.id_tipo_status != 120) {
                         abastecimiento.tipo_evento = evento.tipo_evento;
                         abastecimiento.nombre_corte = proceso.nombre_proceso;
                         abastecimiento.ods = proceso.descripcion_proceso;
@@ -581,7 +584,8 @@ class Streams {
                       }
                     }
                     for (var retiro in retiroUsuario) {
-                      if (retiro.id_ot == orden.id_ot) {
+                      if (retiro.id_ot == orden.id_ot &&
+                          retiro.id_tipo_status != 140) {
                         retiro.tipo_evento = evento.tipo_evento;
                         retiro.nombre_corte = proceso.nombre_proceso;
                         retiro.ods = proceso.descripcion_proceso;
