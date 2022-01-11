@@ -591,6 +591,7 @@ class EssbioProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       print("GPS : Actualizada correctamente la ubicación");
     } else {
+      print(response.body);
       print("Abast : Hubo un problema al actualizar la ubicación");
     }
   }
@@ -628,8 +629,8 @@ class EssbioProvider with ChangeNotifier {
       retiroActiva,
       mensajesUsuario
     ];
-    for(var orden in ordenesTrabajo){
-      if(orden.id_responsable == id_usuario){
+    for (var orden in ordenesTrabajo) {
+      if (orden.id_responsable == id_usuario) {
         ordenesTrabajoUsuario.add(orden);
       }
     }

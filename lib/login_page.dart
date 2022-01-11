@@ -254,7 +254,7 @@ class _HomeState extends State<Home> {
     if (status.isGranted) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
-      print(idOts.toString().substring(1, idOts.toString().length - 2));
+      print(idOts.toString().substring(1, idOts.toString().length - 1));
       Map<String, dynamic> modificacion = {
         "ID_USUARIO": essbioP.usuario!.idusuario,
         "LATITUD": position.latitude.toString(),
