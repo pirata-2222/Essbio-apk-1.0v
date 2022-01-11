@@ -326,8 +326,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    comentarioController.text = widget.faseInstalacion.comentario_instalacion;
-    rotuloController.text = widget.faseInstalacion.rotulo_tk;
+    // comentarioController.text = widget.faseInstalacion.comentario_instalacion;
+    // rotuloController.text = widget.faseInstalacion.rotulo_tk;
     final essbioP = Provider.of<EssbioProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -501,7 +501,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'Escribe tu comentario'),
+                            hintText:
+                                widget.faseInstalacion.comentario_instalacion),
                       ),
                     ),
                   ),
@@ -575,13 +576,13 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                   Center(
                     child: Container(
                       color: Colors.white,
-                      height: 30,
+                      height: 50,
                       margin: EdgeInsets.symmetric(horizontal: 25),
                       child: TextField(
                         controller: rotuloController,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                        ),
+                            border: OutlineInputBorder(),
+                            hintText: widget.faseInstalacion.rotulo_tk),
                       ),
                     ),
                   ),
@@ -632,6 +633,10 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                   });
                                   essbioP.updateFasesInstalacion(
                                       widget.faseInstalacion, modificacion);
+                                  print("Comentario: " +
+                                      comentarioController.text);
+                                  print(
+                                      "Rotulo nuevo: " + rotuloController.text);
 
                                   Navigator.pop(context, 'Cancel');
                                   showDialog(

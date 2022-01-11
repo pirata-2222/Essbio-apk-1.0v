@@ -363,8 +363,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    comentarioMedicionController.text = widget.faseAbastMedicion.comentario;
-    horaMedicionController.text = widget.faseAbastMedicion.hora_medicion;
+    // comentarioMedicionController.text = widget.faseAbastMedicion.comentario;
+    // horaMedicionController.text = widget.faseAbastMedicion.hora_medicion;
     final essbioP = Provider.of<EssbioProvider>(context);
 
     int id_tipo_status = widget.faseAbastMedicion.id_tipo_status;
@@ -630,7 +630,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         controller: horaMedicionController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'Ejemplo: 14:38'),
+                            hintText: widget.faseAbastMedicion.hora_medicion),
                       ),
                     ),
                   ),
@@ -745,7 +745,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'Escribe tu comentario'),
+                            hintText: widget.faseAbastMedicion.comentario),
                       ),
                     ),
                   ),
@@ -851,6 +851,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   });
                                   essbioP.updateFasesMedicion(
                                       widget.faseAbastMedicion, modificacion);
+
+                                  print("Acompañante: " + numeroIdAcompanante);
 
                                   Navigator.pop(context, 'Cancel');
                                   showDialog(

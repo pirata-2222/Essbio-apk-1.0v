@@ -252,8 +252,8 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
       TextEditingController();
   @override
   Widget build(BuildContext context) {
-    comentarioAbastecimientoController.text =
-        widget.faseAbastecimiento.comentario;
+    // comentarioAbastecimientoController.text =
+    //     widget.faseAbastecimiento.comentario;
     final essbioP = Provider.of<EssbioProvider>(context);
 
     int id_tipo_status = widget.faseAbastecimiento.id_tipo_status;
@@ -400,7 +400,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'Escribe tu comentario'),
+                            hintText: widget.faseAbastecimiento.comentario),
                       ),
                     ),
                   ),

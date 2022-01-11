@@ -219,8 +219,8 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    comentarioRetiroController.text = widget.faseRetiro.comentario;
-    numeroEstanqueController.text = widget.faseRetiro.numero_estanque;
+    // comentarioRetiroController.text = widget.faseRetiro.comentario;
+    // numeroEstanqueController.text = widget.faseRetiro.numero_estanque;
     final essbioP = Provider.of<EssbioProvider>(context);
 
     int id_tipo_status = widget.faseRetiro.id_tipo_status;
@@ -371,7 +371,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'Escribe tu comentario'),
+                            hintText: widget.faseRetiro.comentario),
                       ),
                     ),
                   ),
@@ -409,13 +409,13 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                   Center(
                     child: Container(
                       color: Colors.white,
-                      height: 30,
+                      height: 50,
                       margin: EdgeInsets.symmetric(horizontal: 25),
                       child: TextField(
                         controller: numeroEstanqueController,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                        ),
+                            border: OutlineInputBorder(),
+                            hintText: widget.faseRetiro.comentario),
                       ),
                     ),
                   ),
@@ -448,9 +448,9 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                                   };
                                   // TODO: revisar correcto funcionamiento del callback
                                   // widget.callback(currentStatus);
-                                  setState(() {
-                                    estadoRetiroenString();
-                                  });
+                                  // setState(() {
+                                  //   estadoRetiroenString();
+                                  // });
                                   essbioP.updateFasesRetiro(
                                       widget.faseRetiro, modificacion);
 
