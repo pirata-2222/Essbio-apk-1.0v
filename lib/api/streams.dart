@@ -551,7 +551,6 @@ for(var orden in ordenesTrabajo){
                     for (var instalacion in instalacionUsuario) {
                       if (instalacion.id_ot == orden.id_ot) {
                         instalacion.tipo_evento = evento.tipo_evento;
-                        instalacion.id_responsable = orden.id_responsable;
                         instalacion.nombre_corte = proceso.nombre_proceso;
                         instalacion.ods = proceso.descripcion_proceso;
                         instalacionActiva.add(instalacion);
@@ -560,7 +559,6 @@ for(var orden in ordenesTrabajo){
                     for (var medicion in medicionUsuario) {
                       if (medicion.id_ot == orden.id_ot) {
                         medicion.tipo_evento = evento.tipo_evento;
-                        medicion.id_responsable = orden.id_responsable;
                         medicion.nombre_corte = proceso.nombre_proceso;
                         medicion.ods = proceso.descripcion_proceso;
                         medicionActiva.add(medicion);
@@ -569,7 +567,6 @@ for(var orden in ordenesTrabajo){
                     for (var abastecimiento in abastecimientoUsuario) {
                       if (abastecimiento.id_ot == orden.id_ot) {
                         abastecimiento.tipo_evento = evento.tipo_evento;
-                        abastecimiento.id_responsable = orden.id_responsable;
                         abastecimiento.nombre_corte = proceso.nombre_proceso;
                         abastecimiento.ods = proceso.descripcion_proceso;
                         abastecimientoActiva.add(abastecimiento);
@@ -578,7 +575,6 @@ for(var orden in ordenesTrabajo){
                     for (var retiro in retiroUsuario) {
                       if (retiro.id_ot == orden.id_ot) {
                         retiro.tipo_evento = evento.tipo_evento;
-                        retiro.id_responsable = orden.id_responsable;
                         retiro.nombre_corte = proceso.nombre_proceso;
                         retiro.ods = proceso.descripcion_proceso;
                         retiroActiva.add(retiro);
