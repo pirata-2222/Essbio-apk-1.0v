@@ -358,55 +358,42 @@ class Streams {
       retiroActiva,
       mensajesUsuario
     ];
-
-    //Filtra las OTs para que sólo muestre las que corresponden al usuario
-    for(var orden in ordenesTrabajo){
-      for(var instalacion in fasesInstalacion){
-        if (orden.id_ot == instalacion.id_ot) {
-            instalacion.id_responsable = orden.id_responsable;
-            instalacion.nombre_ot = orden.nombre_ot;
-        }
-        if(instalacion.id_responsable == id_usuario){
-          ordenesTrabajoUsuario.add(orden);
-          instalacionUsuario.add(instalacion);
-        }
-        
-      }
-      for(var medicion in fasesMedicion){
-        if (orden.id_ot == medicion.id_ot) {
-            medicion.id_responsable = orden.id_responsable;
-            medicion.nombre_ot = orden.nombre_ot;
-        }
-        if(medicion.id_responsable == id_usuario){
-          ordenesTrabajoUsuario.add(orden);
-          medicionUsuario.add(medicion);
-        }
-        
-      }
-      for(var abastecimiento in fasesAbastecimiento){
-        if (orden.id_ot == abastecimiento.id_ot) {
-            abastecimiento.id_responsable = orden.id_responsable;
-            abastecimiento.nombre_ot = orden.nombre_ot;
-        }
-        if(abastecimiento.id_responsable == id_usuario){
-          ordenesTrabajoUsuario.add(orden);
-          abastecimientoUsuario.add(abastecimiento);
-        }
-        
-      }
-      for(var retiro in fasesRetiro){
-        if (orden.id_ot == retiro.id_ot) {
-            retiro.id_responsable = orden.id_responsable;
-            retiro.nombre_ot = orden.nombre_ot;
-        }
-        if(retiro.id_responsable == id_usuario){
-          ordenesTrabajoUsuario.add(orden);
-          retiroUsuario.add(retiro);
-        }
-        
+for(var orden in ordenesTrabajo){
+      if(orden.id_responsable == id_usuario){
+        ordenesTrabajoUsuario.add(orden);
       }
     }
-
+    //Filtra las OTs para que sólo muestre las que corresponden al usuario
+    for (var orden in ordenesTrabajoUsuario) {
+      for (var instalacion in fasesInstalacion) {
+        if (orden.id_ot == instalacion.id_ot) {
+          instalacion.id_responsable = orden.id_responsable;
+          instalacion.nombre_ot = orden.nombre_ot;
+          instalacionUsuario.add(instalacion);
+        }
+      }
+      for (var medicion in fasesMedicion) {
+        if (orden.id_ot == medicion.id_ot) {
+          medicion.id_responsable = orden.id_responsable;
+          medicion.nombre_ot = orden.nombre_ot;
+          medicionUsuario.add(medicion);
+        }
+      }
+      for (var abastecimiento in fasesAbastecimiento) {
+        if (orden.id_ot == abastecimiento.id_ot) {
+          abastecimiento.id_responsable = orden.id_responsable;
+          abastecimiento.nombre_ot = orden.nombre_ot;
+          abastecimientoUsuario.add(abastecimiento);
+        }
+      }
+      for (var retiro in fasesRetiro) {
+        if (orden.id_ot == retiro.id_ot) {
+          retiro.id_responsable = orden.id_responsable;
+          retiro.nombre_ot = orden.nombre_ot;
+          retiroUsuario.add(retiro);
+        }
+      }
+    }
     //Filtra para que aparezcan sólo los status correpondientes al usuario
     for (var status in statuses) {
       for (var orden in ordenesTrabajoUsuario) {

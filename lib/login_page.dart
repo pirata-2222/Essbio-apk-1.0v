@@ -236,20 +236,6 @@ class _HomeState extends State<Home> {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  Future<Position> _getLocation() async {
-    while (true) {
-      var currentLocation;
-      try {
-        currentLocation = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.best);
-        print(currentLocation);
-      } catch (e) {
-        currentLocation = null;
-      }
-      return currentLocation;
-    }
-  }
-
   void getLocation(EssbioProvider essbioP, List<String> idOts) async {
     var status = await Permission.location.status;
     if (status.isGranted) {
