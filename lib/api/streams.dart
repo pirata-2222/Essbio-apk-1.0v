@@ -358,11 +358,12 @@ class Streams {
       retiroActiva,
       mensajesUsuario
     ];
-for(var orden in ordenesTrabajo){
-      if(orden.id_responsable == id_usuario){
+    for (var orden in ordenesTrabajo) {
+      if (orden.id_responsable == id_usuario) {
         ordenesTrabajoUsuario.add(orden);
       }
     }
+
     //Filtra las OTs para que sólo muestre las que corresponden al usuario
     for (var orden in ordenesTrabajoUsuario) {
       for (var instalacion in fasesInstalacion) {
@@ -498,7 +499,9 @@ for(var orden in ordenesTrabajo){
             if (instalacion.id_ot == orden.id_ot) {
               instalacion.fecha_inicio = fase.fecha_ini;
               instalacion.fecha_termino = fase.fecha_fin;
-              faseUsuario.add(fase);
+              if(!faseUsuario.contains(fase)){
+                faseUsuario.add(fase);
+              }
             }
           }
           //Medicion
@@ -506,7 +509,9 @@ for(var orden in ordenesTrabajo){
             if (medicion.id_ot == orden.id_ot) {
               medicion.fecha_inicio = fase.fecha_ini;
               medicion.fecha_termino = fase.fecha_fin;
-              faseUsuario.add(fase);
+              if(!faseUsuario.contains(fase)){
+                faseUsuario.add(fase);
+              }
             }
           }
           //Abastecimiento
@@ -514,7 +519,9 @@ for(var orden in ordenesTrabajo){
             if (abastecimiento.id_ot == orden.id_ot) {
               abastecimiento.fecha_inicio = fase.fecha_ini;
               abastecimiento.fecha_termino = fase.fecha_fin;
-              faseUsuario.add(fase);
+              if(!faseUsuario.contains(fase)){
+                faseUsuario.add(fase);
+              }
             }
           }
           //Retiro
@@ -522,7 +529,9 @@ for(var orden in ordenesTrabajo){
             if (retiro.id_ot == orden.id_ot) {
               retiro.fecha_inicio = fase.fecha_ini;
               retiro.fecha_termino = fase.fecha_fin;
-              faseUsuario.add(fase);
+              if(!faseUsuario.contains(fase)){
+                faseUsuario.add(fase);
+              }
             }
           }
         }
@@ -539,7 +548,6 @@ for(var orden in ordenesTrabajo){
     //
 
     //Asignar tipo de evento
-    Stopwatch stopwatch = new Stopwatch()..start();
     for (var proceso in procesos) {
       if (proceso.id_tipo_status.toString() != "3") {
         for (var evento in eventos) {
@@ -589,6 +597,11 @@ for(var orden in ordenesTrabajo){
       }
     }
     print("Terminé");
+    print("Fases usuario de getFasesUsuario en stream.dart");
+    print(fasesUsuario[0].length);
+    print(fasesUsuario[1].length);
+    print(fasesUsuario[2].length);
+    print(fasesUsuario[3].length);
     return fasesUsuario;
   }
 
@@ -644,6 +657,11 @@ for(var orden in ordenesTrabajo){
           eventos: _dataEventos,
           mensajes: _mensajes,
           id_usuario: usuarioPrueba);
+      print("Fases usuario de workflowStream");
+      print(fasesUsuario[0].length);
+      print(fasesUsuario[1].length);
+      print(fasesUsuario[2].length);
+      print(fasesUsuario[3].length);
       yield {
         "fasesInstalacion": fasesUsuario[0],
         "fasesAbastMedicion": fasesUsuario[1],

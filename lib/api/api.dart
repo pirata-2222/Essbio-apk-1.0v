@@ -609,6 +609,7 @@ class EssbioProvider with ChangeNotifier {
       required List<DataEventos> eventos,
       required List<Mensaje> mensajes,
       required int id_usuario}) {
+
     List<FaseInstalacion> instalacionUsuario = [];
     List<FaseInstalacion> instalacionActiva = [];
     List<FaseAbastMedicion> medicionUsuario = [];
@@ -681,10 +682,8 @@ class EssbioProvider with ChangeNotifier {
           //Instalación
           for (var instalacion in instalacionUsuario) {
             if (instalacion.id_ot == orden.id_ot) {
-              //TODO: Acá escribe el diccionario
               instalacion.statuses[status.id_status] = status.id_tipo_status;
-              instalacion.id_tipo_status =
-                  instalacion.statuses[orden.id_status];
+              instalacion.id_tipo_status = instalacion.statuses[orden.id_status];
             }
           }
           //Medición
@@ -770,7 +769,9 @@ class EssbioProvider with ChangeNotifier {
             if (instalacion.id_ot == orden.id_ot) {
               instalacion.fecha_inicio = fase.fecha_ini;
               instalacion.fecha_termino = fase.fecha_fin;
-              faseUsuario.add(fase);
+              if(!faseUsuario.contains(fase)){
+                faseUsuario.add(fase);
+              }
             }
           }
           //Medicion
@@ -778,7 +779,9 @@ class EssbioProvider with ChangeNotifier {
             if (medicion.id_ot == orden.id_ot) {
               medicion.fecha_inicio = fase.fecha_ini;
               medicion.fecha_termino = fase.fecha_fin;
-              faseUsuario.add(fase);
+              if(!faseUsuario.contains(fase)){
+                faseUsuario.add(fase);
+              }
             }
           }
           //Abastecimiento
@@ -786,7 +789,9 @@ class EssbioProvider with ChangeNotifier {
             if (abastecimiento.id_ot == orden.id_ot) {
               abastecimiento.fecha_inicio = fase.fecha_ini;
               abastecimiento.fecha_termino = fase.fecha_fin;
-              faseUsuario.add(fase);
+              if(!faseUsuario.contains(fase)){
+                faseUsuario.add(fase);
+              }
             }
           }
           //Retiro
@@ -794,7 +799,9 @@ class EssbioProvider with ChangeNotifier {
             if (retiro.id_ot == orden.id_ot) {
               retiro.fecha_inicio = fase.fecha_ini;
               retiro.fecha_termino = fase.fecha_fin;
-              faseUsuario.add(fase);
+              if(!faseUsuario.contains(fase)){
+                faseUsuario.add(fase);
+              }
             }
           }
         }
@@ -808,10 +815,7 @@ class EssbioProvider with ChangeNotifier {
       }
     }
 
-    //
-
     //Asignar tipo de evento
-    Stopwatch stopwatch = new Stopwatch()..start();
     for (var proceso in procesos) {
       if (proceso.id_tipo_status.toString() != "3") {
         for (var evento in eventos) {
@@ -861,6 +865,11 @@ class EssbioProvider with ChangeNotifier {
       }
     }
     print("Terminé");
+    print("Fases usuario de getFasesUsuario en api.dart");
+    print(fasesUsuario[0].length);
+    print(fasesUsuario[1].length);
+    print(fasesUsuario[2].length);
+    print(fasesUsuario[3].length);
     return fasesUsuario;
   }
 
