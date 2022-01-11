@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
                                             stream: stream.workflowStream(),
                                             builder: (context,
                                                 AsyncSnapshot<Map> snapshot) {
-                                              List<String> listaIdOts = [];
+                                              List<int> listaIdOts = [];
                                               if (snapshot.hasData) {
                                                 for (var instalacion
                                                     in snapshot.data?[
@@ -236,16 +236,17 @@ class _HomeState extends State<Home> {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  void getLocation(EssbioProvider essbioP, List<String> idOts) async {
+  void getLocation(EssbioProvider essbioP, List<int> idOts) async {
     var status = await Permission.location.status;
     if (status.isGranted) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
+      print(idOts.toString().substring(1, idOts.toString().length - 2));
       Map<String, dynamic> modificacion = {
         "ID_USUARIO": essbioP.usuario!.idusuario,
         "LATITUD": position.latitude.toString(),
         "LONGITUD": position.longitude.toString(),
-        "ID_OTS": idOts.toString().substring(1, idOts.toString().length - 1)
+        "ID_OTS": idOts.toString().substring(1, idOts.toString().length - 2)
       };
       essbioP.updateGps(modificacion);
     } else {
