@@ -596,7 +596,9 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
     }
 
     statuses.forEach((id_status, id_tipo_status) {
-      estados.add(widgetEstado(id_tipo_status));
+      if (id_tipo_status != 121 && id_tipo_status != 127) {
+        estados.add(widgetEstado(id_tipo_status));
+      }
     });
     return Container(
       width: screenWidth,

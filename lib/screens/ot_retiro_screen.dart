@@ -604,7 +604,9 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
     }
 
     statuses.forEach((id_status, id_tipo_status) {
-      estados.add(widgetEstado(id_tipo_status));
+      if (id_tipo_status != 141) {
+        estados.add(widgetEstado(id_tipo_status));
+      }
     });
     return Container(
       width: screenWidth,

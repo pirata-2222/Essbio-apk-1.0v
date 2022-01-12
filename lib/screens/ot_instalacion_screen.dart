@@ -793,7 +793,9 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
     }
 
     statuses.forEach((id_status, id_tipo_status) {
-      estados.add(widgetEstado(id_tipo_status));
+      if (id_tipo_status != 111 && id_tipo_status != 114) {
+        estados.add(widgetEstado(id_tipo_status));
+      }
     });
     return Container(
       width: screenWidth,
