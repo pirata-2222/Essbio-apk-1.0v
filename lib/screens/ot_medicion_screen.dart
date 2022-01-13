@@ -776,38 +776,56 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                       ? ""
                                       : imagenFormatoEncode64 =
                                           base64Encode(imagenEnBytes!);
-
-                                  if (int.parse(nivelAguaController.text) <
-                                      30) {
-                                    nivelAguaCumpleNorma = "S";
-                                  }
-                                  if (int.parse(nivelAguaController.text) >=
-                                      30) {
-                                    nivelAguaCumpleNorma = "N";
-                                  }
-
-                                  if (int.parse(nivelCloroController.text) <
-                                          0.2 ||
-                                      int.parse(nivelCloroController.text) >
-                                          2) {
-                                    nivelAguaCumpleNorma = "N";
+                                  if (nivelAguaController.text != null) {
+                                    if (int.parse(nivelAguaController.text) <
+                                        30) {
+                                      nivelAguaCumpleNorma = "S";
+                                    }
+                                    if (int.parse(nivelAguaController.text) >=
+                                        30) {
+                                      nivelAguaCumpleNorma = "N";
+                                    }
+                                  } else {
+                                    nivelAguaCumpleNorma = widget
+                                        .faseAbastMedicion
+                                        .nivel_agua_cumple_norma;
                                   }
 
-                                  if (int.parse(nivelCloroController.text) <=
-                                          0.2 ||
-                                      int.parse(nivelCloroController.text) <=
-                                          2) {
-                                    nivelCloroCumpleNorma = "S";
+                                  if (nivelCloroController.text != null) {
+                                    if (int.parse(nivelCloroController.text) <
+                                            0.2 ||
+                                        int.parse(nivelCloroController.text) >
+                                            2) {
+                                      nivelCloroCumpleNorma = "N";
+                                    }
+
+                                    if (int.parse(nivelCloroController.text) <=
+                                            0.2 ||
+                                        int.parse(nivelCloroController.text) <=
+                                            2) {
+                                      nivelCloroCumpleNorma = "S";
+                                    }
+                                  } else {
+                                    nivelCloroCumpleNorma = widget
+                                        .faseAbastMedicion
+                                        .nivel_cloro_cumple_norma;
                                   }
 
-                                  if (int.parse(
-                                          nivelTurbiedadController.text) <=
-                                      2) {
-                                    nivelTurbiedadCumpleNorma = "S";
-                                  }
-                                  if (int.parse(nivelTurbiedadController.text) >
-                                      2) {
-                                    nivelTurbiedadCumpleNorma = "N";
+                                  if (nivelTurbiedadController != null) {
+                                    if (int.parse(
+                                            nivelTurbiedadController.text) <=
+                                        2) {
+                                      nivelTurbiedadCumpleNorma = "S";
+                                    }
+                                    if (int.parse(
+                                            nivelTurbiedadController.text) >
+                                        2) {
+                                      nivelTurbiedadCumpleNorma = "N";
+                                    }
+                                  } else {
+                                    nivelTurbiedadCumpleNorma = widget
+                                        .faseAbastMedicion
+                                        .nivel_turbiedad_cumple_norma;
                                   }
 
                                   if (dropdownvalue ==
