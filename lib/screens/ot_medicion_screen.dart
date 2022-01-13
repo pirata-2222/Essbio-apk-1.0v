@@ -8,6 +8,7 @@ import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:essbio_apk/widgets/widgets_essbio.dart';
 import 'package:flutter/material.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -485,10 +486,13 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 25),
                         child: TextField(
                           controller: nivelAguaController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r"\s"))
+                          ],
                           onChanged: (value) {
                             setState(() {
-                              var valorControllerAgua =
-                                  double.parse(nivelAguaController.text);
+                              var valorControllerAgua = nivelAguaController.text != ""?
+                                  double.parse(nivelAguaController.text):0;
                               if (valorControllerAgua < 30) {
                                 aguaCumple = "NIVEL DE AGUA NO CUMPLE NORMA";
                               }
@@ -528,6 +532,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 25),
                         child: TextField(
                           controller: nivelCloroController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r"\s"))
+                          ],
                           onChanged: (value) {
                             setState(() {
                               var valorControllerCloro =
@@ -575,6 +582,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 25),
                         child: TextField(
                           controller: nivelTurbiedadController,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r"\s"))
+                          ],
                           onChanged: (value) {
                             setState(() {
                               var valorControllerTurbiedad =

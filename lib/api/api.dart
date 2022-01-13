@@ -505,6 +505,9 @@ class EssbioProvider with ChangeNotifier {
           "COMENTARIO": modificacion["COMENTARIO"] == ""
               ? faseAbastMedicion.comentario
               : modificacion["COMENTARIO"],
+          "IMAGEN": modificacion["IMAGEN"] == ""
+              ? faseAbastMedicion.imagen
+              : modificacion["IMAGEN"],
           "FECHA_MOD_XYGO":
               DateTime.now().toIso8601String().substring(0, 19) + "Z",
         }));
