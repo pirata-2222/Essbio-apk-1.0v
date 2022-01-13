@@ -376,6 +376,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
           appBar: AppBar(
             title: Text("ESSBIO APP"),
           ),
+          resizeToAvoidBottomInset: false,
           drawer: EssbioDrawer(),
           body: SingleChildScrollView(
             child: Column(

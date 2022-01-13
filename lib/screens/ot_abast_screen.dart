@@ -271,6 +271,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
             title: Text("ESSBIO APP"),
           ),
           drawer: EssbioDrawer(),
+          resizeToAvoidBottomInset: false,
           body: SingleChildScrollView(
             child: Column(
               children: [

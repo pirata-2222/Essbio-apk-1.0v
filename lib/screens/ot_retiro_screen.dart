@@ -240,6 +240,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
             title: Text("ESSBIO APP"),
           ),
           drawer: EssbioDrawer(),
+          resizeToAvoidBottomInset: false,
           body: SingleChildScrollView(
             child: Column(
               children: [
