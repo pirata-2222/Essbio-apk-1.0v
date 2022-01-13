@@ -27,6 +27,7 @@ class _HomeState extends State<Home> {
     final screenSize = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
@@ -112,6 +113,7 @@ class _HomeState extends State<Home> {
                                     MaterialPageRoute(
                                       builder: (context) {
                                         return Scaffold(
+                                          resizeToAvoidBottomInset: false,
                                           body: StreamBuilder<Map>(
                                               stream: stream.workflowStream(
                                                   essbioP.usuario!.idusuario),

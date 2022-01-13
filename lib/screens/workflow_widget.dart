@@ -87,6 +87,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
             title: Text("ESSBIO APP"),
           ),
           drawer: EssbioDrawer(),
+          resizeToAvoidBottomInset: false,
           body: SingleChildScrollView(
             child: Column(
               children: [
