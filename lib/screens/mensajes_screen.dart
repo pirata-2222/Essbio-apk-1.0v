@@ -29,6 +29,7 @@ class _MensajeScreenState extends State<MensajeScreen> {
         ),
       ),
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text("ESSBIO APP"),
         ),
