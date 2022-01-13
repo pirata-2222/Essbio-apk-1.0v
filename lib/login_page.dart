@@ -15,6 +15,8 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+bool gps_ok = false;
+
 class _HomeState extends State<Home> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -22,7 +24,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final essbioP = Provider.of<EssbioProvider>(context);
     final stream = Streams();
-
     final screenSize = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -112,7 +113,8 @@ class _HomeState extends State<Home> {
                                       builder: (context) {
                                         return Scaffold(
                                           body: StreamBuilder<Map>(
-                                              stream: stream.workflowStream(essbioP.usuario!.idusuario),
+                                              stream: stream.workflowStream(
+                                                  essbioP.usuario!.idusuario),
                                               builder: (context,
                                                   AsyncSnapshot<Map> snapshot) {
                                                 List<int> listaIdOts = [];
@@ -122,13 +124,13 @@ class _HomeState extends State<Home> {
                                                           "fasesInstalacion"]) {
                                                     if (!listaIdOts.contains(
                                                         instalacion.id_ot)) {
-                                                      listaIdOts
-                                                          .add(instalacion.id_ot);
+                                                      listaIdOts.add(
+                                                          instalacion.id_ot);
                                                     }
                                                   }
-                                                  for (var medicion
-                                                      in snapshot.data?[
-                                                          "fasesAbastMedicion"]) {
+                                                  for (var medicion in snapshot
+                                                          .data?[
+                                                      "fasesAbastMedicion"]) {
                                                     if (!listaIdOts.contains(
                                                         medicion.id_ot)) {
                                                       listaIdOts
@@ -146,21 +148,23 @@ class _HomeState extends State<Home> {
                                                   }
                                                   for (var retiro in snapshot
                                                       .data?["fasesRetiro"]) {
-                                                    if (!listaIdOts
-                                                        .contains(retiro.id_ot)) {
+                                                    if (!listaIdOts.contains(
+                                                        retiro.id_ot)) {
                                                       listaIdOts
                                                           .add(retiro.id_ot);
                                                     }
                                                   }
-                                                  getLocation(
-                                                      essbioP, listaIdOts);
+                                                  if (gps_ok == false) {
+                                                    getLocation(
+                                                        essbioP, listaIdOts);
+                                                  }
                                                   return WorkflowDesplegado(
                                                     instalacionUsuario:
                                                         snapshot.data?[
                                                             "fasesInstalacion"],
-                                                    medicionUsuario:
-                                                        snapshot.data?[
-                                                            "fasesAbastMedicion"],
+                                                    medicionUsuario: snapshot
+                                                            .data?[
+                                                        "fasesAbastMedicion"],
                                                     abastecimientoUsuario:
                                                         snapshot.data?[
                                                             "fasesAbastecimiento"],
@@ -181,15 +185,16 @@ class _HomeState extends State<Home> {
                                                       essbioP.getFasesUsuario(
                                                     ordenesTrabajo:
                                                         essbioP.ordenesTrabajo,
-                                                    fasesInstalacion:
-                                                        essbioP.fasesInstalacion,
+                                                    fasesInstalacion: essbioP
+                                                        .fasesInstalacion,
                                                     fasesAbastecimiento: essbioP
                                                         .fasesAbastecimiento,
                                                     fasesMedicion: essbioP
                                                         .fasesAbastMedicion,
                                                     fasesRetiro:
                                                         essbioP.fasesRetiro,
-                                                    eventos: essbioP.dataEventos,
+                                                    eventos:
+                                                        essbioP.dataEventos,
                                                     fases: essbioP.fases,
                                                     id_usuario: //usuarioPrueba,
                                                         essbioP
@@ -205,7 +210,7 @@ class _HomeState extends State<Home> {
                                                         essbioP.dataTKSectores,
                                                     statuses: essbioP.status,
                                                   );
-                                        
+
                                                   return WorkflowDesplegado(
                                                     instalacionUsuario:
                                                         fasesUsuario[0],
@@ -255,16 +260,23 @@ class _HomeState extends State<Home> {
   void getLocation(EssbioProvider essbioP, List<int> idOts) async {
     var status = await Permission.location.status;
     if (status.isGranted) {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-      print(idOts.toString().substring(1, idOts.toString().length - 1));
-      Map<String, dynamic> modificacion = {
-        "ID_USUARIO": essbioP.usuario!.idusuario,
-        "LATITUD": position.latitude.toString(),
-        "LONGITUD": position.longitude.toString(),
-        "ID_OTS": idOts.toString().substring(1, idOts.toString().length - 1).replaceAll(" ", "")
-      };
-      essbioP.updateGps(modificacion);
+      gps_ok = true;
+      while (true) {
+        await Future.delayed(Duration(seconds: 30));
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best);
+        print(idOts.toString().substring(1, idOts.toString().length - 1));
+        Map<String, dynamic> modificacion = {
+          "ID_USUARIO": essbioP.usuario!.idusuario,
+          "LATITUD": position.latitude.toString(),
+          "LONGITUD": position.longitude.toString(),
+          "ID_OTS": idOts
+              .toString()
+              .substring(1, idOts.toString().length - 1)
+              .replaceAll(" ", "")
+        };
+        essbioP.updateGps(modificacion);
+      }
     } else {
       showDialog(
           context: context,
