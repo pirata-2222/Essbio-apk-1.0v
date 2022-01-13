@@ -776,6 +776,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                       ? ""
                                       : imagenFormatoEncode64 =
                                           base64Encode(imagenEnBytes!);
+
                                   if (int.parse(nivelAguaController.text) <
                                       30) {
                                     nivelAguaCumpleNorma = "S";
@@ -790,16 +791,23 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                       int.parse(nivelCloroController.text) >
                                           2) {
                                     nivelAguaCumpleNorma = "N";
-                                  } else {
-                                    nivelAguaCumpleNorma = "S";
+                                  }
+
+                                  if (int.parse(nivelCloroController.text) <=
+                                          0.2 ||
+                                      int.parse(nivelCloroController.text) <=
+                                          2) {
+                                    nivelCloroCumpleNorma = "S";
                                   }
 
                                   if (int.parse(
                                           nivelTurbiedadController.text) <=
                                       2) {
-                                    nivelAguaCumpleNorma = "S";
-                                  } else {
-                                    nivelAguaCumpleNorma = "N";
+                                    nivelTurbiedadCumpleNorma = "S";
+                                  }
+                                  if (int.parse(nivelTurbiedadController.text) >
+                                      2) {
+                                    nivelTurbiedadCumpleNorma = "N";
                                   }
 
                                   if (dropdownvalue ==
@@ -831,7 +839,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                         nivelAguaCumpleNorma,
                                     "NIVEL_CLORO": nivelCloroController.text,
                                     "NIVEL_CLORO_CUMPLE_NORMA":
-                                        widget.faseAbastMedicion,
+                                        nivelCloroCumpleNorma,
                                     "NIVEL_TURBIEDAD":
                                         nivelTurbiedadController.text,
                                     "NIVEL_TURBIEDAD_CUMPLE_NORMA":
