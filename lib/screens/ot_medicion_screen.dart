@@ -777,56 +777,32 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                       ? ""
                                       : imagenFormatoEncode64 =
                                           base64Encode(imagenEnBytes!);
-                                  if (nivelAguaController.text != null) {
-                                    if (int.parse(nivelAguaController.text) <
-                                        30) {
-                                      nivelAguaCumpleNorma = "N";
-                                    }
-                                    if (int.parse(nivelAguaController.text) >=
-                                        30) {
-                                      nivelAguaCumpleNorma = "S";
-                                    }
-                                  } else {
-                                    nivelAguaCumpleNorma = widget
-                                        .faseAbastMedicion
-                                        .nivel_agua_cumple_norma;
+
+                                  if (aguaCumple ==
+                                      "NIVEL DE AGUA NO CUMPLE NORMA") {
+                                    nivelAguaCumpleNorma = "N";
+                                  }
+                                  if (aguaCumple ==
+                                      "NIVEL DE AGUA CUMPLE NORMA") {
+                                    nivelAguaCumpleNorma = "S";
                                   }
 
-                                  if (nivelCloroController.text != null) {
-                                    if (int.parse(nivelCloroController.text) <
-                                            0.2 ||
-                                        int.parse(nivelCloroController.text) >
-                                            2) {
-                                      nivelCloroCumpleNorma = "N";
-                                    }
-
-                                    if (int.parse(nivelCloroController.text) <=
-                                            0.2 ||
-                                        int.parse(nivelCloroController.text) <=
-                                            2) {
-                                      nivelCloroCumpleNorma = "S";
-                                    }
-                                  } else {
-                                    nivelCloroCumpleNorma = widget
-                                        .faseAbastMedicion
-                                        .nivel_cloro_cumple_norma;
+                                  if (cloroCumple ==
+                                      "NIVEL DE CLORO NO CUMPLE NORMA") {
+                                    nivelCloroCumpleNorma = "N";
+                                  }
+                                  if (cloroCumple ==
+                                      "NIVEL DE CLORO CUMPLE NORMA") {
+                                    nivelCloroCumpleNorma = "S";
                                   }
 
-                                  if (nivelTurbiedadController != null) {
-                                    if (int.parse(
-                                            nivelTurbiedadController.text) <=
-                                        2) {
-                                      nivelTurbiedadCumpleNorma = "S";
-                                    }
-                                    if (int.parse(
-                                            nivelTurbiedadController.text) >
-                                        2) {
-                                      nivelTurbiedadCumpleNorma = "N";
-                                    }
-                                  } else {
-                                    nivelTurbiedadCumpleNorma = widget
-                                        .faseAbastMedicion
-                                        .nivel_turbiedad_cumple_norma;
+                                  if (turbiedadCumple ==
+                                      "NIVEL DE TURBIEDAD NO CUMPLE NORMA") {
+                                    nivelTurbiedadCumpleNorma = "N";
+                                  }
+                                  if (turbiedadCumple ==
+                                      "NIVEL DE TURBIEDAD CUMPLE NORMA") {
+                                    nivelTurbiedadCumpleNorma = "S";
                                   }
 
                                   if (dropdownvalue ==
