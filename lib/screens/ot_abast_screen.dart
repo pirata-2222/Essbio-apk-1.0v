@@ -446,10 +446,12 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                                     if (currentStatusUpdateValue == 122) {
                                       widget.faseAbastecimiento.id_tipo_status =
                                           122;
+                                      widget.callback(122);
                                     }
                                     if (currentStatusUpdateValue == 126) {
                                       widget.faseAbastecimiento.id_tipo_status =
                                           126;
+                                      widget.callback(126);
                                     }
                                   });
 

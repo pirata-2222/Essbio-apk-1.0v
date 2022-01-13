@@ -649,10 +649,12 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                     if (currentStatusUpdateValue == 112) {
                                       widget.faseInstalacion.id_tipo_status =
                                           112;
+                                      widget.callback(112);
                                     }
                                     if (currentStatusUpdateValue == 113) {
                                       widget.faseInstalacion.id_tipo_status =
                                           113;
+                                      widget.callback(113);
                                     }
                                   });
 

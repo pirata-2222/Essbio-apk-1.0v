@@ -458,9 +458,11 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                                   setState(() {
                                     if (currentStatusUpdateValue == 142) {
                                       widget.faseRetiro.id_tipo_status = 142;
+                                      widget.callback(142);
                                     }
                                     if (currentStatusUpdateValue == 143) {
                                       widget.faseRetiro.id_tipo_status = 143;
+                                      widget.callback(143);
                                     }
                                   });
 

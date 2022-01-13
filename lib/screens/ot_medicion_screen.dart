@@ -631,7 +631,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         controller: horaMedicionController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: widget.faseAbastMedicion.hora_medicion),
+                            hintText: "Ejemplo: 14:27"),
                       ),
                     ),
                   ),
@@ -779,11 +779,11 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   if (nivelAguaController.text != null) {
                                     if (int.parse(nivelAguaController.text) <
                                         30) {
-                                      nivelAguaCumpleNorma = "S";
+                                      nivelAguaCumpleNorma = "N";
                                     }
                                     if (int.parse(nivelAguaController.text) >=
                                         30) {
-                                      nivelAguaCumpleNorma = "N";
+                                      nivelAguaCumpleNorma = "S";
                                     }
                                   } else {
                                     nivelAguaCumpleNorma = widget
@@ -881,15 +881,22 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
 
                                   print("Acompañante: " +
                                       numeroIdAcompanante.toString());
+                                  print(
+                                      "Cumplen norma (agua, cloro, turbiedad): " +
+                                          nivelAguaCumpleNorma +
+                                          nivelCloroCumpleNorma +
+                                          nivelTurbiedadCumpleNorma);
 
                                   setState(() {
                                     if (currentStatusUpdateValue == 132) {
                                       widget.faseAbastMedicion.id_tipo_status =
                                           132;
+                                      widget.callback(132);
                                     }
                                     if (currentStatusUpdateValue == 133) {
                                       widget.faseAbastMedicion.id_tipo_status =
                                           133;
+                                      widget.callback(133);
                                     }
                                   });
 
