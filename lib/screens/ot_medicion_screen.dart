@@ -853,7 +853,8 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   essbioP.updateFasesMedicion(
                                       widget.faseAbastMedicion, modificacion);
 
-                                  print("Acompañante: " + numeroIdAcompanante);
+                                  print("Acompañante: " +
+                                      numeroIdAcompanante.toString());
 
                                   setState(() {
                                     if (currentStatusUpdateValue == 132) {
