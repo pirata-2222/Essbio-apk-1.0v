@@ -110,121 +110,123 @@ class _HomeState extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return StreamBuilder<Map>(
-                                            stream: stream.workflowStream(),
-                                            builder: (context,
-                                                AsyncSnapshot<Map> snapshot) {
-                                              List<int> listaIdOts = [];
-                                              if (snapshot.hasData) {
-                                                for (var instalacion
-                                                    in snapshot.data?[
-                                                        "fasesInstalacion"]) {
-                                                  if (!listaIdOts.contains(
-                                                      instalacion.id_ot)) {
-                                                    listaIdOts
-                                                        .add(instalacion.id_ot);
+                                        return Scaffold(
+                                          body: StreamBuilder<Map>(
+                                              stream: stream.workflowStream(),
+                                              builder: (context,
+                                                  AsyncSnapshot<Map> snapshot) {
+                                                List<int> listaIdOts = [];
+                                                if (snapshot.hasData) {
+                                                  for (var instalacion
+                                                      in snapshot.data?[
+                                                          "fasesInstalacion"]) {
+                                                    if (!listaIdOts.contains(
+                                                        instalacion.id_ot)) {
+                                                      listaIdOts
+                                                          .add(instalacion.id_ot);
+                                                    }
                                                   }
-                                                }
-                                                for (var medicion
-                                                    in snapshot.data?[
-                                                        "fasesAbastMedicion"]) {
-                                                  if (!listaIdOts.contains(
-                                                      medicion.id_ot)) {
-                                                    listaIdOts
-                                                        .add(medicion.id_ot);
+                                                  for (var medicion
+                                                      in snapshot.data?[
+                                                          "fasesAbastMedicion"]) {
+                                                    if (!listaIdOts.contains(
+                                                        medicion.id_ot)) {
+                                                      listaIdOts
+                                                          .add(medicion.id_ot);
+                                                    }
                                                   }
-                                                }
-                                                for (var abastecimiento
-                                                    in snapshot.data?[
-                                                        "fasesAbastecimiento"]) {
-                                                  if (!listaIdOts.contains(
-                                                      abastecimiento.id_ot)) {
-                                                    listaIdOts.add(
-                                                        abastecimiento.id_ot);
+                                                  for (var abastecimiento
+                                                      in snapshot.data?[
+                                                          "fasesAbastecimiento"]) {
+                                                    if (!listaIdOts.contains(
+                                                        abastecimiento.id_ot)) {
+                                                      listaIdOts.add(
+                                                          abastecimiento.id_ot);
+                                                    }
                                                   }
-                                                }
-                                                for (var retiro in snapshot
-                                                    .data?["fasesRetiro"]) {
-                                                  if (!listaIdOts
-                                                      .contains(retiro.id_ot)) {
-                                                    listaIdOts
-                                                        .add(retiro.id_ot);
+                                                  for (var retiro in snapshot
+                                                      .data?["fasesRetiro"]) {
+                                                    if (!listaIdOts
+                                                        .contains(retiro.id_ot)) {
+                                                      listaIdOts
+                                                          .add(retiro.id_ot);
+                                                    }
                                                   }
+                                                  getLocation(
+                                                      essbioP, listaIdOts);
+                                                  return WorkflowDesplegado(
+                                                    instalacionUsuario:
+                                                        snapshot.data?[
+                                                            "fasesInstalacion"],
+                                                    medicionUsuario:
+                                                        snapshot.data?[
+                                                            "fasesAbastMedicion"],
+                                                    abastecimientoUsuario:
+                                                        snapshot.data?[
+                                                            "fasesAbastecimiento"],
+                                                    retiroUsuario: snapshot
+                                                        .data?["fasesRetiro"],
+                                                    usuario:
+                                                        essbioP.validateLogin(
+                                                            usernameController
+                                                                .text,
+                                                            passwordController
+                                                                .text)[1],
+                                                    mensajesEssbio: snapshot
+                                                        .data?["mensajes"],
+                                                  );
+                                                } else {
+                                                  //return CircularProgressIndicator();
+                                                  fasesUsuario =
+                                                      essbioP.getFasesUsuario(
+                                                    ordenesTrabajo:
+                                                        essbioP.ordenesTrabajo,
+                                                    fasesInstalacion:
+                                                        essbioP.fasesInstalacion,
+                                                    fasesAbastecimiento: essbioP
+                                                        .fasesAbastecimiento,
+                                                    fasesMedicion: essbioP
+                                                        .fasesAbastMedicion,
+                                                    fasesRetiro:
+                                                        essbioP.fasesRetiro,
+                                                    eventos: essbioP.dataEventos,
+                                                    fases: essbioP.fases,
+                                                    id_usuario: //usuarioPrueba,
+                                                        essbioP
+                                                            .validateLogin(
+                                                                usernameController
+                                                                    .text,
+                                                                passwordController
+                                                                    .text)[1]
+                                                            .idusuario,
+                                                    mensajes: essbioP.mensajes,
+                                                    procesos: essbioP.procesos,
+                                                    sectores:
+                                                        essbioP.dataTKSectores,
+                                                    statuses: essbioP.status,
+                                                  );
+                                        
+                                                  return WorkflowDesplegado(
+                                                    instalacionUsuario:
+                                                        fasesUsuario[0],
+                                                    medicionUsuario:
+                                                        fasesUsuario[1],
+                                                    abastecimientoUsuario:
+                                                        fasesUsuario[2],
+                                                    retiroUsuario:
+                                                        fasesUsuario[3],
+                                                    usuario:
+                                                        essbioP.validateLogin(
+                                                            usernameController
+                                                                .text,
+                                                            passwordController
+                                                                .text)[1],
+                                                    mensajesEssbio:
+                                                        fasesUsuario[4],
+                                                  );
                                                 }
-                                                getLocation(
-                                                    essbioP, listaIdOts);
-                                                return WorkflowDesplegado(
-                                                  instalacionUsuario:
-                                                      snapshot.data?[
-                                                          "fasesInstalacion"],
-                                                  medicionUsuario:
-                                                      snapshot.data?[
-                                                          "fasesAbastMedicion"],
-                                                  abastecimientoUsuario:
-                                                      snapshot.data?[
-                                                          "fasesAbastecimiento"],
-                                                  retiroUsuario: snapshot
-                                                      .data?["fasesRetiro"],
-                                                  usuario:
-                                                      essbioP.validateLogin(
-                                                          usernameController
-                                                              .text,
-                                                          passwordController
-                                                              .text)[1],
-                                                  mensajesEssbio: snapshot
-                                                      .data?["mensajes"],
-                                                );
-                                              } else {
-                                                //return CircularProgressIndicator();
-                                                fasesUsuario =
-                                                    essbioP.getFasesUsuario(
-                                                  ordenesTrabajo:
-                                                      essbioP.ordenesTrabajo,
-                                                  fasesInstalacion:
-                                                      essbioP.fasesInstalacion,
-                                                  fasesAbastecimiento: essbioP
-                                                      .fasesAbastecimiento,
-                                                  fasesMedicion: essbioP
-                                                      .fasesAbastMedicion,
-                                                  fasesRetiro:
-                                                      essbioP.fasesRetiro,
-                                                  eventos: essbioP.dataEventos,
-                                                  fases: essbioP.fases,
-                                                  id_usuario: //usuarioPrueba,
-                                                      essbioP
-                                                          .validateLogin(
-                                                              usernameController
-                                                                  .text,
-                                                              passwordController
-                                                                  .text)[1]
-                                                          .idusuario,
-                                                  mensajes: essbioP.mensajes,
-                                                  procesos: essbioP.procesos,
-                                                  sectores:
-                                                      essbioP.dataTKSectores,
-                                                  statuses: essbioP.status,
-                                                );
-
-                                                return WorkflowDesplegado(
-                                                  instalacionUsuario:
-                                                      fasesUsuario[0],
-                                                  medicionUsuario:
-                                                      fasesUsuario[1],
-                                                  abastecimientoUsuario:
-                                                      fasesUsuario[2],
-                                                  retiroUsuario:
-                                                      fasesUsuario[3],
-                                                  usuario:
-                                                      essbioP.validateLogin(
-                                                          usernameController
-                                                              .text,
-                                                          passwordController
-                                                              .text)[1],
-                                                  mensajesEssbio:
-                                                      fasesUsuario[4],
-                                                );
-                                              }
-                                            });
+                                              }),
+                                        );
                                       },
                                     ),
                                   );

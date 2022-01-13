@@ -71,79 +71,119 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
       return contadorMensaje;
     }
 
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFFE5E5E5),
-        appBarTheme: AppBarTheme(
-          color: Color(0xFF3C3C3C),
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: MaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xFFE5E5E5),
+          appBarTheme: AppBarTheme(
+            color: Color(0xFF3C3C3C),
+          ),
         ),
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("ESSBIO APP"),
-        ),
-        drawer: EssbioDrawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              //TITULO PRINCIPAL Y BACK BUTTON
-              Row(
-                children: [
-                  Container(
-                    height: 60,
-                    width: 70,
-                    color: Color(0xFF248BCB),
-                    child: InkWell(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.home,
-                          size: 40,
-                          color: Colors.white,
-                        )),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 60,
-                      color: Color(0xFF248BCB),
-                      child: Center(
-                          child: Text("WORFLOWS/OT PENDIENTES",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17.5,
-                                  fontWeight: FontWeight.bold))),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 20),
-              //DATOS BÁSICOS OT
-
-              Container(
-                child: Column(
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("ESSBIO APP"),
+          ),
+          drawer: EssbioDrawer(),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                //TITULO PRINCIPAL Y BACK BUTTON
+                Row(
                   children: [
-                    numeroMensajesLeidosEssbio() != 0
-                        ? Badge(
-                            position: BadgePosition.topEnd(top: -10, end: -15),
-                            badgeColor: Colors.red,
-                            badgeContent: Container(
-                              width: 30,
-                              height: 30,
-                              alignment: Alignment.center,
-                              child: Text(
-                                numeroMensajesLeidosEssbio().toString(),
-                                style: TextStyle(color: Colors.white),
+                    Container(
+                      height: 60,
+                      width: 70,
+                      color: Color(0xFF248BCB),
+                      child: InkWell(
+                          onTap: () {},
+                          child: Icon(
+                            Icons.home,
+                            size: 40,
+                            color: Colors.white,
+                          )),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 60,
+                        color: Color(0xFF248BCB),
+                        child: Center(
+                            child: Text("WORFLOWS/OT PENDIENTES",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17.5,
+                                    fontWeight: FontWeight.bold))),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 20),
+                //DATOS BÁSICOS OT
+
+                Container(
+                  child: Column(
+                    children: [
+                      numeroMensajesLeidosEssbio() != 0
+                          ? Badge(
+                              position:
+                                  BadgePosition.topEnd(top: -10, end: -15),
+                              badgeColor: Colors.red,
+                              badgeContent: Container(
+                                width: 30,
+                                height: 30,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  numeroMensajesLeidosEssbio().toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
-                            ),
-                            child: InkWell(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MensajeScreen(
+                                              mensajesLista:
+                                                  widget.mensajesEssbio,
+                                              callback: callback)));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  decoration: BoxDecoration(
+                                      color: azulPrimarioEssbio,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: Column(
+                                    children: [
+                                      Center(
+                                        child: Icon(Icons.message,
+                                            size: 50, color: Colors.white),
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          "Ver Mensajes",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                          : InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => MensajeScreen(
-                                            mensajesLista:
-                                                widget.mensajesEssbio,
-                                            callback: callback)));
+                                              mensajesLista:
+                                                  widget.mensajesEssbio,
+                                              callback: callback,
+                                            )));
                               },
                               child: Container(
                                 padding: EdgeInsets.all(20),
@@ -167,48 +207,109 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                 ),
                               ),
                             ),
-                          )
-                        : InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MensajeScreen(
-                                            mensajesLista:
-                                                widget.mensajesEssbio,
-                                            callback: callback,
-                                          )));
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              decoration: BoxDecoration(
-                                  color: azulPrimarioEssbio,
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Column(
-                                children: [
-                                  Center(
-                                    child: Icon(Icons.message,
-                                        size: 50, color: Colors.white),
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      "Ver Mensajes",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
 
-                    SizedBox(
-                      height: 20,
-                    ),
-                    //ROWS OT PENDIENTES INSTALACION
-                    Column(
-                      children: [
-                        Container(
+                      SizedBox(
+                        height: 20,
+                      ),
+                      //ROWS OT PENDIENTES INSTALACION
+                      Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 40,
+                            color: celesteEssbio,
+                            child: Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text("Fase 1 - Instalación       "),
+                                ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                azulPrimarioEssbio)),
+                                    onPressed: () {
+                                      setState(() {
+                                        instalacionIsVisible =
+                                            !instalacionIsVisible;
+                                      });
+                                    },
+                                    child: Text("Ver/Ocultar"))
+                              ],
+                            )),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+
+                      Visibility(
+                        visible: instalacionIsVisible,
+                        child: Container(
+                          height: 260,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: widget.instalacionUsuario.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                widget.instalacionUsuario.sort((a, b) =>
+                                    b.nombre_corte.compareTo(a.nombre_corte));
+
+                                return OtPendienteInstalacion(
+                                    faseInstalacion:
+                                        widget.instalacionUsuario[index]);
+                              }),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      //ROWS OT PENDIENTES ABASTECIMIENTO
+                      Container(
+                        width: double.infinity,
+                        height: 40,
+                        color: celesteEssbio,
+                        child: Center(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Fase 2 - Abastecimiento"),
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        azulPrimarioEssbio)),
+                                onPressed: () {
+                                  setState(() {
+                                    abastIsVisible = !abastIsVisible;
+                                  });
+                                },
+                                child: Text("Ver/Ocultar"))
+                          ],
+                        )),
+                      ),
+                      SizedBox(height: 10),
+                      Visibility(
+                        visible: abastIsVisible,
+                        child: Container(
+                          height: 260,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: widget.abastecimientoUsuario.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return OtPendienteAbast(
+                                  faseAbastecimiento:
+                                      widget.abastecimientoUsuario[index],
+                                );
+                              }),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      //ROWS OT PENDIENTES MEDICION
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            medicionIsVisible = !medicionIsVisible;
+                          });
+                        },
+                        child: Container(
                           width: double.infinity,
                           height: 40,
                           color: celesteEssbio,
@@ -216,7 +317,7 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                               child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text("Fase 1 - Instalación       "),
+                              Text("Fase 3 - Medición          "),
                               ElevatedButton(
                                   style: ButtonStyle(
                                       backgroundColor:
@@ -224,268 +325,177 @@ class _WorkflowDesplegadoState extends State<WorkflowDesplegado> {
                                               azulPrimarioEssbio)),
                                   onPressed: () {
                                     setState(() {
-                                      instalacionIsVisible =
-                                          !instalacionIsVisible;
+                                      medicionIsVisible = !medicionIsVisible;
                                     });
                                   },
                                   child: Text("Ver/Ocultar"))
                             ],
                           )),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-
-                    Visibility(
-                      visible: instalacionIsVisible,
-                      child: Container(
-                        height: 260,
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: widget.instalacionUsuario.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              widget.instalacionUsuario.sort((a, b) =>
-                                  b.nombre_corte.compareTo(a.nombre_corte));
-
-                              return OtPendienteInstalacion(
-                                  faseInstalacion:
-                                      widget.instalacionUsuario[index]);
-                            }),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    //ROWS OT PENDIENTES ABASTECIMIENTO
-                    Container(
-                      width: double.infinity,
-                      height: 40,
-                      color: celesteEssbio,
-                      child: Center(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text("Fase 2 - Abastecimiento"),
-                          ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      azulPrimarioEssbio)),
-                              onPressed: () {
-                                setState(() {
-                                  abastIsVisible = !abastIsVisible;
-                                });
-                              },
-                              child: Text("Ver/Ocultar"))
-                        ],
-                      )),
-                    ),
-                    SizedBox(height: 10),
-                    Visibility(
-                      visible: abastIsVisible,
-                      child: Container(
-                        height: 260,
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: widget.abastecimientoUsuario.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteAbast(
-                                faseAbastecimiento:
-                                    widget.abastecimientoUsuario[index],
-                              );
-                            }),
+                      SizedBox(height: 10),
+                      Visibility(
+                        visible: medicionIsVisible,
+                        child: Container(
+                          height: 260,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: widget.medicionUsuario.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return OtPendienteMedicion(
+                                    faseAbastMedicion:
+                                        widget.medicionUsuario[index]);
+                              }),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    //ROWS OT PENDIENTES MEDICION
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          medicionIsVisible = !medicionIsVisible;
-                        });
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 40,
-                        color: celesteEssbio,
-                        child: Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      SizedBox(height: 10),
+                      //ROWS OT PENDIENTES RETIRO
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            retiroIsVisible = !retiroIsVisible;
+                          });
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 40,
+                          color: celesteEssbio,
+                          child: Center(
+                              child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text("Fase 4 - Retiro                "),
+                              ElevatedButton(
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              azulPrimarioEssbio)),
+                                  onPressed: () {
+                                    setState(() {
+                                      retiroIsVisible = !retiroIsVisible;
+                                    });
+                                  },
+                                  child: Text("Ver/Ocultar"))
+                            ],
+                          )),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Visibility(
+                        visible: retiroIsVisible,
+                        child: Container(
+                          height: 260,
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: widget.retiroUsuario.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return OtPendienteRetiro(
+                                    faseRetiro: widget.retiroUsuario[index]);
+                              }),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Fase 3 - Medición          "),
-                            ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        azulPrimarioEssbio)),
-                                onPressed: () {
-                                  setState(() {
-                                    medicionIsVisible = !medicionIsVisible;
-                                  });
-                                },
-                                child: Text("Ver/Ocultar"))
+                            Text(
+                                "Significado Colores OT según Tiempo Restante"),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: colorEventoEnCurso),
+                              width: 180,
+                              height: 40,
+                              child: Center(child: Text("Evento en Curso")),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: colorEventoAtrasado),
+                              width: 180,
+                              height: 40,
+                              child: Center(child: Text("Evento Atrasado")),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: colorEventoFuturo),
+                              width: 180,
+                              height: 40,
+                              child: Center(child: Text("Evento Futuro")),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            )
                           ],
-                        )),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Visibility(
-                      visible: medicionIsVisible,
-                      child: Container(
-                        height: 260,
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: widget.medicionUsuario.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteMedicion(
-                                  faseAbastMedicion:
-                                      widget.medicionUsuario[index]);
-                            }),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    //ROWS OT PENDIENTES RETIRO
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          retiroIsVisible = !retiroIsVisible;
-                        });
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 40,
-                        color: celesteEssbio,
-                        child: Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Fase 4 - Retiro                "),
-                            ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        azulPrimarioEssbio)),
-                                onPressed: () {
-                                  setState(() {
-                                    retiroIsVisible = !retiroIsVisible;
-                                  });
-                                },
-                                child: Text("Ver/Ocultar"))
+                            Text(
+                                "Significado Colores Bordes según Tipo de Evento"),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.grey, width: 5.0),
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: 180,
+                              height: 40,
+                              child: Center(child: Text("Sin Definir")),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 180,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: colorEstadoEmergencia, width: 5.0),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(child: Text("Emergencia")),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 180,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: colorEstadoCrisis, width: 5.0),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Center(child: Text("Crisis")),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            )
                           ],
-                        )),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Visibility(
-                      visible: retiroIsVisible,
-                      child: Container(
-                        height: 260,
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: widget.retiroUsuario.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return OtPendienteRetiro(
-                                  faseRetiro: widget.retiroUsuario[index]);
-                            }),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Significado Colores OT según Tiempo Restante"),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: colorEventoEnCurso),
-                            width: 180,
-                            height: 40,
-                            child: Center(child: Text("Evento en Curso")),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: colorEventoAtrasado),
-                            width: 180,
-                            height: 40,
-                            child: Center(child: Text("Evento Atrasado")),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: colorEventoFuturo),
-                            width: 180,
-                            height: 40,
-                            child: Center(child: Text("Evento Futuro")),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          )
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                              "Significado Colores Bordes según Tipo de Evento"),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 5.0),
-                                borderRadius: BorderRadius.circular(10)),
-                            width: 180,
-                            height: 40,
-                            child: Center(child: Text("Sin Definir")),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 180,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: colorEstadoEmergencia, width: 5.0),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Center(child: Text("Emergencia")),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 180,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: colorEstadoCrisis, width: 5.0),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Center(child: Text("Crisis")),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
