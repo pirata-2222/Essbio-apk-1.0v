@@ -218,6 +218,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
   };
   String estadoSeleccionado = "";
   var currentStatus;
+  var currentStatusUpdateValue;
   String estadoActualString = " ";
 
   String estadoAbastecimientoenString() {
@@ -437,11 +438,20 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                                   //     numeroIDstatusAbastecimiento;
                                   // widget.callback(numeroIDstatusAbastecimiento);
                                   widget.callback(currentStatus);
-                                  setState(() {
-                                    estadoAbastecimientoenString();
-                                  });
+
                                   essbioP.updateFasesAbastecimiento(
                                       widget.faseAbastecimiento, modificacion);
+
+                                  setState(() {
+                                    if (currentStatusUpdateValue == 122) {
+                                      widget.faseAbastecimiento.id_tipo_status =
+                                          122;
+                                    }
+                                    if (currentStatusUpdateValue == 126) {
+                                      widget.faseAbastecimiento.id_tipo_status =
+                                          126;
+                                    }
+                                  });
 
                                   Navigator.pop(context, 'Cancel');
                                   showDialog(
@@ -544,11 +554,17 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
               currentStatus = statuses.entries
                   .firstWhere((entry) => entry.value == 126)
                   .key;
+              currentStatusUpdateValue = statuses.entries
+                  .firstWhere((entry) => entry.value == 126)
+                  .value;
             }
             if (estadoActualString == "NO DISPONIBLE") {
               currentStatus = statuses.entries
                   .firstWhere((entry) => entry.value == 122)
                   .key;
+              currentStatusUpdateValue = statuses.entries
+                  .firstWhere((entry) => entry.value == 122)
+                  .value;
             }
             if (estadoActualString == "CIERRE ABASTECIMIENTO") {
               currentStatus = statuses.entries

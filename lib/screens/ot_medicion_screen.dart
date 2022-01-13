@@ -308,6 +308,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
   };
   String estadoSeleccionado = "";
   var currentStatus;
+  var currentStatusUpdateValue;
   String estadoActualString = " ";
 
   String estadoMedicionenString() {
@@ -778,7 +779,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   if (int.parse(nivelAguaController.text) <
                                       30) {
                                     nivelAguaCumpleNorma = "S";
-                                  } else {
+                                  }
+                                  if (int.parse(nivelAguaController.text) >=
+                                      30) {
                                     nivelAguaCumpleNorma = "N";
                                   }
 
@@ -846,13 +849,22 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                   //     numeroIDstatusMedicion;
                                   // widget.callback(numeroIDstatusMedicion);
                                   // widget.callback(currentStatus);
-                                  setState(() {
-                                    estadoMedicionenString();
-                                  });
+
                                   essbioP.updateFasesMedicion(
                                       widget.faseAbastMedicion, modificacion);
 
                                   print("Acompañante: " + numeroIdAcompanante);
+
+                                  setState(() {
+                                    if (currentStatusUpdateValue == 132) {
+                                      widget.faseAbastMedicion.id_tipo_status =
+                                          132;
+                                    }
+                                    if (currentStatusUpdateValue == 133) {
+                                      widget.faseAbastMedicion.id_tipo_status =
+                                          133;
+                                    }
+                                  });
 
                                   Navigator.pop(context, 'Cancel');
                                   showDialog(
@@ -955,11 +967,17 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
               currentStatus = statuses.entries
                   .firstWhere((entry) => entry.value == 133)
                   .key;
+              currentStatusUpdateValue = statuses.entries
+                  .firstWhere((entry) => entry.value == 133)
+                  .value;
             }
             if (estadoActualString == "NO DISPONIBLE") {
               currentStatus = statuses.entries
                   .firstWhere((entry) => entry.value == 132)
                   .key;
+              currentStatusUpdateValue = statuses.entries
+                  .firstWhere((entry) => entry.value == 132)
+                  .value;
             }
 
             print("tipo_status[status]: " + tipo_status[status].toString());

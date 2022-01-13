@@ -205,6 +205,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   };
   String estadoSeleccionado = "";
   var currentStatus;
+  var currentStatusUpdateValue;
   String estadoActualString = " ";
 
   Map<String, dynamic> datosActualizarInstalacion = {
@@ -323,7 +324,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   String databaseText = " ";
   TextEditingController comentarioController = TextEditingController();
   TextEditingController rotuloController = TextEditingController();
-
+  var dataEstadoinstalacion;
+  var hintTextComentario;
   @override
   Widget build(BuildContext context) {
     // comentarioController.text = widget.faseInstalacion.comentario_instalacion;
@@ -333,9 +335,14 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
 
     int id_tipo_status = widget.faseInstalacion.id_tipo_status;
 
+    String hintTextString() {
+      hintTextComentario =
+          widget.faseInstalacion.comentario_instalacion.toString();
+      return hintTextComentario;
+    }
+
     String estadoInstalacionenString() {
-      var dataEstadoinstalacion =
-          widget.faseInstalacion.id_tipo_status.toString();
+      dataEstadoinstalacion = widget.faseInstalacion.id_tipo_status.toString();
 
       switch (dataEstadoinstalacion) {
         case "110":
@@ -501,8 +508,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText:
-                                widget.faseInstalacion.comentario_instalacion),
+                            hintText: hintTextString()),
                       ),
                     ),
                   ),
@@ -628,15 +634,27 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                   //     numeroIDstatusInstalacion;
                                   // widget.callback(numeroIDstatusInstalacion);
                                   // widget.callback(currentStatus);
-                                  setState(() {
-                                    estadoInstalacionenString();
-                                  });
+
                                   essbioP.updateFasesInstalacion(
                                       widget.faseInstalacion, modificacion);
                                   print("Comentario: " +
                                       comentarioController.text);
                                   print(
                                       "Rotulo nuevo: " + rotuloController.text);
+
+                                  setState(() {
+                                    // dataEstadoinstalacion =
+                                    //     currentStatusUpdateValue.toString();
+                                    // estadoInstalacionenString();
+                                    if (currentStatusUpdateValue == 112) {
+                                      widget.faseInstalacion.id_tipo_status =
+                                          112;
+                                    }
+                                    if (currentStatusUpdateValue == 113) {
+                                      widget.faseInstalacion.id_tipo_status =
+                                          113;
+                                    }
+                                  });
 
                                   Navigator.pop(context, 'Cancel');
                                   showDialog(
@@ -739,11 +757,17 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
               currentStatus = statuses.entries
                   .firstWhere((entry) => entry.value == 112)
                   .key;
+              currentStatusUpdateValue = statuses.entries
+                  .firstWhere((entry) => entry.value == 112)
+                  .value;
             }
             if (estadoActualString == "NO DISPONIBLE") {
               currentStatus = statuses.entries
                   .firstWhere((entry) => entry.value == 113)
                   .key;
+              currentStatusUpdateValue = statuses.entries
+                  .firstWhere((entry) => entry.value == 113)
+                  .value;
             }
 
             print("tipo_status[status]: " + tipo_status[status].toString());
@@ -754,6 +778,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
             print("statuses.values: " + statuses.values.toString());
             print("estadoSeleccionado: " + estadoSeleccionado);
             print("current status: " + currentStatus.toString());
+            print("current status updated: " +
+                currentStatusUpdateValue.toString());
           });
 
           // I/flutter (20302): tipo_status[status]: EN CURSO

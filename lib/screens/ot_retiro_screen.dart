@@ -189,6 +189,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
   };
   String estadoSeleccionado = "";
   var currentStatus;
+  var currentStatusUpdateValue;
   String estadoActualString = " ";
 
   String estadoRetiroenString() {
@@ -454,6 +455,15 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                                   essbioP.updateFasesRetiro(
                                       widget.faseRetiro, modificacion);
 
+                                  setState(() {
+                                    if (currentStatusUpdateValue == 142) {
+                                      widget.faseRetiro.id_tipo_status = 142;
+                                    }
+                                    if (currentStatusUpdateValue == 143) {
+                                      widget.faseRetiro.id_tipo_status = 143;
+                                    }
+                                  });
+
                                   Navigator.pop(context, 'Cancel');
                                   showDialog(
                                       context: context,
@@ -557,11 +567,17 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
               currentStatus = statuses.entries
                   .firstWhere((entry) => entry.value == 142)
                   .key;
+              currentStatusUpdateValue = statuses.entries
+                  .firstWhere((entry) => entry.value == 142)
+                  .value;
             }
             if (estadoActualString == "NO DISPONIBLE (R)") {
               currentStatus = statuses.entries
                   .firstWhere((entry) => entry.value == 143)
                   .key;
+              currentStatusUpdateValue = statuses.entries
+                  .firstWhere((entry) => entry.value == 143)
+                  .value;
             }
 
             // print("tipo_status[status]: " + tipo_status[status].toString());
