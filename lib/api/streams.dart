@@ -629,7 +629,7 @@ class Streams {
     return [loginState, loggedUser];
   }
 
-  Stream<Map> workflowStream() async* {
+  Stream<Map> workflowStream(int id_usuario) async* {
     while (true) {
       //  await Future.delayed(Duration(seconds: 5));
       await fetchUsuarios();
@@ -660,7 +660,7 @@ class Streams {
           procesos: _procesos,
           eventos: _dataEventos,
           mensajes: _mensajes,
-          id_usuario: usuarioPrueba);
+          id_usuario: id_usuario);
       print("Fases usuario de workflowStream");
       print(fasesUsuario[0].length);
       print(fasesUsuario[1].length);

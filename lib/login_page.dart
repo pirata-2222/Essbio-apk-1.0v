@@ -112,7 +112,7 @@ class _HomeState extends State<Home> {
                                       builder: (context) {
                                         return Scaffold(
                                           body: StreamBuilder<Map>(
-                                              stream: stream.workflowStream(),
+                                              stream: stream.workflowStream(essbioP.usuario!.idusuario),
                                               builder: (context,
                                                   AsyncSnapshot<Map> snapshot) {
                                                 List<int> listaIdOts = [];
