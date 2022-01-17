@@ -662,7 +662,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         controller: horaMedicionController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: "Ejemplo: 14:27"),
+                            hintText: "Escribe aquí la hora de la medición"),
                       ),
                     ),
                   ),
@@ -780,7 +780,7 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: widget.faseAbastMedicion.comentario),
+                            hintText: 'Escribe aquí tu comentario'),
                       ),
                     ),
                   ),

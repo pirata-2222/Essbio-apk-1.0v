@@ -543,7 +543,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: widget.faseRetiro.comentario),
+                            hintText: 'Escribe aquí tu comentario'),
                       ),
                     ),
                   ),
@@ -587,7 +587,7 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                         controller: numeroEstanqueController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: widget.faseRetiro.comentario),
+                            hintText: 'Registra aquí el número de estanque'),
                       ),
                     ),
                   ),

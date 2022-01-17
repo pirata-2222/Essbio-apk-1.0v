@@ -609,7 +609,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         controller: rotuloController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: widget.faseInstalacion.rotulo_tk),
+                            hintText: 'Registra aquí el número de estanque'),
                       ),
                     ),
                   ),

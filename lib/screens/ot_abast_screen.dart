@@ -437,7 +437,7 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: widget.faseAbastecimiento.comentario),
+                            hintText: 'Escribe aquí tu comentario'),
                       ),
                     ),
                   ),
