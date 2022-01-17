@@ -363,8 +363,26 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
     '4. Sin Acompañante',
   ];
 
+  var counter = 0;
+
+  callbackComentarioMedicion(comentarioActual, horaMedicionActual) {
+    setState(() {
+      comentarioMedicionController.text = comentarioActual;
+      horaMedicionController.text = horaMedicionActual;
+      counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    counter == 0
+        ? comentarioMedicionController.text =
+            widget.faseAbastMedicion.comentario
+        : comentarioMedicionController.text = comentarioMedicionController.text;
+    counter == 0
+        ? horaMedicionController.text = widget.faseAbastMedicion.hora_medicion
+        : horaMedicionController.text = horaMedicionController.text;
+
     // comentarioMedicionController.text = widget.faseAbastMedicion.comentario;
     // horaMedicionController.text = widget.faseAbastMedicion.hora_medicion;
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -491,8 +509,10 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                           ],
                           onChanged: (value) {
                             setState(() {
-                              var valorControllerAgua = nivelAguaController.text != ""?
-                                  double.parse(nivelAguaController.text):0;
+                              var valorControllerAgua =
+                                  nivelAguaController.text != ""
+                                      ? double.parse(nivelAguaController.text)
+                                      : 0;
                               if (valorControllerAgua < 30) {
                                 aguaCumple = "NIVEL DE AGUA NO CUMPLE NORMA";
                               }
@@ -691,6 +711,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                             backgroundColor:
                                 MaterialStateProperty.all(rojoEssbio)),
                         onPressed: () {
+                          callbackComentarioMedicion(
+                              comentarioMedicionController.text,
+                              horaMedicionController.text);
                           opciones(context);
                         },
                         child: Center(
@@ -767,6 +790,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                   color: azulPrimarioEssbio,
                   child: TextButton(
                       onPressed: () {
+                        callbackComentarioMedicion(
+                            comentarioMedicionController.text,
+                            horaMedicionController.text);
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
@@ -875,6 +901,9 @@ class _OtMedicionScreenState extends State<OtMedicionScreen> {
                                           nivelTurbiedadCumpleNorma);
 
                                   setState(() {
+                                    callbackComentarioMedicion(
+                                        comentarioMedicionController.text,
+                                        horaMedicionController.text);
                                     if (currentStatusUpdateValue == 132) {
                                       widget.faseAbastMedicion.id_tipo_status =
                                           132;

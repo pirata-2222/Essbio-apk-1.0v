@@ -232,6 +232,8 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
     }
 
     setState(() {
+      callbackComentarioRetiro(
+          comentarioRetiroController.text, numeroEstanqueController.text);
       if (pickedFile != null) {
         imagen = File(pickedFile.path);
       } else {
@@ -328,8 +330,25 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
   TextEditingController comentarioRetiroController = TextEditingController();
   TextEditingController numeroEstanqueController = TextEditingController();
 
+  var counter = 0;
+
+  callbackComentarioRetiro(comentarioActual, estanqueActual) {
+    setState(() {
+      comentarioRetiroController.text = comentarioActual;
+      numeroEstanqueController.text = estanqueActual;
+      counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    counter == 0
+        ? comentarioRetiroController.text = widget.faseRetiro.comentario
+        : comentarioRetiroController.text = comentarioRetiroController.text;
+    counter == 0
+        ? numeroEstanqueController.text = widget.faseRetiro.comentario
+        : numeroEstanqueController.text = numeroEstanqueController.text;
+
     // comentarioRetiroController.text = widget.faseRetiro.comentario;
     // numeroEstanqueController.text = widget.faseRetiro.numero_estanque;
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -478,6 +497,9 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                             backgroundColor:
                                 MaterialStateProperty.all(rojoEssbio)),
                         onPressed: () {
+                          callbackComentarioRetiro(
+                              comentarioRetiroController.text,
+                              numeroEstanqueController.text);
                           opciones(context);
                         },
                         child: Center(
@@ -575,6 +597,9 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                   color: azulPrimarioEssbio,
                   child: TextButton(
                       onPressed: () {
+                        callbackComentarioRetiro(
+                            comentarioRetiroController.text,
+                            numeroEstanqueController.text);
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
@@ -612,6 +637,9 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                                       widget.faseRetiro, modificacion);
 
                                   setState(() {
+                                    callbackComentarioRetiro(
+                                        comentarioRetiroController.text,
+                                        numeroEstanqueController.text);
                                     if (currentStatusUpdateValue == 142) {
                                       widget.faseRetiro.id_tipo_status = 142;
                                       widget.callback(142);

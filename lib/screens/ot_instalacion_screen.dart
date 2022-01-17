@@ -229,8 +229,10 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
     }
 
     setState(() {
+      callbackComentario(comentarioController.text, rotuloController.text);
       if (pickedFile != null) {
         imagen = File(pickedFile.path);
+        counter++;
       } else {
         print('No selecciono una foto');
       }
@@ -326,10 +328,26 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
   TextEditingController rotuloController = TextEditingController();
   var dataEstadoinstalacion;
   var hintTextComentario;
+  var counter = 0;
+
+  callbackComentario(comentarioActual, rotuloActual) {
+    setState(() {
+      comentarioController.text = comentarioActual;
+      rotuloController.text = rotuloActual;
+      counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // comentarioController.text = widget.faseInstalacion.comentario_instalacion;
-    // rotuloController.text = widget.faseInstalacion.rotulo_tk;
+    counter == 0
+        ? comentarioController.text =
+            widget.faseInstalacion.comentario_instalacion
+        : comentarioController.text = comentarioController.text;
+    counter == 0
+        ? rotuloController.text = widget.faseInstalacion.rotulo_tk
+        : rotuloController.text = rotuloController.text;
+
     final essbioP = Provider.of<EssbioProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -509,7 +527,7 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                         maxLines: 5,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: hintTextString()),
+                            hintText: 'Escriba aquí sus comentarios'),
                       ),
                     ),
                   ),
@@ -526,6 +544,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                             backgroundColor:
                                 MaterialStateProperty.all(rojoEssbio)),
                         onPressed: () {
+                          callbackComentario(
+                              comentarioController.text, rotuloController.text);
                           opciones(context);
                         },
                         child: Center(
@@ -600,6 +620,8 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                   color: azulPrimarioEssbio,
                   child: TextButton(
                       onPressed: () {
+                        callbackComentario(
+                            comentarioController.text, rotuloController.text);
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
@@ -636,6 +658,9 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                   // widget.callback(numeroIDstatusInstalacion);
                                   // widget.callback(currentStatus);
                                   setState(() {
+                                    callbackComentario(
+                                        comentarioController.text,
+                                        rotuloController.text);
                                     // dataEstadoinstalacion =
                                     //     currentStatusUpdateValue.toString();
                                     // estadoInstalacionenString();

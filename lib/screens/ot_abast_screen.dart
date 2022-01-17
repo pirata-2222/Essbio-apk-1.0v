@@ -270,10 +270,24 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
 
   // FALTAN 123='INICIO CARGA CAMIÓN', 124='TÉRMINO CARGA CAMIÓN', 125='INICIO ABASTECIMIENTO',
   int numeroIDstatusAbastecimiento = 0;
+  var counter = 0;
   TextEditingController comentarioAbastecimientoController =
       TextEditingController();
+
+  callbackComentarioAbast(comentarioActual) {
+    setState(() {
+      comentarioAbastecimientoController.text = comentarioActual;
+      counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    counter == 0
+        ? comentarioAbastecimientoController.text =
+            widget.faseAbastecimiento.comentario
+        : comentarioAbastecimientoController.text =
+            comentarioAbastecimientoController.text;
     // comentarioAbastecimientoController.text =
     //     widget.faseAbastecimiento.comentario;
     final essbioP = Provider.of<EssbioProvider>(context);
@@ -428,13 +442,14 @@ class _OtAbastScreenState extends State<OtAbastScreen> {
                     ),
                   ),
                 ]),
-                SizedBox(height: 20),
-                //ADJUNTAR IMAGEN
+
                 SizedBox(height: 20),
                 Container(
                   color: azulPrimarioEssbio,
                   child: TextButton(
                       onPressed: () {
+                        callbackComentarioAbast(
+                            comentarioAbastecimientoController.text);
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
