@@ -657,6 +657,7 @@ class EssbioProvider with ChangeNotifier {
         if (orden.id_ot == abastecimiento.id_ot) {
           abastecimiento.id_responsable = orden.id_responsable;
           abastecimiento.nombre_ot = orden.nombre_ot;
+          abastecimiento.id_icono = orden.id_icono;
           abastecimientoUsuario.add(abastecimiento);
         }
       }
