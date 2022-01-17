@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:essbio_apk/api/api.dart';
 import 'package:essbio_apk/models/fase_retiro.dart';
 import 'package:essbio_apk/theme_library.dart';
 import 'package:essbio_apk/widgets/mapa.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../widgets/widgets_essbio.dart';
 import 'package:essbio_apk/widgets/timer_widget.dart';
@@ -214,6 +218,112 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
     return dataEstadoRetiro;
   }
 
+  // *****CONFIGURACION PARA IMAGE PICKER*****
+  File? imagen = null;
+  final picker = ImagePicker();
+
+  Future selimagen(op) async {
+    var pickedFile;
+
+    if (op == 1) {
+      pickedFile = await picker.pickImage(source: ImageSource.camera);
+    } else {
+      pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    }
+
+    setState(() {
+      if (pickedFile != null) {
+        imagen = File(pickedFile.path);
+      } else {
+        print('No selecciono una foto');
+      }
+    });
+  }
+
+  opciones(context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.all(0),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      selimagen(1);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Tomar una foto',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Icon(Icons.camera_alt, color: Colors.blue)
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      selimagen(2);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Seleccionar Foto',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Icon(Icons.image, color: Colors.blue)
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Listo',
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  // *******************************************************************
+
   int numeroIDstatusRetiro = 0;
   TextEditingController comentarioRetiroController = TextEditingController();
   TextEditingController numeroEstanqueController = TextEditingController();
@@ -357,6 +467,44 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                 //   ),
                 // ]),
                 SizedBox(height: 25),
+                //ADJUNTAR IMAGEN
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(rojoEssbio)),
+                        onPressed: () {
+                          opciones(context);
+                        },
+                        child: Center(
+                          child: Row(
+                            children: [
+                              Text(
+                                '                        Adjuntar Fotografía',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Icon(Icons.image)
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      imagen != null ? Image.file(imagen!) : Center()
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Column(children: [
                   Text("Comentar:",
                       style:
@@ -441,12 +589,19 @@ class _OtRetiroScreenState extends State<OtRetiroScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
+                                  var imagenEnBytes = imagen?.readAsBytesSync();
+                                  String imagenFormatoEncode64 = "";
+                                  imagen == null
+                                      ? ""
+                                      : imagenFormatoEncode64 =
+                                          base64Encode(imagenEnBytes!);
                                   Map<String, dynamic> modificacion = {
+                                    "ARCHIVO_ADJUNTO": imagenFormatoEncode64,
                                     "COMENTARIO":
                                         comentarioRetiroController.text,
                                     "NUMERO_ESTANQUE":
                                         numeroEstanqueController.text,
-                                    "ID_TIPO_STATUS": currentStatus
+                                    "ID_TIPO_STATUS": currentStatus,
                                   };
                                   // TODO: revisar correcto funcionamiento del callback
                                   // widget.callback(currentStatus);

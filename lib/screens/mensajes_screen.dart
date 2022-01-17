@@ -119,8 +119,6 @@ class _MensajeScreenState extends State<MensajeScreen> {
                   itemCount: widget.mensajesLista.length,
                   itemBuilder: (BuildContext context, int index) {
                     int reverseIndex = widget.mensajesLista.length - 1 - index;
-                    widget.mensajesLista.sort(
-                        (a, b) => b.confirmacion.compareTo(a.confirmacion));
                     widget.mensajesLista
                         .sort((a, b) => b.estado.compareTo(a.estado));
                     widget.mensajesLista
