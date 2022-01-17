@@ -635,14 +635,6 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                   //     numeroIDstatusInstalacion;
                                   // widget.callback(numeroIDstatusInstalacion);
                                   // widget.callback(currentStatus);
-
-                                  essbioP.updateFasesInstalacion(
-                                      widget.faseInstalacion, modificacion);
-                                  print("Comentario: " +
-                                      comentarioController.text);
-                                  print(
-                                      "Rotulo nuevo: " + rotuloController.text);
-
                                   setState(() {
                                     // dataEstadoinstalacion =
                                     //     currentStatusUpdateValue.toString();
@@ -658,6 +650,13 @@ class _OtInstalacionScreenState extends State<OtInstalacionScreen> {
                                       widget.callback(113);
                                     }
                                   });
+
+                                  essbioP.updateFasesInstalacion(
+                                      widget.faseInstalacion, modificacion);
+                                  print("Comentario: " +
+                                      comentarioController.text);
+                                  print(
+                                      "Rotulo nuevo: " + rotuloController.text);
 
                                   Navigator.pop(context, 'Cancel');
                                   showDialog(

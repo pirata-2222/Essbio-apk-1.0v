@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const Color estadoActivo = Color(0xFF10988F);
 const Color estadoPasivo = Color(0xFF99CBCD);
@@ -46,10 +47,30 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
     return colorTipoEventoAbastecimiento;
   }
 
-// TODO: Hacer funcion para icono de OT Abastecimiento
-  Icon iconoOTAbastecimiento() {
-    Icon iconoAbast = Icon(Icons.ac_unit);
-    return Icon(Icons.ac_unit);
+  iconoAbast() {
+    var iconoData = widget.faseAbastecimiento.id_icono.toString();
+    var iconoActual;
+
+    if (iconoData == "1") {
+      iconoActual = Icon(Icons.file_copy, color: Colors.white, size: 37.5);
+    }
+    if (iconoData == "10") {
+      iconoActual = FaIcon(FontAwesomeIcons.batteryQuarter,
+          color: Colors.white, size: 37.5);
+    }
+    if (iconoData == "11") {
+      iconoActual =
+          FaIcon(FontAwesomeIcons.batteryHalf, color: Colors.white, size: 37.5);
+    }
+    if (iconoData == "12") {
+      iconoActual = FaIcon(FontAwesomeIcons.batteryThreeQuarters,
+          color: Colors.white, size: 37.5);
+    }
+    if (iconoData == "13") {
+      iconoActual =
+          FaIcon(FontAwesomeIcons.batteryFull, color: Colors.white, size: 37.5);
+    }
+    return iconoActual;
   }
 
   Color colorOTabastecimiento() {
@@ -140,7 +161,7 @@ class _OtPendienteAbastState extends State<OtPendienteAbast> {
           child: Column(
             children: [
               SizedBox(height: 5),
-              Icon(Icons.file_copy, color: Colors.white, size: 37.5),
+              iconoAbast(),
               SizedBox(height: 10),
               Center(
                 child: Text(
