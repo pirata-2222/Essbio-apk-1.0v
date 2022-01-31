@@ -42,7 +42,9 @@ class Streams {
   }*/
 
   // final server = "http://10.0.2.2:8000";
-  final server = "https://djangorestessbio.herokuapp.com";
+
+  //Desarrollo: final server = "https://djangorestessbio.herokuapp.com";
+  final server = "http://10.56.209.21:81";
   bool boolUsuarios = false;
   bool boolOrdenesTrabajo = false;
   bool boolStatus = false;
